@@ -13,22 +13,22 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->string('password')->nullable();
-            $table->string('first_name')->default('');
-            $table->string('last_name')->default('');
-            $table->string('city')->default('');
-            $table->boolean('activated')->default(0);
-            $table->unsignedInteger('referred_by')->nullable();
-            $table->string('stripe_customer_id')->nullable();
-            $table->unsignedInteger('pdga_number')->nullable();
-            $table->unsignedSmallInteger('pdga_rating')->nullable();
-            $table->rememberToken();
-            $table->timestamps();
-        });
+//        Schema::create('users', function (Blueprint $table) {
+//            $table->increments('id');
+//            $table->string('name');
+//            $table->string('email')->unique();
+//            $table->string('password')->nullable();
+//            $table->string('first_name')->default('');
+//            $table->string('last_name')->default('');
+//            $table->string('city')->default('');
+//            $table->boolean('activated')->default(0);
+//            $table->unsignedInteger('referred_by')->nullable();
+//            $table->string('stripe_customer_id')->nullable();
+//            $table->unsignedInteger('pdga_number')->nullable();
+//            $table->unsignedSmallInteger('pdga_rating')->nullable();
+//            $table->rememberToken();
+//            $table->timestamps();
+//        });
     }
 
     /**

@@ -16,8 +16,16 @@ return new class extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
             $table->rememberToken();
+            $table->string('password')->nullable();
+            $table->string('first_name')->default('');
+            $table->string('last_name')->default('');
+            $table->string('city')->default('');
+            $table->boolean('activated')->default(0);
+            $table->unsignedInteger('referred_by')->nullable();
+            $table->string('stripe_customer_id')->nullable();
+            $table->unsignedInteger('pdga_number')->nullable();
+            $table->unsignedSmallInteger('pdga_rating')->nullable();
             $table->timestamps();
         });
 

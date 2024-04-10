@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -17,6 +18,9 @@ class CreateFlagsTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('tournament_id');
             $table->string('notes');
+            $table->unsignedInteger('flag_type_id');
+            $table->dateTime('review_on');
+            $table->foreign('flag_type_id')->references('id')->on('flag_types')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
 
             $table->foreign('tournament_id')->references('id')->on('tournaments')->onUpdate('cascade')->onDelete('cascade');
