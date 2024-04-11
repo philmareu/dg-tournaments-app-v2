@@ -10,8 +10,6 @@
         "production": "mix --production"
     },
     "devDependencies": {
-        "algoliasearch": "^4.23.3",
-        "autocomplete.js": "^0.38.1",
         "axios": "^1.6.4",
         "laravel-mix": "^6.0.49",
         "laravel-vite-plugin": "^1.0",
@@ -28,6 +26,8 @@
     },
     "dependencies": {
         "@fengyuanchen/datepicker": "^0.6.5",
+        "algoliasearch": "^3.24.5",
+        "autocomplete.js": "^0.38.1",
         "cross-env": "^7.0.3"
     }
 }

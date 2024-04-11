@@ -56,7 +56,7 @@
                             suggestion.month + ' ' + suggestion.day + ', ' + suggestion.year +
                             '</div>';
                     },
-                    footer: '<div class="uk-padding-small uk-text-center"><a href="https://www.algolia.com"><img src="/images/original/search-by-algolia.png" alt="Algolia Logo" width="125"></a></div>'
+                    footer: '<div class="uk-padding-small uk-text-center"><a href="https://www.algolia.com"><img src="/images/search-by-algolia.png" alt="Algolia Logo" width="125"></a></div>'
                 }
             };
 
