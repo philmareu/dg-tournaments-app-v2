@@ -2,7 +2,6 @@
 
 namespace App\Console\Commands\Search;
 
-use AlgoliaSearch\Client;
 use Illuminate\Console\Command;
 
 class RefreshIndex extends Command

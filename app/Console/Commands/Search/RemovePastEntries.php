@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands\Search;
 
-use AlgoliaSearch\Client;
+use Algolia\AlgoliaSearch\SearchClient;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 
@@ -39,7 +39,7 @@ class RemovePastEntries extends Command
      */
     public function handle()
     {
-        $client = new Client(config('scout.algolia.id'), config('scout.algolia.secret'));
+        $client = new SearchClient(config('scout.algolia.id'), config('scout.algolia.secret'));
 
         $index = $client->initIndex('tournaments');
 

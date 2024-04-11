@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands\Search;
 
-use AlgoliaSearch\Client;
+use Algolia\AlgoliaSearch\SearchClient;
 use Illuminate\Console\Command;
 
 class DeleteIndex extends Command
@@ -38,8 +38,8 @@ class DeleteIndex extends Command
      */
     public function handle()
     {
-        $client = new Client(config('scout.algolia.id'), config('scout.algolia.secret'));
+        $client = new SearchClient(config('scout.algolia.id'), config('scout.algolia.secret'));
 
-        $client->initIndex($this->argument('index'))->clearIndex();
+        $client->initIndex($this->argument('index'))->delete();
     }
 }

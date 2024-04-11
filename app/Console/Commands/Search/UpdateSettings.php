@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands\Search;
 
-use AlgoliaSearch\Client;
+use Algolia\AlgoliaSearch\SearchClient;
 use Illuminate\Console\Command;
 
 class UpdateSettings extends Command
@@ -38,7 +38,7 @@ class UpdateSettings extends Command
      */
     public function handle()
     {
-        $client = new Client(config('scout.algolia.id'), config('scout.algolia.secret'));
+        $client = SearchClient::create(config('scout.algolia.id'), config('scout.algolia.secret'));
 
         $client->initIndex($this->argument('index'))
             ->setSettings(config('scout.algolia.indexes.' . $this->argument('index') . '.settings'));
