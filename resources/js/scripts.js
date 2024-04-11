@@ -54,15 +54,15 @@ Vue.component('sponsorship', require('./vue/tournament/Sponsorship.vue'));
 Vue.component('stripe', require('./vue/tournament/Stripe.vue'));
 Vue.component('refund', require('./vue/manage/order/Refund.vue'));
 
-const bugsnag = require('@bugsnag/js');
-const bugsnagVue = require('@bugsnag/plugin-vue');
+// const bugsnag = require('@bugsnag/js');
+// const bugsnagVue = require('@bugsnag/plugin-vue');
 
-window.bugsnagClient = bugsnag({
-    apiKey: 'e6dafe167baecf4f0cd93ba2ac4fc986',
-    appVersion: 'current'
-});
-
-window.bugsnagClient.use(bugsnagVue, Vue);
+// window.bugsnagClient = bugsnag({
+//     apiKey: 'e6dafe167baecf4f0cd93ba2ac4fc986',
+//     appVersion: 'current'
+// });
+//
+// window.bugsnagClient.use(bugsnagVue, Vue);
 
 /**
  * Load the app

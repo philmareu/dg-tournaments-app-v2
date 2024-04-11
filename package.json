@@ -1,13 +1,33 @@
 {
     "private": true,
-    "type": "module",
     "scripts": {
-        "dev": "vite",
-        "build": "vite build"
+        "dev": "npm run development",
+        "development": "mix",
+        "watch": "mix watch",
+        "watch-poll": "mix watch -- --watch-options-poll=1000",
+        "hot": "mix watch --hot",
+        "prod": "npm run production",
+        "production": "mix --production"
     },
     "devDependencies": {
+        "algoliasearch": "^4.23.3",
+        "autocomplete.js": "^0.38.1",
         "axios": "^1.6.4",
+        "laravel-mix": "^6.0.49",
         "laravel-vite-plugin": "^1.0",
-        "vite": "^5.0"
+        "less": "^4.2.0",
+        "less-loader": "^12.2.0",
+        "lodash": "^4.17.21",
+        "moment": "^2.30.1",
+        "timepicker": "^1.14.1",
+        "uikit": "^3.19.4",
+        "vite": "^5.0",
+        "vue": "^2.7.16",
+        "vue-loader": "^15.11.1",
+        "vue-template-compiler": "^2.7.16"
+    },
+    "dependencies": {
+        "@fengyuanchen/datepicker": "^0.6.5",
+        "cross-env": "^7.0.3"
     }
 }
