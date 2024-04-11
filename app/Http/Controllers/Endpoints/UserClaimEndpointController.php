@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Endpoints;
 
 use App\Events\TournamentClaimApproved;
-use App\Models\Tournament;
+use App\Models;
 use App\Repositories\ClaimRepository;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;

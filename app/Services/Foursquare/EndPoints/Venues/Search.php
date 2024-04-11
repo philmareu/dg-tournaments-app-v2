@@ -1,4 +1,4 @@
-<?php namespace App\Services\Foursquare\Endpoints\Venues;
+<?php namespace App\Services\Foursquare\EndPoints\Venues;
 
 use App\Services\Foursquare\Http\Get;
 use App\Services\Foursquare\Http\Url;

@@ -6,7 +6,7 @@ use App\Events\MediaSaved;
 use App\Http\Requests\Endpoints\DestroyMediaRequest;
 use App\Http\Requests\Endpoints\StoreMediaRequest;
 use App\Http\Requests\Endpoints\UpdateMediaRequest;
-use App\Models\Tournament;
+use App\Models;
 use App\Models\Upload;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;

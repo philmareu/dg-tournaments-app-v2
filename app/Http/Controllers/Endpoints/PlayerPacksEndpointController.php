@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Endpoints;
 use App\Http\Requests\Manager\DestroyPlayerPackRequest;
 use App\Http\Requests\Manager\StorePlayerPackRequest;
 use App\Http\Requests\Manager\UpdatePlayerPackRequest;
-use App\Models\Tournament;
+use App\Models;
 use App\Models\PlayerPack;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;

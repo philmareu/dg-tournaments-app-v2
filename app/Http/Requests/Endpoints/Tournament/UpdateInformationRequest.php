@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Manager;
+namespace App\Http\Requests\Endpoints\Tournament;
 
 use App\Models\SpecialEventType;
 use App\Models\Tournament;

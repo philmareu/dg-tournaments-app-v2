@@ -7,7 +7,7 @@ use App\Http\Requests\Manager\DestroyTournamentScheduleRequest;
 use App\Http\Requests\Manager\StoreTournamentScheduleRequest;
 use App\Http\Requests\Manager\UpdateTournamentScheduleRequest;
 use App\Models\Schedule;
-use App\Models\Tournament;
+use App\Models;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Log;
 

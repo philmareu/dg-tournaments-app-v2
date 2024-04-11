@@ -7,7 +7,7 @@ use App\Events\TournamentUnfollowed;
 use App\Http\Requests\User\FollowTournamentRequest;
 use App\Http\Controllers\Controller;
 use App\Models\Follow;
-use App\Models\Tournament;
+use App\Models;
 use App\Models\User\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Event;

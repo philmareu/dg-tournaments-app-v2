@@ -6,7 +6,7 @@ use App\Http\Requests\Endpoints\Tournament\DestroySponsorshipRequest;
 use App\Http\Requests\Endpoints\Tournament\StoreSponsorshipRequest;
 use App\Http\Requests\Endpoints\Tournament\UpdateSponsorshipRequest;
 use App\Models\Sponsorship;
-use App\Models\Tournament;
+use App\Models;
 use App\Http\Controllers\Controller;
 
 class SponsorshipsEndpointController extends Controller

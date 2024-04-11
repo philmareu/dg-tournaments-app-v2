@@ -6,7 +6,7 @@ use App\Http\Requests\Manager\DestroyTournamentLinkRequest;
 use App\Http\Requests\Manager\StoreTournamentLinkRequest;
 use App\Http\Requests\Manager\UpdateTournamentLinkRequest;
 use App\Models\Link;
-use App\Models\Tournament;
+use App\Models;
 use App\Http\Controllers\Controller;
 
 class LinksEndpointController extends Controller

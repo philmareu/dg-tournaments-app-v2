@@ -10,7 +10,7 @@ use App\Http\Requests\Manager\UpdateTournamentCourseHolesRequest;
 use App\Http\Requests\Manager\UpdateTournamentCourseRequest;
 use App\Http\Resources\TournamentCourse as TournamentCourseResource;
 use App\Models\Course;
-use App\Models\Tournament;
+use App\Models;
 use App\Models\TournamentCourse;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;

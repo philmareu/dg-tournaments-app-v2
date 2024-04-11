@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Endpoints\Tournament;
+namespace App\Http\Controllers\Endpoints;
 
 use App\Http\Requests\Endpoints\Tournament\DestroyTournamentPosterRequest;
 use App\Http\Requests\UpdateTournamentPosterRequest;
-use App\Models\Tournament;
+use App\Models;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 

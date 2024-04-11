@@ -7,7 +7,7 @@ use App\Events\TournamentRegistrationUpdated;
 use App\Http\Requests\Endpoints\Tournament\StoreTournamentRegistrationRequest;
 use App\Http\Requests\Endpoints\Tournament\UpdateTournamentRegistrationRequest;
 use App\Models\Registration;
-use App\Models\Tournament;
+use App\Models;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
