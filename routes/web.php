@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -49,8 +50,8 @@ Route::get('blog/{year}/{month}/{day}/{slug}', [\App\Http\Controllers\BlogContro
 
 include 'endpoints.php';
 
-Route::get('user/current', [\App\Http\Controllers\Api\UsersController::class, 'current']);
-Route::get('api/weather/{tournament}', [\App\Http\Controllers\Api\WeatherController::class, 'tournament']);
+Route::get('user/current', [\App\Http\Controllers\UsersController::class, 'current']);
+Route::get('api/weather/{tournament}', [\App\Http\Controllers\WeatherController::class, 'tournament']);
 
 /*
 |--------------------------------------------------------------------------
