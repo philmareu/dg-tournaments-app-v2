@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Enpoints;
+namespace Tests\Feature\API;
 
 use DGTournaments\Data\Dates;
 use DGTournaments\Data\Location;

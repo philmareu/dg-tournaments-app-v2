@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Orders;
+namespace Tests\Feature;
 
 use DGTournaments\Billing\Stripe\StripeBilling;
 use DGTournaments\Events\OrderPaid;

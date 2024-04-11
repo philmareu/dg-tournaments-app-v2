@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\API\User;
 
 use DGTournaments\Events\TournamentClaimApproved;
 use DGTournaments\Events\TournamentClaimRequestSubmitted;

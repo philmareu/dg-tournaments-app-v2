@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\API;
 
 use DGTournaments\Models\User\User;
 use Tests\TestCase;

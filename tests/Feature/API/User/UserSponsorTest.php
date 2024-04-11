@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Manager\Sponsor;
+namespace Tests\Feature\API\User;
 
 use DGTournaments\Models\Sponsor;
 use DGTournaments\Models\Upload;
@@ -12,7 +12,7 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 class UserSponsorTest extends TestCase
 {
     use DatabaseMigrations;
-    
+
     protected $endpoint = 'user/sponsors';
 
     /*

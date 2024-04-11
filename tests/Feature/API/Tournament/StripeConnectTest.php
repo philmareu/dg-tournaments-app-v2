@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Manager\Tournament;
+namespace Tests\Feature\API\Tournament;
 
 use DGTournaments\Models\StripeAccount;
 use DGTournaments\Models\User\User;

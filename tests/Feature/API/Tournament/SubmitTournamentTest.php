@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Tournament;
+namespace Tests\Feature\API\Tournament;
 
 use DGTournaments\Events\TournamentSubmitted;
 use DGTournaments\Mail\User\TournamentSubmittedConfirmationMailable;
@@ -24,7 +24,7 @@ class SubmitTournamentTest extends TestCase
     use DatabaseMigrations, ValidationHelperTrait;
 
     protected $endpoint = 'manage/submit';
-    
+
     /**
      * @test
      */

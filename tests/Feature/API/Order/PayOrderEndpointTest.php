@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Endpoints\Order;
+namespace Tests\Feature\API\Order;
 
 use DGTournaments\Models\Order;
 use DGTournaments\Models\Order\OrderSponsorshipProduct;

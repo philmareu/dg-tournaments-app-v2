@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Manager\Sponsor;
+namespace Tests\Feature\API\User;
 
 use DGTournaments\Models\Sponsor;
 use Tests\TestCase;

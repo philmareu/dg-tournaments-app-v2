@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Manager\Tournament;
+namespace Tests\Feature\API\Tournament;
 
 use Carbon\Carbon;
 use DGTournaments\Models\Schedule;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Endpoints;
+namespace Tests\Feature\API\User;
 
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;

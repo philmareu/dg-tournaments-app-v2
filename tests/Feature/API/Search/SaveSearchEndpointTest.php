@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Search;
+namespace Tests\Feature\API\Search;
 
 use Carbon\Carbon;
 use DGTournaments\Helpers\AlgoliaQuery;

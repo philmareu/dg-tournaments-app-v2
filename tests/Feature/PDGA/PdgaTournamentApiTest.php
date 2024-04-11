@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\API;
+namespace Tests\Feature\PDGA;
 
 use DGTournaments\Models\Classes;
 use DGTournaments\Models\DataSource;

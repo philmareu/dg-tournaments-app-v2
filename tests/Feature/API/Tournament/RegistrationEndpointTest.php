@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Endpoints\Tournament;
+namespace Tests\Feature\API\Tournament;
 
 use Carbon\Carbon;
 use DGTournaments\Events\TournamentRegistrationUpdated;

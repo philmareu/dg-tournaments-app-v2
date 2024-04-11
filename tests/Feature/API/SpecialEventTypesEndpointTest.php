@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Endpoints;
+namespace Tests\Feature\API;
 
 use DGTournaments\Models\SpecialEventType;
 use Tests\TestCase;
