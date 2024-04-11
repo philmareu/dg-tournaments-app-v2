@@ -15,8 +15,8 @@ class DataSource extends Model
         'retrieved_at'
     ];
 
-    protected $dates = [
-        'retrieved_at'
+    protected $casts = [
+        'retrieved_at' => 'datetime',
     ];
 
     public function tournaments()

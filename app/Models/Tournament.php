@@ -34,7 +34,9 @@ class Tournament extends Model
 
     protected $casts = [
         'latitude' => 'float',
-        'longitude' => 'float'
+        'longitude' => 'float',
+        'start' => 'datetime',
+        'end' => 'datetime',
     ];
 
     protected $fillable = [
@@ -55,11 +57,6 @@ class Tournament extends Model
         'timezone',
         'director',
         'paypal'
-    ];
-
-    protected $dates = [
-        'start',
-        'end'
     ];
 
     protected $dispatchesEvents = [

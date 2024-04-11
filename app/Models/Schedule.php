@@ -23,10 +23,10 @@ class Schedule extends Model
         'time_span'
     ];
 
-    protected $dates = [
-        'date',
-        'start',
-        'end'
+    protected $casts = [
+        'date' => 'datetime',
+        'start' => 'datetime',
+        'end' => 'datetime',
     ];
 
     protected $touches = [

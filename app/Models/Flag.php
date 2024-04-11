@@ -16,8 +16,8 @@ class Flag extends Model
         'review_on'
     ];
 
-    protected $dates = [
-        'review_on'
+    protected $casts = [
+        'review_on' => 'datetime',
     ];
 
     public function flagType()

@@ -22,8 +22,8 @@ class Search extends Model
         'west'
     ];
 
-    protected $dates = [
-        'searched_at'
+    protected $casts = [
+        'searched_at' => 'datetime',
     ];
 
     public function user()

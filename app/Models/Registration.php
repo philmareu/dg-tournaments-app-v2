@@ -16,9 +16,9 @@ class Registration extends Model
         'url'
     ];
 
-    protected $dates = [
-        'opens_at',
-        'closes_at'
+    protected $casts = [
+        'opens_at' => 'datetime',
+        'closes_at' => 'datetime',
     ];
 
     protected $touches = [

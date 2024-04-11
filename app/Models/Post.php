@@ -20,8 +20,8 @@ class Post extends Model
         'image_id'
     ];
 
-    protected $dates = [
-        'posted_at'
+    protected $casts = [
+        'posted_at' => 'datetime',
     ];
 
     public function category()
