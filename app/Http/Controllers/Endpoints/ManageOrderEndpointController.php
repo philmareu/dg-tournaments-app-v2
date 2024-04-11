@@ -7,13 +7,21 @@ use App\Mail\Admin\RefundRequestMailable;
 use App\Models\Transfer;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Support\Facades\Mail;
 
-class ManageOrderEndpointController extends Controller
+class ManageOrderEndpointController extends Controller implements HasMiddleware
 {
     public function __construct()
     {
-        $this->middleware('auth');
+    }
+
+    public static function middleware(): array
+    {
+        return [
+            new Middleware('auth'),
+        ];
     }
 
     public function refund(CreateRefundRequest $request, Transfer $transfer)

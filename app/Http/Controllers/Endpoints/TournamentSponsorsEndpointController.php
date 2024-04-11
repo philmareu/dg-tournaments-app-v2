@@ -10,8 +10,10 @@ use App\Models\Sponsor;
 use App\Models\Sponsorship;
 use App\Http\Controllers\Controller;
 use App\Models\TournamentSponsor;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 
-class TournamentSponsorsEndpointController extends Controller
+class TournamentSponsorsEndpointController extends Controller implements HasMiddleware
 {
     protected $sponsor;
 
@@ -21,8 +23,13 @@ class TournamentSponsorsEndpointController extends Controller
     {
         $this->sponsorship = $sponsorship;
         $this->sponsor = $sponsor;
+    }
 
-        $this->middleware('auth');
+    public static function middleware(): array
+    {
+        return [
+            new Middleware('auth'),
+        ];
     }
 
     /**

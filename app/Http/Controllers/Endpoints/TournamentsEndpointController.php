@@ -10,9 +10,11 @@ use App\Models\Upload;
 use App\Repositories\TournamentRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Support\Facades\Auth;
 
-class TournamentsEndpointController extends Controller
+class TournamentsEndpointController extends Controller implements HasMiddleware
 {
     protected $tournamentRepository;
 
@@ -22,8 +24,14 @@ class TournamentsEndpointController extends Controller
     {
         $this->tournamentRepository = $tournamentRepository;
 
-        $this->middleware('auth')->except('index');
         $this->upload = $upload;
+    }
+
+    public static function middleware(): array
+    {
+        return [
+            new Middleware('auth', except: ['index']),
+        ];
     }
 
     public function index(Tournament $tournament)

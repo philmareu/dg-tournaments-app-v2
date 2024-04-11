@@ -6,16 +6,23 @@ use App\Models\Order;
 use App\Repositories\OrderRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 
-class OrdersController extends Controller
+class OrdersController extends Controller implements HasMiddleware
 {
     protected $orderRepository;
 
     public function __construct(OrderRepository $orderRepository)
     {
         $this->orderRepository = $orderRepository;
+    }
 
-        $this->middleware('auth');
+    public static function middleware(): array
+    {
+        return [
+            new Middleware('auth'),
+        ];
     }
 
     public function index()

@@ -7,17 +7,25 @@ use App\Models\User\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
 
-class TwitterAuthController extends Controller
+class TwitterAuthController extends Controller implements HasMiddleware
 {
     protected $user;
 
     public function __construct(User $user)
     {
-        $this->middleware('guest');
         $this->user = $user;
+    }
+
+    public static function middleware(): array
+    {
+        return [
+            new Middleware('guest'),
+        ];
     }
 
     /**

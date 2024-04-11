@@ -12,16 +12,24 @@ use App\Models\Transfer;
 use App\Repositories\OrderRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Support\Facades\DB;
 
-class ManageTournamentController extends Controller
+class ManageTournamentController extends Controller implements HasMiddleware
 {
     protected $orderRepository;
 
     public function __construct(OrderRepository $orderRepository)
     {
-        $this->middleware('auth');
         $this->orderRepository = $orderRepository;
+    }
+
+    public static function middleware(): array
+    {
+        return [
+            new Middleware('auth'),
+        ];
     }
 
     public function index(Tournament $tournament)

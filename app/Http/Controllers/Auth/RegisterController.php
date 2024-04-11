@@ -9,10 +9,12 @@ use App\Http\Controllers\Controller;
 use App\Services\Auth\UserActivation;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
-class RegisterController extends Controller
+class RegisterController extends Controller implements HasMiddleware
 {
     /*
     |--------------------------------------------------------------------------
@@ -45,9 +47,15 @@ class RegisterController extends Controller
      */
     public function __construct(UserActivation $userActivation, UserReferral $referral)
     {
-        $this->middleware('guest');
         $this->userActivation = $userActivation;
         $this->referral = $referral;
+    }
+
+    public static function middleware(): array
+    {
+        return [
+            new Middleware('guest'),
+        ];
     }
 
     /**

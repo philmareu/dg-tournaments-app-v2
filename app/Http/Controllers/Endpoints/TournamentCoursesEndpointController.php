@@ -13,18 +13,25 @@ use App\Models\Course;
 use App\Models;
 use App\Models\TournamentCourse;
 use App\Http\Controllers\Controller;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
-class TournamentCoursesEndpointController extends Controller
+class TournamentCoursesEndpointController extends Controller implements HasMiddleware
 {
     protected $course;
 
     public function __construct(Course $course)
     {
         $this->course = $course;
+    }
 
-        $this->middleware('auth')->except('show');
+    public static function middleware(): array
+    {
+        return [
+            new Middleware('auth', except: ['show']),
+        ];
     }
 
     public function show(TournamentCourse $tournamentCourse)

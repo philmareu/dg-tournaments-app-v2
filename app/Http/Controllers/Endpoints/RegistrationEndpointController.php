@@ -10,12 +10,20 @@ use App\Models\Registration;
 use App\Models;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 
-class RegistrationEndpointController extends Controller
+class RegistrationEndpointController extends Controller implements HasMiddleware
 {
     public function __construct()
     {
-        $this->middleware('auth');
+    }
+
+    public static function middleware(): array
+    {
+        return [
+            new Middleware('auth'),
+        ];
     }
 
     public function store(StoreTournamentRegistrationRequest $request, Tournament $tournament)

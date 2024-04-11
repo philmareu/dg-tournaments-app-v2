@@ -9,16 +9,24 @@ use App\Models\Search;
 use App\Repositories\SearchRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Support\Facades\Auth;
 
-class UserSearchEndpointController extends Controller
+class UserSearchEndpointController extends Controller implements HasMiddleware
 {
     protected $searchRepository;
 
     public function __construct(SearchRepository $searchRepository)
     {
-        $this->middleware('auth');
         $this->searchRepository = $searchRepository;
+    }
+
+    public static function middleware(): array
+    {
+        return [
+            new Middleware('auth'),
+        ];
     }
 
     public function store(StoreSearchRequest $request)

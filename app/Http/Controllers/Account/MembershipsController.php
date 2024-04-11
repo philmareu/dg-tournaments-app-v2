@@ -6,16 +6,23 @@ use App\Http\Requests\UpdateMembershipRequest;
 use App\Services\Pdga\PdgaApi;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 
-class MembershipsController extends Controller
+class MembershipsController extends Controller implements HasMiddleware
 {
     protected $pdgaApi;
 
     public function __construct(PdgaApi $pdgaApi)
     {
         $this->pdgaApi = $pdgaApi;
+    }
 
-        $this->middleware('auth');
+    public static function middleware(): array
+    {
+        return [
+            new Middleware('auth'),
+        ];
     }
 
     public function edit()

@@ -6,12 +6,20 @@ use App\Http\Requests\User\UpdateProfileRequest;
 use App\Models\Upload;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 
-class ProfileController extends Controller
+class ProfileController extends Controller implements HasMiddleware
 {
     public function __construct()
     {
-        $this->middleware('auth');
+    }
+
+    public static function middleware(): array
+    {
+        return [
+            new Middleware('auth'),
+        ];
     }
 
     public function edit()

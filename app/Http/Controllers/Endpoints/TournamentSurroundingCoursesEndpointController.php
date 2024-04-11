@@ -6,15 +6,23 @@ use App\Models;
 use App\Repositories\TournamentRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 
-class TournamentSurroundingCoursesEndpointController extends Controller
+class TournamentSurroundingCoursesEndpointController extends Controller implements HasMiddleware
 {
     protected $tournamentRepository;
 
     public function __construct(TournamentRepository $tournamentRepository)
     {
-        $this->middleware('auth');
         $this->tournamentRepository = $tournamentRepository;
+    }
+
+    public static function middleware(): array
+    {
+        return [
+            new Middleware('auth'),
+        ];
     }
 
     public function get(Tournament $tournament)

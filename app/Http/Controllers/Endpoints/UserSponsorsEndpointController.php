@@ -9,9 +9,11 @@ use App\Models\Sponsor;
 use App\Models\Upload;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Support\Facades\Auth;
 
-class UserSponsorsEndpointController extends Controller
+class UserSponsorsEndpointController extends Controller implements HasMiddleware
 {
     protected $sponsor;
 
@@ -21,8 +23,13 @@ class UserSponsorsEndpointController extends Controller
     {
         $this->sponsor = $sponsor;
         $this->upload = $upload;
+    }
 
-        $this->middleware('auth');
+    public static function middleware(): array
+    {
+        return [
+            new Middleware('auth'),
+        ];
     }
 
     public function list(Request $request)

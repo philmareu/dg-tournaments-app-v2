@@ -8,12 +8,20 @@ use App\Http\Requests\Manager\UpdateTournamentLinkRequest;
 use App\Models\Link;
 use App\Models;
 use App\Http\Controllers\Controller;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 
-class LinksEndpointController extends Controller
+class LinksEndpointController extends Controller implements HasMiddleware
 {
     public function __construct()
     {
-        $this->middleware('auth');
+    }
+
+    public static function middleware(): array
+    {
+        return [
+            new Middleware('auth'),
+        ];
     }
 
     public function store(StoreTournamentLinkRequest $request, Tournament $tournament)

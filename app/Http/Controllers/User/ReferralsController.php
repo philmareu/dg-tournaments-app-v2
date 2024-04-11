@@ -7,17 +7,24 @@ use App\Mail\User\SendReferral;
 use App\Models\User\UserReferral;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Support\Facades\Mail;
 
-class ReferralsController extends Controller
+class ReferralsController extends Controller implements HasMiddleware
 {
     protected $referral;
 
     public function __construct(UserReferral $referral)
     {
         $this->referral = $referral;
+    }
 
-        $this->middleware('auth');
+    public static function middleware(): array
+    {
+        return [
+            new Middleware('auth'),
+        ];
     }
 
     public function create()

@@ -7,12 +7,20 @@ use App\Http\Requests\Endpoints\Tournament\UpdateTournamentStripeAccountRequest;
 use App\Models;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 
-class TournamentStripeAccountEndpointController extends Controller
+class TournamentStripeAccountEndpointController extends Controller implements HasMiddleware
 {
     public function __construct()
     {
-        $this->middleware('auth');
+    }
+
+    public static function middleware(): array
+    {
+        return [
+            new Middleware('auth'),
+        ];
     }
 
     public function update(UpdateTournamentStripeAccountRequest $request, Tournament $tournament)

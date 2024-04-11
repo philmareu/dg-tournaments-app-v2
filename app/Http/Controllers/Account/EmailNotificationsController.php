@@ -5,16 +5,23 @@ namespace App\Http\Controllers\Account;
 use App\Models\User\UserEmailNotificationType;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 
-class EmailNotificationsController extends Controller
+class EmailNotificationsController extends Controller implements HasMiddleware
 {
     protected $emailNotificationType;
 
     public function __construct(UserEmailNotificationType $emailNotificationType)
     {
         $this->emailNotificationType = $emailNotificationType;
+    }
 
-        $this->middleware('auth');
+    public static function middleware(): array
+    {
+        return [
+            new Middleware('auth'),
+        ];
     }
 
     public function index()

@@ -9,12 +9,20 @@ use App\Models\PlayerPack;
 use App\Models\PlayerPackItem;
 use Illuminate\Database\Eloquent\Model;
 use App\Http\Controllers\Controller;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 
-class PlayerPackItemsEndpointController extends Controller
+class PlayerPackItemsEndpointController extends Controller implements HasMiddleware
 {
     public function __construct()
     {
-        $this->middleware('auth');
+    }
+
+    public static function middleware(): array
+    {
+        return [
+            new Middleware('auth'),
+        ];
     }
 
     /**

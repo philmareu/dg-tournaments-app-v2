@@ -9,8 +9,10 @@ use App\Models;
 use App\Models\PlayerPack;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 
-class PlayerPacksEndpointController extends Controller
+class PlayerPacksEndpointController extends Controller implements HasMiddleware
 {
     protected $playerPack;
 
@@ -20,8 +22,13 @@ class PlayerPacksEndpointController extends Controller
     {
         $this->tournamentPlayerPack = $playerPack;
         $this->tournament = $tournament;
+    }
 
-        $this->middleware('auth');
+    public static function middleware(): array
+    {
+        return [
+            new Middleware('auth'),
+        ];
     }
 
     /**

@@ -9,15 +9,19 @@ use App\Models\SpecialEventType;
 use App\Models\StripeAccount;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Support\Facades\Auth;
 use Stripe\Account;
 use Stripe\Stripe;
 
-class TournamentManagerController extends Controller
+class TournamentManagerController extends Controller implements HasMiddleware
 {
-    public function __construct()
+    public static function middleware(): array
     {
-        $this->middleware('auth')->except('index');
+        return [
+            new Middleware('auth', except: ['index']),
+        ];
     }
 
     public function index()
