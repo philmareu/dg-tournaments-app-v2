@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Endpoints;
 
 use Carbon\Carbon;
-use App\Http\Requests\Manager\DestroyTournamentSponsorRequest;
-use App\Http\Requests\Manager\StoreTournamentSponsorRequest;
-use App\Http\Requests\Manager\UpdateTournamentSponsorRequest;
+use App\Http\Requests\Endpoints\Tournament\DestroyTournamentSponsorRequest;
+use App\Http\Requests\Endpoints\Tournament\StoreTournamentSponsorRequest;
+use App\Http\Requests\Endpoints\Tournament\UpdateTournamentSponsorRequest;
 use App\Models\Sponsor;
 use App\Models\Sponsorship;
 use App\Http\Controllers\Controller;

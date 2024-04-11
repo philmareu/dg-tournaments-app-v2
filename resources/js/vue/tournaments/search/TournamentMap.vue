@@ -5,7 +5,7 @@
         </div>
         <div id="map" class="custom-popup">
             <div class="uk-position-small uk-position-bottom-center z-1000">
-                <a href="https://www.algolia.com"><img src="/images/original/search-by-algolia.png" alt="Algolia Logo" width="125"></a>
+                <a href="https://www.algolia.com"><img src="/images/search-by-algolia.png" alt="Algolia Logo" width="125"></a>
             </div>
         </div>
 

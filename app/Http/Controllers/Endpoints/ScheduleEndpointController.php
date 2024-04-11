@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Endpoints;
 
+use App\Models\Tournament;
 use Carbon\Carbon;
-use App\Http\Requests\Manager\DestroyTournamentScheduleRequest;
-use App\Http\Requests\Manager\StoreTournamentScheduleRequest;
-use App\Http\Requests\Manager\UpdateTournamentScheduleRequest;
+use App\Http\Requests\Endpoints\Tournament\DestroyTournamentScheduleRequest;
+use App\Http\Requests\Endpoints\Tournament\StoreTournamentScheduleRequest;
+use App\Http\Requests\Endpoints\Tournament\UpdateTournamentScheduleRequest;
 use App\Models\Schedule;
-use App\Models;
+
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Log;
 

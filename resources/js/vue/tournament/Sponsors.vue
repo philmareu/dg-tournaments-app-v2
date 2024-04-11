@@ -76,7 +76,7 @@
 
         methods: {
             logoUrl: function (logo) {
-                return SITE_URL + '/images/original/' + logo.filename;
+                return SITE_URL + '/images/' + logo.filename;
             },
             modalId: function () {
                 return 'modal-sponsorship-sponsors-' + this.storeId;

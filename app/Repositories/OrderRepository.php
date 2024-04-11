@@ -12,6 +12,7 @@ use App\Models\Sponsorship;
 use App\Models\Tournament;
 use App\Models\User\User;
 use App\Models\Order;
+use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
@@ -198,7 +199,7 @@ class OrderRepository
         return $order;
     }
 
-    public function getUsersOrders(User $user)
+    public function getUsersOrders(User|Authenticatable $user)
     {
         return $this->order
             ->with('charges', 'sponsorships')

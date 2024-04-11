@@ -4,10 +4,10 @@ namespace App\Http\Controllers\Endpoints;
 
 use App\Billing\Stripe\StripeBilling;
 use App\Data\Time;
-use App\Http\Requests\CreateStripeCustomerRequest;
+use App\Http\Requests\Endpoints\CreateStripeCustomerRequest;
 use App\Http\Requests\Endpoints\CreateRefundRequest;
 use App\Http\Requests\Endpoints\PayOrderWithStripeRequest;
-use App\Http\Requests\ProcessOrderDetailsRequest;
+use App\Http\Requests\Endpoints\ProcessOrderDetailsRequest;
 use App\Http\Requests\User\AddCardRequest;
 use App\Models\OrderSponsorship;
 use App\Models\Sponsorship;

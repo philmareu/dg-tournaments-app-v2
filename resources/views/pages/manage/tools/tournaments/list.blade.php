@@ -1,6 +1,6 @@
 <div class="uk-grid uk-margin">
     <div class="uk-width-auto uk-margin">
-        <img src="{{ url('images/small/' . $tournament->poster->filename) }}" alt="Poster for {{ $tournament->name }}" width="80">
+        <img src="{{ url('images/' . $tournament->poster->filename) }}" alt="Poster for {{ $tournament->name }}" width="80">
     </div>
     <div class="uk-width-5-6">
         <h3 class="uk-margin-remove-bottom">{{ $tournament->name }}</h3>

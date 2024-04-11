@@ -2,21 +2,22 @@
 
 namespace App\Http\Controllers\Endpoints;
 
-use App\Events\CourseAddedToTournament;
 use App\Events\CourseCreated;
-use App\Http\Requests\Manager\DestroyTournamentCourseRequest;
-use App\Http\Requests\Manager\StoreTournamentCourseRequest;
-use App\Http\Requests\Manager\UpdateTournamentCourseHolesRequest;
-use App\Http\Requests\Manager\UpdateTournamentCourseRequest;
+use App\Http\Requests\Endpoints\Tournament\DestroyTournamentCourseRequest;
+use App\Http\Requests\Endpoints\Tournament\StoreTournamentCourseRequest;
+use App\Http\Requests\Endpoints\Tournament\UpdateTournamentCourseHolesRequest;
+use App\Http\Requests\Endpoints\Tournament\UpdateTournamentCourseRequest;
 use App\Http\Resources\TournamentCourse as TournamentCourseResource;
 use App\Models\Course;
-use App\Models;
+
+use App\Models\Tournament;
 use App\Models\TournamentCourse;
 use App\Http\Controllers\Controller;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 
 class TournamentCoursesEndpointController extends Controller implements HasMiddleware
 {
@@ -94,7 +95,7 @@ class TournamentCoursesEndpointController extends Controller implements HasMiddl
 
     private function createNewCourse(array $attributes)
     {
-        $attributes = array_merge($attributes, ['slug' => str_slug($attributes['name'])]);
+        $attributes = array_merge($attributes, ['slug' => Str::slug($attributes['name'])]);
         $course = $this->course->create($attributes);
 
         event(new CourseCreated($course));

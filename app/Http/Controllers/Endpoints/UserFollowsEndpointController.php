@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Endpoints;
 
 use App\Events\TournamentFollowed;
 use App\Events\TournamentUnfollowed;
-use App\Http\Requests\User\FollowTournamentRequest;
 use App\Http\Controllers\Controller;
 use App\Models\Follow;
 use App\Models\Tournament;

@@ -19,7 +19,7 @@ class UserFilesEndpointController extends Controller
             'filename' => $this->extractFilenameFromPath($path),
             'alt' => '',
             'mime' => $file->getClientMimeType(),
-            'size' => $file->getClientSize()
+            'size' => $file->getSize(),
         ]);
 
         $upload->user()->associate(Auth::user())->save();

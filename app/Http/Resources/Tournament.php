@@ -4,10 +4,10 @@ namespace App\Http\Resources;
 
 use App\Data\Dates;
 use App\Data\Location;
-use Illuminate\Http\Resources\Json\Resource;
+use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Auth;
 
-class Tournament extends Resource
+class Tournament extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,7 +17,7 @@ class Tournament extends Resource
      */
     public function toArray($request)
     {
-        Resource::withoutWrapping();
+        JsonResource::withoutWrapping();
 
         return [
             'id' => $this->id,

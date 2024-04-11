@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Endpoints;
 
-use App\Http\Requests\Manager\DestroyPlayerPackItemRequest;
-use App\Http\Requests\Manager\StorePlayerPackItemRequest;
-use App\Http\Requests\Manager\UpdatePlayerPackItemRequest;
+use App\Http\Requests\Endpoints\Tournament\DestroyPlayerPackItemRequest;
+use App\Http\Requests\Endpoints\Tournament\StorePlayerPackItemRequest;
+use App\Http\Requests\Endpoints\Tournament\UpdatePlayerPackItemRequest;
 use App\Models\PlayerPack;
 use App\Models\PlayerPackItem;
 use Illuminate\Database\Eloquent\Model;

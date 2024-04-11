@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Endpoints;
 
 use App\Http\Requests\Endpoints\Tournament\DestroyTournamentPosterRequest;
 use App\Http\Requests\UpdateTournamentPosterRequest;
-use App\Models;
+
+use App\Models\Tournament;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Routing\Controllers\HasMiddleware;

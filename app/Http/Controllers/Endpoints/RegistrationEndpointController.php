@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Endpoints;
 
+use App\Models\Tournament;
 use Carbon\Carbon;
 use App\Events\TournamentRegistrationUpdated;
 use App\Http\Requests\Endpoints\Tournament\StoreTournamentRegistrationRequest;
 use App\Http\Requests\Endpoints\Tournament\UpdateTournamentRegistrationRequest;
 use App\Models\Registration;
-use App\Models;
+
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Routing\Controllers\HasMiddleware;

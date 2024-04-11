@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Endpoints;
 
-use App\Http\Requests\Manager\DestroyPlayerPackRequest;
-use App\Http\Requests\Manager\StorePlayerPackRequest;
-use App\Http\Requests\Manager\UpdatePlayerPackRequest;
-use App\Models;
+use App\Http\Requests\Endpoints\Tournament\DestroyPlayerPackRequest;
+use App\Http\Requests\Endpoints\Tournament\StorePlayerPackRequest;
+use App\Http\Requests\Endpoints\Tournament\UpdatePlayerPackRequest;
+
 use App\Models\PlayerPack;
+use App\Models\Tournament;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Routing\Controllers\HasMiddleware;
@@ -40,7 +41,7 @@ class PlayerPacksEndpointController extends Controller implements HasMiddleware
     public function store(StorePlayerPackRequest $request, Tournament $tournament)
     {
         $playerPack = new PlayerPack($request->only('title', 'description'));
-        $playerPack->tournament()->associate($tournament)->save();
+        $playerPack->tournament()->associate($tournament->id)->save();
 
         return $tournament->playerPacks;
     }

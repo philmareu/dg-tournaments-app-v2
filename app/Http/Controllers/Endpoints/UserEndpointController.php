@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Endpoints;
 
 use App\Billing\Stripe\StripeBilling;
-use App\Http\Requests\CreateStripeCustomerRequest;
+use App\Http\Requests\Endpoints\CreateStripeCustomerRequest;
 use App\Http\Requests\User\AddCardRequest;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;

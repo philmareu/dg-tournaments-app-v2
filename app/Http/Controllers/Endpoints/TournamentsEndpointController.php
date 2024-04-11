@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Endpoints;
 
-use App\Http\Requests\Manager\StoreInformationRequest;
-use App\Http\Requests\Manager\UpdateInformationRequest;
+use App\Http\Requests\Endpoints\Tournament\StoreInformationRequest;
+use App\Http\Requests\Endpoints\Tournament\UpdateInformationRequest;
+use App\Http\Resources\Tournament;
 use App\Http\Resources\Tournament as TournamentResource;
-use App\Models;
 use App\Models\Upload;
 use App\Repositories\TournamentRepository;
 use Illuminate\Http\Request;

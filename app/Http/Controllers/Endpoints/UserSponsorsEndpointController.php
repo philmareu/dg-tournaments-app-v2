@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Endpoints;
 
 use App\Http\Requests\Endpoints\Tournament\StoreSponsorRequest;
 use App\Http\Requests\Endpoints\Tournament\UpdateSponsorRequest;
-use App\Http\Requests\Manager\DestroySponsorRequest;
+use App\Http\Requests\Endpoints\Tournament\DestroySponsorRequest;
 use App\Models\Sponsor;
 use App\Models\Upload;
 use Illuminate\Http\Request;

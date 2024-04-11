@@ -64,10 +64,10 @@
 
         computed: {
             posterUrl: function () {
-                return SITE_URL + '/images/original/' + this.upload.filename;
+                return SITE_URL + '/images/' + this.upload.filename;
             },
             fullSizeUrl: function () {
-                return SITE_URL + '/images/original/' + this.upload.filename;
+                return SITE_URL + '/images/' + this.upload.filename;
             }
         },
 

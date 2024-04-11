@@ -12115,10 +12115,10 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     posterUrl: function posterUrl() {
-      return SITE_URL + '/images/original/' + this.upload.filename;
+      return SITE_URL + '/images/' + this.upload.filename;
     },
     fullSizeUrl: function fullSizeUrl() {
-      return SITE_URL + '/images/original/' + this.upload.filename;
+      return SITE_URL + '/images/' + this.upload.filename;
     }
   },
   mounted: function mounted() {
@@ -12313,7 +12313,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     logoUrl: function logoUrl(logo) {
-      return SITE_URL + '/images/original/' + logo.filename;
+      return SITE_URL + '/images/' + logo.filename;
     },
     modalId: function modalId() {
       return 'modal-sponsorship-sponsors-' + this.storeId;
@@ -20986,7 +20986,7 @@ var staticRenderFns = [function () {
     }
   }, [_c("img", {
     attrs: {
-      src: "/images/original/search-by-algolia.png",
+      src: "/images/search-by-algolia.png",
       alt: "Algolia Logo",
       width: "125"
     }
