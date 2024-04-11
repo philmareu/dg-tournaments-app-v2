@@ -32,7 +32,7 @@ Route::post('tournament/registration/{tournament}', [\App\Http\Controllers\Endpo
 Route::put('tournament/registration/{registration}', [\App\Http\Controllers\Endpoints\RegistrationEndpointController::class, 'update']);
 
 // Surrounding Courses
-Route::get('tournament/surrounding-courses/{tournament}', 'Tournament\TournamentSurroundingCoursesEndpointController@get');
+Route::get('tournament/surrounding-courses/{tournament}', [\App\Http\Controllers\Endpoints\TournamentSurroundingCoursesEndpointController::class, 'get']);
 
 // Sponsorships
 Route::post('tournament/sponsorships/{tournament}', [\App\Http\Controllers\Endpoints\SponsorshipsEndpointController::class, 'store']);

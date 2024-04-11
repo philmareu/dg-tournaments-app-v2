@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Endpoints;
 
-use App\Models;
+use App\Models\Tournament;
 use App\Repositories\TournamentRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;

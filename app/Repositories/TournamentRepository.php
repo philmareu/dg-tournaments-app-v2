@@ -14,6 +14,7 @@ use App\Models\Tournament;
 use App\Services\DarkSky\DarkSkyApi;
 use App\Services\Foursquare\FoursquareApi;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Str;
 
 class TournamentRepository
 {
@@ -37,7 +38,7 @@ class TournamentRepository
 
     public function createTournament($user, $attributes)
     {
-        $attributes['slug'] = str_slug($attributes['name']);
+        $attributes['slug'] = Str::slug($attributes['name']);
         $attributes['start'] = Carbon::createFromFormat('n-j-Y', $attributes['start']);
         $attributes['end'] = Carbon::createFromFormat('n-j-Y', $attributes['end']);
         $tournament = $this->tournament->create($attributes);
