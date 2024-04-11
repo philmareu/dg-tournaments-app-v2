@@ -51,26 +51,26 @@
 
         <div class="uk-grid">
             <div class="uk-width-medium-1-2">
-                @include('laraform::elements.form.image', ['field' => ['name' => 'image', 'value' => $tournament->meta->poster]])
+                @include('vendor.laraform.elements.form.image', ['field' => ['name' => 'image', 'value' => $tournament->meta->poster]])
             </div>
             <div class="uk-width-medium-1-2">
-                @include('laraform::elements.form.checkbox', ['field' => ['name' => 'womens', 'checked' => $tournament->specialEvents->where('id', 1)->count()]])
+                @include('vendor.laraform.elements.form.checkbox', ['field' => ['name' => 'womens', 'checked' => $tournament->specialEvents->where('id', 1)->count()]])
             </div>
         </div>
 
         <div class="uk-grid uk-margin">
             <div class="uk-width-1-3">
-                @include('laraform::elements.form.text', ['field' => ['name' => 'hashtag', 'value' => $tournament->meta->hashtag]])
+                @include('vendor.laraform.elements.form.text', ['field' => ['name' => 'hashtag', 'value' => $tournament->meta->hashtag]])
             </div>
             <div class="uk-width-1-3">
-                @include('laraform::elements.form.text', ['field' => ['name' => 'latitude', 'value' => $tournament->latitude]])
+                @include('vendor.laraform.elements.form.text', ['field' => ['name' => 'latitude', 'value' => $tournament->latitude]])
             </div>
             <div class="uk-width-1-3">
-                @include('laraform::elements.form.text', ['field' => ['name' => 'longitude', 'value' => $tournament->longitude]])
+                @include('vendor.laraform.elements.form.text', ['field' => ['name' => 'longitude', 'value' => $tournament->longitude]])
             </div>
         </div>
 
-        @include('laraform::elements.form.textarea', ['field' => ['name' => 'additional_course_information', 'value' => $tournament->meta->additional_course_information]])
+        @include('vendor.laraform.elements.form.textarea', ['field' => ['name' => 'additional_course_information', 'value' => $tournament->meta->additional_course_information]])
 
         <div id="course-input-template" class="hide">
             <ul class="uk-list uk-form-row course-input uk-sortable" data-uk-sortable="{handleClass:'uk-sortable-handle'}">
@@ -135,10 +135,10 @@
     <form action="{{ route('issues.store', $tournament->tournament_id) }}" method="POST" class="uk-form uk-form-stacked uk-width-1-3">
         {{ csrf_field() }}
 
-        @include('laraform::elements.form.textarea', ['field' => ['name' => 'issue']])
+        @include('vendor.laraform.elements.form.textarea', ['field' => ['name' => 'issue']])
 
         <div class="uk-form-row">
-            @include('laraform::elements.form.submit')
+            @include('vendor.laraform.elements.form.submit')
         </div>
     </form>
 

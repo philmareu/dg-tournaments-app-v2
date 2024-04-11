@@ -21,17 +21,17 @@
             {{ method_field('PUT') }}
 
             <img src="{{ url('images/poster-small/' . $user->image->filename) }}" alt="Profile image" class="uk-width-1-6 uk-border-circle">
-            @include('laraform::elements.form.image', ['field' => ['name' => 'image', 'class' => '']])
+            @include('vendor.laraform.elements.form.image', ['field' => ['name' => 'image', 'class' => '']])
 
             <div class="uk-margin">
-                @include('laraform::elements.form.text', ['field' => ['name' => 'name', 'value' => $user->name, 'class' => 'uk-input uk-form-small']])
+                @include('vendor.laraform.elements.form.text', ['field' => ['name' => 'name', 'value' => $user->name, 'class' => 'uk-input uk-form-small']])
             </div>
 
             <div class="uk-margin">
-                @include('laraform::elements.form.text', ['field' => ['name' => 'location', 'value' => $user->location, 'class' => 'uk-input uk-form-small']])
+                @include('vendor.laraform.elements.form.text', ['field' => ['name' => 'location', 'value' => $user->location, 'class' => 'uk-input uk-form-small']])
             </div>
 
-            @include('laraform::elements.form.submit', ['class' => 'uk-width-1-1 uk-width-1-4@s uk-text-contrast uk-button-small'])
+            @include('vendor.laraform.elements.form.submit', ['class' => 'uk-width-1-1 uk-width-1-4@s uk-text-contrast uk-button-small'])
         </form>
     </div>
 

@@ -21,14 +21,14 @@
             {{ method_field('PUT') }}
 
             <div class="uk-margin">
-                @include('laraform::elements.form.email', ['field' => ['name' => 'email', 'value' => auth()->user()->email, 'class' => 'uk-input uk-form-small']])
+                @include('vendor.laraform.elements.form.email', ['field' => ['name' => 'email', 'value' => auth()->user()->email, 'class' => 'uk-input uk-form-small']])
             </div>
 
             <div class="uk-margin-bottom">
-                @include('laraform::elements.form.password', ['field' => ['name' => 'password', 'class' => 'uk-input uk-form-small', 'label' => 'New Password']])
+                @include('vendor.laraform.elements.form.password', ['field' => ['name' => 'password', 'class' => 'uk-input uk-form-small', 'label' => 'New Password']])
             </div>
 
-            @include('laraform::elements.form.submit', ['class' => 'uk-width-1-1 uk-width-1-4@s uk-text-contrast uk-button-small'])
+            @include('vendor.laraform.elements.form.submit', ['class' => 'uk-width-1-1 uk-width-1-4@s uk-text-contrast uk-button-small'])
         </form>
     </div>
 

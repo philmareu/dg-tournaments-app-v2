@@ -15,7 +15,7 @@
 @section('content')
     @parent
 
-    @include('laraform::alerts.default')
+    @include('vendor.laraform.alerts.default')
 
     <div class="uk-container uk-container-small uk-margin">
         <checkout

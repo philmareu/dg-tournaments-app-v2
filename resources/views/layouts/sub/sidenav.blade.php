@@ -33,7 +33,7 @@
 
             <div class="uk-width-1-1 uk-width-3-4@s">
 
-                @include('laraform::alerts.default')
+                @include('vendor.laraform.alerts.default')
 
                 @yield('page-content')
 

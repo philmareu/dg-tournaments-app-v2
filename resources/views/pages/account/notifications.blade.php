@@ -31,7 +31,7 @@
                     </div>
                 @endforeach
 
-                @include('laraform::elements.form.submit', ['class' => 'uk-width-1-1 uk-width-1-4@s uk-text-contrast uk-button-small'])
+                @include('vendor.laraform.elements.form.submit', ['class' => 'uk-width-1-1 uk-width-1-4@s uk-text-contrast uk-button-small'])
             </form>
         </div>
     </div>

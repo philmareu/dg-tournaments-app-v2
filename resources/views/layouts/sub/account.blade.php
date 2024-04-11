@@ -18,7 +18,7 @@
 
             <div class="container">
 
-                @include('laraform::alerts.default')
+                @include('vendor.laraform.alerts.default')
 
                 <h1>@yield('title')</h1>
 

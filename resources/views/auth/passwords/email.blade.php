@@ -41,7 +41,7 @@
                     <div class="uk-margin btn-login">
                         <div class="uk-flex uk-flex-middle uk-text-center" uk-grid>
                             <div class="uk-width-1-2">
-                                @include('laraform::elements.form.submit', ['value' => 'Submit', 'class' => 'uk-width-1-1 uk-button uk-text-contrast'])
+                                @include('vendor.laraform.elements.form.submit', ['value' => 'Submit', 'class' => 'uk-width-1-1 uk-button uk-text-contrast'])
                             </div>
                             <div class="uk-width-1-2">
                                 <a href="{{ url('/login') }}" class="uk-button uk-button-default uk-width-1-1 uk-dark">Cancel</a>

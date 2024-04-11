@@ -13,7 +13,7 @@
     <form action="{{ route('admin.videos.store') }}" method="POST" class="uk-form uk-form-stacked">
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
-        @include('laraform::elements.form.text', ['field' => ['name' => 'youtube_video_id']])
+        @include('vendor.laraform.elements.form.text', ['field' => ['name' => 'youtube_video_id']])
 
         <div id="event-input-template" class="hide">
             <div class="uk-form-row event-input">

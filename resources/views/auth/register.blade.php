@@ -70,7 +70,7 @@
                     </div>
 
                     <div class="uk-margin btn-login">
-                        @include('laraform::elements.form.submit', ['value' => 'Create Account', 'class' => 'uk-width-1-1 uk-button uk-text-contrast'])
+                        @include('vendor.laraform.elements.form.submit', ['value' => 'Create Account', 'class' => 'uk-width-1-1 uk-button uk-text-contrast'])
                     </div>
                     <p class="uk-dark">By signing up, you agree to the <a href="{{ url('terms-of-service') }}">Terms of Service</a> and <a
                                 href="{{ url('privacy-policy') }}">Privacy Policy</a>.</p>

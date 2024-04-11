@@ -57,7 +57,7 @@
                     </div>
 
                     <div class="uk-margin btn-login">
-                        @include('laraform::elements.form.submit', ['value' => 'Reset', 'class' => 'uk-width-1-1 uk-button uk-text-contrast'])
+                        @include('vendor.laraform.elements.form.submit', ['value' => 'Reset', 'class' => 'uk-width-1-1 uk-button uk-text-contrast'])
                     </div>
                 </form>
             </div>

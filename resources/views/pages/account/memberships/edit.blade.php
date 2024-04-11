@@ -29,10 +29,10 @@
                 <p class="uk-margin"><span class="uk-text-bold">Current Rating:</span> {{ is_null($user->pdga_rating) ? 'N/A' : $user->pdga_rating }}</p>
 
                 <div class="uk-margin">
-                    @include('laraform::elements.form.text', ['field' => ['name' => 'pdga_number', 'label' => 'PDGA Number', 'value' => $user->pdga_number, 'class' => 'uk-input uk-form-small']])
+                    @include('vendor.laraform.elements.form.text', ['field' => ['name' => 'pdga_number', 'label' => 'PDGA Number', 'value' => $user->pdga_number, 'class' => 'uk-input uk-form-small']])
                 </div>
 
-                @include('laraform::elements.form.submit', ['class' => 'uk-width-1-1 uk-width-1-4@s uk-text-contrast uk-button-small'])
+                @include('vendor.laraform.elements.form.submit', ['class' => 'uk-width-1-1 uk-width-1-4@s uk-text-contrast uk-button-small'])
             </form>
         </div>
     </div>

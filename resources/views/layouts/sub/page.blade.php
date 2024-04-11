@@ -7,7 +7,7 @@
         @yield('breadcrumbs')
     </ul>
 
-    @include('laraform::alerts.default')
+    @include('vendor.laraform.alerts.default')
 
     <div class="container">
         <div uk-grid>

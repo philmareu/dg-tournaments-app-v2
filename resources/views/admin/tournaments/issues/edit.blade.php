@@ -11,10 +11,10 @@
             {{ csrf_field() }}
             {{ method_field('PUT') }}
 
-            @include('laraform::elements.form.textarea', ['field' => ['name' => 'issue', 'value' => $issue->issue]])
+            @include('vendor.laraform.elements.form.textarea', ['field' => ['name' => 'issue', 'value' => $issue->issue]])
 
             <div class="uk-form-row">
-                @include('laraform::elements.form.submit', ['value' => 'Update'])
+                @include('vendor.laraform.elements.form.submit', ['value' => 'Update'])
             </div>
         </form>
 
@@ -22,7 +22,7 @@
             {{ csrf_field() }}
             {{ method_field('DELETE') }}
 
-            @include('laraform::elements.form.submit', ['value' => 'Delete', 'class' => 'uk-button-danger uk-text-contrast'])
+            @include('vendor.laraform.elements.form.submit', ['value' => 'Delete', 'class' => 'uk-button-danger uk-text-contrast'])
         </form>
     </div>
 
