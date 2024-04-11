@@ -30,7 +30,7 @@
             <div class="uk-width-medium uk-visible@s">
                 <div class="uk-card uk-card-default uk-card-small uk-margin-medium">
                     <div class="uk-card-media-top">
-                        <img src="{{ url('images/small/' . $user->image->filename) }}" alt="">
+                        <img src="{{ url('images/' . $user->image->filename) }}" alt="">
                     </div>
                     <div class="uk-card-body">
                         <div>
@@ -72,7 +72,7 @@
 
                             <div class="uk-grid uk-grid-small uk-flex uk-flex-middle">
                                 <div class="uk-width-auto">
-                                    <img src="{{ url('images/small/' . $follow->resource->poster->filename) }}" alt="Round Image" class="uk-margin" width="40">
+                                    <img src="{{ url('images/' . $follow->resource->poster->filename) }}" alt="Round Image" class="uk-margin" width="40">
                                 </div>
                                 <div class="uk-width-expand">
                                     <div><a href="{{ $follow->resource->path }}">{{ $follow->resource->name }}</a></div>

@@ -16,7 +16,7 @@
             @foreach($tournament->followers as $follow)
                 <div class="uk-grid-small" uk-grid>
                     <div class="uk-width-1-6">
-                        <img src="{{ url('images/poster-small/' . $follow->user->image->filename) }}" alt="" class="uk-border-circle">
+                        <img src="{{ url('images/' . $follow->user->image->filename) }}" alt="" class="uk-border-circle">
                     </div>
                     <div class="uk-width-5-6">
                         <h3>{{ $follow->user->name }}</h3>

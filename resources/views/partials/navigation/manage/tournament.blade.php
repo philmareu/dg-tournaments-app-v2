@@ -14,7 +14,7 @@
         </div>
     </div>
 
-    {{--<img src="{{ url('images/small/' . $tournament->poster->filename) }}" alt="Tournament poster" class="uk-width-1-3 uk-margin">--}}
+    {{--<img src="{{ url('images/' . $tournament->poster->filename) }}" alt="Tournament poster" class="uk-width-1-3 uk-margin">--}}
     {{--<div class="side-title uk-margin">{{ $tournament->name }}</div>--}}
     {{--<a href="{{ url($tournament->path) }}" class="uk-button uk-button-default uk-button-small">View</a>--}}
 </header>

@@ -20,7 +20,7 @@
             {{ csrf_field() }}
             {{ method_field('PUT') }}
 
-            <img src="{{ url('images/poster-small/' . $user->image->filename) }}" alt="Profile image" class="uk-width-1-6 uk-border-circle">
+            <img src="{{ url('images/' . $user->image->filename) }}" alt="Profile image" class="uk-width-1-6 uk-border-circle">
             @include('vendor.laraform.elements.form.image', ['field' => ['name' => 'image', 'class' => '']])
 
             <div class="uk-margin">

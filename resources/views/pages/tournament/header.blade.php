@@ -25,7 +25,7 @@
 @else
     <div class="uk-grid-small uk-margin" uk-grid>
         <div class="uk-width-1-4">
-            <img src="{{ url('images/small/' . $tournament->poster->filename) }}" alt="" uk-toggle="target: #modal-poster">
+            <img src="{{ url('images/' . $tournament->poster->filename) }}" alt="" uk-toggle="target: #modal-poster">
 
             <div id="modal-poster" class="uk-flex-top" uk-modal>
                 <div class="uk-modal-dialog uk-margin-auto-vertical">

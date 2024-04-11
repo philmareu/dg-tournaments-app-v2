@@ -97,7 +97,7 @@
                                 @foreach($recentPosts as $post)
                                     <div class="uk-grid uk-grid-small uk-flex uk-flex-middle">
                                         <div class="uk-width-auto">
-                                            <img src="{{ url('images/small/' . $post->image->filename) }}" class="uk-margin" width="40">
+                                            <img src="{{ url('images/' . $post->image->filename) }}" class="uk-margin" width="40">
                                         </div>
                                         <div class="uk-width-expand">
                                             <div class="details uk-text-muted">

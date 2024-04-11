@@ -51,9 +51,9 @@
                             @else
                                 <div>
                                     @if(is_null($tournamentSponsor->sponsor->url))
-                                        <img src="{{ url('images/small/' . $tournamentSponsor->sponsor->logo->filename) }}" alt="Sponsor Title">
+                                        <img src="{{ url('images/' . $tournamentSponsor->sponsor->logo->filename) }}" alt="Sponsor Title">
                                     @else
-                                        <a href="{{ $tournamentSponsor->sponsor->url }}" target="_blank"><img src="{{ url('images/small/' . $tournamentSponsor->sponsor->logo->filename) }}" alt="Sponsor Title"></a>
+                                        <a href="{{ $tournamentSponsor->sponsor->url }}" target="_blank"><img src="{{ url('images/' . $tournamentSponsor->sponsor->logo->filename) }}" alt="Sponsor Title"></a>
                                     @endif
                                 </div>
                             @endif

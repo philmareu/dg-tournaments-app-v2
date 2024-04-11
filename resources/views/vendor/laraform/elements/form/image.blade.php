@@ -4,7 +4,7 @@
 
     @if(isset($field['value']))
         <div class="image">
-            <img src="{{ url('images/small/' . $field['value']) }}">
+            <img src="{{ url('images/' . $field['value']) }}">
         </div>
     @endif
 

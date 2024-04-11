@@ -2,7 +2,7 @@
     <div class="uk-card uk-card-default uk-card-small">
         <div class="uk-card-media-top">
             <div uk-lightbox>
-                <a href="{{ url('images/original/' . $feature->image->filename) }}"><img src="{{ url('images/small/' . $feature->image->filename) }}" alt=""></a>
+                <a href="{{ url('images/original/' . $feature->image->filename) }}"><img src="{{ url('images/' . $feature->image->filename) }}" alt=""></a>
             </div>
         </div>
         <div class="uk-card-body">

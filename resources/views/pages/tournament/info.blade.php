@@ -173,7 +173,7 @@
         <article class="uk-comment">
             <header class="uk-comment-header uk-grid-medium uk-flex-middle" uk-grid>
                 <div class="uk-width-auto">
-                    <img class="uk-comment-avatar uk-border-circle" src="{{ url('images/poster-small/' . $follow->user->image->filename) }}" width="40" alt="">
+                    <img class="uk-comment-avatar uk-border-circle" src="{{ url('images/' . $follow->user->image->filename) }}" width="40" alt="">
                 </div>
                 <div class="uk-width-expand">
                     <h4 class="uk-comment-title uk-margin-remove">{{ $follow->user->name }}</h4>
