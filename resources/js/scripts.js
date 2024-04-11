@@ -4,6 +4,15 @@
 
 require('./base');
 
+import Vue from 'vue'
+
+/**
+ * Default Vue components
+ */
+
+Vue.component('primary-navigation', require('./vue/navigation/PrimaryNavigation.vue').default);
+Vue.component('login', require('./vue/components/Login.vue').default);
+
 /**
  * Page specific packages
  */

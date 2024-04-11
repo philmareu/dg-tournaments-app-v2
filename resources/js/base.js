@@ -65,11 +65,4 @@ window.algoliasearch = require('algoliasearch');
 
 window.autocomplete = require('autocomplete.js');
 
-window.Vue = require('vue');
-
-/**
- * Default Vue components
- */
-
-Vue.component('primary-navigation', require('./vue/navigation/PrimaryNavigation.vue'));
-Vue.component('login', require('./vue/components/Login.vue'));
+// window.Vue = require('vue');

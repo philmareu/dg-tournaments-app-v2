@@ -16589,14 +16589,8 @@ UIkit.use((uikit_dist_js_uikit_icons__WEBPACK_IMPORTED_MODULE_0___default()));
 window.moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 window.algoliasearch = __webpack_require__(/*! algoliasearch */ "./node_modules/algoliasearch/dist/algoliasearch.umd.js");
 window.autocomplete = __webpack_require__(/*! autocomplete.js */ "./node_modules/autocomplete.js/index.js");
-window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
 
-/**
- * Default Vue components
- */
-
-Vue.component('primary-navigation', __webpack_require__(/*! ./vue/navigation/PrimaryNavigation.vue */ "./resources/js/vue/navigation/PrimaryNavigation.vue"));
-Vue.component('login', __webpack_require__(/*! ./vue/components/Login.vue */ "./resources/js/vue/components/Login.vue"));
+// window.Vue = require('vue');
 
 /***/ }),
 
@@ -16604,13 +16598,24 @@ Vue.component('login', __webpack_require__(/*! ./vue/components/Login.vue */ "./
 /*!*********************************!*\
   !*** ./resources/js/scripts.js ***!
   \*********************************/
-/***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
 /**
  * Load the resources used on all pages
  */
 
 __webpack_require__(/*! ./base */ "./resources/js/base.js");
+
+
+/**
+ * Default Vue components
+ */
+
+vue__WEBPACK_IMPORTED_MODULE_0__["default"].component('primary-navigation', (__webpack_require__(/*! ./vue/navigation/PrimaryNavigation.vue */ "./resources/js/vue/navigation/PrimaryNavigation.vue")["default"]));
+vue__WEBPACK_IMPORTED_MODULE_0__["default"].component('login', (__webpack_require__(/*! ./vue/components/Login.vue */ "./resources/js/vue/components/Login.vue")["default"]));
 
 /**
  * Page specific packages
@@ -16624,43 +16629,43 @@ window.timepicker = __webpack_require__(/*! timepicker */ "./node_modules/timepi
  */
 
 // Default
-Vue.component('sponsorship-map', __webpack_require__(/*! ./vue/tournaments/sponsor/SponsorshipMap.vue */ "./resources/js/vue/tournaments/sponsor/SponsorshipMap.vue"));
-Vue.component('tournament-map', __webpack_require__(/*! ./vue/tournaments/search/TournamentMap.vue */ "./resources/js/vue/tournaments/search/TournamentMap.vue"));
-Vue.component('activity-feed', __webpack_require__(/*! ./vue/tournaments/search/ActivityFeed.vue */ "./resources/js/vue/tournaments/search/ActivityFeed.vue"));
-Vue.component('credit-cards', __webpack_require__(/*! ./vue/components/CreditCards.vue */ "./resources/js/vue/components/CreditCards.vue"));
-Vue.component('order-sponsorships', __webpack_require__(/*! ./vue/checkout/Sponsorships.vue */ "./resources/js/vue/checkout/Sponsorships.vue"));
-Vue.component('checkout', __webpack_require__(/*! ./vue/checkout/Checkout.vue */ "./resources/js/vue/checkout/Checkout.vue"));
-Vue.component('approve-claim-request', __webpack_require__(/*! ./vue/tournament/ApproveClaimRequest.vue */ "./resources/js/vue/tournament/ApproveClaimRequest.vue"));
-Vue.component('stripe-accounts', __webpack_require__(/*! ./vue/components/StripeAccounts.vue */ "./resources/js/vue/components/StripeAccounts.vue"));
-Vue.component('display-registration', __webpack_require__(/*! ./vue/tournament/display/Registration.vue */ "./resources/js/vue/tournament/display/Registration.vue"));
-Vue.component('action-bar', __webpack_require__(/*! ./vue/tournament/ActionBar.vue */ "./resources/js/vue/tournament/ActionBar.vue"));
-Vue.component('display-sponsorships', __webpack_require__(/*! ./vue/tournament/display/Sponsorships.vue */ "./resources/js/vue/tournament/display/Sponsorships.vue"));
-Vue.component('claim', __webpack_require__(/*! ./vue/tournament/Claim.vue */ "./resources/js/vue/tournament/Claim.vue"));
-Vue.component('footer-information-small', __webpack_require__(/*! ./vue/components/FooterInformationSmall.vue */ "./resources/js/vue/components/FooterInformationSmall.vue"));
-Vue.component('footer-information-large', __webpack_require__(/*! ./vue/components/FooterInformationLarge.vue */ "./resources/js/vue/components/FooterInformationLarge.vue"));
+vue__WEBPACK_IMPORTED_MODULE_0__["default"].component('sponsorship-map', __webpack_require__(/*! ./vue/tournaments/sponsor/SponsorshipMap.vue */ "./resources/js/vue/tournaments/sponsor/SponsorshipMap.vue"));
+vue__WEBPACK_IMPORTED_MODULE_0__["default"].component('tournament-map', __webpack_require__(/*! ./vue/tournaments/search/TournamentMap.vue */ "./resources/js/vue/tournaments/search/TournamentMap.vue"));
+vue__WEBPACK_IMPORTED_MODULE_0__["default"].component('activity-feed', __webpack_require__(/*! ./vue/tournaments/search/ActivityFeed.vue */ "./resources/js/vue/tournaments/search/ActivityFeed.vue"));
+vue__WEBPACK_IMPORTED_MODULE_0__["default"].component('credit-cards', __webpack_require__(/*! ./vue/components/CreditCards.vue */ "./resources/js/vue/components/CreditCards.vue"));
+vue__WEBPACK_IMPORTED_MODULE_0__["default"].component('order-sponsorships', __webpack_require__(/*! ./vue/checkout/Sponsorships.vue */ "./resources/js/vue/checkout/Sponsorships.vue"));
+vue__WEBPACK_IMPORTED_MODULE_0__["default"].component('checkout', __webpack_require__(/*! ./vue/checkout/Checkout.vue */ "./resources/js/vue/checkout/Checkout.vue"));
+vue__WEBPACK_IMPORTED_MODULE_0__["default"].component('approve-claim-request', __webpack_require__(/*! ./vue/tournament/ApproveClaimRequest.vue */ "./resources/js/vue/tournament/ApproveClaimRequest.vue"));
+vue__WEBPACK_IMPORTED_MODULE_0__["default"].component('stripe-accounts', __webpack_require__(/*! ./vue/components/StripeAccounts.vue */ "./resources/js/vue/components/StripeAccounts.vue"));
+vue__WEBPACK_IMPORTED_MODULE_0__["default"].component('display-registration', __webpack_require__(/*! ./vue/tournament/display/Registration.vue */ "./resources/js/vue/tournament/display/Registration.vue"));
+vue__WEBPACK_IMPORTED_MODULE_0__["default"].component('action-bar', __webpack_require__(/*! ./vue/tournament/ActionBar.vue */ "./resources/js/vue/tournament/ActionBar.vue"));
+vue__WEBPACK_IMPORTED_MODULE_0__["default"].component('display-sponsorships', __webpack_require__(/*! ./vue/tournament/display/Sponsorships.vue */ "./resources/js/vue/tournament/display/Sponsorships.vue"));
+vue__WEBPACK_IMPORTED_MODULE_0__["default"].component('claim', __webpack_require__(/*! ./vue/tournament/Claim.vue */ "./resources/js/vue/tournament/Claim.vue"));
+vue__WEBPACK_IMPORTED_MODULE_0__["default"].component('footer-information-small', __webpack_require__(/*! ./vue/components/FooterInformationSmall.vue */ "./resources/js/vue/components/FooterInformationSmall.vue"));
+vue__WEBPACK_IMPORTED_MODULE_0__["default"].component('footer-information-large', __webpack_require__(/*! ./vue/components/FooterInformationLarge.vue */ "./resources/js/vue/components/FooterInformationLarge.vue"));
 
 // Manage
-Vue.component('sponsor-library', __webpack_require__(/*! ./vue/components/SponsorLibrary.vue */ "./resources/js/vue/components/SponsorLibrary.vue"));
-Vue.component('poster', __webpack_require__(/*! ./vue/tournament/Poster.vue */ "./resources/js/vue/tournament/Poster.vue"));
-Vue.component('course', __webpack_require__(/*! ./vue/tournament/Course.vue */ "./resources/js/vue/tournament/Course.vue"));
-Vue.component('course-nav', __webpack_require__(/*! ./vue/tournament/CourseNav.vue */ "./resources/js/vue/tournament/CourseNav.vue"));
-Vue.component('sponsorship-nav', __webpack_require__(/*! ./vue/tournament/SponsorshipNav.vue */ "./resources/js/vue/tournament/SponsorshipNav.vue"));
-Vue.component('form-modal', __webpack_require__(/*! ./vue/components/FormModal.vue */ "./resources/js/vue/components/FormModal.vue"));
-Vue.component('basic-form', __webpack_require__(/*! ./vue/components/BasicForm.vue */ "./resources/js/vue/components/BasicForm.vue"));
-Vue.component('form-row', __webpack_require__(/*! ./vue/components/FormRow.vue */ "./resources/js/vue/components/FormRow.vue"));
-Vue.component('modal', __webpack_require__(/*! ./vue/components/Modal.vue */ "./resources/js/vue/components/Modal.vue"));
-Vue.component('location', __webpack_require__(/*! ./vue/tournament/Location.vue */ "./resources/js/vue/tournament/Location.vue"));
-Vue.component('submit-tournament', __webpack_require__(/*! ./vue/manage/SubmitTournament.vue */ "./resources/js/vue/manage/SubmitTournament.vue"));
-Vue.component('information', __webpack_require__(/*! ./vue/tournament/Information.vue */ "./resources/js/vue/tournament/Information.vue"));
-Vue.component('registration', __webpack_require__(/*! ./vue/tournament/Registration.vue */ "./resources/js/vue/tournament/Registration.vue"));
-Vue.component('schedule', __webpack_require__(/*! ./vue/tournament/Schedule.vue */ "./resources/js/vue/tournament/Schedule.vue"));
-Vue.component('player-packs', __webpack_require__(/*! ./vue/tournament/PlayerPacks.vue */ "./resources/js/vue/tournament/PlayerPacks.vue"));
-Vue.component('links', __webpack_require__(/*! ./vue/tournament/Links.vue */ "./resources/js/vue/tournament/Links.vue"));
-Vue.component('media', __webpack_require__(/*! ./vue/tournament/Media.vue */ "./resources/js/vue/tournament/Media.vue"));
-Vue.component('courses', __webpack_require__(/*! ./vue/tournament/Courses.vue */ "./resources/js/vue/tournament/Courses.vue"));
-Vue.component('sponsorship', __webpack_require__(/*! ./vue/tournament/Sponsorship.vue */ "./resources/js/vue/tournament/Sponsorship.vue"));
-Vue.component('stripe', __webpack_require__(/*! ./vue/tournament/Stripe.vue */ "./resources/js/vue/tournament/Stripe.vue"));
-Vue.component('refund', __webpack_require__(/*! ./vue/manage/order/Refund.vue */ "./resources/js/vue/manage/order/Refund.vue"));
+vue__WEBPACK_IMPORTED_MODULE_0__["default"].component('sponsor-library', __webpack_require__(/*! ./vue/components/SponsorLibrary.vue */ "./resources/js/vue/components/SponsorLibrary.vue"));
+vue__WEBPACK_IMPORTED_MODULE_0__["default"].component('poster', __webpack_require__(/*! ./vue/tournament/Poster.vue */ "./resources/js/vue/tournament/Poster.vue"));
+vue__WEBPACK_IMPORTED_MODULE_0__["default"].component('course', __webpack_require__(/*! ./vue/tournament/Course.vue */ "./resources/js/vue/tournament/Course.vue"));
+vue__WEBPACK_IMPORTED_MODULE_0__["default"].component('course-nav', __webpack_require__(/*! ./vue/tournament/CourseNav.vue */ "./resources/js/vue/tournament/CourseNav.vue"));
+vue__WEBPACK_IMPORTED_MODULE_0__["default"].component('sponsorship-nav', __webpack_require__(/*! ./vue/tournament/SponsorshipNav.vue */ "./resources/js/vue/tournament/SponsorshipNav.vue"));
+vue__WEBPACK_IMPORTED_MODULE_0__["default"].component('form-modal', __webpack_require__(/*! ./vue/components/FormModal.vue */ "./resources/js/vue/components/FormModal.vue"));
+vue__WEBPACK_IMPORTED_MODULE_0__["default"].component('basic-form', __webpack_require__(/*! ./vue/components/BasicForm.vue */ "./resources/js/vue/components/BasicForm.vue"));
+vue__WEBPACK_IMPORTED_MODULE_0__["default"].component('form-row', __webpack_require__(/*! ./vue/components/FormRow.vue */ "./resources/js/vue/components/FormRow.vue"));
+vue__WEBPACK_IMPORTED_MODULE_0__["default"].component('modal', __webpack_require__(/*! ./vue/components/Modal.vue */ "./resources/js/vue/components/Modal.vue"));
+vue__WEBPACK_IMPORTED_MODULE_0__["default"].component('location', __webpack_require__(/*! ./vue/tournament/Location.vue */ "./resources/js/vue/tournament/Location.vue"));
+vue__WEBPACK_IMPORTED_MODULE_0__["default"].component('submit-tournament', __webpack_require__(/*! ./vue/manage/SubmitTournament.vue */ "./resources/js/vue/manage/SubmitTournament.vue"));
+vue__WEBPACK_IMPORTED_MODULE_0__["default"].component('information', __webpack_require__(/*! ./vue/tournament/Information.vue */ "./resources/js/vue/tournament/Information.vue"));
+vue__WEBPACK_IMPORTED_MODULE_0__["default"].component('registration', __webpack_require__(/*! ./vue/tournament/Registration.vue */ "./resources/js/vue/tournament/Registration.vue"));
+vue__WEBPACK_IMPORTED_MODULE_0__["default"].component('schedule', __webpack_require__(/*! ./vue/tournament/Schedule.vue */ "./resources/js/vue/tournament/Schedule.vue"));
+vue__WEBPACK_IMPORTED_MODULE_0__["default"].component('player-packs', __webpack_require__(/*! ./vue/tournament/PlayerPacks.vue */ "./resources/js/vue/tournament/PlayerPacks.vue"));
+vue__WEBPACK_IMPORTED_MODULE_0__["default"].component('links', __webpack_require__(/*! ./vue/tournament/Links.vue */ "./resources/js/vue/tournament/Links.vue"));
+vue__WEBPACK_IMPORTED_MODULE_0__["default"].component('media', __webpack_require__(/*! ./vue/tournament/Media.vue */ "./resources/js/vue/tournament/Media.vue"));
+vue__WEBPACK_IMPORTED_MODULE_0__["default"].component('courses', __webpack_require__(/*! ./vue/tournament/Courses.vue */ "./resources/js/vue/tournament/Courses.vue"));
+vue__WEBPACK_IMPORTED_MODULE_0__["default"].component('sponsorship', __webpack_require__(/*! ./vue/tournament/Sponsorship.vue */ "./resources/js/vue/tournament/Sponsorship.vue"));
+vue__WEBPACK_IMPORTED_MODULE_0__["default"].component('stripe', __webpack_require__(/*! ./vue/tournament/Stripe.vue */ "./resources/js/vue/tournament/Stripe.vue"));
+vue__WEBPACK_IMPORTED_MODULE_0__["default"].component('refund', __webpack_require__(/*! ./vue/manage/order/Refund.vue */ "./resources/js/vue/manage/order/Refund.vue"));
 
 // const bugsnag = require('@bugsnag/js');
 // const bugsnagVue = require('@bugsnag/plugin-vue');
@@ -16684,9 +16689,13 @@ __webpack_require__(/*! ./vue/app */ "./resources/js/vue/app.js");
 /*!*********************************!*\
   !*** ./resources/js/vue/app.js ***!
   \*********************************/
-/***/ (() => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-var app = new Vue({
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
+
+var app = new vue__WEBPACK_IMPORTED_MODULE_0__["default"]({
   el: '#app',
   data: {
     siteUrl: SITE_URL,
