@@ -20,8 +20,8 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         $user = User::factory()->create([
-            'name' => 'Phil',
-            'email' => 'philmareu@gmail.com',
+            'name' => 'Dev',
+            'email' => 'dev@dev.com',
             'password' => bcrypt('password'),
             'activated' => 1,
             'is_admin' => 1
