@@ -1,7 +1,9 @@
 <?php
 
-use DGTournaments\Models\Course;
-use DGTournaments\Models\Tournament;
+namespace Database\Seeders;
+
+use App\Models\Course;
+use App\Models\Tournament;
 use Illuminate\Database\Seeder;
 
 class CoursesTableSeeder extends Seeder
@@ -13,10 +15,10 @@ class CoursesTableSeeder extends Seeder
      */
     public function run()
     {
-        $tournaments = DGTournaments\Models\Tournament::all();
+        $tournaments = Tournament::all();
 
         $tournaments->each(function(Tournament $tournament) {
-            factory(Course::class, 3)->create([
+            Course::factory()->count(3)->create([
                 'latitude' => $tournament->latitude + (rand(0, 10) / 10),
                 'longitude' => $tournament->longitude + (rand(0, 10) / 10)
             ]);

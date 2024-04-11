@@ -1,7 +1,9 @@
 <?php
 
-use DGTournaments\Models\Classes;
-use DGTournaments\Models\Division;
+namespace Database\Seeders;
+
+use App\Models\Classes;
+use App\Models\Division;
 use Illuminate\Database\Seeder;
 
 class DivisionsTableSeeder extends Seeder
@@ -13,7 +15,7 @@ class DivisionsTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(Division::class)->create([
+        Division::factory()->create([
             'title' => 'MPO',
             'class_id' => 1
         ]);

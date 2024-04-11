@@ -9,11 +9,14 @@ use App\Models\Registration;;
 use App\Models\Sponsorship;
 use App\Models\TournamentOrder;
 use App\Models\User\User;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use function foo\func;
 use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         'unique',
         'email',

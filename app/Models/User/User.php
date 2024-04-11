@@ -13,12 +13,15 @@ use App\Models\Sponsor;
 use App\Models\StripeAccount;
 use App\Models\Tournament;
 use App\Models\Upload;
+use Database\Factories\UserFactory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
     use Notifiable;
+    use HasFactory;
 
     /**
      * The attributes that are mass assignable.
@@ -52,6 +55,11 @@ class User extends Authenticatable
     protected $appends = [
         'recent_order'
     ];
+
+    protected static function newFactory()
+    {
+        return UserFactory::new();
+    }
 
     /**
      * Route notifications for the Slack channel.

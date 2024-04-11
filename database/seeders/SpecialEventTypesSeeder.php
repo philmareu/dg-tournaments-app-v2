@@ -1,6 +1,8 @@
 <?php
 
-use DGTournaments\Models\SpecialEventType;
+namespace Database\Seeders;
+
+use App\Models\SpecialEventType;
 use Illuminate\Database\Seeder;
 
 class SpecialEventTypesSeeder extends Seeder
@@ -12,19 +14,19 @@ class SpecialEventTypesSeeder extends Seeder
      */
     public function run()
     {
-        factory(SpecialEventType::class)->create([
+        SpecialEventType::factory()->create([
             'id' => 1,
             'title' => 'Women\'s Only',
             'slug' => 'women-only'
         ]);
 
-        factory(SpecialEventType::class)->create([
+        SpecialEventType::factory()->create([
             'id' => 2,
             'title' => 'Charity/Fundraiser',
             'slug' => 'charity'
         ]);
 
-        factory(SpecialEventType::class)->create([
+        SpecialEventType::factory()->create([
             'id' => 3,
             'title' => 'Junior\'s Only',
             'slug' => 'junior-only'

@@ -1,6 +1,8 @@
 <?php
 
-use DGTournaments\Models\Order;
+namespace Database\Seeders;
+
+use App\Models\Order;
 use Illuminate\Database\Seeder;
 
 class OrdersSeeder extends Seeder
@@ -12,6 +14,6 @@ class OrdersSeeder extends Seeder
      */
     public function run()
     {
-        factory(Order::class, 2)->create();
+        Order::factory()->count(2)->create();
     }
 }

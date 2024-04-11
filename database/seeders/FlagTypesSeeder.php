@@ -1,6 +1,10 @@
 <?php
 
-use DGTournaments\Models\FlagType;
+namespace Database\Seeders;
+
+namespace Database\Seeders;
+
+use App\Models\FlagType;
 use Illuminate\Database\Seeder;
 
 class FlagTypesSeeder extends Seeder
@@ -12,27 +16,27 @@ class FlagTypesSeeder extends Seeder
      */
     public function run()
     {
-        factory(FlagType::class)->create([
+        FlagType::factory()->create([
             'id' => 1,
             'title' => 'Needs Lat/Lng'
         ]);
 
-        factory(FlagType::class)->create([
+        FlagType::factory()->create([
             'id' => 2,
             'title' => 'Needs Course'
         ]);
 
-        factory(FlagType::class)->create([
+        FlagType::factory()->create([
             'id' => 3,
             'title' => 'Needs Registration Link'
         ]);
 
-        factory(FlagType::class)->create([
+        FlagType::factory()->create([
             'id' => 4,
             'title' => 'Potential Women\'s only event'
         ]);
 
-        factory(FlagType::class)->create([
+        FlagType::factory()->create([
             'id' => 5,
             'title' => 'Potential Junior\'s only event'
         ]);

@@ -1,6 +1,8 @@
 <?php
 
-use DGTournaments\Models\User\UserEmailNotificationType;
+namespace Database\Seeders;
+
+use App\Models\User\UserEmailNotificationType;
 use Illuminate\Database\Seeder;
 
 class EmailNotificationTypesSeeder extends Seeder
@@ -12,11 +14,11 @@ class EmailNotificationTypesSeeder extends Seeder
      */
     public function run()
     {
-        factory(UserEmailNotificationType::class)->create([
+        UserEmailNotificationType::factory()->create([
             'label' => 'PDGA rating updates'
         ]);
 
-        factory(UserEmailNotificationType::class)->create([
+        UserEmailNotificationType::factory()->create([
             'label' => 'Important updates from tournaments I follow'
         ]);
     }

@@ -1,6 +1,8 @@
 <?php
 
-use DGTournaments\Models\Classes;
+namespace Database\Seeders;
+
+use App\Models\Classes;
 use Illuminate\Database\Seeder;
 
 class ClassesTableSeeder extends Seeder
@@ -12,11 +14,11 @@ class ClassesTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(Classes::class)->create([
+        Classes::factory()->create([
             'title' => 'Pro'
         ]);
 
-        factory(Classes::class)->create([
+        Classes::factory()->create([
             'title' => 'Am'
         ]);
     }

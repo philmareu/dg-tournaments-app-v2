@@ -9,6 +9,7 @@ use App\Data\Location;
 use App\Events\Models\TournamentCreated;
 use App\Events\Models\TournamentUpdating;
 use App\Models\User\User;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Scout\Searchable;
@@ -16,6 +17,7 @@ use Laravel\Scout\Searchable;
 class Tournament extends Model
 {
     use SoftDeletes, Searchable;
+    use HasFactory;
 
     protected $appends = [
         'location',

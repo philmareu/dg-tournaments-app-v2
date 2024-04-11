@@ -1,19 +1,22 @@
 <?php
 
-use DGTournaments\Models\Sponsorship;
-use DGTournaments\Models\Division;
-use DGTournaments\Models\PdgaTier;
-use DGTournaments\Models\SpecialEventType;
-use DGTournaments\Models\StripeAccount;
-use DGTournaments\Models\Tournament;
-use DGTournaments\Models\Classes;
-use DGTournaments\Models\Format;
-use DGTournaments\Models\PlayerPack;
-use DGTournaments\Models\PlayerPackItem;
-use DGTournaments\Models\Schedule;
-use DGTournaments\Models\Upload;
-use DGTournaments\Models\User\User;
+namespace Database\Seeders;
+
+use App\Models\Sponsorship;
+use App\Models\Division;
+use App\Models\PdgaTier;
+use App\Models\SpecialEventType;
+use App\Models\StripeAccount;
+use App\Models\Tournament;
+use App\Models\Classes;
+use App\Models\Format;
+use App\Models\PlayerPack;
+use App\Models\PlayerPackItem;
+use App\Models\Schedule;
+use App\Models\Upload;
+use App\Models\User\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 class TournamentsTableSeeder extends Seeder
 {
@@ -40,9 +43,9 @@ class TournamentsTableSeeder extends Seeder
 
         foreach ($names as $name)
         {
-            $tournament = factory(Tournament::class)->create([
+            $tournament = Tournament::factory()->create([
                 'name' => $name,
-                'slug' => str_slug($name),
+                'slug' => Str::slug($name),
                 'poster_id' => null
             ]);
 
@@ -52,7 +55,7 @@ class TournamentsTableSeeder extends Seeder
             $tournament->save();
         }
 
-//        $tournament = factory(Tournament::class)->create([
+//        $tournament = Tournament::factory()->create([
 //            'name' => 'DGT Open Unsanctioned',
 //            'slug' => 'dgt-open-unsanctioned',
 //            'poster_id' => null
@@ -65,17 +68,17 @@ class TournamentsTableSeeder extends Seeder
 //        $tournament->classes()->saveMany($classes->random(rand(1, 3)));
 //        $tournament->save();
 
-//        $playerPack = factory(TournamentPlayerPack::class)->make();
+//        $playerPack = TournamentPlayerPack::factory()->make();
 //        $tournament->playerPacks()->save($playerPack);
-//        $playerPack->items()->save(factory(TournamentPlayerPackItem::class)->make());
-//        $playerPack->items()->save(factory(TournamentPlayerPackItem::class)->make());
-//        $playerPack->items()->save(factory(TournamentPlayerPackItem::class)->make());
-//        $tournament->schedule()->save(factory(TournamentSchedule::class)->create());
-//        $tournament->schedule()->save(factory(TournamentSchedule::class)->create());
-//        $tournament->schedule()->save(factory(TournamentSchedule::class)->create());
-//        $tournament->schedule()->save(factory(TournamentSchedule::class)->create());
-//        $tournament->sponsorships()->save(factory(Sponsorship::class)->create());
-//        $tournament->sponsorships()->save(factory(Sponsorship::class)->create());
+//        $playerPack->items()->save(TournamentPlayerPackItem::factory()->make());
+//        $playerPack->items()->save(TournamentPlayerPackItem::factory()->make());
+//        $playerPack->items()->save(TournamentPlayerPackItem::factory()->make());
+//        $tournament->schedule()->save(TournamentSchedule::factory()->create());
+//        $tournament->schedule()->save(TournamentSchedule::factory()->create());
+//        $tournament->schedule()->save(TournamentSchedule::factory()->create());
+//        $tournament->schedule()->save(TournamentSchedule::factory()->create());
+//        $tournament->sponsorships()->save(Sponsorship::factory()->create());
+//        $tournament->sponsorships()->save(Sponsorship::factory()->create());
 
 //        factory(Tournament::class, 40)->create(['format_id' => rand(1, 5)])->each(function(Tournament $tournament) use ($formats, $pdgaTiers, $specialEventTypes, $classes) {
 //            $tournament->format()->associate($formats->first());

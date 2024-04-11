@@ -4,10 +4,13 @@ namespace App\Models;
 
 use App\Data\Price;
 use App\Events\Models\SponsorshipCreated;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Sponsorship extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         'title',
         'tier',

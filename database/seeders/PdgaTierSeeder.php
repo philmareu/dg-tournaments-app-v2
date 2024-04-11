@@ -1,6 +1,8 @@
 <?php
 
-use DGTournaments\Models\PdgaTier;
+namespace Database\Seeders;
+
+use App\Models\PdgaTier;
 use Illuminate\Database\Seeder;
 
 class PdgaTierSeeder extends Seeder
@@ -12,31 +14,31 @@ class PdgaTierSeeder extends Seeder
      */
     public function run()
     {
-        factory(PdgaTier::class)->create([
+        PdgaTier::factory()->create([
             'id' => 1,
             'title' => 'Major',
             'code' => 'M'
         ]);
 
-        factory(PdgaTier::class)->create([
+        PdgaTier::factory()->create([
             'id' => 2,
             'title' => 'National Tour',
             'code' => 'NT'
         ]);
 
-        factory(PdgaTier::class)->create([
+        PdgaTier::factory()->create([
             'id' => 3,
             'title' => 'A',
             'code' => 'A'
         ]);
 
-        factory(PdgaTier::class)->create([
+        PdgaTier::factory()->create([
             'id' => 4,
             'title' => 'B',
             'code' => 'B'
         ]);
 
-        factory(PdgaTier::class)->create([
+        PdgaTier::factory()->create([
             'id' => 5,
             'title' => 'C',
             'code' => 'C'

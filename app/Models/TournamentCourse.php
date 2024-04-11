@@ -3,10 +3,13 @@
 namespace App\Models;
 
 use App\Events\TournamentCourseCreated;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class TournamentCourse extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         'name',
         'holes',
