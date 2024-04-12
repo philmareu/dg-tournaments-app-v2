@@ -68,7 +68,7 @@ class User extends Authenticatable
      */
     public function routeNotificationForSlack()
     {
-        return 'https://hooks.slack.com/services/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';
+        return '';
     }
 
     public function activation()

@@ -107,7 +107,7 @@ class TournamentManagerController extends Controller implements HasMiddleware
 
         $response = $client->post('https://connect.stripe.com/oauth/deauthorize', [
             'headers' => [
-                'Authorization' => 'Bearer sk_test_dlr9wcCqSgKnKzmlnl6Z68vT',
+                'Authorization' => 'Bearer ' . config('services.stripe.secret'),
             ],
             'body' => [
                 'client_id' => config('services.stripe.client_id'),
