@@ -11,7 +11,7 @@
             <span uk-icon="icon: dgt; ratio: .4"></span>
         </a>
 
-        <div class="title uk-margin">DG Tournaments</div>
+        <div class="title uk-margin"><a href="{{ route('home') }}">DG Tournaments</a></div>
 
         @if(session()->has('success'))
             <div class="uk-alert uk-alert-success" data-uk-alert>

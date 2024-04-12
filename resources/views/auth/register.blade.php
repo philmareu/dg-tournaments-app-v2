@@ -10,7 +10,7 @@
             <span uk-icon="icon: dgt; ratio: .4"></span>
         </a>
 
-        <div class="title uk-margin">DG Tournaments</div>
+        <div class="title uk-margin"><a href="{{ route('home') }}">DG Tournaments</a></div>
 
         <div class="uk-card uk-card-default uk-card-small">
 

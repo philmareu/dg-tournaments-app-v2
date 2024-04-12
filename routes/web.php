@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 // Primary
-Route::get('/', [\App\Http\Controllers\HomeController::class, 'index']);
+Route::get('/', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('search', [\App\Http\Controllers\SearchController::class, 'index'])->name('search');
 
 // Tournament
