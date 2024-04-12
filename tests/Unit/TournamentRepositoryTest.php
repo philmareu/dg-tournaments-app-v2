@@ -10,10 +10,11 @@ use Illuminate\Support\Facades\Event;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class TournamentRepositoryTest extends TestCase
 {
-    use DatabaseMigrations;
+    use RefreshDatabase;
 
     /** @test */
     public function should_provide_a_list_of_courses_surrounding_a_given_tournament_model()
@@ -42,7 +43,7 @@ class TournamentRepositoryTest extends TestCase
 
     private function getRepo()
     {
-        return new \DGTournaments\Repositories\TournamentRepository(
+        return new \App\Repositories\TournamentRepository(
             new Tournament(),
             new FoursquareApi(),
             new DarkSkyApi(),

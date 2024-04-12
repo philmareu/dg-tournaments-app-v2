@@ -28,6 +28,6 @@ class SendClaimRequestEmailToTournament implements ShouldQueue
     public function handle(TournamentClaimRequestSubmitted $event)
     {
         Mail::to($event->claimRequest->tournament->authorization_email)
-            ->send(new \DGTournaments\Mail\Directors\ClaimRequest($event->claimRequest->tournament));
+            ->send(new \App\Mail\Directors\ClaimRequest($event->claimRequest->tournament));
     }
 }

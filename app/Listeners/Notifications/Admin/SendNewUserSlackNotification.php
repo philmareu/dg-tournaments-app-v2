@@ -28,6 +28,6 @@ class SendNewUserSlackNotification
      */
     public function handle(NewUserActivated $event)
     {
-        User::find(1)->notify(new \DGTournaments\Notifications\NewUserActivated($event->user));
+        User::find(1)->notify(new \App\Notifications\NewUserActivated($event->user));
     }
 }

@@ -33,7 +33,7 @@ class FeedbacksController extends Controller
             'feedback' => nl2br($request->feedback)
         ]);
 
-        Mail::to('admin@dgtournaments.com')->send(new \DGTournaments\Mail\Admin\Feedback($feedback));
+        Mail::to('admin@dgtournaments.com')->send(new \App\Mail\Admin\Feedback($feedback));
 
         return redirect('contact-us')->with('success', 'Thanks for your feedback!');
     }

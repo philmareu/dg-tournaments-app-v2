@@ -5,16 +5,16 @@ namespace Tests\Feature\API\Tournament;
 use Carbon\Carbon;
 use App\Models\Schedule;
 use App\Models\Tournament;
-use App\Models\TournamentSchedule;
 use Illuminate\Support\Facades\Event;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ScheduleEndpointTest extends TestCase
 {
-    use DatabaseMigrations;
+    use RefreshDatabase;
 
     protected function setUp(): void
     {

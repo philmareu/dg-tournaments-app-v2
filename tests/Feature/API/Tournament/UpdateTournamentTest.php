@@ -47,7 +47,7 @@ class UpdateTournamentTest extends TestCase
             'description' => 'A disc golf tournament',
             'poster_id' => Upload::factory()->create()->id,
             'format_id' => Format::factory()->create()->id,
-            'special_event_type_ids' => factory(SpecialEventType::class, 3)->create()->pluck('id')->toArray(),
+            'special_event_type_ids' => SpecialEventType::factory()->count(3)->create()->pluck('id')->toArray(),
             'timezone' => 'America/Chicago'
         ];
 
@@ -133,7 +133,7 @@ class UpdateTournamentTest extends TestCase
             'description' => 'A disc golf tournament',
             'poster_id' => Upload::factory()->create()->id,
             'format_id' => Format::factory()->create()->id,
-            'special_event_type_ids' => factory(SpecialEventType::class, 3)->create()->pluck('id')->toArray(),
+            'special_event_type_ids' => SpecialEventType::factory()->count(3)->create()->pluck('id')->toArray(),
             'timezone' => 'America/Chicago'
         ];
 

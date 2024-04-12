@@ -13,7 +13,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class TournamentFlagTest extends TestCase
 {
-    use DatabaseMigrations;
+    use RefreshDatabase;
 
     /**
      * @test
@@ -70,8 +70,8 @@ class TournamentFlagTest extends TestCase
     {
         Event::fake();
 
-        $tournamentsNoGeo = factory(Tournament::class, 3)->states('no-geo', 'future')->create();
-        $tournamentsWithGeo = factory(Tournament::class, 3)->states('future')->create();
+        $tournamentsNoGeo = Tournament::factory()->count(3)->states('no-geo', 'future')->create();
+        $tournamentsWithGeo = Tournament::factory()->count(3)->states('future')->create();
 
         $this->artisan('maintenance:flag-tournaments');
 
@@ -98,8 +98,8 @@ class TournamentFlagTest extends TestCase
     {
         Event::fake();
 
-        $tournamentsNoCourses = factory(Tournament::class, 3)->create();
-        $tournamentsWithCourses = factory(Tournament::class, 3)->create()->each(function(Tournament $tournament) {
+        $tournamentsNoCourses = Tournament::factory()->count(3)->create();
+        $tournamentsWithCourses = Tournament::factory()->count(3)->create()->each(function(Tournament $tournament) {
             $tournament->courses()->save(TournamentCourse::factory()->make());
         });
 
@@ -128,8 +128,8 @@ class TournamentFlagTest extends TestCase
     {
         Event::fake();
 
-        $tournamentsNoRegistration = factory(Tournament::class, 3)->create();
-        $tournamentsWithRegistration = factory(Tournament::class, 3)->create()->each(function(Tournament $tournament) {
+        $tournamentsNoRegistration = Tournament::factory()->count(3)->create();
+        $tournamentsWithRegistration = Tournament::factory()->count(3)->create()->each(function(Tournament $tournament) {
             $tournament->registration()->save(Registration::factory()->make());
         });
 

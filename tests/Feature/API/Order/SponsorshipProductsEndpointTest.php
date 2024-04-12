@@ -11,10 +11,11 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class SponsorshipProductsEndpointTest extends TestCase
 {
-    use DatabaseMigrations;
+    use RefreshDatabase;
 
     protected function setUp(): void
     {
@@ -116,7 +117,7 @@ class SponsorshipProductsEndpointTest extends TestCase
     {
         $order = Order::factory()->create();
 
-        factory(OrderSponsorship::class, 2)->create([
+        OrderSponsorship::factory()->count(2)->create([
             'order_id' => $order->id
         ]);
 

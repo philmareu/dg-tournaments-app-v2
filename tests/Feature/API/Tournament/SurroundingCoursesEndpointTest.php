@@ -8,10 +8,11 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class SurroundingCoursesEndpointTest extends TestCase
 {
-    use DatabaseMigrations;
+    use RefreshDatabase;
 
     protected $endpoint = 'tournament/surrounding-courses/';
 
@@ -36,7 +37,7 @@ class SurroundingCoursesEndpointTest extends TestCase
 
         $tournament = Tournament::factory()->create();
 
-        $courses = factory(Course::class, 3)->create()->each(function(Course $course) use ($tournament, $defaultDistance) {
+        $courses = Course::factory()->count(3)->create()->each(function(Course $course) use ($tournament, $defaultDistance) {
             $course->update([
                 'latitude' => $tournament->latitude + rand(0, $defaultDistance * 99) / 100,
                 'longitude' => $tournament->longitude + rand(0, $defaultDistance * 99) / 100

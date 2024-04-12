@@ -13,10 +13,11 @@ use Illuminate\Support\Facades\Event;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class OrderRepositoryTest extends TestCase
 {
-    use DatabaseMigrations;
+    use RefreshDatabase;
 
     /**
      * @test
@@ -68,7 +69,7 @@ class OrderRepositoryTest extends TestCase
 
     private function getRepo()
     {
-        return new \DGTournaments\Repositories\OrderRepository(
+        return new \App\Repositories\OrderRepository(
             new Order(),
             new StripeBilling()
         );

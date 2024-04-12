@@ -5,19 +5,17 @@ namespace Tests\Feature\API\Tournament;
 use App\Models\PlayerPack;
 use App\Models\PlayerPackItem;
 use App\Models\Tournament;
-use App\Models\TournamentFormat;
-use App\Models\TournamentPlayerPack;
-use App\Models\TournamentPlayerPackItem;
 use App\Models\User\User;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Event;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class PlayerPackTest extends TestCase
 {
-    use DatabaseMigrations;
+    use RefreshDatabase;
 
     protected function setUp(): void
     {

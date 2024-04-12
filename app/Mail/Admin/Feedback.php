@@ -18,7 +18,7 @@ class Feedback extends Mailable
      *
      * @return void
      */
-    public function __construct(\DGTournaments\Models\Feedback $feedback)
+    public function __construct(\App\Models\Feedback $feedback)
     {
         $this->feedback = $feedback;
     }

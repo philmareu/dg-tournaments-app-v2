@@ -15,10 +15,11 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class CourseEndpointTest extends TestCase
 {
-    use DatabaseMigrations;
+    use RefreshDatabase;
 
     /** @test */
     public function a_new_course_is_created_if_course_id_is_not_provided()
@@ -238,7 +239,7 @@ class CourseEndpointTest extends TestCase
         $this->actingAs($user)
             ->json('POST', 'tournament/courses/' . $tournament->id, $course->toArray());
 
-        $activity = Activity::where('resource_type', 'DGTournaments\Models\Course')
+        $activity = Activity::where('resource_type', 'App\Models\Course')
             ->where('resource_id', 1)
             ->where('type', 'course.created')
             ->first();
@@ -285,7 +286,7 @@ class CourseEndpointTest extends TestCase
         $this->actingAs($user)
             ->json('POST', 'tournament/courses/' . $tournament->id, $course->toArray());
 
-        $activity = Activity::where('resource_type', 'DGTournaments\Models\Tournament')
+        $activity = Activity::where('resource_type', 'App\Models\Tournament')
             ->where('resource_id', 1)
             ->where('type', 'tournament.course.created')
             ->first();

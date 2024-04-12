@@ -13,7 +13,7 @@ use Tests\TestCase;
 
 class RegistrationEndpointTest extends TestCase
 {
-    use DatabaseMigrations;
+    use RefreshDatabase;
 
     protected $endpoint = 'tournament/registration/';
 
@@ -227,7 +227,7 @@ class RegistrationEndpointTest extends TestCase
 
         $activity = $tournament->activities->first();
 
-        $this->assertEquals('DGTournaments\Models\Tournament', $activity->resource_type);
+        $this->assertEquals('App\Models\Tournament', $activity->resource_type);
         $this->assertEquals($tournament->id, $activity->resource_id);
         $this->assertEquals('tournament.registration.updated', $activity->type);
         $this->assertEquals($tournament->registration->opens_at, $activity->data->opens_at);

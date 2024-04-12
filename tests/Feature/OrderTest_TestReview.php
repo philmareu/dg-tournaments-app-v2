@@ -16,10 +16,11 @@ use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Mail;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class OrderTest_TestReview extends TestCase
 {
-    use DatabaseMigrations;
+    use RefreshDatabase;
 
     /**
      * @test
@@ -79,14 +80,14 @@ class OrderTest_TestReview extends TestCase
 
         // Tournament #1
         $tournament1 = Tournament::factory()->create();
-        $tournament1Sponsorships = $tournament1->sponsorships()->saveMany(factory(Sponsorship::class, 3)->make());
+        $tournament1Sponsorships = $tournament1->sponsorships()->saveMany(Sponsorship::factory()->count(3)->make());
         $tournament1Sponsorships->each(function (Sponsorship $sponsorship) use ($order) {
             $this->addSponsorshipToOrder($order, $sponsorship);
         });
 
         // Tournament #2
         $tournament2 = Tournament::factory()->create();
-        $tournament2Sponsorships = $tournament2->sponsorships()->saveMany(factory(Sponsorship::class, 2)->make());
+        $tournament2Sponsorships = $tournament2->sponsorships()->saveMany(Sponsorship::factory()->count(2)->make());
         $tournament2Sponsorships->each(function (Sponsorship $sponsorship) use ($order) {
             $this->addSponsorshipToOrder($order, $sponsorship);
         });
@@ -121,7 +122,7 @@ class OrderTest_TestReview extends TestCase
 
         // Tournament #1
         $tournament1 = Tournament::factory()->create();
-        $tournament1Sponsorships = $tournament1->sponsorships()->saveMany(factory(Sponsorship::class, 3)->make());
+        $tournament1Sponsorships = $tournament1->sponsorships()->saveMany(Sponsorship::factory()->count(3)->make());
         $tournament1Sponsorships->each(function (Sponsorship $sponsorship) use ($order) {
             $this->addSponsorshipToOrder($order, $sponsorship);
         });
@@ -132,7 +133,7 @@ class OrderTest_TestReview extends TestCase
 
         // Tournament #2
         $tournament2 = Tournament::factory()->create();
-        $tournament2Sponsorships = $tournament2->sponsorships()->saveMany(factory(Sponsorship::class, 2)->make());
+        $tournament2Sponsorships = $tournament2->sponsorships()->saveMany(Sponsorship::factory()->count(2)->make());
         $tournament2Sponsorships->each(function (Sponsorship $sponsorship) use ($order) {
             $this->addSponsorshipToOrder($order, $sponsorship);
         });
@@ -158,7 +159,7 @@ class OrderTest_TestReview extends TestCase
             'stripe_user_id' => env('STRIPE_TEST_ACCOUNT_1_ACCOUNT')
         ]);
         $tournament1->stripeAccount()->associate($stripeAccount)->save();
-        $tournament1Sponsorships = $tournament1->sponsorships()->saveMany(factory(Sponsorship::class, 3)->make());
+        $tournament1Sponsorships = $tournament1->sponsorships()->saveMany(Sponsorship::factory()->count(3)->make());
         $tournament1Sponsorships->each(function (Sponsorship $sponsorship) use ($order) {
             $this->addSponsorshipToOrder($order, $sponsorship);
         });
@@ -174,7 +175,7 @@ class OrderTest_TestReview extends TestCase
             'stripe_user_id' => env('STRIPE_TEST_ACCOUNT_2_ACCOUNT')
         ]);
         $tournament2->stripeAccount()->associate($stripeAccount)->save();
-        $tournament2Sponsorships = $tournament2->sponsorships()->saveMany(factory(Sponsorship::class, 2)->make());
+        $tournament2Sponsorships = $tournament2->sponsorships()->saveMany(Sponsorship::factory()->count(2)->make());
         $tournament2Sponsorships->each(function (Sponsorship $sponsorship) use ($order) {
             $this->addSponsorshipToOrder($order, $sponsorship);
         });
@@ -207,14 +208,14 @@ class OrderTest_TestReview extends TestCase
 
         // Tournament #1
         $tournament1 = Tournament::factory()->create();
-        $tournament1Sponsorships = $tournament1->sponsorships()->saveMany(factory(Sponsorship::class, 3)->make());
+        $tournament1Sponsorships = $tournament1->sponsorships()->saveMany(Sponsorship::factory()->count(3)->make());
         $tournament1Sponsorships->each(function (Sponsorship $sponsorship) use ($order) {
             $this->addSponsorshipToOrder($order, $sponsorship);
         });
 
         // Tournament #2
         $tournament2 = Tournament::factory()->create();
-        $tournament2Sponsorships = $tournament2->sponsorships()->saveMany(factory(Sponsorship::class, 2)->make());
+        $tournament2Sponsorships = $tournament2->sponsorships()->saveMany(Sponsorship::factory()->count(2)->make());
         $tournament2Sponsorships->each(function (Sponsorship $sponsorship) use ($order) {
             $this->addSponsorshipToOrder($order, $sponsorship);
         });

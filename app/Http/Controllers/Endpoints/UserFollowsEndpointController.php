@@ -46,7 +46,7 @@ class UserFollowsEndpointController extends Controller implements HasMiddleware
     {
         return (bool) $this->getCurrentUser()
             ->following()
-            ->where('resource_type', 'DGTournaments\Models\Tournament')
+            ->where('resource_type', 'App\Models\Tournament')
             ->where('resource_id', $tournament->id)
             ->get()
             ->count();
@@ -56,7 +56,7 @@ class UserFollowsEndpointController extends Controller implements HasMiddleware
     {
         $this->getCurrentUser()
             ->following()
-            ->where('resource_type', 'DGTournaments\Models\Tournament')
+            ->where('resource_type', 'App\Models\Tournament')
             ->where('resource_id', $tournament->id)
             ->get()
             ->each(function(Follow $follow) {

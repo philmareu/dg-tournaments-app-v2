@@ -3,15 +3,15 @@
 namespace Tests\Feature\API\Tournament;
 
 use App\Models\Schedule;
-use App\Models\TournamentSchedule;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ScheduleValidationTest extends TestCase
 {
-    use DatabaseMigrations;
+    use RefreshDatabase;
 
     /** @test */
     public function storing_a_schedule_item_requires_a_date()

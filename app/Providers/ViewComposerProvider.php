@@ -16,7 +16,7 @@ class ViewComposerProvider extends ServiceProvider
     {
         View::composer(
             ['pages.tournament.index'],
-            \DGTournaments\ViewComposers\WeatherIconViewComposers::class
+            \App\ViewComposers\WeatherIconViewComposers::class
         );
     }
 

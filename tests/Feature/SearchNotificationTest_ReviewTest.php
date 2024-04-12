@@ -28,7 +28,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class SearchNotificationTest_ReviewTest extends TestCase
 {
-    use DatabaseMigrations;
+    use RefreshDatabase;
 
     protected function setUp(): void
     {
@@ -56,7 +56,7 @@ class SearchNotificationTest_ReviewTest extends TestCase
     {
         $repo = $this->getSearchRepo();
 
-        $ready = factory(Search::class, 2)->states('daily-ready')->create();
+        $ready = Search::factory()->count(2)->states('daily-ready')->create();
 
         $repo->getReadyByFrequency('daily')->each(function (Search $search) use ($ready) {
             $this->assertTrue($ready->where('id', $search->id)->isNotEmpty());
@@ -70,7 +70,7 @@ class SearchNotificationTest_ReviewTest extends TestCase
     {
         $repo = $this->getSearchRepo();
 
-        factory(Search::class, 2)->states('daily-not-ready')->create();
+        Search::factory()->count(2)->states('daily-not-ready')->create();
 
         $this->assertTrue($repo->getReadyByFrequency('daily')->isEmpty());
     }
@@ -82,7 +82,7 @@ class SearchNotificationTest_ReviewTest extends TestCase
     {
         $repo = $this->getSearchRepo();
 
-        $ready = factory(Search::class, 2)->states('weekly-ready')->create();
+        $ready = Search::factory()->count(2)->states('weekly-ready')->create();
 
         $repo->getReadyByFrequency('weekly')->each(function (Search $search) use ($ready) {
             $this->assertTrue($ready->where('id', $search->id)->isNotEmpty());
@@ -96,7 +96,7 @@ class SearchNotificationTest_ReviewTest extends TestCase
     {
         $repo = $this->getSearchRepo();
 
-        factory(Search::class, 2)->states('weekly-not-ready')->create();
+        Search::factory()->count(2)->states('weekly-not-ready')->create();
 
         $this->assertTrue($repo->getReadyByFrequency('weekly')->isEmpty());
     }
@@ -108,8 +108,8 @@ class SearchNotificationTest_ReviewTest extends TestCase
     {
         $repo = $this->getSearchRepo();
 
-        $ready = factory(Search::class, 3)->states('daily-ready')->create();
-        $ready = $ready->merge(factory(Search::class, 3)->states('weekly-ready')->create());
+        $ready = Search::factory()->count(3)->states('daily-ready')->create();
+        $ready = $ready->merge(Search::factory()->count(3)->states('weekly-ready')->create());
 
         $this->assertEquals(6, $repo->getAllReadySearches()->count());
 
@@ -128,8 +128,8 @@ class SearchNotificationTest_ReviewTest extends TestCase
         $user1 = User::factory()->create(['id' => 124]);
         $user2 = User::factory()->create(['id' => 3492]);
 
-        $ready1 = factory(Search::class, 2)->states('daily-ready')->create();
-        $ready2 = factory(Search::class, 2)->states('daily-ready')->create();
+        $ready1 = Search::factory()->count(2)->states('daily-ready')->create();
+        $ready2 = Search::factory()->count(2)->states('daily-ready')->create();
 
         $user1->searches()->saveMany($ready1);
         $user2->searches()->saveMany($ready2);
@@ -329,7 +329,7 @@ class SearchNotificationTest_ReviewTest extends TestCase
 
     private function getUserRepo()
     {
-        return new UserRepository(new User, new UserActivation(new ActivationRepository(new \DGTournaments\Models\User\UserActivation)));
+        return new UserRepository(new User, new UserActivation(new ActivationRepository(new \App\Models\User\UserActivation)));
     }
 
     protected function getTournamentRepo()

@@ -4,13 +4,14 @@ namespace Tests\Unit;
 
 use App\Models\ClaimRequest;
 use App\Repositories\ClaimRepository;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class ClaimRepositoryTest extends TestCase
 {
-    use DatabaseMigrations;
+    use RefreshDatabase;
 
     /** @test */
     public function token_created()

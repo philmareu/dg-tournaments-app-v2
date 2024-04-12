@@ -12,7 +12,7 @@ use App\Models\Upload;
 use App\Models\User\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\TestResponse;
+use Illuminate\Testing\TestResponse;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
@@ -21,7 +21,7 @@ use Tests\ValidationHelperTrait;
 
 class SubmitTournamentTest extends TestCase
 {
-    use DatabaseMigrations, ValidationHelperTrait;
+    use RefreshDatabase, ValidationHelperTrait;
 
     protected $endpoint = 'manage/submit';
 
@@ -257,7 +257,7 @@ class SubmitTournamentTest extends TestCase
         );
 
         $this->assertDatabaseHas('activities', [
-            'resource_type' => 'DGTournaments\Models\Tournament',
+            'resource_type' => 'App\Models\Tournament',
             'resource_id' => $tournament->id,
             'type' => 'tournament.submitted'
         ]);
@@ -287,8 +287,8 @@ class SubmitTournamentTest extends TestCase
 
     private function data()
     {
-        $specialEventTypes = factory(SpecialEventType::class, 3)->create();
-        $classes = factory(Classes::class, 2)->create();
+        $specialEventTypes = SpecialEventType::factory()->count(3)->create();
+        $classes = Classes::factory()->count(2)->create();
 
         return [
             'name' => 'Test Tournament',

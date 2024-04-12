@@ -12,10 +12,11 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class TournamentFollowTest extends TestCase
 {
-    use DatabaseMigrations;
+    use RefreshDatabase;
 
     /**
      * @test
@@ -38,7 +39,7 @@ class TournamentFollowTest extends TestCase
         list($user, $tournament) = $this->createUserFollowTournament();
 
         $followingTournament = $user->following()
-            ->where('resource_type', 'DGTournaments\Models\Tournament')
+            ->where('resource_type', 'App\Models\Tournament')
             ->where('resource_id', $tournament->id)
             ->first();
 
@@ -69,7 +70,7 @@ class TournamentFollowTest extends TestCase
         $this->followTournament($user, $tournament);
 
         $followingTournament = $user->following()
-            ->where('resource_type', 'DGTournaments\Models\Tournament')
+            ->where('resource_type', 'App\Models\Tournament')
             ->where('resource_id', $tournament->id)
             ->first();
 
@@ -110,7 +111,7 @@ class TournamentFollowTest extends TestCase
 
         $this->assertDatabaseHas('activities', [
             'user_id' => $user->id,
-            'resource_type' => 'DGTournaments\Models\Tournament',
+            'resource_type' => 'App\Models\Tournament',
             'resource_id' => $tournament->id,
             'type' => 'tournament.followed'
         ]);
@@ -124,7 +125,7 @@ class TournamentFollowTest extends TestCase
 
         $this->assertDatabaseHas('activities', [
             'user_id' => $user->id,
-            'resource_type' => 'DGTournaments\Models\Tournament',
+            'resource_type' => 'App\Models\Tournament',
             'resource_id' => $tournament->id,
             'type' => 'tournament.unfollowed'
         ]);
@@ -179,7 +180,7 @@ class TournamentFollowTest extends TestCase
 //
 //        $this->followTournament($user, $tournament);
 //
-//        Queue::assertPushed(\DGTournaments\Listeners\Activity\CreateTournamentFollowedActivity::class, function ($job) use ($tournament, $user) {
+//        Queue::assertPushed(\App\Listeners\Activity\CreateTournamentFollowedActivity::class, function ($job) use ($tournament, $user) {
 //            return $job->tournament->id === $tournament->id && $job->user->id === $user->id;
 //        });
 //    }
