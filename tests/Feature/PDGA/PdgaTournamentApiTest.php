@@ -2,15 +2,15 @@
 
 namespace Tests\Feature\PDGA;
 
-use DGTournaments\Models\Classes;
-use DGTournaments\Models\DataSource;
-use DGTournaments\Models\Format;
-use DGTournaments\Models\Tournament;
-use DGTournaments\Models\User\User;
-use DGTournaments\Repositories\Api\TournamentRepository;
-use DGTournaments\Services\API\Payloads\TournamentDataPayload;
-use DGTournaments\Services\API\Responses\TournamentsResponse;
-use DGTournaments\Services\Pdga\Helpers\PdgaTournamentPayloadBuilder;
+use App\Models\Classes;
+use App\Models\DataSource;
+use App\Models\Format;
+use App\Models\Tournament;
+use App\Models\User\User;
+use App\Repositories\Api\TournamentRepository;
+use App\Services\API\Payloads\TournamentDataPayload;
+use App\Services\API\Responses\TournamentsResponse;
+use App\Services\Pdga\Helpers\PdgaTournamentPayloadBuilder;
 use Illuminate\Support\Facades\Artisan;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -87,7 +87,7 @@ class PdgaTournamentApiTest extends TestCase
         $tournament->dataSource()->associate($this->getDataSource());
         $tournament->pdgaTiers()->sync([]);
         $tournament->classes()->sync([]);
-        $tournament->format()->associate(factory(Format::class)->create());
+        $tournament->format()->associate(Format::factory()->create());
         $tournament->data_source_tournament_id = '32490';
         $tournament->save();
 
@@ -163,7 +163,7 @@ class PdgaTournamentApiTest extends TestCase
         $this->seed('ClassesTableSeeder');
         $this->seed('PdgaTierSeeder');
         $this->seed('FormatsTableSeeder');
-        $user = factory(User::class)->create([
+        $user = User::factory()->create([
             'email' => 'cajunduffer@yahoo.com'
         ]);
 
@@ -204,7 +204,7 @@ class PdgaTournamentApiTest extends TestCase
 
     public function getDataSource() : DataSource
     {
-        return factory(DataSource::class)->create([
+        return DataSource::factory()->create([
             'slug' => 'pdga',
             'type' => 'tournament'
         ]);

@@ -2,8 +2,8 @@
 
 namespace Tests\Feature\API\Tournament;
 
-use DGTournaments\Models\Link;
-use DGTournaments\Models\Tournament;
+use App\Models\Link;
+use App\Models\Tournament;
 use Illuminate\Support\Facades\Event;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
@@ -14,7 +14,7 @@ class LinkEndpointTest extends TestCase
 {
     use DatabaseMigrations;
 
-    public function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -25,7 +25,7 @@ class LinkEndpointTest extends TestCase
     public function only_a_manager_can_store_a_link()
     {
         $this->actingAs($this->createUser())
-            ->json('POST', 'tournament/links/' . factory(Tournament::class)->create()->id)
+            ->json('POST', 'tournament/links/' . Tournament::factory()->create()->id)
             ->assertStatus(403);
     }
 
@@ -34,7 +34,7 @@ class LinkEndpointTest extends TestCase
     {
 
         $this->actingAs($this->createUser())
-            ->json('PUT', 'tournament/links/' . factory(Link::class)->create()->id)
+            ->json('PUT', 'tournament/links/' . Link::factory()->create()->id)
             ->assertStatus(403);
     }
 
@@ -43,7 +43,7 @@ class LinkEndpointTest extends TestCase
     {
 
         $this->actingAs($this->createUser())
-            ->json('DELETE', 'tournament/links/' . factory(Link::class)->create()->id)
+            ->json('DELETE', 'tournament/links/' . Link::factory()->create()->id)
             ->assertStatus(403);
     }
 
@@ -80,7 +80,7 @@ class LinkEndpointTest extends TestCase
     {
         list($user, $tournament) = $this->createTournamentWithManager();
 
-        $tournament->links()->save(factory(Link::class)->make());
+        $tournament->links()->save(Link::factory()->make());
 
         $data = [
             'title' => 'Link Title',
@@ -110,7 +110,7 @@ class LinkEndpointTest extends TestCase
     {
         list($user, $tournament) = $this->createTournamentWithManager();
 
-        $tournament->links()->save(factory(Link::class)->make());
+        $tournament->links()->save(Link::factory()->make());
 
         $this->actingAs($user)
             ->json('DELETE', 'tournament/links/' . $tournament->links->first()->id)

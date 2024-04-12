@@ -2,10 +2,10 @@
 
 namespace Tests\Unit\Collections;
 
-use DGTournaments\Models\Order;
-use DGTournaments\Models\OrderSponsorship;
-use DGTournaments\Models\Sponsorship;
-use DGTournaments\Models\Tournament;
+use App\Models\Order;
+use App\Models\OrderSponsorship;
+use App\Models\Sponsorship;
+use App\Models\Tournament;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -19,17 +19,17 @@ class OrderSponsorshipsCollectionTest extends TestCase
      */
     public function should_return_a_collection_of_order_sponsorships_grouped_by_tournament_id()
     {
-        $order = factory(Order::class)->create();
+        $order = Order::factory()->create();
 
         // Tournament #1
-        $tournament1 = factory(Tournament::class)->create();
+        $tournament1 = Tournament::factory()->create();
         $tournament1Sponsorships = $tournament1->sponsorships()->saveMany(factory(Sponsorship::class, 3)->make());
         $tournament1Sponsorships->each(function (Sponsorship $sponsorship) use ($order) {
             $this->addSponsorshipToOrder($order, $sponsorship);
         });
 
         // Tournament #2
-        $tournament2 = factory(Tournament::class)->create();
+        $tournament2 = Tournament::factory()->create();
         $tournament2Sponsorships = $tournament2->sponsorships()->saveMany(factory(Sponsorship::class, 2)->make());
         $tournament2Sponsorships->each(function (Sponsorship $sponsorship) use ($order) {
             $this->addSponsorshipToOrder($order, $sponsorship);

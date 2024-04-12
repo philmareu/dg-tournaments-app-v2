@@ -2,7 +2,8 @@
 
 namespace Tests\Feature\API\Tournament;
 
-use DGTournaments\Models\TournamentCourse;
+use App\Models\TournamentCourse;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -11,7 +12,8 @@ use Tests\ValidationHelperTrait;
 
 class CourseEndpointValidationTest extends TestCase
 {
-    use DatabaseMigrations, ValidationHelperTrait;
+    use RefreshDatabase;
+    use ValidationHelperTrait;
 
     /** @test */
     public function storing_a_tournament_course_requires_a_name()
@@ -182,7 +184,7 @@ class CourseEndpointValidationTest extends TestCase
     }
 
     /**
-     * @return \Illuminate\Foundation\Testing\TestResponse
+     * @return \Illuminate\Testing\TestResponse
      */
     public function storing($data = [])
     {
@@ -202,7 +204,7 @@ class CourseEndpointValidationTest extends TestCase
         $tournament = $this->createTournament();
         $tournament->managers()->save($user);
 
-        $tournamentCourse = factory(TournamentCourse::class)->create([
+        $tournamentCourse = TournamentCourse::factory()->create([
             'tournament_id' => $tournament->id
         ]);
 

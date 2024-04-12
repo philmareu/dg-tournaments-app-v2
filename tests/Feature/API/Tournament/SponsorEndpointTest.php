@@ -2,9 +2,9 @@
 
 namespace Tests\Feature\API\Tournament;
 
-use DGTournaments\Models\Sponsor;
-use DGTournaments\Models\Sponsorship;
-use DGTournaments\Models\TournamentSponsor;
+use App\Models\Sponsor;
+use App\Models\Sponsorship;
+use App\Models\TournamentSponsor;
 use Illuminate\Support\Facades\Event;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
@@ -15,7 +15,7 @@ class SponsorEndpointTest extends TestCase
 {
     use DatabaseMigrations;
 
-    public function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -27,7 +27,7 @@ class SponsorEndpointTest extends TestCase
     {
 
         $this->actingAs($this->createUser())
-            ->json('POST', 'tournament/sponsorship/sponsors/' . factory(Sponsorship::class)->create()->id)
+            ->json('POST', 'tournament/sponsorship/sponsors/' . Sponsorship::factory()->create()->id)
             ->assertStatus(403);
     }
 
@@ -36,7 +36,7 @@ class SponsorEndpointTest extends TestCase
     {
 
         $this->actingAs($this->createUser())
-            ->json('PUT', 'tournament/sponsorship/sponsors/' . factory(TournamentSponsor::class)->create()->id)
+            ->json('PUT', 'tournament/sponsorship/sponsors/' . TournamentSponsor::factory()->create()->id)
             ->assertStatus(403);
     }
 
@@ -45,7 +45,7 @@ class SponsorEndpointTest extends TestCase
     {
 
         $this->actingAs($this->createUser())
-            ->json('DELETE', 'tournament/sponsorship/sponsors/' . factory(TournamentSponsor::class)->create()->id)
+            ->json('DELETE', 'tournament/sponsorship/sponsors/' . TournamentSponsor::factory()->create()->id)
             ->assertStatus(403);
     }
 
@@ -54,8 +54,8 @@ class SponsorEndpointTest extends TestCase
     {
         list($user, $tournament) = $this->createTournamentWithManager();
 
-        $sponsor = factory(Sponsor::class)->create();
-        $sponsorship = factory(Sponsorship::class)->create();
+        $sponsor = Sponsor::factory()->create();
+        $sponsorship = Sponsorship::factory()->create();
         $product = $tournament->sponsorships()->save($sponsorship);
 
         $data = [
@@ -84,10 +84,10 @@ class SponsorEndpointTest extends TestCase
     {
         list($user, $tournament) = $this->createTournamentWithManager();
 
-        $tournamentSponsor = factory(TournamentSponsor::class)->create();
+        $tournamentSponsor = TournamentSponsor::factory()->create();
         $tournament->sponsors()->save($tournamentSponsor);
 
-        $newSponsor = factory(Sponsor::class)->create();
+        $newSponsor = Sponsor::factory()->create();
 
         $data = [
             'sponsor_id' => $newSponsor->id
@@ -109,7 +109,7 @@ class SponsorEndpointTest extends TestCase
     {
         list($user, $tournament) = $this->createTournamentWithManager();
 
-        $tournamentSponsor = factory(TournamentSponsor::class)->create();
+        $tournamentSponsor = TournamentSponsor::factory()->create();
 
         $this->actingAs($user)
             ->json('DELETE', 'tournament/sponsorship/sponsors/' . $tournamentSponsor->id)

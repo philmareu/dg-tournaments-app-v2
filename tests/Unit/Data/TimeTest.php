@@ -2,7 +2,7 @@
 
 namespace Tests\Unit\Data;
 
-use DGTournaments\Data\Time;
+use App\Data\Time;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;

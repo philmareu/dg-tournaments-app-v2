@@ -2,8 +2,8 @@
 
 namespace Tests\Unit;
 
-use DGTournaments\Models\ClaimRequest;
-use DGTournaments\Repositories\ClaimRepository;
+use App\Models\ClaimRequest;
+use App\Repositories\ClaimRepository;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
@@ -35,7 +35,7 @@ class ClaimRepositoryTest extends TestCase
         $repo = $this->getRepo();
         $tournament = $this->createTournament();
 
-        $claim = factory(ClaimRequest::class)->make();
+        $claim = ClaimRequest::factory()->make();
         $claim->tournament()->associate($tournament);
         $claim->save();
 

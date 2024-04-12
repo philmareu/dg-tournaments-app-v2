@@ -2,8 +2,8 @@
 
 namespace Tests\Feature\API\Tournament;
 
-use DGTournaments\Models\StripeAccount;
-use DGTournaments\Models\User\User;
+use App\Models\StripeAccount;
+use App\Models\User\User;
 use Illuminate\Support\Facades\Event;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
@@ -14,7 +14,7 @@ class StripeConnectTest extends TestCase
 {
     use DatabaseMigrations;
 
-    public function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -67,7 +67,7 @@ class StripeConnectTest extends TestCase
     {
 
         $user = $this->createUser();
-        $userStripeAccount = $user->stripeAccounts()->save(factory(StripeAccount::class)->make());
+        $userStripeAccount = $user->stripeAccounts()->save(StripeAccount::factory()->make());
         $tournament = $this->createTournament();
         $tournament->managers()->save($user);
 
@@ -86,12 +86,12 @@ class StripeConnectTest extends TestCase
     {
 
         $user = $this->createUser();
-        $userStripeAccount = $user->stripeAccounts()->save(factory(StripeAccount::class)->make());
+        $userStripeAccount = $user->stripeAccounts()->save(StripeAccount::factory()->make());
         $tournament = $this->createTournament();
         $tournament->managers()->save($user);
 
-        $userStripeAccount = factory(StripeAccount::class)->create([
-            'user_id' => factory(User::class)->create()->id
+        $userStripeAccount = StripeAccount::factory()->create([
+            'user_id' => User::factory()->create()->id
         ]);
 
         $response = $this->actingAs($user)
@@ -108,7 +108,7 @@ class StripeConnectTest extends TestCase
     {
 
         $user = $this->createUser();
-        $userStripeAccount = $user->stripeAccounts()->save(factory(StripeAccount::class)->make());
+        $userStripeAccount = $user->stripeAccounts()->save(StripeAccount::factory()->make());
         $tournament = $this->createTournament();
         $tournament->managers()->save($user);
 

@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\API\Tournament;
 
-use DGTournaments\Models\Upload;
+use App\Models\Upload;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -67,7 +67,7 @@ class MediaValidationEndpointTest extends TestCase
     {
         list($user, $tournament) = $this->createTournamentWithManager();
 
-        $tournament->media()->attach(factory(Upload::class)->create()->id);
+        $tournament->media()->attach(Upload::factory()->create()->id);
 
         $response =$this->actingAs($user)
             ->json('PUT', 'tournament/media/' . $tournament->id, $data);

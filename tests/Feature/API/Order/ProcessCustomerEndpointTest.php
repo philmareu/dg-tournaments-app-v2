@@ -2,8 +2,8 @@
 
 namespace Tests\Feature\API\Order;
 
-use DGTournaments\Models\OrderSponsorship;
-use DGTournaments\Models\User\User;
+use App\Models\OrderSponsorship;
+use App\Models\User\User;
 use Illuminate\Support\Facades\Event;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -12,7 +12,7 @@ class ProcessCustomerEndpointTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -24,7 +24,7 @@ class ProcessCustomerEndpointTest extends TestCase
      */
     public function during_checkout_guest_details_are_saved_on_order()
     {
-        $orderProduct = factory(OrderSponsorship::class)->create();
+        $orderProduct = OrderSponsorship::factory()->create();
 
         $data = [
             'unique' => $orderProduct->order->unique,
@@ -43,7 +43,7 @@ class ProcessCustomerEndpointTest extends TestCase
      */
     public function during_checkout_a_guest_can_create_a_new_user_account()
     {
-        $orderProduct = factory(OrderSponsorship::class)->create();
+        $orderProduct = OrderSponsorship::factory()->create();
 
         $data = [
             'unique' => $orderProduct->order->unique,
@@ -69,7 +69,7 @@ class ProcessCustomerEndpointTest extends TestCase
      */
     public function an_authenticated_user_can_not_create_an_account()
     {
-        $orderProduct = factory(OrderSponsorship::class)->create();
+        $orderProduct = OrderSponsorship::factory()->create();
 
         $data = [
             'unique' => $orderProduct->order->unique,
@@ -80,7 +80,7 @@ class ProcessCustomerEndpointTest extends TestCase
             'create_account' => 1
         ];
 
-        $this->actingAs(factory(User::class)->create())
+        $this->actingAs(User::factory()->create())
             ->json('PUT', 'order/checkout/details', $data);
 
         $this->assertDatabaseMissing('users', [
@@ -96,7 +96,7 @@ class ProcessCustomerEndpointTest extends TestCase
      */
     public function the_order_is_returned_after_saving_customer_details()
     {
-        $orderProduct = factory(OrderSponsorship::class)->create();
+        $orderProduct = OrderSponsorship::factory()->create();
 
         $data = [
             'unique' => $orderProduct->order->unique,
@@ -117,7 +117,7 @@ class ProcessCustomerEndpointTest extends TestCase
      */
     public function the_user_is_returned_after_creating_a_new_user_details()
     {
-        $orderProduct = factory(OrderSponsorship::class)->create();
+        $orderProduct = OrderSponsorship::factory()->create();
 
         $data = [
             'unique' => $orderProduct->order->unique,

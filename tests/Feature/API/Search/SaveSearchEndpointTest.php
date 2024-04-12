@@ -3,8 +3,8 @@
 namespace Tests\Feature\API\Search;
 
 use Carbon\Carbon;
-use DGTournaments\Helpers\AlgoliaQuery;
-use DGTournaments\Models\Search;
+use App\Helpers\AlgoliaQuery;
+use App\Models\Search;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\ValidationHelperTrait;
@@ -92,7 +92,7 @@ class SaveSearchEndpointTest extends TestCase
     public function updating_a_search_requires_a_title()
     {
         $user = $this->createUser();
-        $search = factory(Search::class)->create([
+        $search = Search::factory()->create([
             'user_id' => $user->id
         ]);
 
@@ -107,7 +107,7 @@ class SaveSearchEndpointTest extends TestCase
     public function updating_a_search_the_notification_option_must_be_a_boolean()
     {
         $user = $this->createUser();
-        $search = factory(Search::class)->create([
+        $search = Search::factory()->create([
             'user_id' => $user->id
         ]);
 
@@ -122,7 +122,7 @@ class SaveSearchEndpointTest extends TestCase
     public function updating_a_search_requires_a_frequency_is_wants_notification_is_selected()
     {
         $user = $this->createUser();
-        $search = factory(Search::class)->create([
+        $search = Search::factory()->create([
             'user_id' => $user->id
         ]);
 
@@ -137,7 +137,7 @@ class SaveSearchEndpointTest extends TestCase
     public function updating_a_frequency_is_not_required_if_wants_notification_is_not_selected()
     {
         $user = $this->createUser();
-        $search = factory(Search::class)->create([
+        $search = Search::factory()->create([
             'user_id' => $user->id
         ]);
 
@@ -152,7 +152,7 @@ class SaveSearchEndpointTest extends TestCase
     public function updating_a_search_the_frequency_must_be_daily_or_weekly()
     {
         $user = $this->createUser();
-        $search = factory(Search::class)->create([
+        $search = Search::factory()->create([
             'user_id' => $user->id
         ]);
 
@@ -296,7 +296,7 @@ class SaveSearchEndpointTest extends TestCase
     {
         $user = $this->createUser();
 
-        $search = factory(Search::class)->create([
+        $search = Search::factory()->create([
             'user_id' => $user
         ]);
 
@@ -319,7 +319,7 @@ class SaveSearchEndpointTest extends TestCase
 
         $user = $this->createUser();
 
-        $search = factory(Search::class)->create([
+        $search = Search::factory()->create([
             'user_id' => $user,
             'wants_notification' => 0,
             'frequency' => 'weekly'
@@ -347,7 +347,7 @@ class SaveSearchEndpointTest extends TestCase
 
         $user = $this->createUser();
 
-        $search = factory(Search::class)->create([
+        $search = Search::factory()->create([
             'user_id' => $user,
             'wants_notification' => 1
         ]);
@@ -373,7 +373,7 @@ class SaveSearchEndpointTest extends TestCase
 
         $user = $this->createUser();
 
-        $search = factory(Search::class)->create([
+        $search = Search::factory()->create([
             'user_id' => $user
         ]);
 
@@ -393,7 +393,7 @@ class SaveSearchEndpointTest extends TestCase
     {
         $user = $this->createUser();
 
-        $search = factory(Search::class)->create([
+        $search = Search::factory()->create([
             'user_id' => $user
         ]);
 
@@ -409,7 +409,7 @@ class SaveSearchEndpointTest extends TestCase
     {
         $user = $this->createUser();
 
-        $search = factory(Search::class)->create([
+        $search = Search::factory()->create([
             'user_id' => $user
         ]);
 
@@ -429,10 +429,10 @@ class SaveSearchEndpointTest extends TestCase
     {
         $user = $this->createUser();
 
-        $search1 = factory(Search::class)->create([
+        $search1 = Search::factory()->create([
             'user_id' => $user
         ]);
-        $search2 = factory(Search::class)->create([
+        $search2 = Search::factory()->create([
             'user_id' => $user
         ]);
 

@@ -2,8 +2,8 @@
 
 namespace Tests\Feature\API\Tournament;
 
-use DGTournaments\Models\Link;
-use DGTournaments\Models\TournamentLink;
+use App\Models\Link;
+use App\Models\TournamentLink;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -64,7 +64,7 @@ class LinkValidationTest extends TestCase
     {
 
         list($user, $tournament) = $this->createTournamentWithManager();
-        $tournament->links()->save(factory(Link::class)->make());
+        $tournament->links()->save(Link::factory()->make());
 
         $response =$this->actingAs($user)
             ->json('PUT', 'tournament/links/' . $tournament->links->first()->id, $data);

@@ -2,8 +2,8 @@
 
 namespace Tests\Unit;
 
-use DGTournaments\Billing\Stripe\StripeBilling;
-use DGTournaments\Data\Price;
+use App\Billing\Stripe\StripeBilling;
+use App\Data\Price;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;

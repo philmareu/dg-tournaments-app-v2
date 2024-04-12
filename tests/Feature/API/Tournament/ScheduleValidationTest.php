@@ -2,8 +2,8 @@
 
 namespace Tests\Feature\API\Tournament;
 
-use DGTournaments\Models\Schedule;
-use DGTournaments\Models\TournamentSchedule;
+use App\Models\Schedule;
+use App\Models\TournamentSchedule;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -88,7 +88,7 @@ class ScheduleValidationTest extends TestCase
     {
 
         list($user, $tournament) = $this->createTournamentWithManager();
-        $tournament->schedule()->save(factory(Schedule::class)->make());
+        $tournament->schedule()->save(Schedule::factory()->make());
 
         $response =$this->actingAs($user)
             ->json('PUT', 'tournament/schedule/' . $tournament->schedule->first()->id, $data);

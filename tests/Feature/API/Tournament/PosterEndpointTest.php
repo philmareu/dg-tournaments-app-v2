@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\API\Tournament;
 
-use DGTournaments\Models\Tournament;
+use App\Models\Tournament;
 use Illuminate\Support\Facades\Event;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
@@ -13,7 +13,7 @@ class PosterEndpointTest extends TestCase
 {
     use DatabaseMigrations;
 
-    public function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -24,7 +24,7 @@ class PosterEndpointTest extends TestCase
     public function guests_cannot_delete_tournament_poster()
     {
 
-        $this->json('DELETE', 'tournament/poster/' . factory(Tournament::class)->create()->id)
+        $this->json('DELETE', 'tournament/poster/' . Tournament::factory()->create()->id)
             ->assertStatus(401);
     }
 
@@ -33,7 +33,7 @@ class PosterEndpointTest extends TestCase
     {
 
         $this->actingAs($this->createUser())
-            ->json('DELETE', 'tournament/poster/' . factory(Tournament::class)->create()->id)
+            ->json('DELETE', 'tournament/poster/' . Tournament::factory()->create()->id)
             ->assertStatus(403);
     }
 

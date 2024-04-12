@@ -2,13 +2,13 @@
 
 namespace Tests\Unit;
 
-use DGTournaments\Billing\Stripe\StripeBilling;
-use DGTournaments\Models\Order;
-use DGTournaments\Models\Order\OrderSponsorshipProduct;
-use DGTournaments\Models\OrderSponsorship;
-use DGTournaments\Models\Sponsorship;
-use DGTournaments\Models\TournamentOrder;
-use DGTournaments\Models\TournamentOrderSponsorshipProduct;
+use App\Billing\Stripe\StripeBilling;
+use App\Models\Order;
+use App\Models\Order\OrderSponsorshipProduct;
+use App\Models\OrderSponsorship;
+use App\Models\Sponsorship;
+use App\Models\TournamentOrder;
+use App\Models\TournamentOrderSponsorshipProduct;
 use Illuminate\Support\Facades\Event;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -42,7 +42,7 @@ class OrderRepositoryTest extends TestCase
      */
     public function should_save_a_sponsorship_product_to_a_tournament_order()
     {
-        $sponsorship = factory(Sponsorship::class)->create();
+        $sponsorship = Sponsorship::factory()->create();
 
         $order = $this->getRepo()->addSponsorship($sponsorship);
 
@@ -57,7 +57,7 @@ class OrderRepositoryTest extends TestCase
      */
     public function should_return_paid_when_submitting_valid_credentials()
     {
-        $orderSponsorship = factory(OrderSponsorship::class)->create();
+        $orderSponsorship = OrderSponsorship::factory()->create();
 
         Event::fake();
 

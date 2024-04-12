@@ -2,9 +2,9 @@
 
 namespace Tests\Feature\API\Tournament;
 
-use DGTournaments\Models\Sponsorship;
-use DGTournaments\Models\Sponsor;
-use DGTournaments\Models\TournamentSponsor;
+use App\Models\Sponsorship;
+use App\Models\Sponsor;
+use App\Models\TournamentSponsor;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -37,7 +37,7 @@ class SponsorValidationEndpointTest extends TestCase
 
         list($user, $tournament) = $this->createTournamentWithManager();
 
-        $sponsorship = factory(Sponsorship::class)->create();
+        $sponsorship = Sponsorship::factory()->create();
         $tournament->sponsorships()->save($sponsorship);
 
         $response = $this->actingAs($user)
@@ -51,7 +51,7 @@ class SponsorValidationEndpointTest extends TestCase
 
         list($user, $tournament) = $this->createTournamentWithManager();
 
-        $tournamentSponsor = factory(TournamentSponsor::class)->create();
+        $tournamentSponsor = TournamentSponsor::factory()->create();
         $tournament->sponsors()->save($tournamentSponsor);
 
         $response =$this->actingAs($user)

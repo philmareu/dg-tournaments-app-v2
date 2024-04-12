@@ -2,9 +2,9 @@
 
 namespace Tests\Feature\API\Tournament;
 
-use DGTournaments\Data\Price;
-use DGTournaments\Models\Sponsorship;
-use DGTournaments\Models\Tournament;
+use App\Data\Price;
+use App\Models\Sponsorship;
+use App\Models\Tournament;
 use Illuminate\Support\Facades\Event;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
@@ -15,7 +15,7 @@ class SponsorshipTest extends TestCase
 {
     use DatabaseMigrations;
 
-    public function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -27,7 +27,7 @@ class SponsorshipTest extends TestCase
     {
 
         $this->actingAs($this->createUser())
-            ->json('POST', 'tournament/sponsorships/' . factory(Tournament::class)->create()->id)
+            ->json('POST', 'tournament/sponsorships/' . Tournament::factory()->create()->id)
             ->assertStatus(403);
     }
 
@@ -36,7 +36,7 @@ class SponsorshipTest extends TestCase
     {
 
         $this->actingAs($this->createUser())
-            ->json('PUT', 'tournament/sponsorships/' . factory(Sponsorship::class)->create()->id)
+            ->json('PUT', 'tournament/sponsorships/' . Sponsorship::factory()->create()->id)
             ->assertStatus(403);
     }
 
@@ -45,7 +45,7 @@ class SponsorshipTest extends TestCase
     {
 
         $this->actingAs($this->createUser())
-            ->json('DELETE', 'tournament/sponsorships/' . factory(Sponsorship::class)->create()->id)
+            ->json('DELETE', 'tournament/sponsorships/' . Sponsorship::factory()->create()->id)
             ->assertStatus(403);
     }
 
@@ -79,7 +79,7 @@ class SponsorshipTest extends TestCase
     {
         list($user, $tournament) = $this->createTournamentWithManager();
 
-        $tournament->sponsorships()->save(factory(Sponsorship::class)->make());
+        $tournament->sponsorships()->save(Sponsorship::factory()->make());
 
         $data = [
             'title' => 'Sponsorship Product Title',
@@ -106,7 +106,7 @@ class SponsorshipTest extends TestCase
     {
         list($user, $tournament) = $this->createTournamentWithManager();
 
-        $tournament->sponsorships()->save(factory(Sponsorship::class)->make());
+        $tournament->sponsorships()->save(Sponsorship::factory()->make());
 
         $data = [
             'title' => 'SponsorshipProduct Title',

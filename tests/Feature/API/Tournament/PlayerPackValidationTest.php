@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\API\Tournament;
 
-use DGTournaments\Models\PlayerPack;
+use App\Models\PlayerPack;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -16,7 +16,7 @@ class PlayerPackValidationTest extends TestCase
     public function storing_a_player_pack_requires_a_title()
     {
 
-        $playerPack = factory(PlayerPack::class)->make();
+        $playerPack = PlayerPack::factory()->make();
         $tournament = $this->createTournament();
         $playerPack->tournament()->associate($tournament);
         $playerPack->save();
@@ -32,7 +32,7 @@ class PlayerPackValidationTest extends TestCase
     public function updating_a_player_pack_requires_a_title()
     {
 
-        $playerPack = factory(PlayerPack::class)->make();
+        $playerPack = PlayerPack::factory()->make();
         $tournament = $this->createTournament();
         $playerPack->tournament()->associate($tournament);
         $playerPack->save();
@@ -50,7 +50,7 @@ class PlayerPackValidationTest extends TestCase
 
 
         list($user, $tournament) = $this->createTournamentWithManager();
-        $playerPack = $tournament->playerPacks()->save(factory(PlayerPack::class)->make());
+        $playerPack = $tournament->playerPacks()->save(PlayerPack::factory()->make());
 
         $response = $this->actingAs($user)
             ->json('POST', '/tournament/player-pack/items/' . $playerPack->id);

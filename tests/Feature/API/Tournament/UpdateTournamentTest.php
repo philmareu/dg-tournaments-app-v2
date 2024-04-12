@@ -2,11 +2,11 @@
 
 namespace Tests\Feature\API\Tournament;
 
-use DGTournaments\Models\Format;
-use DGTournaments\Models\PdgaTier;
-use DGTournaments\Models\SpecialEventType;
-use DGTournaments\Models\Tournament;
-use DGTournaments\Models\Upload;
+use App\Models\Format;
+use App\Models\PdgaTier;
+use App\Models\SpecialEventType;
+use App\Models\Tournament;
+use App\Models\Upload;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -29,7 +29,7 @@ class UpdateTournamentTest extends TestCase
     {
         $user = $this->createUser();
         $tournament = $this->createTournament();
-        $tournament->specialEventTypes()->save(factory(SpecialEventType::class)->create());
+        $tournament->specialEventTypes()->save(SpecialEventType::factory()->create());
         $tournament->managers()->sync([$user->id]);
 
         $data = [
@@ -45,8 +45,8 @@ class UpdateTournamentTest extends TestCase
             'phone' => '785-555-5555',
             'director' => 'Director',
             'description' => 'A disc golf tournament',
-            'poster_id' => factory(Upload::class)->create()->id,
-            'format_id' => factory(Format::class)->create()->id,
+            'poster_id' => Upload::factory()->create()->id,
+            'format_id' => Format::factory()->create()->id,
             'special_event_type_ids' => factory(SpecialEventType::class, 3)->create()->pluck('id')->toArray(),
             'timezone' => 'America/Chicago'
         ];
@@ -81,7 +81,7 @@ class UpdateTournamentTest extends TestCase
     public function manager_can_remove_all_special_event_types()
     {
         list($user, $tournament) = $this->createTournamentWithManager();
-        $tournament->specialEventTypes()->save(factory(SpecialEventType::class)->create());
+        $tournament->specialEventTypes()->save(SpecialEventType::factory()->create());
 
         $data = [
             'name' => 'Test Tournament',
@@ -96,8 +96,8 @@ class UpdateTournamentTest extends TestCase
             'phone' => '785-555-5555',
             'director' => 'Director',
             'description' => 'A disc golf tournament',
-            'poster_id' => factory(Upload::class)->create()->id,
-            'format_id' => factory(Format::class)->create()->id,
+            'poster_id' => Upload::factory()->create()->id,
+            'format_id' => Format::factory()->create()->id,
             'special_event_type_ids' => [],
             'timezone' => 'America/Chicago'
         ];
@@ -116,7 +116,7 @@ class UpdateTournamentTest extends TestCase
         $user = $this->createUser();
         $originalTournament = $this->createTournament();
         $originalTournament->managers()->sync([$user->id]);
-        $originalTournament->pdgaTiers()->sync([factory(PdgaTier::class)->create()->id]);
+        $originalTournament->pdgaTiers()->sync([PdgaTier::factory()->create()->id]);
 
         $data = [
             'name' => 'name changed',
@@ -131,8 +131,8 @@ class UpdateTournamentTest extends TestCase
             'phone' => '785-555-5555',
             'director' => 'Director',
             'description' => 'A disc golf tournament',
-            'poster_id' => factory(Upload::class)->create()->id,
-            'format_id' => factory(Format::class)->create()->id,
+            'poster_id' => Upload::factory()->create()->id,
+            'format_id' => Format::factory()->create()->id,
             'special_event_type_ids' => factory(SpecialEventType::class, 3)->create()->pluck('id')->toArray(),
             'timezone' => 'America/Chicago'
         ];

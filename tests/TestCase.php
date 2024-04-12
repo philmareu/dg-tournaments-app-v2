@@ -2,9 +2,9 @@
 
 namespace Tests;
 
-use DGTournaments\Models\Order;
-use DGTournaments\Models\Tournament;
-use DGTournaments\Models\User\User;
+use App\Models\Order;
+use App\Models\Tournament;
+use App\Models\User\User;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Schema;
@@ -13,7 +13,7 @@ abstract class TestCase extends BaseTestCase
 {
     use CreatesApplication;
 
-    public function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -29,7 +29,7 @@ abstract class TestCase extends BaseTestCase
      */
     protected function createUser()
     {
-        return factory(User::class)->create();
+        return User::factory()->create();
     }
 
     /**
@@ -37,7 +37,7 @@ abstract class TestCase extends BaseTestCase
      */
     protected function createTournament()
     {
-        return factory(Tournament::class)->create();
+        return Tournament::factory()->create();
     }
 
     /**
@@ -45,7 +45,7 @@ abstract class TestCase extends BaseTestCase
      */
     protected function createOrder()
     {
-        return factory(Order::class)->create();
+        return Order::factory()->create();
     }
 
     protected function createTournamentWithManager()

@@ -2,8 +2,8 @@
 
 namespace Tests\Feature\API\Tournament;
 
-use DGTournaments\Models\Course;
-use DGTournaments\Models\Tournament;
+use App\Models\Course;
+use App\Models\Tournament;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -25,7 +25,7 @@ class SurroundingCoursesEndpointTest extends TestCase
     public function guests_can_not_retrieve_list_of_surrounding_courses()
     {
 
-        $this->json('GET', $this->endpoint . factory(Tournament::class)->create()->id)
+        $this->json('GET', $this->endpoint . Tournament::factory()->create()->id)
             ->assertStatus(401);
     }
 
@@ -34,7 +34,7 @@ class SurroundingCoursesEndpointTest extends TestCase
     {
         $defaultDistance = 2;
 
-        $tournament = factory(Tournament::class)->create();
+        $tournament = Tournament::factory()->create();
 
         $courses = factory(Course::class, 3)->create()->each(function(Course $course) use ($tournament, $defaultDistance) {
             $course->update([

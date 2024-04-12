@@ -3,7 +3,7 @@
 namespace Tests\Unit\Data;
 
 use Carbon\Carbon;
-use DGTournaments\Data\Dates;
+use App\Data\Dates;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 

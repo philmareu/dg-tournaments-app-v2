@@ -2,9 +2,9 @@
 
 namespace Tests\Feature\API\Order;
 
-use DGTournaments\Models\Order;
-use DGTournaments\Models\OrderSponsorshipProduct;
-use DGTournaments\Models\Sponsorship;
+use App\Models\Order;
+use App\Models\OrderSponsorshipProduct;
+use App\Models\Sponsorship;
 use Illuminate\Support\Facades\Crypt;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;

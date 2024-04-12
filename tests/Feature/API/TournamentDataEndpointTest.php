@@ -2,12 +2,12 @@
 
 namespace Tests\Feature\API;
 
-use DGTournaments\Data\Dates;
-use DGTournaments\Data\Location;
-use DGTournaments\Models\Sponsorship;
-use DGTournaments\Models\StripeAccount;
-use DGTournaments\Models\TournamentSponsor;
-use DGTournaments\Models\Upload;
+use App\Data\Dates;
+use App\Data\Location;
+use App\Models\Sponsorship;
+use App\Models\StripeAccount;
+use App\Models\TournamentSponsor;
+use App\Models\Upload;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -21,11 +21,11 @@ class TournamentDataEndpointTest extends TestCase
     public function loads_all_tournament_information_needed_for_the_show_page()
     {
         $tournament = $this->createTournament();
-        $upload = factory(Upload::class)->create();
+        $upload = Upload::factory()->create();
         $tournament->media()->save($upload);
 
-        $sponsorship = factory(Sponsorship::class)->create();
-        $sponsorship->tournamentSponsors()->save(factory(TournamentSponsor::class)->create());
+        $sponsorship = Sponsorship::factory()->create();
+        $sponsorship->tournamentSponsors()->save(TournamentSponsor::factory()->create());
         $tournament->sponsorships()->save($sponsorship);
 
         $this->json('GET', 'tournament/' . $tournament->id)
@@ -70,7 +70,7 @@ class TournamentDataEndpointTest extends TestCase
     public function stripe_account_does_not_load_for_guest()
     {
         $tournament = $this->createTournament();
-        $tournament->stripeAccount()->associate(factory(StripeAccount::class)->create())->save();
+        $tournament->stripeAccount()->associate(StripeAccount::factory()->create())->save();
 
         $this->json('GET', 'tournament/' . $tournament->id)
             ->assertJsonMissing([
@@ -85,7 +85,7 @@ class TournamentDataEndpointTest extends TestCase
     public function stripe_account_does_show_up_for_managers_of_the_tournament()
     {
         list($user, $tournament) = $this->createTournamentWithManager();
-        $stripeAccount = factory(StripeAccount::class)->create();
+        $stripeAccount = StripeAccount::factory()->create();
         $user->stripeAccounts()->save($stripeAccount);
         $tournament->stripeAccount()->associate($stripeAccount)->save();
 

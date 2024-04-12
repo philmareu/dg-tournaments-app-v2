@@ -2,7 +2,7 @@
 
 namespace Tests;
 
-use DGTournaments\Models\User\User;
+use App\Models\User\User;
 
 trait ValidationHelperTrait
 {
@@ -18,7 +18,7 @@ trait ValidationHelperTrait
 
     public function validationTest($method, $endpoint, $attribute, $data = [])
     {
-        $response = $this->actingAs(factory(User::class)->create())
+        $response = $this->actingAs(User::factory()->create())
             ->call($method, $endpoint, $data)
             ->assertSessionHasErrors($attribute);
     }

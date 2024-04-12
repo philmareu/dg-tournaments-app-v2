@@ -2,9 +2,9 @@
 
 namespace Tests\Feature;
 
-use DGTournaments\Models\Registration;
-use DGTournaments\Models\Tournament;
-use DGTournaments\Models\TournamentCourse;
+use App\Models\Registration;
+use App\Models\Tournament;
+use App\Models\TournamentCourse;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Support\Facades\Event;
 use Tests\TestCase;
@@ -20,7 +20,7 @@ class TournamentFlagTest extends TestCase
      */
     public function lat_and_lng_flag_is_added_to_tournament_with_no_lat_and_lng()
     {
-        $tournament = factory(Tournament::class)->create([
+        $tournament = Tournament::factory()->create([
             'latitude' => null,
             'longitude' => null
         ]);
@@ -36,7 +36,7 @@ class TournamentFlagTest extends TestCase
      */
     public function needs_course_flag_added_by_default_to_new_tournament()
     {
-        $tournament = factory(Tournament::class)->create([
+        $tournament = Tournament::factory()->create([
             'latitude' => null,
             'longitude' => null
         ]);
@@ -52,7 +52,7 @@ class TournamentFlagTest extends TestCase
      */
     public function needs_registration_link_flag_added_by_default_to_new_tournament()
     {
-        $tournament = factory(Tournament::class)->create([
+        $tournament = Tournament::factory()->create([
             'latitude' => null,
             'longitude' => null
         ]);
@@ -100,7 +100,7 @@ class TournamentFlagTest extends TestCase
 
         $tournamentsNoCourses = factory(Tournament::class, 3)->create();
         $tournamentsWithCourses = factory(Tournament::class, 3)->create()->each(function(Tournament $tournament) {
-            $tournament->courses()->save(factory(TournamentCourse::class)->make());
+            $tournament->courses()->save(TournamentCourse::factory()->make());
         });
 
         $this->artisan('maintenance:flag-tournaments');
@@ -130,7 +130,7 @@ class TournamentFlagTest extends TestCase
 
         $tournamentsNoRegistration = factory(Tournament::class, 3)->create();
         $tournamentsWithRegistration = factory(Tournament::class, 3)->create()->each(function(Tournament $tournament) {
-            $tournament->registration()->save(factory(Registration::class)->make());
+            $tournament->registration()->save(Registration::factory()->make());
         });
 
         $this->artisan('maintenance:flag-tournaments');

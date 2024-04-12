@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\API\User;
 
-use DGTournaments\Models\Sponsor;
+use App\Models\Sponsor;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -58,7 +58,7 @@ class UserSponsorValidationTest extends TestCase
     private function updating($key, $data = [])
     {
         $user = $this->createUser();
-        $sponsor = factory(Sponsor::class)->create([
+        $sponsor = Sponsor::factory()->create([
             'user_id' => $user->id
         ]);
 

@@ -2,8 +2,8 @@
 
 namespace Tests\Feature;
 
-use DGTournaments\Models\Tournament;
-use DGTournaments\Models\User\User;
+use App\Models\Tournament;
+use App\Models\User\User;
 use Illuminate\Auth\Events\Registered;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -12,7 +12,7 @@ class RegistrationTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -24,19 +24,19 @@ class RegistrationTest extends TestCase
      */
     public function user_becomes_manager_of_any_tournaments_with_an_authorization_email_that_matches_their_email()
     {
-        $user = factory(User::class)->create([
+        $user = User::factory()->create([
             'email' => 'email@email.com'
         ]);
 
-        $tournament1 = factory(Tournament::class)->create([
+        $tournament1 = Tournament::factory()->create([
             'authorization_email' => $user->email
         ]);
 
-        $tournament2 = factory(Tournament::class)->create([
+        $tournament2 = Tournament::factory()->create([
             'authorization_email' => $user->email
         ]);
 
-        $tournament3 = factory(Tournament::class)->create([
+        $tournament3 = Tournament::factory()->create([
             'authorization_email' => 'no@no.com'
         ]);
 

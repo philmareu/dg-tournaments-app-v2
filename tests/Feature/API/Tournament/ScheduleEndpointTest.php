@@ -3,9 +3,9 @@
 namespace Tests\Feature\API\Tournament;
 
 use Carbon\Carbon;
-use DGTournaments\Models\Schedule;
-use DGTournaments\Models\Tournament;
-use DGTournaments\Models\TournamentSchedule;
+use App\Models\Schedule;
+use App\Models\Tournament;
+use App\Models\TournamentSchedule;
 use Illuminate\Support\Facades\Event;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
@@ -16,7 +16,7 @@ class ScheduleEndpointTest extends TestCase
 {
     use DatabaseMigrations;
 
-    public function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -28,7 +28,7 @@ class ScheduleEndpointTest extends TestCase
     {
 
         $this->actingAs($this->createUser())
-            ->json('POST', 'tournament/schedule/' . factory(Tournament::class)->create()->id)
+            ->json('POST', 'tournament/schedule/' . Tournament::factory()->create()->id)
             ->assertStatus(403);
     }
 
@@ -37,7 +37,7 @@ class ScheduleEndpointTest extends TestCase
     {
 
         $this->actingAs($this->createUser())
-            ->json('PUT', 'tournament/schedule/' . factory(Schedule::class)->create()->id)
+            ->json('PUT', 'tournament/schedule/' . Schedule::factory()->create()->id)
             ->assertStatus(403);
     }
 
@@ -46,7 +46,7 @@ class ScheduleEndpointTest extends TestCase
     {
 
         $this->actingAs($this->createUser())
-            ->json('DELETE', 'tournament/schedule/' . factory(Schedule::class)->create()->id)
+            ->json('DELETE', 'tournament/schedule/' . Schedule::factory()->create()->id)
             ->assertStatus(403);
     }
 
@@ -86,7 +86,7 @@ class ScheduleEndpointTest extends TestCase
     {
         list($user, $tournament) = $this->createTournamentWithManager();
 
-        $tournament->schedule()->save(factory(Schedule::class)->make());
+        $tournament->schedule()->save(Schedule::factory()->make());
 
         $data = [
             'date' => '1-1-2000',
@@ -119,7 +119,7 @@ class ScheduleEndpointTest extends TestCase
     {
         list($user, $tournament) = $this->createTournamentWithManager();
 
-        $tournament->schedule()->save(factory(Schedule::class)->make());
+        $tournament->schedule()->save(Schedule::factory()->make());
 
         $this->actingAs($user)
             ->json('DELETE', 'tournament/schedule/' . $tournament->schedule->first()->id)

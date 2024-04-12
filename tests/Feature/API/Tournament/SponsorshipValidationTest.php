@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\API\Tournament;
 
-use DGTournaments\Models\Sponsorship;
+use App\Models\Sponsorship;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -99,7 +99,7 @@ class SponsorshipValidationTest extends TestCase
     {
 
         list($user, $tournament) = $this->createTournamentWithManager();
-        $tournament->sponsorships()->save(factory(Sponsorship::class)->make());
+        $tournament->sponsorships()->save(Sponsorship::factory()->make());
 
         $response =$this->actingAs($user)
             ->json('PUT', 'tournament/sponsorships/' . $tournament->sponsorships->first()->id, $data);

@@ -2,7 +2,7 @@
 
 namespace Tests\Unit\Data;
 
-use DGTournaments\Data\Location;
+use App\Data\Location;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 

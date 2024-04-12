@@ -2,8 +2,8 @@
 
 namespace Tests\Feature\API\Tournament;
 
-use DGTournaments\Models\StripeAccount;
-use DGTournaments\Models\Tournament;
+use App\Models\StripeAccount;
+use App\Models\Tournament;
 use Illuminate\Support\Facades\Event;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
@@ -14,7 +14,7 @@ class StripeAccountEndpointTest extends TestCase
 {
     use DatabaseMigrations;
 
-    public function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -25,7 +25,7 @@ class StripeAccountEndpointTest extends TestCase
     public function guests_cannot_update_tournament_stripe_account()
     {
 
-        $this->json('DELETE', 'tournament/stripe/' . factory(Tournament::class)->create()->id)
+        $this->json('DELETE', 'tournament/stripe/' . Tournament::factory()->create()->id)
             ->assertStatus(401);
     }
 
@@ -34,7 +34,7 @@ class StripeAccountEndpointTest extends TestCase
     {
 
         $this->actingAs($this->createUser())
-            ->json('DELETE', 'tournament/stripe/' . factory(Tournament::class)->create()->id)
+            ->json('DELETE', 'tournament/stripe/' . Tournament::factory()->create()->id)
             ->assertStatus(403);
     }
 
@@ -42,7 +42,7 @@ class StripeAccountEndpointTest extends TestCase
     public function manager_can_update_tournament_stripe_account()
     {
         list($user, $tournament) = $this->createTournamentWithManager();
-        $user->stripeAccounts()->save(factory(StripeAccount::class)->make());
+        $user->stripeAccounts()->save(StripeAccount::factory()->make());
 
         $this->actingAs($user)
             ->json('PUT', 'tournament/stripe/' . $tournament->id, ['stripe_account_id' => 1])

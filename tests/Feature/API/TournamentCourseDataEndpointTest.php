@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\API;
 
-use DGTournaments\Models\TournamentCourse;
+use App\Models\TournamentCourse;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -15,7 +15,7 @@ class TournamentCourseDataEndpointTest extends TestCase
      */
     public function loads_all_course_information_needed_for_the_show_page()
     {
-        $tournamentCourse = factory(TournamentCourse::class)->create();
+        $tournamentCourse = TournamentCourse::factory()->create();
 
         $this->json('GET', 'tournament/courses/' . $tournamentCourse->id)
             ->assertJson([

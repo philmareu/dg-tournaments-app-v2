@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\API;
 
-use DGTournaments\Models\User\User;
+use App\Models\User\User;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -95,7 +95,7 @@ class LoginTest extends TestCase
 
     protected function createUser()
     {
-        return factory(User::class)->create([
+        return User::factory()->create([
             'name' => 'Tester McTesterson',
             'email' => 'test@test.com',
             'password' => bcrypt('password'),

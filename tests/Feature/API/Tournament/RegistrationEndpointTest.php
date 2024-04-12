@@ -3,9 +3,9 @@
 namespace Tests\Feature\API\Tournament;
 
 use Carbon\Carbon;
-use DGTournaments\Events\TournamentRegistrationUpdated;
-use DGTournaments\Models\Registration;
-use DGTournaments\Models\Tournament;
+use App\Events\TournamentRegistrationUpdated;
+use App\Models\Registration;
+use App\Models\Tournament;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
@@ -26,13 +26,13 @@ class RegistrationEndpointTest extends TestCase
     /** @test */
     public function guests_cannot_store_tournament_registration()
     {
-        $this->checkGuestAccess('POST', 'tournament/registration/' . factory(Tournament::class)->create()->id);
+        $this->checkGuestAccess('POST', 'tournament/registration/' . Tournament::factory()->create()->id);
     }
 
     /** @test */
     public function only_managers_can_store_tournament_registration()
     {
-        $this->checkManagerAccess('POST', 'tournament/registration/' . factory(Tournament::class)->create()->id);
+        $this->checkManagerAccess('POST', 'tournament/registration/' . Tournament::factory()->create()->id);
     }
 
     /** @test */
@@ -111,13 +111,13 @@ class RegistrationEndpointTest extends TestCase
     /** @test */
     public function guests_cannot_update_tournament_registration()
     {
-        $this->checkGuestAccess('PUT', 'tournament/registration/' . factory(Registration::class)->create()->id);
+        $this->checkGuestAccess('PUT', 'tournament/registration/' . Registration::factory()->create()->id);
     }
 
     /** @test */
     public function only_managers_can_update_tournament_registration()
     {
-        $this->checkManagerAccess('PUT', 'tournament/registration/' . factory(Registration::class)->create()->id);
+        $this->checkManagerAccess('PUT', 'tournament/registration/' . Registration::factory()->create()->id);
     }
 
     /** @test */
@@ -149,7 +149,7 @@ class RegistrationEndpointTest extends TestCase
 
         list($user, $tournament) = $this->createTournamentWithManager();
 
-        $registration = $tournament->registration()->create(factory(Registration::class)->make()->toArray());
+        $registration = $tournament->registration()->create(Registration::factory()->make()->toArray());
 
         $this->actingAs($user)
             ->json('PUT', 'tournament/registration/' . $registration->id, $data)
@@ -174,7 +174,7 @@ class RegistrationEndpointTest extends TestCase
 
         list($user, $tournament) = $this->createTournamentWithManager();
 
-        $registration = $tournament->registration()->create(factory(Registration::class)->make()->toArray());
+        $registration = $tournament->registration()->create(Registration::factory()->make()->toArray());
 
         $this->actingAs($user)
             ->json('PUT', 'tournament/registration/' . $registration->id, $data)
@@ -245,7 +245,7 @@ class RegistrationEndpointTest extends TestCase
     private function updating($key, $data = [])
     {
         list($user, $tournament) = $this->createTournamentWithManager();
-        $tournament->registration()->save(factory(Registration::class)->make());
+        $tournament->registration()->save(Registration::factory()->make());
 
         $this->actingAs($user)
             ->call('PUT', 'tournament/registration/' . $tournament->registration->id, $data)

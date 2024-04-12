@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\API;
 
-use DGTournaments\Models\SpecialEventType;
+use App\Models\SpecialEventType;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -15,8 +15,8 @@ class SpecialEventTypesEndpointTest extends TestCase
     /** @test */
     public function should_return_list_of_special_event_types()
     {
-        factory(SpecialEventType::class)->create(['title' => 'Test title 1']);
-        factory(SpecialEventType::class)->create(['title' => 'Test title 2']);
+        SpecialEventType::factory()->create(['title' => 'Test title 1']);
+        SpecialEventType::factory()->create(['title' => 'Test title 2']);
 
         $this->json('GET', 'lists/special-event-types')
             ->assertJson([

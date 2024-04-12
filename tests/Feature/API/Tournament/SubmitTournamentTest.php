@@ -2,14 +2,14 @@
 
 namespace Tests\Feature\API\Tournament;
 
-use DGTournaments\Events\TournamentSubmitted;
-use DGTournaments\Mail\User\TournamentSubmittedConfirmationMailable;
-use DGTournaments\Models\Classes;
-use DGTournaments\Models\Format;
-use DGTournaments\Models\SpecialEventType;
-use DGTournaments\Models\Tournament;
-use DGTournaments\Models\Upload;
-use DGTournaments\Models\User\User;
+use App\Events\TournamentSubmitted;
+use App\Mail\User\TournamentSubmittedConfirmationMailable;
+use App\Models\Classes;
+use App\Models\Format;
+use App\Models\SpecialEventType;
+use App\Models\Tournament;
+use App\Models\Upload;
+use App\Models\User\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\TestResponse;
@@ -303,8 +303,8 @@ class SubmitTournamentTest extends TestCase
             'email' => 'email@email.com',
             'phone' => '785-555-5555',
             'description' => 'A disc golf tournament',
-            'poster_id' => factory(Upload::class)->create()->id,
-            'format_id' => factory(Format::class)->create()->id,
+            'poster_id' => Upload::factory()->create()->id,
+            'format_id' => Format::factory()->create()->id,
             'class_ids' => $classes->pluck('id'),
             'special_event_type_ids' => $specialEventTypes->pluck('id')->toArray(),
             'timezone' => 'America/Barbados',

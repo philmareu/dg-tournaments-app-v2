@@ -2,13 +2,13 @@
 
 namespace Tests\Feature\API\Tournament;
 
-use DGTournaments\Models\PlayerPack;
-use DGTournaments\Models\PlayerPackItem;
-use DGTournaments\Models\Tournament;
-use DGTournaments\Models\TournamentFormat;
-use DGTournaments\Models\TournamentPlayerPack;
-use DGTournaments\Models\TournamentPlayerPackItem;
-use DGTournaments\Models\User\User;
+use App\Models\PlayerPack;
+use App\Models\PlayerPackItem;
+use App\Models\Tournament;
+use App\Models\TournamentFormat;
+use App\Models\TournamentPlayerPack;
+use App\Models\TournamentPlayerPackItem;
+use App\Models\User\User;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Event;
@@ -19,7 +19,7 @@ class PlayerPackTest extends TestCase
 {
     use DatabaseMigrations;
 
-    public function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -41,14 +41,14 @@ class PlayerPackTest extends TestCase
     public function user_must_have_access_to_tournament_to_store_player_pack()
     {
         $this->actingAs($this->createUser())
-            ->json('POST', 'tournament/player-packs/' . factory(Tournament::class)->create()->id)
+            ->json('POST', 'tournament/player-packs/' . Tournament::factory()->create()->id)
             ->assertStatus(403);
     }
 
     /** @test */
     public function user_must_have_access_to_tournament_to_update_player_pack()
     {
-        $playerPack = factory(PlayerPack::class)->make();
+        $playerPack = PlayerPack::factory()->make();
         $tournament = $this->createTournament();
         $playerPack->tournament()->associate($tournament)->save();
         $user = $this->createUser();
@@ -61,7 +61,7 @@ class PlayerPackTest extends TestCase
     /** @test */
     public function user_must_have_access_to_tournament_to_delete_player_pack()
     {
-        $playerPack = factory(PlayerPack::class)->make();
+        $playerPack = PlayerPack::factory()->make();
         $tournament = $this->createTournament();
         $playerPack->tournament()->associate($tournament)->save();
         $user = $this->createUser();
@@ -99,7 +99,7 @@ class PlayerPackTest extends TestCase
     /** @test */
     public function manager_can_update_player_pack()
     {
-        $playerPack = factory(PlayerPack::class)->create();
+        $playerPack = PlayerPack::factory()->create();
         $tournament = $playerPack->tournament;
         $user = $this->createUser();
         $user->managing()->save($tournament);
@@ -125,7 +125,7 @@ class PlayerPackTest extends TestCase
     /** @test */
     public function manager_can_delete_player_pack()
     {
-        $playerPack = factory(PlayerPack::class)->make();
+        $playerPack = PlayerPack::factory()->make();
         $tournament = $this->createTournament();
         $playerPack->tournament()->associate($tournament);
         $playerPack->save();

@@ -2,14 +2,14 @@
 
 namespace Tests\Feature\API\Tournament;
 
-use DGTournaments\Events\CourseAddedToTournament;
-use DGTournaments\Events\CourseCreated;
-use DGTournaments\Events\TournamentCourseCreated;
-use DGTournaments\Models\Activity;
-use DGTournaments\Models\Course;
-use DGTournaments\Models\Tournament;
-use DGTournaments\Models\TournamentCourse;
-use DGTournaments\Models\TournamentCourseHole;
+use App\Events\CourseAddedToTournament;
+use App\Events\CourseCreated;
+use App\Events\TournamentCourseCreated;
+use App\Models\Activity;
+use App\Models\Course;
+use App\Models\Tournament;
+use App\Models\TournamentCourse;
+use App\Models\TournamentCourseHole;
 use Illuminate\Support\Facades\Event;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
@@ -27,7 +27,7 @@ class CourseEndpointTest extends TestCase
         $tournament = $this->createTournament();
         $tournament->managers()->save($user);
 
-        $course = factory(Course::class)->make(
+        $course = Course::factory()->make(
             ['holes' => 18]
         );
 
@@ -48,7 +48,7 @@ class CourseEndpointTest extends TestCase
         $tournament = $this->createTournament();
         $tournament->managers()->save($user);
 
-        $course = factory(Course::class)->make([
+        $course = Course::factory()->make([
             'holes' => 18
         ]);
 
@@ -69,7 +69,7 @@ class CourseEndpointTest extends TestCase
         $user = $this->createUser();
         $tournament = $this->createTournament();
 
-        $course = factory(Course::class)->make([
+        $course = Course::factory()->make([
             'holes' => 18
         ]);
 
@@ -84,7 +84,7 @@ class CourseEndpointTest extends TestCase
 
         $user = $this->createUser();
         $tournament = $this->createTournament();
-        $tournamentCourse = factory(TournamentCourse::class)->create([
+        $tournamentCourse = TournamentCourse::factory()->create([
             'tournament_id' => $tournament->id
         ]);
 
@@ -100,7 +100,7 @@ class CourseEndpointTest extends TestCase
         $tournament = $this->createTournament();
         $tournament->managers()->save($user);
 
-        $tournamentCourse = factory(TournamentCourse::class)->create([
+        $tournamentCourse = TournamentCourse::factory()->create([
             'tournament_id' => $tournament->id
         ]);
 
@@ -141,10 +141,10 @@ class CourseEndpointTest extends TestCase
     public function tournament_geo_is_set_to_tournament_course_location_if_null()
     {
         $user = $this->createUser();
-        $tournament = factory(Tournament::class)->states('no-geo')->create();
+        $tournament = Tournament::factory()->states('no-geo')->create();
         $tournament->managers()->save($user);
 
-        $course = factory(Course::class)->make(
+        $course = Course::factory()->make(
             ['holes' => 18]
         );
 
@@ -162,10 +162,10 @@ class CourseEndpointTest extends TestCase
     public function no_activity_is_created_when_tournament_geo_is_set_to_tournament_course_location_if_null()
     {
         $user = $this->createUser();
-        $tournament = factory(Tournament::class)->states('no-geo')->create();
+        $tournament = Tournament::factory()->states('no-geo')->create();
         $tournament->managers()->save($user);
 
-        $course = factory(Course::class)->make(
+        $course = Course::factory()->make(
             ['holes' => 18]
         );
 
@@ -183,10 +183,10 @@ class CourseEndpointTest extends TestCase
     public function tournament_geo_is_set_to_tournament_course_location_if_headquarters_has_not_been_updated()
     {
         $user = $this->createUser();
-        $tournament = factory(Tournament::class)->create();
+        $tournament = Tournament::factory()->create();
         $tournament->managers()->save($user);
 
-        $course = factory(Course::class)->make(
+        $course = Course::factory()->make(
             ['holes' => 18]
         );
 
@@ -207,7 +207,7 @@ class CourseEndpointTest extends TestCase
         $tournament = $this->createTournament();
         $tournament->managers()->save($user);
 
-        $course = factory(Course::class)->make(
+        $course = Course::factory()->make(
             ['holes' => 18]
         );
 
@@ -231,7 +231,7 @@ class CourseEndpointTest extends TestCase
         $tournament = $this->createTournament();
         $tournament->managers()->save($user);
 
-        $course = factory(Course::class)->make(
+        $course = Course::factory()->make(
             ['holes' => 18]
         );
 
@@ -254,7 +254,7 @@ class CourseEndpointTest extends TestCase
         $tournament = $this->createTournament();
         $tournament->managers()->save($user);
 
-        $course = factory(Course::class)->make(
+        $course = Course::factory()->make(
             ['holes' => 18]
         );
 
@@ -278,7 +278,7 @@ class CourseEndpointTest extends TestCase
         $tournament = $this->createTournament();
         $tournament->managers()->save($user);
 
-        $course = factory(Course::class)->make(
+        $course = Course::factory()->make(
             ['holes' => 18]
         );
 
@@ -302,7 +302,7 @@ class CourseEndpointTest extends TestCase
         $tournament = $this->createTournament();
         $tournament->managers()->save($user);
 
-        $course = factory(Course::class)->make(
+        $course = Course::factory()->make(
             ['holes' => 18]
         );
 
@@ -322,7 +322,7 @@ class CourseEndpointTest extends TestCase
         $tournament = $this->createTournament();
         $tournament->managers()->save($user);
 
-        $course = factory(Course::class)->make(
+        $course = Course::factory()->make(
             ['holes' => 18]
         );
 
@@ -344,7 +344,7 @@ class CourseEndpointTest extends TestCase
         $tournament = $this->createTournament();
         $tournament->managers()->save($user);
 
-        $course = factory(Course::class)->make([
+        $course = Course::factory()->make([
             'holes' => 18
         ]);
 
@@ -368,7 +368,7 @@ class CourseEndpointTest extends TestCase
         $tournament = $this->createTournament();
         $tournament->managers()->save($user);
 
-        $course = factory(Course::class)->make([
+        $course = Course::factory()->make([
             'holes' => 18
         ]);
 

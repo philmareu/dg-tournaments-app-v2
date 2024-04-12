@@ -2,8 +2,8 @@
 
 namespace Tests\Feature\API\User;
 
-use DGTournaments\Events\TournamentFollowed;
-use DGTournaments\Events\TournamentUnfollowed;
+use App\Events\TournamentFollowed;
+use App\Events\TournamentUnfollowed;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Event;

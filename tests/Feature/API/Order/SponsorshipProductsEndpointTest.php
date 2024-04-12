@@ -2,10 +2,10 @@
 
 namespace Tests\Feature\API\Order;
 
-use DGTournaments\Models\Order;
-use DGTournaments\Models\Order\OrderSponsorshipProduct;
-use DGTournaments\Models\OrderSponsorship;
-use DGTournaments\Models\Sponsorship;
+use App\Models\Order;
+use App\Models\Order\OrderSponsorshipProduct;
+use App\Models\OrderSponsorship;
+use App\Models\Sponsorship;
 use Illuminate\Support\Facades\Event;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
@@ -16,7 +16,7 @@ class SponsorshipProductsEndpointTest extends TestCase
 {
     use DatabaseMigrations;
 
-    public function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -28,7 +28,7 @@ class SponsorshipProductsEndpointTest extends TestCase
      */
     public function order_cookie_is_returned_with_adding_sponsorship_to_order()
     {
-        $sponsorship = factory(Sponsorship::class)->create();
+        $sponsorship = Sponsorship::factory()->create();
 
         $this->json('PUT', 'order/sponsorships/' . $sponsorship->id)
             ->assertCookie('_oo');
@@ -39,7 +39,7 @@ class SponsorshipProductsEndpointTest extends TestCase
      */
     public function sponsorship_product_can_be_added_to_order()
     {
-        $sponsorship = factory(Sponsorship::class)->create();
+        $sponsorship = Sponsorship::factory()->create();
 
         $response = $this->json('PUT', 'order/sponsorships/' . $sponsorship->id);
 
@@ -55,7 +55,7 @@ class SponsorshipProductsEndpointTest extends TestCase
      */
     public function sponsorship_product_can_be_deleted_from_order()
     {
-        $orderSponsorship = factory(OrderSponsorship::class)->create();
+        $orderSponsorship = OrderSponsorship::factory()->create();
 
         $this->json('DELETE', 'order/sponsorships/' . $orderSponsorship->id)
             ->assertStatus(200);
@@ -70,7 +70,7 @@ class SponsorshipProductsEndpointTest extends TestCase
      */
     public function sponsorships_can_not_be_deleted_from_paid_orders()
     {
-        $orderSponsorship = factory(OrderSponsorship::class)->create();
+        $orderSponsorship = OrderSponsorship::factory()->create();
         $order = $orderSponsorship->order;
         $order->paid = 1;
         $order->save();
@@ -91,7 +91,7 @@ class SponsorshipProductsEndpointTest extends TestCase
      */
     public function data_is_loaded_when_adding_sponsorships()
     {
-        $sponsorship = factory(Sponsorship::class)->create();
+        $sponsorship = Sponsorship::factory()->create();
 
         $this->json('PUT', 'order/sponsorships/' . $sponsorship->id)
             ->assertJson([
@@ -114,7 +114,7 @@ class SponsorshipProductsEndpointTest extends TestCase
      */
     public function data_is_loaded_when_removing_sponsorships()
     {
-        $order = factory(Order::class)->create();
+        $order = Order::factory()->create();
 
         factory(OrderSponsorship::class, 2)->create([
             'order_id' => $order->id

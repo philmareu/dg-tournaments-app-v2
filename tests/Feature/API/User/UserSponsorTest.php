@@ -2,8 +2,8 @@
 
 namespace Tests\Feature\API\User;
 
-use DGTournaments\Models\Sponsor;
-use DGTournaments\Models\Upload;
+use App\Models\Sponsor;
+use App\Models\Upload;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -34,8 +34,8 @@ class UserSponsorTest extends TestCase
     {
         $user = $this->createUser();
         $sponsors = [
-            $user->sponsors()->save(factory(Sponsor::class)->create())->toArray(),
-            $user->sponsors()->save(factory(Sponsor::class)->create())->toArray()
+            $user->sponsors()->save(Sponsor::factory()->create())->toArray(),
+            $user->sponsors()->save(Sponsor::factory()->create())->toArray()
         ];
 
         $this->actingAs($user)
@@ -57,7 +57,7 @@ class UserSponsorTest extends TestCase
     public function only_an_authenticated_user_can_update_a_sponsor()
     {
 
-        $this->json('PUT', $this->endpoint . '/' . factory(Sponsor::class)->create()->id)
+        $this->json('PUT', $this->endpoint . '/' . Sponsor::factory()->create()->id)
             ->assertStatus(401);
     }
 
@@ -65,7 +65,7 @@ class UserSponsorTest extends TestCase
     public function only_an_authenticated_user_can_delete_a_sponsor()
     {
 
-        $this->json('DELETE', $this->endpoint . '/' . factory(Sponsor::class)->create()->id)
+        $this->json('DELETE', $this->endpoint . '/' . Sponsor::factory()->create()->id)
             ->assertStatus(401);
     }
 
@@ -77,7 +77,7 @@ class UserSponsorTest extends TestCase
         $data = [
             'title' => 'Sponsor Title',
             'url' => 'http://testing.com',
-            'upload_id' => factory(Upload::class)->create()->id
+            'upload_id' => Upload::factory()->create()->id
         ];
 
         $this->actingAs($user)
@@ -90,14 +90,14 @@ class UserSponsorTest extends TestCase
     public function authenticated_user_can_update_a_sponsor()
     {
         $user = $this->createUser();
-        $sponsor = factory(Sponsor::class)->create([
+        $sponsor = Sponsor::factory()->create([
             'user_id' => $user->id
         ]);
 
         $data = [
             'title' => 'Sponsor Title',
             'url' => 'http://testing.com',
-            'upload_id' => factory(Upload::class)->create()->id
+            'upload_id' => Upload::factory()->create()->id
         ];
 
         $this->actingAs($user)
@@ -116,12 +116,12 @@ class UserSponsorTest extends TestCase
     public function updating_a_sponsor_request_the_user_to_own_sponsor()
     {
         $user = $this->createUser();
-        $sponsor = factory(Sponsor::class)->create();
+        $sponsor = Sponsor::factory()->create();
 
         $data = [
             'title' => 'Sponsor Title',
             'url' => 'http://testing.com',
-            'upload_id' => factory(Upload::class)->create()->id
+            'upload_id' => Upload::factory()->create()->id
         ];
 
         $this->actingAs($user)
@@ -141,7 +141,7 @@ class UserSponsorTest extends TestCase
     {
         $user = $this->createUser();
 
-        $sponsor = factory(Sponsor::class)->create([
+        $sponsor = Sponsor::factory()->create([
             'user_id' => $user->id
         ]);
 

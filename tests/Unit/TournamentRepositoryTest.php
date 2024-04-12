@@ -2,10 +2,10 @@
 
 namespace Tests\Unit;
 
-use DGTournaments\Models\Course;
-use DGTournaments\Models\Tournament;
-use DGTournaments\Services\DarkSky\DarkSkyApi;
-use DGTournaments\Services\Foursquare\FoursquareApi;
+use App\Models\Course;
+use App\Models\Tournament;
+use App\Services\DarkSky\DarkSkyApi;
+use App\Services\Foursquare\FoursquareApi;
 use Illuminate\Support\Facades\Event;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -22,7 +22,7 @@ class TournamentRepositoryTest extends TestCase
 
         $defaultDistance = 2;
 
-        $tournament = factory(Tournament::class)->create([
+        $tournament = Tournament::factory()->create([
             'latitude' => 38.9717,
             'longitude' => -95.2353
         ]);

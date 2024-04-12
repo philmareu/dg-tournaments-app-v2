@@ -2,8 +2,8 @@
 
 namespace Tests\Feature\API\Tournament;
 
-use DGTournaments\Models\Tournament;
-use DGTournaments\Models\Upload;
+use App\Models\Tournament;
+use App\Models\Upload;
 use Illuminate\Support\Facades\Event;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
@@ -14,7 +14,7 @@ class MediaEndpointTest extends TestCase
 {
     use DatabaseMigrations;
 
-    public function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -26,7 +26,7 @@ class MediaEndpointTest extends TestCase
     {
 
         $this->actingAs($this->createUser())
-            ->json('POST', 'tournament/media/' . factory(Tournament::class)->create()->id)
+            ->json('POST', 'tournament/media/' . Tournament::factory()->create()->id)
             ->assertStatus(403);
     }
 
@@ -35,7 +35,7 @@ class MediaEndpointTest extends TestCase
     {
 
         $this->actingAs($this->createUser())
-            ->json('PUT', 'tournament/media/' . factory(Tournament::class)->create()->id)
+            ->json('PUT', 'tournament/media/' . Tournament::factory()->create()->id)
             ->assertStatus(403);
     }
 
@@ -43,7 +43,7 @@ class MediaEndpointTest extends TestCase
     public function only_a_manager_can_delete_a_upload()
     {
         $tournament = $this->createTournament();
-        $upload = factory(Upload::class)->create();
+        $upload = Upload::factory()->create();
         $tournament->media()->attach($upload->id);
 
         $this->actingAs($this->createUser())
@@ -56,7 +56,7 @@ class MediaEndpointTest extends TestCase
     {
         list($user, $tournament) = $this->createTournamentWithManager();
 
-        $upload = factory(Upload::class)->create();
+        $upload = Upload::factory()->create();
 
         $data = [
             'title' => 'Upload Title',
@@ -83,10 +83,10 @@ class MediaEndpointTest extends TestCase
     {
         list($user, $tournament) = $this->createTournamentWithManager();
 
-        $upload = factory(Upload::class)->create();
+        $upload = Upload::factory()->create();
         $tournament->media()->save($upload);
 
-        $newUpload = factory(Upload::class)->create();
+        $newUpload = Upload::factory()->create();
 
         $data = [
             'title' => 'Upload Title',
@@ -114,7 +114,7 @@ class MediaEndpointTest extends TestCase
     {
         list($user, $tournament) = $this->createTournamentWithManager();
 
-        $upload = factory(Upload::class)->create();
+        $upload = Upload::factory()->create();
 
         $tournament->media()->save($upload);
 

@@ -2,11 +2,11 @@
 
 namespace Tests\Feature\API\Order;
 
-use DGTournaments\Models\Order;
-use DGTournaments\Models\Order\OrderSponsorshipProduct;
-use DGTournaments\Models\OrderSponsorship;
-use DGTournaments\Models\Sponsorship;
-use DGTournaments\Models\StripeAccount;
+use App\Models\Order;
+use App\Models\Order\OrderSponsorshipProduct;
+use App\Models\OrderSponsorship;
+use App\Models\Sponsorship;
+use App\Models\StripeAccount;
 use Illuminate\Support\Facades\Event;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
@@ -25,15 +25,15 @@ class PayOrderEndpointTest extends TestCase
         Event::fake();
 
         $tournament1 = $this->createTournament();
-        $stripeAccount = factory(StripeAccount::class)->create([
+        $stripeAccount = StripeAccount::factory()->create([
             'access_token' => env('STRIPE_TEST_ACCOUNT_1_SECRET'),
             'stripe_user_id' => env('STRIPE_TEST_ACCOUNT_1_ACCOUNT')
         ]);
         $tournament1->stripeAccount()->associate($stripeAccount)->save();
-        $sponsorship = factory(Sponsorship::class)->create([
+        $sponsorship = Sponsorship::factory()->create([
             'tournament_id' => $tournament1->id
         ]);
-        $orderSponsorship = factory(OrderSponsorship::class)->create([
+        $orderSponsorship = OrderSponsorship::factory()->create([
             'sponsorship_id' => $sponsorship->id
         ]);
 

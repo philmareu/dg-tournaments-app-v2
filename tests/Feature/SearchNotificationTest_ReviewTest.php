@@ -3,22 +3,22 @@
 namespace Tests\Feature;
 
 use Carbon\Carbon;
-use DGTournaments\Helpers\AlgoliaQueryStringBuilder;
-use DGTournaments\Mail\User\SavedSearchFoundNewTournamentsMailable;
-use DGTournaments\Models\Classes;
-use DGTournaments\Models\Course;
-use DGTournaments\Models\PdgaTier;
-use DGTournaments\Models\Search;
-use DGTournaments\Models\SpecialEventType;
-use DGTournaments\Models\Tournament;
-use DGTournaments\Models\User\User;
-use DGTournaments\Repositories\ActivationRepository;
-use DGTournaments\Repositories\TournamentRepository;
-use DGTournaments\Services\Auth\UserActivation;
-use DGTournaments\Repositories\SearchRepository;
-use DGTournaments\Repositories\UserRepository;
-use DGTournaments\Services\DarkSky\DarkSkyApi;
-use DGTournaments\Services\Foursquare\FoursquareApi;
+use App\Helpers\AlgoliaQueryStringBuilder;
+use App\Mail\User\SavedSearchFoundNewTournamentsMailable;
+use App\Models\Classes;
+use App\Models\Course;
+use App\Models\PdgaTier;
+use App\Models\Search;
+use App\Models\SpecialEventType;
+use App\Models\Tournament;
+use App\Models\User\User;
+use App\Repositories\ActivationRepository;
+use App\Repositories\TournamentRepository;
+use App\Services\Auth\UserActivation;
+use App\Repositories\SearchRepository;
+use App\Repositories\UserRepository;
+use App\Services\DarkSky\DarkSkyApi;
+use App\Services\Foursquare\FoursquareApi;
 use function GuzzleHttp\Psr7\parse_query;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Support\Facades\Artisan;
@@ -30,7 +30,7 @@ class SearchNotificationTest_ReviewTest extends TestCase
 {
     use DatabaseMigrations;
 
-    public function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
     }
@@ -125,8 +125,8 @@ class SearchNotificationTest_ReviewTest extends TestCase
     {
         $repo = $this->getSearchRepo();
 
-        $user1 = factory(User::class)->create(['id' => 124]);
-        $user2 = factory(User::class)->create(['id' => 3492]);
+        $user1 = User::factory()->create(['id' => 124]);
+        $user2 = User::factory()->create(['id' => 3492]);
 
         $ready1 = factory(Search::class, 2)->states('daily-ready')->create();
         $ready2 = factory(Search::class, 2)->states('daily-ready')->create();
@@ -156,7 +156,7 @@ class SearchNotificationTest_ReviewTest extends TestCase
         $urlBuilder = new AlgoliaQueryStringBuilder;
         $repo = $this->getSearchRepo();
         $user = $this->createUser();
-        $search = factory(Search::class)->create([
+        $search = Search::factory()->create([
             'query' => $urlBuilder->setIndex('tournaments')
                 ->setGeo(39.205937718846, -95.39560757959067, 34.191386278974974, -101.96981718594925)
                 ->setFormat(['Singles'])
@@ -172,7 +172,7 @@ class SearchNotificationTest_ReviewTest extends TestCase
         $user->searches()->save($search);
 
         // In search
-        $tournament1 = factory(Tournament::class)->create([
+        $tournament1 = Tournament::factory()->create([
             'latitude' => 38.8,
             'longitude' => -96.3,
             'format_id' => 1,
@@ -186,7 +186,7 @@ class SearchNotificationTest_ReviewTest extends TestCase
         $tournament1->specialEventTypes()->save(SpecialEventType::where('title', 'Women\'s Only')->first());
 
         // Not in search
-        $tournament2 = factory(Tournament::class)->create([
+        $tournament2 = Tournament::factory()->create([
             'latitude' => 40,
             'longitude' => -96.3,
             'format_id' => 2,
@@ -356,7 +356,7 @@ class SearchNotificationTest_ReviewTest extends TestCase
     {
         $urlBuilder = new AlgoliaQueryStringBuilder;
 
-        $search = factory(Search::class)->states('daily-ready')->create([
+        $search = Search::factory()->states('daily-ready')->create([
             'query' => $urlBuilder->setIndex('tournaments')
                 ->setGeo(39.205937718846, -95.39560757959067, 34.191386278974974, -101.96981718594925)
                 ->setFormat(['Singles'])
@@ -370,7 +370,7 @@ class SearchNotificationTest_ReviewTest extends TestCase
         ]);
 
         // In search
-        $tournament = factory(Tournament::class)->create([
+        $tournament = Tournament::factory()->create([
             'latitude' => 38.8,
             'longitude' => -96.3,
             'format_id' => 1,

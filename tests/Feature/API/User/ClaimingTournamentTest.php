@@ -2,13 +2,13 @@
 
 namespace Tests\Feature\API\User;
 
-use DGTournaments\Events\TournamentClaimApproved;
-use DGTournaments\Events\TournamentClaimRequestSubmitted;
-use DGTournaments\Mail\Directors\ClaimRequest;
-use DGTournaments\Mail\User\ClaimApprovedMailable;
-use DGTournaments\Mail\User\ClaimSubmitted;
-use DGTournaments\Models\User\User;
-use DGTournaments\Notifications\TournamentClaimedNotification;
+use App\Events\TournamentClaimApproved;
+use App\Events\TournamentClaimRequestSubmitted;
+use App\Mail\Directors\ClaimRequest;
+use App\Mail\User\ClaimApprovedMailable;
+use App\Mail\User\ClaimSubmitted;
+use App\Models\User\User;
+use App\Notifications\TournamentClaimedNotification;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Notification;
@@ -60,7 +60,7 @@ class ClaimingTournamentTest extends TestCase
     {
         $user = $this->createUser();
         $tournament = $this->createTournament();
-        $tournament->managers()->attach(factory(User::class)->create());
+        $tournament->managers()->attach(User::factory()->create());
 
         $this->actingAs($user)
             ->json('POST', $this->endpoint . '/' . $tournament->id)
