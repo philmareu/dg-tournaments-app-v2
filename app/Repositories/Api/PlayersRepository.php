@@ -1,4 +1,6 @@
-<?php namespace App\Repositories\Api;
+<?php
+
+namespace App\Repositories\Api;
 
 use App\Models\Activity;
 use App\Models\Player;
@@ -31,7 +33,7 @@ class PlayersRepository
         $player = $this->player->forceCreate($attributes);
         $player->activities()->save(new Activity([
             'type' => 'player.created',
-            'data' => $player->toJson()
+            'data' => $player->toJson(),
         ]));
 
         return $player;

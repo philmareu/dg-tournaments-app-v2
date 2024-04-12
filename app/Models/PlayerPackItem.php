@@ -11,16 +11,16 @@ class PlayerPackItem extends Model
     use HasFactory;
 
     protected $fillable = [
-        'title'
+        'title',
     ];
 
     protected $touches = [
-        'playerPack'
+        'playerPack',
     ];
 
     protected $dispatchesEvents = [
         'created' => PlayerPackItemSaved::class,
-        'updated' => PlayerPackItemSaved::class
+        'updated' => PlayerPackItemSaved::class,
     ];
 
     public function playerPack()

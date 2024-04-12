@@ -26,7 +26,7 @@ class UpdateTournamentPosterRequest extends FormRequest
     public function rules()
     {
         return [
-            'upload_id' => 'required|exists:uploads,id'
+            'upload_id' => 'required|exists:uploads,id',
         ];
     }
 }

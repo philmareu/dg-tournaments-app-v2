@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers\Endpoints;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Endpoints\Tournament\StoreInformationRequest;
 use App\Http\Requests\Endpoints\Tournament\UpdateInformationRequest;
-use App\Models\Tournament;
 use App\Http\Resources\Tournament as TournamentResource;
+use App\Models\Tournament;
 use App\Models\Upload;
 use App\Repositories\TournamentRepository;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Support\Facades\Auth;
@@ -50,12 +49,13 @@ class TournamentsEndpointController extends Controller implements HasMiddleware
 
     public function update(UpdateInformationRequest $request, Tournament $tournament)
     {
-        if($tournament->sanctionedByPdga)
+        if ($tournament->sanctionedByPdga) {
             $this->tournamentRepository->updateTournament(
                 $tournament, Auth::user(), $request->except(['name', 'city', 'state_province', 'country', 'start', 'end'])
             );
-
-        else $this->tournamentRepository->updateTournament($tournament, Auth::user(), $request->all());
+        } else {
+            $this->tournamentRepository->updateTournament($tournament, Auth::user(), $request->all());
+        }
 
         return new TournamentResource($tournament);
     }

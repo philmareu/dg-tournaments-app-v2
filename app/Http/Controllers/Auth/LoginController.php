@@ -49,7 +49,6 @@ class LoginController extends Controller implements HasMiddleware
     /**
      * Attempt to log the user into the application.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return bool
      */
     protected function attemptLogin(Request $request)
@@ -62,7 +61,6 @@ class LoginController extends Controller implements HasMiddleware
     /**
      * The user has been authenticated.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param  mixed  $user
      * @return mixed
      */

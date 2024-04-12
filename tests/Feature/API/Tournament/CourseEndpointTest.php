@@ -2,7 +2,6 @@
 
 namespace Tests\Feature\API\Tournament;
 
-use App\Events\CourseAddedToTournament;
 use App\Events\CourseCreated;
 use App\Events\TournamentCourseCreated;
 use App\Models\Activity;
@@ -10,13 +9,10 @@ use App\Models\Course;
 use App\Models\Tournament;
 use App\Models\TournamentCourse;
 use App\Models\TournamentCourseHole;
-use Illuminate\Support\Facades\Event;
-use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Event;
 use PHPUnit\Framework\Attributes\Test;
+use Tests\TestCase;
 
 class CourseEndpointTest extends TestCase
 {
@@ -34,7 +30,7 @@ class CourseEndpointTest extends TestCase
         );
 
         $this->actingAs($user)
-            ->json('POST', 'tournament/courses/' . $tournament->id, $course->toArray())
+            ->json('POST', 'tournament/courses/'.$tournament->id, $course->toArray())
             ->assertJson($tournament->courses->toArray());
 
         $savedCourse = Course::find(1);
@@ -51,11 +47,11 @@ class CourseEndpointTest extends TestCase
         $tournament->managers()->save($user);
 
         $course = Course::factory()->make([
-            'holes' => 18
+            'holes' => 18,
         ]);
 
         $this->actingAs($user)
-            ->json('POST', 'tournament/courses/' . $tournament->id, $course->toArray());
+            ->json('POST', 'tournament/courses/'.$tournament->id, $course->toArray());
 
         $savedCourse = Course::find(1);
         $tournamentCourse = TournamentCourse::find(1);
@@ -72,11 +68,11 @@ class CourseEndpointTest extends TestCase
         $tournament = $this->createTournament();
 
         $course = Course::factory()->make([
-            'holes' => 18
+            'holes' => 18,
         ]);
 
         $this->actingAs($user)
-            ->json('POST', 'tournament/courses/' . $tournament->id, $course->toArray())
+            ->json('POST', 'tournament/courses/'.$tournament->id, $course->toArray())
             ->assertStatus(403);
     }
 
@@ -87,11 +83,11 @@ class CourseEndpointTest extends TestCase
         $user = $this->createUser();
         $tournament = $this->createTournament();
         $tournamentCourse = TournamentCourse::factory()->create([
-            'tournament_id' => $tournament->id
+            'tournament_id' => $tournament->id,
         ]);
 
         $this->actingAs($user)
-            ->json('PUT', 'tournament/courses/' . $tournamentCourse->id)
+            ->json('PUT', 'tournament/courses/'.$tournamentCourse->id)
             ->assertStatus(403);
     }
 
@@ -103,7 +99,7 @@ class CourseEndpointTest extends TestCase
         $tournament->managers()->save($user);
 
         $tournamentCourse = TournamentCourse::factory()->create([
-            'tournament_id' => $tournament->id
+            'tournament_id' => $tournament->id,
         ]);
 
         $data = [
@@ -117,11 +113,11 @@ class CourseEndpointTest extends TestCase
             'state_province' => 'New State',
             'country' => 'New Country',
             'notes' => 'New Notes',
-            'directions' => 'New Directions'
+            'directions' => 'New Directions',
         ];
 
         $this->actingAs($user)
-            ->json('PUT', 'tournament/courses/' . $tournamentCourse->id, $data)
+            ->json('PUT', 'tournament/courses/'.$tournamentCourse->id, $data)
             ->assertJson($data);
 
         $tournamentCourse = $tournamentCourse->fresh();
@@ -151,12 +147,12 @@ class CourseEndpointTest extends TestCase
         );
 
         $this->actingAs($user)
-            ->json('POST', 'tournament/courses/' . $tournament->id, $course->toArray());
+            ->json('POST', 'tournament/courses/'.$tournament->id, $course->toArray());
 
         $this->assertDatabaseHas('tournaments', [
             'id' => $tournament->id,
             'latitude' => $course->latitude,
-            'longitude' => $course->longitude
+            'longitude' => $course->longitude,
         ]);
     }
 
@@ -174,11 +170,11 @@ class CourseEndpointTest extends TestCase
         Event::fake();
 
         $this->actingAs($user)
-            ->json('POST', 'tournament/courses/' . $tournament->id, $course->toArray());
+            ->json('POST', 'tournament/courses/'.$tournament->id, $course->toArray());
 
         $course = Course::find(1);
 
-        Event::assertDispatched(CourseCreated::class, function($event) use ($course, $user) {
+        Event::assertDispatched(CourseCreated::class, function ($event) use ($course, $user) {
             return $event->course->id === $course->id
                 && $event->user->id === $user->id;
         });
@@ -196,7 +192,7 @@ class CourseEndpointTest extends TestCase
         );
 
         $this->actingAs($user)
-            ->json('POST', 'tournament/courses/' . $tournament->id, $course->toArray());
+            ->json('POST', 'tournament/courses/'.$tournament->id, $course->toArray());
 
         $activity = Activity::where('resource_type', 'App\Models\Course')
             ->where('resource_id', 1)
@@ -221,11 +217,11 @@ class CourseEndpointTest extends TestCase
         Event::fake();
 
         $this->actingAs($user)
-            ->json('POST', 'tournament/courses/' . $tournament->id, $course->toArray());
+            ->json('POST', 'tournament/courses/'.$tournament->id, $course->toArray());
 
         $tournamentCourse = TournamentCourse::find(1);
 
-        Event::assertDispatched(TournamentCourseCreated::class, function($event) use ($tournamentCourse, $user) {
+        Event::assertDispatched(TournamentCourseCreated::class, function ($event) use ($tournamentCourse, $user) {
             return $event->tournamentCourse->id === $tournamentCourse->id
                 && $event->user->id === $user->id;
         });
@@ -243,7 +239,7 @@ class CourseEndpointTest extends TestCase
         );
 
         $this->actingAs($user)
-            ->json('POST', 'tournament/courses/' . $tournament->id, $course->toArray());
+            ->json('POST', 'tournament/courses/'.$tournament->id, $course->toArray());
 
         $activity = Activity::where('resource_type', 'App\Models\Tournament')
             ->where('resource_id', 1)
@@ -267,10 +263,10 @@ class CourseEndpointTest extends TestCase
         );
 
         $this->actingAs($user)
-            ->json('POST', 'tournament/courses/' . $tournament->id, $course->toArray());
+            ->json('POST', 'tournament/courses/'.$tournament->id, $course->toArray());
 
         $this->actingAs($this->createUser())
-            ->json('DELETE', '/tournament/courses/' . $tournament->courses->first()->id)
+            ->json('DELETE', '/tournament/courses/'.$tournament->courses->first()->id)
             ->assertStatus(403);
     }
 
@@ -287,10 +283,10 @@ class CourseEndpointTest extends TestCase
         );
 
         $this->actingAs($user)
-            ->json('POST', 'tournament/courses/' . $tournament->id, $course->toArray());
+            ->json('POST', 'tournament/courses/'.$tournament->id, $course->toArray());
 
         $this->actingAs($user)
-            ->json('DELETE', '/tournament/courses/' . $tournament->courses->first()->id)
+            ->json('DELETE', '/tournament/courses/'.$tournament->courses->first()->id)
             ->assertJson([]);
 
         $this->assertEquals(0, $tournament->fresh()->courses->count());
@@ -305,18 +301,18 @@ class CourseEndpointTest extends TestCase
         $tournament->managers()->save($user);
 
         $course = Course::factory()->make([
-            'holes' => 18
+            'holes' => 18,
         ]);
 
         $this->actingAs($user)
-            ->json('POST', 'tournament/courses/' . $tournament->id, $course->toArray());
+            ->json('POST', 'tournament/courses/'.$tournament->id, $course->toArray());
 
         $tournamentCourse = $tournament->courses->first();
 
         $this->actingAs($this->createUser())
-            ->json('PUT', 'tournament/course/holes/' . $tournamentCourse->id, [
+            ->json('PUT', 'tournament/course/holes/'.$tournamentCourse->id, [
                 'notes[1]' => 'All the OB',
-                'notes[4]' => 'Mandatory to the right'
+                'notes[4]' => 'Mandatory to the right',
             ])
             ->assertStatus(403);
     }
@@ -329,23 +325,23 @@ class CourseEndpointTest extends TestCase
         $tournament->managers()->save($user);
 
         $course = Course::factory()->make([
-            'holes' => 18
+            'holes' => 18,
         ]);
 
         $this->actingAs($user)
-            ->json('POST', 'tournament/courses/' . $tournament->id, $course->toArray());
+            ->json('POST', 'tournament/courses/'.$tournament->id, $course->toArray());
 
         $tournamentCourse = $tournament->courses->first();
 
         $data = [
             'notes' => [
                 1 => 'All the OB',
-                2 => 'Mandatory to the right'
-            ]
+                2 => 'Mandatory to the right',
+            ],
         ];
 
         $this->actingAs($user)
-            ->json('PUT', 'tournament/course/holes/' . $tournamentCourse->id, $data);
+            ->json('PUT', 'tournament/course/holes/'.$tournamentCourse->id, $data);
 
         $holes = TournamentCourseHole::all();
 

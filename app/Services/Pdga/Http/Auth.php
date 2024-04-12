@@ -1,10 +1,11 @@
-<?php namespace App\Services\Pdga\Http;
+<?php
 
-use Carbon\Carbon;
+namespace App\Services\Pdga\Http;
+
 use GuzzleHttp\Client;
 
-class Auth {
-
+class Auth
+{
     protected $url;
 
     protected $username;
@@ -22,11 +23,11 @@ class Auth {
     {
         $client = new Client();
 
-        $response = $client->post($this->url->getBaseUrl() . '/user/login', [
+        $response = $client->post($this->url->getBaseUrl().'/user/login', [
             'json' => [
                 'username' => $this->username,
-                'password' => $this->password
-            ]
+                'password' => $this->password,
+            ],
         ]);
 
         return json_decode($response->getBody(), true);

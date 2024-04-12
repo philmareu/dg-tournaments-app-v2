@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Activity;
+use App\Http\Controllers\Controller;
 use App\Models\Follow;
 use App\Models\Order;
 use App\Models\Search;
@@ -10,10 +10,6 @@ use App\Models\Sponsorship;
 use App\Models\StripeAccount;
 use App\Models\TournamentSponsor;
 use App\Models\User\User;
-use Illuminate\Http\Request;
-
-use App\Http\Requests;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
@@ -28,36 +24,36 @@ class DashboardController extends Controller
             ->withCounts([
                 [
                     'title' => 'Users',
-                    'quantity' => User::count()
+                    'quantity' => User::count(),
                 ],
                 [
                     'title' => 'Searches',
-                    'quantity' => Search::count()
+                    'quantity' => Search::count(),
                 ],
                 [
                     'title' => 'Sponsorships',
-                    'quantity' => Sponsorship::count()
+                    'quantity' => Sponsorship::count(),
                 ],
                 [
                     'title' => 'Follows',
-                    'quantity' => Follow::count()
+                    'quantity' => Follow::count(),
                 ],
                 [
                     'title' => 'Managers',
-                    'quantity' => DB::table('managers')->count()
+                    'quantity' => DB::table('managers')->count(),
                 ],
                 [
                     'title' => 'Orders',
-                    'quantity' => Order::count()
+                    'quantity' => Order::count(),
                 ],
                 [
                     'title' => 'Stripe Accounts',
-                    'quantity' => StripeAccount::count()
+                    'quantity' => StripeAccount::count(),
                 ],
                 [
                     'title' => 'Tournament Sponsors',
-                    'quantity' => TournamentSponsor::count()
-                ]
+                    'quantity' => TournamentSponsor::count(),
+                ],
             ]);
     }
 }

@@ -10,15 +10,13 @@ use App\Models\SpecialEventType;
 use App\Models\Tournament;
 use App\Models\Upload;
 use App\Models\User\User;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Testing\TestResponse;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Testing\TestResponse;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 use Tests\ValidationHelperTrait;
-use PHPUnit\Framework\Attributes\Test;
 
 class SubmitTournamentTest extends TestCase
 {
@@ -155,35 +153,35 @@ class SubmitTournamentTest extends TestCase
     |--------------------------------------------------------------------------
     */
 
-//    #[Test]
-//    public function user_can_submit_a_tournament_and_data_is_stored()
-//    {
-//        $data = $this->data();
-//
-//        $this->seed('ClassesTableSeeder');
-//
-//        $tournament = $this->getTournamentFromResponse(
-//            $this->submitTournament($user = $this->createUser(), $data)
-//        );
-//
-//        $basic = collect($data)->reject(function($value, $key) {
-//            return in_array($key, ['start', 'end', 'special_event_type_ids']);
-//        });
-//
-//        $special = collect($data)->filter(function($value, $key) {
-//            return in_array($key, ['start', 'end', 'special_event_type_ids']);
-//        });
-//
-//        $basic->each(function($value, $key) use ($tournament) {
-//            $this->assertEquals($value, $tournament->$key);
-//        });
-//
-//        $this->assertEquals($special['start'], $tournament->start->format('n-j-Y'));
-//        $this->assertEquals($special['end'], $tournament->end->format('n-j-Y'));
-//        $this->assertTrue(empty(array_diff($special['special_event_type_ids'], $tournament->specialEventTypes->pluck('id')->toArray())));
-//
-//        $this->assertEquals($user->email, $tournament->authorization_email);
-//    }
+    //    #[Test]
+    //    public function user_can_submit_a_tournament_and_data_is_stored()
+    //    {
+    //        $data = $this->data();
+    //
+    //        $this->seed('ClassesTableSeeder');
+    //
+    //        $tournament = $this->getTournamentFromResponse(
+    //            $this->submitTournament($user = $this->createUser(), $data)
+    //        );
+    //
+    //        $basic = collect($data)->reject(function($value, $key) {
+    //            return in_array($key, ['start', 'end', 'special_event_type_ids']);
+    //        });
+    //
+    //        $special = collect($data)->filter(function($value, $key) {
+    //            return in_array($key, ['start', 'end', 'special_event_type_ids']);
+    //        });
+    //
+    //        $basic->each(function($value, $key) use ($tournament) {
+    //            $this->assertEquals($value, $tournament->$key);
+    //        });
+    //
+    //        $this->assertEquals($special['start'], $tournament->start->format('n-j-Y'));
+    //        $this->assertEquals($special['end'], $tournament->end->format('n-j-Y'));
+    //        $this->assertTrue(empty(array_diff($special['special_event_type_ids'], $tournament->specialEventTypes->pluck('id')->toArray())));
+    //
+    //        $this->assertEquals($user->email, $tournament->authorization_email);
+    //    }
 
     #[Test]
     public function user_is_added_as_manager_on_submitted_tournament()
@@ -206,7 +204,7 @@ class SubmitTournamentTest extends TestCase
             $this->submitTournament($user = $this->createUser())
         );
 
-        Event::assertDispatched(TournamentSubmitted::class, function($event) use ($tournament) {
+        Event::assertDispatched(TournamentSubmitted::class, function ($event) use ($tournament) {
             return $event->tournament->id === $tournament->id;
         });
     }
@@ -236,7 +234,7 @@ class SubmitTournamentTest extends TestCase
         $this->assertDatabaseHas('activities', [
             'resource_type' => 'App\Models\Tournament',
             'resource_id' => $tournament->id,
-            'type' => 'tournament.submitted'
+            'type' => 'tournament.submitted',
         ]);
     }
 
@@ -246,10 +244,7 @@ class SubmitTournamentTest extends TestCase
     |--------------------------------------------------------------------------
     */
 
-    /**
-     * @return TestResponse
-     */
-    public function submitTournament($user, $data = null) : TestResponse
+    public function submitTournament($user, $data = null): TestResponse
     {
         return $this->actingAs($user)
             ->json('POST', $this->endpoint, is_null($data) ? $this->data() : $data);
@@ -285,7 +280,7 @@ class SubmitTournamentTest extends TestCase
             'class_ids' => $classes->pluck('id'),
             'special_event_type_ids' => $specialEventTypes->pluck('id')->toArray(),
             'timezone' => 'America/Barbados',
-            'accepted' => 1
+            'accepted' => 1,
         ];
     }
 }

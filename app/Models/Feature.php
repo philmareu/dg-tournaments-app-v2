@@ -13,7 +13,7 @@ class Feature extends Model
         'image_id',
         'video_url',
         'ordinal',
-        'category'
+        'category',
     ];
 
     public function image()

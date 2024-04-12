@@ -26,7 +26,7 @@ class UpdateTournamentStripeAccountRequest extends FormRequest
     public function rules()
     {
         return [
-            'stripe_account_id' => 'required|in:' . $this->user()->stripeAccounts()->pluck('id')->implode(',')
+            'stripe_account_id' => 'required|in:'.$this->user()->stripeAccounts()->pluck('id')->implode(','),
         ];
     }
 }

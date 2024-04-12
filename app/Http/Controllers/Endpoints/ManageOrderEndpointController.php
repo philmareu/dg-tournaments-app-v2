@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers\Endpoints;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Endpoints\CreateRefundRequest;
 use App\Mail\Admin\RefundRequestMailable;
 use App\Models\Transfer;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Support\Facades\Mail;

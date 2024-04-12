@@ -1,4 +1,6 @@
-<?php namespace App\Services\Foursquare\EndPoints\Venues;
+<?php
+
+namespace App\Services\Foursquare\EndPoints\Venues;
 
 use App\Services\Foursquare\Http\Get;
 use App\Services\Foursquare\Http\Url;
@@ -8,7 +10,9 @@ class Search extends Get
     public function aroundLatLng($latitude, $longitude, $radius = null)
     {
         $this->addParameter(['ll' => implode(',', [$latitude, $longitude])]);
-        if($radius) $this->addParameter(['radius' => $radius]);
+        if ($radius) {
+            $this->addParameter(['radius' => $radius]);
+        }
 
         return $this;
     }

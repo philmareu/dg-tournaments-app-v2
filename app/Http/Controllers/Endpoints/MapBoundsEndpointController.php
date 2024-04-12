@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Endpoints;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 
 class MapBoundsEndpointController extends Controller
 {
@@ -13,7 +13,7 @@ class MapBoundsEndpointController extends Controller
             'south' => $request->cookie('map-search-south') ?: 35.786085633851,
             'north' => $request->cookie('map-search-north') ?: 38,
             'west' => $request->cookie('map-search-west') ?: -115,
-            'east' => $request->cookie('map-search-east') ?: -105
+            'east' => $request->cookie('map-search-east') ?: -105,
         ];
     }
 

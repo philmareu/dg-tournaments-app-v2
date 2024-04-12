@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers\Endpoints;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Endpoints\DestroySearchRequest;
 use App\Http\Requests\Endpoints\StoreSearchRequest;
 use App\Http\Requests\Endpoints\UpdateSearchRequest;
 use App\Models\Search;
 use App\Repositories\SearchRepository;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Support\Facades\Auth;

@@ -11,6 +11,6 @@ class UserPaymentMethod extends Model
         'brand',
         'expiration_month',
         'expiration_year',
-        'last_4'
+        'last_4',
     ];
 }

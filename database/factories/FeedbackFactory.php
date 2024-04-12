@@ -18,7 +18,7 @@ class FeedbackFactory extends Factory
     {
         return [
             'email' => fake()->safeEmail,
-            'feedback' => fake()->paragraph
+            'feedback' => fake()->paragraph,
         ];
     }
 }

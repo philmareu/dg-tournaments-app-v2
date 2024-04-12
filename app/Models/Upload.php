@@ -15,7 +15,7 @@ class Upload extends Model
         'title',
         'size',
         'alt',
-        'mime'
+        'mime',
     ];
 
     public function user()

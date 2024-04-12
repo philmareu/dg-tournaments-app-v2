@@ -3,9 +3,7 @@
 namespace App\Listeners\Activity;
 
 use App\Events\TournamentUnfollowed;
-use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Support\Facades\Log;
 
 class CreateTournamentUnfollowedActivity implements ShouldQueue
 {
@@ -24,7 +22,6 @@ class CreateTournamentUnfollowedActivity implements ShouldQueue
     /**
      * Handle the event.
      *
-     * @param  TournamentUnfollowed  $event
      * @return void
      */
     public function handle(TournamentUnfollowed $event)

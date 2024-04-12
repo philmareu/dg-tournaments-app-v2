@@ -25,7 +25,7 @@ class StoreFeedbackRequest extends FormRequest
     {
         return [
             'email' => 'required|email|max:255',
-            'feedback' => 'required|max:2000'
+            'feedback' => 'required|max:2000',
         ];
     }
 }

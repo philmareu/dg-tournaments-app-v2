@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Endpoints;
 
+use App\Http\Controllers\Controller;
 use App\Repositories\OrderRepository;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
 class OrderCurrentEndpointController extends Controller
 {

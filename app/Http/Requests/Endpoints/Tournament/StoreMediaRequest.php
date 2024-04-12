@@ -27,7 +27,7 @@ class StoreMediaRequest extends FormRequest
     {
         return [
             'title' => 'required|max:255',
-            'uploaded_id' => 'required|exists:uploads,id'
+            'uploaded_id' => 'required|exists:uploads,id',
         ];
     }
 }

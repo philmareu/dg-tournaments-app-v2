@@ -2,12 +2,9 @@
 
 namespace Tests\Feature\API\User;
 
-use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use PHPUnit\Framework\Attributes\Test;
+use Tests\TestCase;
 
 class UserCurrentEndpointTest extends TestCase
 {
@@ -36,7 +33,7 @@ class UserCurrentEndpointTest extends TestCase
                 'name' => $user->name,
                 'email' => $user->email,
                 'managing' => [],
-                'following_tournaments' => []
+                'following_tournaments' => [],
             ]);
     }
 }

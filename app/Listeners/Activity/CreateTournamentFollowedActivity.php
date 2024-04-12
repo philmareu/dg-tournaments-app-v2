@@ -3,7 +3,6 @@
 namespace App\Listeners\Activity;
 
 use App\Events\TournamentFollowed;
-use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
 class CreateTournamentFollowedActivity implements ShouldQueue
@@ -23,7 +22,6 @@ class CreateTournamentFollowedActivity implements ShouldQueue
     /**
      * Handle the event.
      *
-     * @param  TournamentFollowed  $event
      * @return void
      */
     public function handle(TournamentFollowed $event)

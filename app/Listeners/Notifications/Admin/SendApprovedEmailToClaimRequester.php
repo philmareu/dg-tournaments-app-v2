@@ -4,8 +4,6 @@ namespace App\Listeners\Notifications\Admin;
 
 use App\Events\TournamentClaimApproved;
 use App\Mail\User\ClaimApprovedMailable;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\Mail;
 
 class SendApprovedEmailToClaimRequester
@@ -23,7 +21,6 @@ class SendApprovedEmailToClaimRequester
     /**
      * Handle the event.
      *
-     * @param  TournamentClaimApproved  $event
      * @return void
      */
     public function handle(TournamentClaimApproved $event)

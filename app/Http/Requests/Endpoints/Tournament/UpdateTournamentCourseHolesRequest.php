@@ -26,7 +26,7 @@ class UpdateTournamentCourseHolesRequest extends FormRequest
     public function rules()
     {
         return [
-//            'holes' => 'required|'
+            //            'holes' => 'required|'
         ];
     }
 }

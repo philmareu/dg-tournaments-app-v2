@@ -1,4 +1,6 @@
-<?php namespace App\Services\Pdga\EndPoints;
+<?php
+
+namespace App\Services\Pdga\EndPoints;
 
 use App\Services\Pdga\Http\Get;
 use App\Services\Pdga\Http\Url;
@@ -6,7 +8,7 @@ use App\Services\Pdga\Http\Url;
 class Events extends Get
 {
     /**
-     * @param string $name
+     * @param  string  $name
      * @return $this
      */
     public function whereName($name)
@@ -17,7 +19,7 @@ class Events extends Get
     }
 
     /**
-     * @param string $state
+     * @param  string  $state
      * @return $this
      */
     public function whereState($state)
@@ -28,7 +30,7 @@ class Events extends Get
     }
 
     /**
-     * @param string $country
+     * @param  string  $country
      * @return $this
      */
     public function whereCountry($country)
@@ -87,7 +89,7 @@ class Events extends Get
     /**
      * Set API limit
      *
-     * @param int $limit
+     * @param  int  $limit
      */
     public function limit($limit)
     {
@@ -99,7 +101,7 @@ class Events extends Get
     /**
      * Set API offset
      *
-     * @param int $offset
+     * @param  int  $offset
      */
     public function offset($offset)
     {
@@ -115,6 +117,6 @@ class Events extends Get
     {
         $response = $this->sendRequest(new Url('event'));
 
-        return isset($response['events']) ? $response['events']: [];
+        return isset($response['events']) ? $response['events'] : [];
     }
 }

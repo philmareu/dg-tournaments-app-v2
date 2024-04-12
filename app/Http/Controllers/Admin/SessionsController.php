@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Carbon\Carbon;
-use App\Models\RequestLog;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\RequestLog;
+use Carbon\Carbon;
 
 class SessionsController extends Controller
 {

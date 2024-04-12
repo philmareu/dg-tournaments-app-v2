@@ -4,9 +4,9 @@ namespace App\Mail\Managers;
 
 use App\Models\Transfer;
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Contracts\Queue\ShouldQueue;
 
 class NewOrderPaidMailable extends Mailable implements ShouldQueue
 {

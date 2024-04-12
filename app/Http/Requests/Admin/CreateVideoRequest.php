@@ -26,7 +26,7 @@ class CreateVideoRequest extends Request
         return [
             'youtube_video_id' => 'required|unique:videos',
             'event_ids' => 'array',
-            'course_ids' => 'array'
+            'course_ids' => 'array',
         ];
     }
 }

@@ -3,16 +3,16 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Events\NewUserActivated;
-use App\Models\User\UserReferral;
-use App\Models\User\User;
 use App\Http\Controllers\Controller;
+use App\Models\User\User;
+use App\Models\User\UserReferral;
 use App\Services\Auth\UserActivation;
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Foundation\Auth\RegistersUsers;
 
 class RegisterController extends Controller implements HasMiddleware
 {
@@ -61,7 +61,6 @@ class RegisterController extends Controller implements HasMiddleware
     /**
      * Get a validator for an incoming registration request.
      *
-     * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
     protected function validator(array $data)
@@ -69,14 +68,13 @@ class RegisterController extends Controller implements HasMiddleware
         return Validator::make($data, [
             'name' => 'required|max:50',
             'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6|confirmed'
+            'password' => 'required|string|min:6|confirmed',
         ]);
     }
 
     /**
      * Create a new user instance after a valid registration.
      *
-     * @param  array  $data
      * @return User
      */
     protected function create(array $data)
@@ -91,7 +89,6 @@ class RegisterController extends Controller implements HasMiddleware
     /**
      * Handle a registration request for the application.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function register(Request $request)
@@ -100,14 +97,14 @@ class RegisterController extends Controller implements HasMiddleware
 
         event(new Registered($user = $this->create($request->all())));
 
-        if($request->has('referral'))
-        {
+        if ($request->has('referral')) {
             $referral = $this->referral->where('code', $request->referral)->first();
             $user->referredBy()->associate($referral->referredBy)->save();
             $referral->delete();
         }
 
         $this->userActivation->sendActivationMail($user);
+
         return redirect('login')->with('success', 'Please check your email to activation your account. If you do not receive the email, please check your spam folder or contact us at admin@dgtournaments.com. Thanks!');
     }
 
@@ -116,6 +113,7 @@ class RegisterController extends Controller implements HasMiddleware
         if ($user = $this->userActivation->activateUser($token)) {
             event(new NewUserActivated($user));
             auth()->login($user);
+
             return redirect($this->redirectPath());
         }
         abort(404);

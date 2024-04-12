@@ -4,8 +4,6 @@ namespace Tests\Unit\Data;
 
 use App\Data\Time;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class TimeTest extends TestCase
 {

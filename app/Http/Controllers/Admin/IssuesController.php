@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreIssueRequest;
 use App\Http\Requests\Admin\UpdateIssueRequest;
 use App\Models\Issue;
 use App\Models\Tournament;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
 class IssuesController extends Controller
@@ -20,7 +20,6 @@ class IssuesController extends Controller
 
     /**
      * Display a listing of the resource.
-     *
      */
     public function index()
     {
@@ -57,7 +56,6 @@ class IssuesController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     *
      */
     public function edit(Issue $issue)
     {

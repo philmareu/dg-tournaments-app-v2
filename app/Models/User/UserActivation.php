@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class UserActivation extends Model
 {
     protected $fillable = [
-        'token'
+        'token',
     ];
 }

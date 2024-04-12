@@ -4,16 +4,11 @@ namespace Tests\Unit;
 
 use App\Billing\Stripe\StripeBilling;
 use App\Models\Order;
-use App\Models\Order\OrderSponsorshipProduct;
 use App\Models\OrderSponsorship;
 use App\Models\Sponsorship;
-use App\Models\TournamentOrder;
-use App\Models\TournamentOrderSponsorshipProduct;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class OrderRepositoryTest extends TestCase
 {
@@ -43,7 +38,7 @@ class OrderRepositoryTest extends TestCase
 
         $this->assertDatabaseHas('order_sponsorships', [
             'order_id' => $order->id,
-            'sponsorship_id' => $sponsorship->id
+            'sponsorship_id' => $sponsorship->id,
         ]);
     }
 

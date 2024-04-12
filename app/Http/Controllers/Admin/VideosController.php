@@ -3,16 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use Alaouy\Youtube\Facades\Youtube;
-use Carbon\Carbon;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\CreateVideoRequest;
 use App\Http\Requests\Admin\UpdateVideoRequest;
-use App\Models\Tournament;
 use App\Models\Video;
-use Illuminate\Http\Request;
-
-use App\Http\Requests;
-use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Artisan;
+use Carbon\Carbon;
 
 class VideosController extends Controller
 {
@@ -56,8 +51,12 @@ class VideosController extends Controller
     {
         $video = $this->video->create($request->only('youtube_video_id'));
 
-        if($request->has('event_ids')) $video->events()->sync($request->event_ids);
-        if($request->has('course_ids')) $video->courses()->sync($request->course_ids);
+        if ($request->has('event_ids')) {
+            $video->events()->sync($request->event_ids);
+        }
+        if ($request->has('course_ids')) {
+            $video->courses()->sync($request->course_ids);
+        }
 
         $this->updateVideoMeta($video);
 
@@ -98,11 +97,17 @@ class VideosController extends Controller
     {
         $video->update($request->only('youtube_video_id'));
 
-        if($request->has('event_ids')) $video->events()->sync($request->event_ids);
-        else $video->events()->sync([]);
+        if ($request->has('event_ids')) {
+            $video->events()->sync($request->event_ids);
+        } else {
+            $video->events()->sync([]);
+        }
 
-        if($request->has('course_ids')) $video->courses()->sync($request->course_ids);
-        else $video->courses()->sync([]);
+        if ($request->has('course_ids')) {
+            $video->courses()->sync($request->course_ids);
+        } else {
+            $video->courses()->sync([]);
+        }
 
         $this->updateVideoMeta($video);
 
@@ -122,9 +127,6 @@ class VideosController extends Controller
         return response()->json(['status' => 'ok']);
     }
 
-    /**
-     * @param Video $video
-     */
     private function updateVideoMeta(Video $video)
     {
         $meta = Youtube::getVideoInfo($video->youtube_video_id);
@@ -133,7 +135,7 @@ class VideosController extends Controller
 
         $video->update([
             'published_at' => $publishedAt,
-            'title' => $meta->snippet->title
+            'title' => $meta->snippet->title,
         ]);
     }
 }

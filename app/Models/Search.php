@@ -19,7 +19,7 @@ class Search extends Model
         'north',
         'east',
         'south',
-        'west'
+        'west',
     ];
 
     protected $casts = [

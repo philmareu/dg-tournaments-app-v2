@@ -2,8 +2,8 @@
 
 namespace App\Repositories;
 
-abstract class EloquentRepository {
-
+abstract class EloquentRepository
+{
     protected $model;
 
     protected $checkboxes = [];

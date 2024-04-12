@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class UserReferral extends Model
 {
     protected $fillable = [
-        'email'
+        'email',
     ];
 
     public function referredBy()

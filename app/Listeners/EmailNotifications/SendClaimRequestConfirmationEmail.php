@@ -4,7 +4,6 @@ namespace App\Listeners\EmailNotifications;
 
 use App\Events\TournamentClaimRequestSubmitted;
 use App\Mail\User\ClaimSubmitted;
-use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\Mail;
 
@@ -23,7 +22,6 @@ class SendClaimRequestConfirmationEmail implements ShouldQueue
     /**
      * Handle the event.
      *
-     * @param  TournamentClaimRequestSubmitted  $event
      * @return void
      */
     public function handle(TournamentClaimRequestSubmitted $event)

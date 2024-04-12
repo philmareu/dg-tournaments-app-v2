@@ -28,7 +28,7 @@ class CourseFactory extends Factory
             'directions' => fake()->paragraph,
             'length' => fake()->randomNumber(4),
             'latitude' => fake()->latitude,
-            'longitude' => fake()->longitude
+            'longitude' => fake()->longitude,
         ];
     }
 }

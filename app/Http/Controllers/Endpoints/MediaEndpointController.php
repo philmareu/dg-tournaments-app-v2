@@ -3,14 +3,12 @@
 namespace App\Http\Controllers\Endpoints;
 
 use App\Events\MediaSaved;
-
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Endpoints\Tournament\DestroyMediaRequest;
 use App\Http\Requests\Endpoints\Tournament\StoreMediaRequest;
 use App\Http\Requests\Endpoints\Tournament\UpdateMediaRequest;
 use App\Models\Tournament;
 use App\Models\Upload;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
 class MediaEndpointController extends Controller
 {

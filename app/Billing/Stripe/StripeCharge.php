@@ -3,7 +3,6 @@
 namespace App\Billing\Stripe;
 
 use App\Data\Price;
-use Illuminate\Support\Facades\Log;
 use Stripe\Charge;
 
 class StripeCharge
@@ -15,7 +14,7 @@ class StripeCharge
             'currency' => 'usd',
             'transfer_group' => $transferGroup,
             'source' => $token,
-            'customer' => $customerId
+            'customer' => $customerId,
         ]);
     }
 }

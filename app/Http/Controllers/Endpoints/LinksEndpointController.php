@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers\Endpoints;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Endpoints\Tournament\DestroyTournamentLinkRequest;
 use App\Http\Requests\Endpoints\Tournament\StoreTournamentLinkRequest;
 use App\Http\Requests\Endpoints\Tournament\UpdateTournamentLinkRequest;
 use App\Models\Link;
-
-use App\Http\Controllers\Controller;
 use App\Models\Tournament;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;

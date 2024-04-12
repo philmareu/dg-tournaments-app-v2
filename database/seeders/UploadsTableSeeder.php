@@ -15,11 +15,11 @@ class UploadsTableSeeder extends Seeder
     public function run()
     {
         Upload::factory()->create([
-            'filename' => '2scd7Ugf0VqaPrrhIGR0Cvph5otY0g0L938ykVV5.jpeg'
+            'filename' => '2scd7Ugf0VqaPrrhIGR0Cvph5otY0g0L938ykVV5.jpeg',
         ]);
 
         Upload::factory()->create([
-            'filename' => 'lPitFqzgDlTgS5QKkLgH1GPfzK4pSBPG4TFoMelY.jpeg'
+            'filename' => 'lPitFqzgDlTgS5QKkLgH1GPfzK4pSBPG4TFoMelY.jpeg',
         ]);
     }
 }

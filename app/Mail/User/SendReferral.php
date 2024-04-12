@@ -4,9 +4,9 @@ namespace App\Mail\User;
 
 use App\Models\UserReferral;
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Contracts\Queue\ShouldQueue;
 
 class SendReferral extends Mailable implements ShouldQueue
 {
@@ -33,7 +33,7 @@ class SendReferral extends Mailable implements ShouldQueue
     {
         return $this
             ->from('admin@dgtournaments.com', 'DG Tournaments')
-            ->subject($this->referral->referredBy->name . ' invited you to check out DG Tournaments')
+            ->subject($this->referral->referredBy->name.' invited you to check out DG Tournaments')
             ->markdown('emails.user.referral');
     }
 }

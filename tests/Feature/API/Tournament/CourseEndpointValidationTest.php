@@ -4,12 +4,9 @@ namespace Tests\Feature\API\Tournament;
 
 use App\Models\TournamentCourse;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Tests\ValidationHelperTrait;
 use PHPUnit\Framework\Attributes\Test;
+use Tests\TestCase;
+use Tests\ValidationHelperTrait;
 
 class CourseEndpointValidationTest extends TestCase
 {
@@ -195,7 +192,7 @@ class CourseEndpointValidationTest extends TestCase
         $tournament->managers()->save($user);
 
         return $this->actingAs($user)
-            ->json('POST', 'tournament/courses/' . $tournament->id, $data);
+            ->json('POST', 'tournament/courses/'.$tournament->id, $data);
     }
 
     public function updating($data = [])
@@ -206,10 +203,10 @@ class CourseEndpointValidationTest extends TestCase
         $tournament->managers()->save($user);
 
         $tournamentCourse = TournamentCourse::factory()->create([
-            'tournament_id' => $tournament->id
+            'tournament_id' => $tournament->id,
         ]);
 
         return $this->actingAs($user)
-            ->json('PUT', 'tournament/courses/' . $tournamentCourse->id, $data);
+            ->json('PUT', 'tournament/courses/'.$tournamentCourse->id, $data);
     }
 }

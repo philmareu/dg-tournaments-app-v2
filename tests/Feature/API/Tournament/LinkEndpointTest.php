@@ -4,13 +4,10 @@ namespace Tests\Feature\API\Tournament;
 
 use App\Models\Link;
 use App\Models\Tournament;
-use Illuminate\Support\Facades\Event;
-use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Event;
 use PHPUnit\Framework\Attributes\Test;
+use Tests\TestCase;
 
 class LinkEndpointTest extends TestCase
 {
@@ -27,7 +24,7 @@ class LinkEndpointTest extends TestCase
     public function only_a_manager_can_store_a_link()
     {
         $this->actingAs($this->createUser())
-            ->json('POST', 'tournament/links/' . Tournament::factory()->create()->id)
+            ->json('POST', 'tournament/links/'.Tournament::factory()->create()->id)
             ->assertStatus(403);
     }
 
@@ -36,7 +33,7 @@ class LinkEndpointTest extends TestCase
     {
 
         $this->actingAs($this->createUser())
-            ->json('PUT', 'tournament/links/' . Link::factory()->create()->id)
+            ->json('PUT', 'tournament/links/'.Link::factory()->create()->id)
             ->assertStatus(403);
     }
 
@@ -45,29 +42,29 @@ class LinkEndpointTest extends TestCase
     {
 
         $this->actingAs($this->createUser())
-            ->json('DELETE', 'tournament/links/' . Link::factory()->create()->id)
+            ->json('DELETE', 'tournament/links/'.Link::factory()->create()->id)
             ->assertStatus(403);
     }
 
     #[Test]
     public function manager_can_store_a_new_link()
     {
-        list($user, $tournament) = $this->createTournamentWithManager();
+        [$user, $tournament] = $this->createTournamentWithManager();
 
         $data = [
             'title' => 'Link Title',
             'url' => 'http://testing.com',
-            'ordinal' => 1
+            'ordinal' => 1,
         ];
 
         $this->actingAs($user)
-            ->json('POST', 'tournament/links/' . $tournament->id, $data)
+            ->json('POST', 'tournament/links/'.$tournament->id, $data)
             ->assertJson([
                 [
                     'title' => 'Link Title',
                     'url' => 'http://testing.com',
-                    'ordinal' => 1
-                ]
+                    'ordinal' => 1,
+                ],
             ]);
 
         $link = $tournament->links->first();
@@ -80,24 +77,24 @@ class LinkEndpointTest extends TestCase
     #[Test]
     public function manager_can_update_a_link()
     {
-        list($user, $tournament) = $this->createTournamentWithManager();
+        [$user, $tournament] = $this->createTournamentWithManager();
 
         $tournament->links()->save(Link::factory()->make());
 
         $data = [
             'title' => 'Link Title',
             'url' => 'http://testing.com',
-            'ordinal' => 1
+            'ordinal' => 1,
         ];
 
         $this->actingAs($user)
-            ->json('PUT', 'tournament/links/' . $tournament->links->first()->id, $data)
+            ->json('PUT', 'tournament/links/'.$tournament->links->first()->id, $data)
             ->assertJson([
                 [
                     'title' => 'Link Title',
                     'url' => 'http://testing.com',
-                    'ordinal' => 1
-                ]
+                    'ordinal' => 1,
+                ],
             ]);
 
         $link = $tournament->fresh()->links->first();
@@ -110,12 +107,12 @@ class LinkEndpointTest extends TestCase
     #[Test]
     public function manager_can_delete_a_link()
     {
-        list($user, $tournament) = $this->createTournamentWithManager();
+        [$user, $tournament] = $this->createTournamentWithManager();
 
         $tournament->links()->save(Link::factory()->make());
 
         $this->actingAs($user)
-            ->json('DELETE', 'tournament/links/' . $tournament->links->first()->id)
+            ->json('DELETE', 'tournament/links/'.$tournament->links->first()->id)
             ->assertJson([]);
 
         $this->assertEquals(0, $tournament->fresh()->links->count());

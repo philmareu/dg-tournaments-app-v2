@@ -3,12 +3,9 @@
 namespace Tests\Feature\API\User;
 
 use App\Models\Sponsor;
-use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use PHPUnit\Framework\Attributes\Test;
+use Tests\TestCase;
 
 class UserSponsorValidationTest extends TestCase
 {
@@ -61,11 +58,11 @@ class UserSponsorValidationTest extends TestCase
     {
         $user = $this->createUser();
         $sponsor = Sponsor::factory()->create([
-            'user_id' => $user->id
+            'user_id' => $user->id,
         ]);
 
         $this->actingAs($user)
-            ->call('PUT', 'user/sponsors/' . $sponsor->id, $data)
+            ->call('PUT', 'user/sponsors/'.$sponsor->id, $data)
             ->assertSessionHasErrors($key);
     }
 }

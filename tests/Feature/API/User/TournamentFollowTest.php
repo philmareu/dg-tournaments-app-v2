@@ -5,15 +5,12 @@ namespace Tests\Feature\API\User;
 use App\Events\TournamentFollowed;
 use App\Events\TournamentUnfollowed;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Queue;
-use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use PHPUnit\Framework\Attributes\Test;
+use Tests\TestCase;
 
 class TournamentFollowTest extends TestCase
 {
@@ -25,15 +22,14 @@ class TournamentFollowTest extends TestCase
         $tournament = $this->createTournament();
 
         $this->assertFalse(Auth::check());
-        $response = $this->json('PUT', 'user/follow/tournament/' . $tournament->id);
+        $response = $this->json('PUT', 'user/follow/tournament/'.$tournament->id);
         $response->assertStatus(401);
     }
-
 
     #[Test]
     public function user_can_follow_a_tournament()
     {
-        list($user, $tournament) = $this->createUserFollowTournament();
+        [$user, $tournament] = $this->createUserFollowTournament();
 
         $followingTournament = $user->following()
             ->where('resource_type', 'App\Models\Tournament')
@@ -50,16 +46,16 @@ class TournamentFollowTest extends TestCase
         $tournament = $this->createTournament();
 
         $this->actingAs($user)
-            ->json('PUT', '/user/follow/tournament/' . $tournament->id)
+            ->json('PUT', '/user/follow/tournament/'.$tournament->id)
             ->assertJson([
-                'following' => []
+                'following' => [],
             ]);
     }
 
     #[Test]
     public function user_can_unfollow_a_tournament()
     {
-        list($user, $tournament) = $this->createUserFollowTournament();
+        [$user, $tournament] = $this->createUserFollowTournament();
         $this->followTournament($user, $tournament);
 
         $followingTournament = $user->following()
@@ -87,7 +83,7 @@ class TournamentFollowTest extends TestCase
     #[Test]
     public function unfollowed_tournament_event_is_fired()
     {
-        list($user, $tournament) = $this->createUserFollowTournament();
+        [$user, $tournament] = $this->createUserFollowTournament();
 
         Event::fake();
         $this->followTournament($user, $tournament);
@@ -100,27 +96,27 @@ class TournamentFollowTest extends TestCase
     #[Test]
     public function an_activity_is_created_when_tournament_is_followed()
     {
-        list($user, $tournament) = $this->createUserFollowTournament();
+        [$user, $tournament] = $this->createUserFollowTournament();
 
         $this->assertDatabaseHas('activities', [
             'user_id' => $user->id,
             'resource_type' => 'App\Models\Tournament',
             'resource_id' => $tournament->id,
-            'type' => 'tournament.followed'
+            'type' => 'tournament.followed',
         ]);
     }
 
     #[Test]
     public function an_activity_is_created_when_tournament_is_unfollowed()
     {
-        list($user, $tournament) = $this->createUserFollowTournament();
+        [$user, $tournament] = $this->createUserFollowTournament();
         $this->followTournament($user, $tournament);
 
         $this->assertDatabaseHas('activities', [
             'user_id' => $user->id,
             'resource_type' => 'App\Models\Tournament',
             'resource_id' => $tournament->id,
-            'type' => 'tournament.unfollowed'
+            'type' => 'tournament.unfollowed',
         ]);
     }
 
@@ -141,14 +137,10 @@ class TournamentFollowTest extends TestCase
         $this->assertEquals(3, $user->followingTournaments->count());
     }
 
-    /**
-     * @param $user
-     * @param $tournament
-     */
     public function followTournament($user, $tournament)
     {
         $response = $this->actingAs($user)
-            ->json('PUT', '/user/follow/tournament/' . $tournament->id);
+            ->json('PUT', '/user/follow/tournament/'.$tournament->id);
     }
 
     /**
@@ -163,17 +155,17 @@ class TournamentFollowTest extends TestCase
         return [$user, $tournament];
     }
 
-//    public function creating_tournament_followed_activity_is_queued()
-//    {
-//        $user = $this->createUser();
-//        $tournament = $this->createTournament();
-//
-//        Queue::fake();
-//
-//        $this->followTournament($user, $tournament);
-//
-//        Queue::assertPushed(\App\Listeners\Activity\CreateTournamentFollowedActivity::class, function ($job) use ($tournament, $user) {
-//            return $job->tournament->id === $tournament->id && $job->user->id === $user->id;
-//        });
-//    }
+    //    public function creating_tournament_followed_activity_is_queued()
+    //    {
+    //        $user = $this->createUser();
+    //        $tournament = $this->createTournament();
+    //
+    //        Queue::fake();
+    //
+    //        $this->followTournament($user, $tournament);
+    //
+    //        Queue::assertPushed(\App\Listeners\Activity\CreateTournamentFollowedActivity::class, function ($job) use ($tournament, $user) {
+    //            return $job->tournament->id === $tournament->id && $job->user->id === $user->id;
+    //        });
+    //    }
 }

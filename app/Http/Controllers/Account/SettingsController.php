@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers\Account;
 
-use App\Http\Requests\UpdatePasswordRequest;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UpdatePasswordRequest;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
 

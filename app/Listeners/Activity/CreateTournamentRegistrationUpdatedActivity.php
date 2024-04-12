@@ -3,8 +3,6 @@
 namespace App\Listeners\Activity;
 
 use App\Events\TournamentRegistrationUpdated;
-use App\Models\User\User;
-use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
 class CreateTournamentRegistrationUpdatedActivity implements ShouldQueue
@@ -24,7 +22,6 @@ class CreateTournamentRegistrationUpdatedActivity implements ShouldQueue
     /**
      * Handle the event.
      *
-     * @param  TournamentRegistrationUpdated  $event
      * @return void
      */
     public function handle(TournamentRegistrationUpdated $event)

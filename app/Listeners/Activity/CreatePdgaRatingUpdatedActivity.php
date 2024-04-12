@@ -3,8 +3,6 @@
 namespace App\Listeners\Activity;
 
 use App\Events\RatingUpdatedEvent;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Contracts\Queue\ShouldQueue;
 
 class CreatePdgaRatingUpdatedActivity
 {
@@ -23,7 +21,6 @@ class CreatePdgaRatingUpdatedActivity
     /**
      * Handle the event.
      *
-     * @param  RatingUpdatedEvent  $event
      * @return void
      */
     public function handle(RatingUpdatedEvent $event)

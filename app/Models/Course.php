@@ -2,9 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\Activity;
-use App\Models\DataSource;
-use App\Models\Tournament;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -17,7 +14,7 @@ class Course extends Model
     protected $casts = [
         'length' => 'integer',
         'latitude' => 'float',
-        'longitude' => 'float'
+        'longitude' => 'float',
     ];
 
     protected $fillable = [
@@ -32,7 +29,7 @@ class Course extends Model
         'directions',
         'length',
         'latitude',
-        'longitude'
+        'longitude',
     ];
 
     public function tournaments()

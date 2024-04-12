@@ -4,10 +4,10 @@ namespace Tests\Feature\API\Order;
 
 use App\Models\OrderSponsorship;
 use App\Models\User\User;
-use Illuminate\Support\Facades\Event;
-use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Event;
 use PHPUnit\Framework\Attributes\Test;
+use Tests\TestCase;
 
 class ProcessCustomerEndpointTest extends TestCase
 {
@@ -29,7 +29,7 @@ class ProcessCustomerEndpointTest extends TestCase
             'unique' => $orderProduct->order->unique,
             'email' => 'test@test.com',
             'first_name' => 'Test',
-            'last_name' => 'Ing'
+            'last_name' => 'Ing',
         ];
 
         $this->json('PUT', 'order/checkout/details', $data);
@@ -48,7 +48,7 @@ class ProcessCustomerEndpointTest extends TestCase
             'first_name' => 'Test',
             'last_name' => 'Ing',
             'password' => 'password',
-            'create_account' => 1
+            'create_account' => 1,
         ];
 
         $this->json('PUT', 'order/checkout/details', $data);
@@ -57,7 +57,7 @@ class ProcessCustomerEndpointTest extends TestCase
             'email' => 'test@test.com',
             'first_name' => 'Test',
             'last_name' => 'Ing',
-            'name' => 'Test Ing'
+            'name' => 'Test Ing',
         ]);
     }
 
@@ -72,7 +72,7 @@ class ProcessCustomerEndpointTest extends TestCase
             'first_name' => 'Test',
             'last_name' => 'Ing',
             'password' => 'password',
-            'create_account' => 1
+            'create_account' => 1,
         ];
 
         $this->actingAs(User::factory()->create())
@@ -82,7 +82,7 @@ class ProcessCustomerEndpointTest extends TestCase
             'email' => 'test@test.com',
             'first_name' => 'Test',
             'last_name' => 'Ing',
-            'name' => 'Test Ing'
+            'name' => 'Test Ing',
         ]);
     }
 
@@ -95,13 +95,13 @@ class ProcessCustomerEndpointTest extends TestCase
             'unique' => $orderProduct->order->unique,
             'email' => 'test@test.com',
             'first_name' => 'Test',
-            'last_name' => 'Ing'
+            'last_name' => 'Ing',
         ];
 
         $this->json('PUT', 'order/checkout/details', $data)
             ->assertJson([
                 'unique' => $orderProduct->order->unique,
-                'sponsorships' => []
+                'sponsorships' => [],
             ]);
     }
 
@@ -116,14 +116,14 @@ class ProcessCustomerEndpointTest extends TestCase
             'first_name' => 'Test',
             'last_name' => 'Ing',
             'password' => 'password',
-            'create_account' => 1
+            'create_account' => 1,
         ];
 
         $this->json('PUT', 'order/checkout/details', $data)
             ->assertJson([
                 'unique' => $orderProduct->order->unique,
                 'sponsorships' => [],
-                'user' => []
+                'user' => [],
             ]);
     }
 }

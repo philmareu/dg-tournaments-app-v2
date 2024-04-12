@@ -12,11 +12,11 @@ class OrderSponsorship extends Model
     use HasFactory;
 
     protected $fillable = [
-        'cost'
+        'cost',
     ];
 
     protected $appends = [
-        'cost_in_dollars'
+        'cost_in_dollars',
     ];
 
     public function newCollection(array $models = [])

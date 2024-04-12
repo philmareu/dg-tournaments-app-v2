@@ -27,7 +27,7 @@ class StoreSearchRequest extends FormRequest
             'title' => 'required|max:255',
             'url' => 'required',
             'wants_notification' => 'boolean',
-            'frequency' => 'required_if:wants_notification,1|in:daily,weekly'
+            'frequency' => 'required_if:wants_notification,1|in:daily,weekly',
         ];
     }
 }

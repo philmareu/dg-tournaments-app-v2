@@ -29,7 +29,7 @@ class StoreTournamentScheduleRequest extends FormRequest
             'date' => 'required|date_format:n-j-Y',
             'start' => 'nullable|date_format:g:i A|required_with:end',
             'end' => 'nullable|date_format:g:i A',
-            'summary' => 'required|max:255'
+            'summary' => 'required|max:255',
         ];
     }
 }

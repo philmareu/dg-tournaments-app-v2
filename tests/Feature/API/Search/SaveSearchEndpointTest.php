@@ -2,13 +2,12 @@
 
 namespace Tests\Feature\API\Search;
 
-use Carbon\Carbon;
-use App\Helpers\AlgoliaQuery;
 use App\Models\Search;
-use Tests\TestCase;
+use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Tests\ValidationHelperTrait;
 use PHPUnit\Framework\Attributes\Test;
+use Tests\TestCase;
+use Tests\ValidationHelperTrait;
 
 class SaveSearchEndpointTest extends TestCase
 {
@@ -78,11 +77,11 @@ class SaveSearchEndpointTest extends TestCase
     {
         $user = $this->createUser();
         $search = Search::factory()->create([
-            'user_id' => $user->id
+            'user_id' => $user->id,
         ]);
 
         $this->actingAs($user)
-            ->call('PUT', $this->endpoint . '/' . $search->id)
+            ->call('PUT', $this->endpoint.'/'.$search->id)
             ->assertSessionHasErrors('title');
     }
 
@@ -91,11 +90,11 @@ class SaveSearchEndpointTest extends TestCase
     {
         $user = $this->createUser();
         $search = Search::factory()->create([
-            'user_id' => $user->id
+            'user_id' => $user->id,
         ]);
 
         $this->actingAs($user)
-            ->call('PUT', $this->endpoint . '/' . $search->id, ['wants_notification' => 'not a boolean'])
+            ->call('PUT', $this->endpoint.'/'.$search->id, ['wants_notification' => 'not a boolean'])
             ->assertSessionHasErrors('wants_notification');
     }
 
@@ -104,11 +103,11 @@ class SaveSearchEndpointTest extends TestCase
     {
         $user = $this->createUser();
         $search = Search::factory()->create([
-            'user_id' => $user->id
+            'user_id' => $user->id,
         ]);
 
         $this->actingAs($user)
-            ->call('PUT', $this->endpoint . '/' . $search->id, ['wants_notification' => 1])
+            ->call('PUT', $this->endpoint.'/'.$search->id, ['wants_notification' => 1])
             ->assertSessionHasErrors('frequency');
     }
 
@@ -117,11 +116,11 @@ class SaveSearchEndpointTest extends TestCase
     {
         $user = $this->createUser();
         $search = Search::factory()->create([
-            'user_id' => $user->id
+            'user_id' => $user->id,
         ]);
 
         $this->actingAs($user)
-            ->call('PUT', $this->endpoint . '/' . $search->id, ['wants_notification' => 1])
+            ->call('PUT', $this->endpoint.'/'.$search->id, ['wants_notification' => 1])
             ->assertSessionMissing('frequency');
     }
 
@@ -130,19 +129,19 @@ class SaveSearchEndpointTest extends TestCase
     {
         $user = $this->createUser();
         $search = Search::factory()->create([
-            'user_id' => $user->id
+            'user_id' => $user->id,
         ]);
 
         $this->actingAs($user)
-            ->call('PUT', $this->endpoint . '/' . $search->id, ['frequency' => 'not an option', 'wants_notification'])
+            ->call('PUT', $this->endpoint.'/'.$search->id, ['frequency' => 'not an option', 'wants_notification'])
             ->assertSessionHasErrors('frequency');
 
         $this->actingAs($user)
-            ->call('PUT', $this->endpoint . '/' . $search->id, ['frequency' => 'daily', 'wants_notification'])
+            ->call('PUT', $this->endpoint.'/'.$search->id, ['frequency' => 'daily', 'wants_notification'])
             ->assertSessionMissing('frequency');
 
         $this->actingAs($user)
-            ->call('PUT', $this->endpoint . '/' . $search->id, ['frequency' => 'weekly', 'wants_notification'])
+            ->call('PUT', $this->endpoint.'/'.$search->id, ['frequency' => 'weekly', 'wants_notification'])
             ->assertSessionMissing('frequency');
     }
 
@@ -153,7 +152,7 @@ class SaveSearchEndpointTest extends TestCase
             'title' => 'My Saved Search',
             'url' => $this->testUrl,
             'wants_notification' => 1,
-            'frequency' => 'daily'
+            'frequency' => 'daily',
         ];
 
         $user = $this->createUser();
@@ -175,7 +174,7 @@ class SaveSearchEndpointTest extends TestCase
             'title' => 'My Saved Search',
             'url' => $this->testUrl,
             'wants_notification' => 1,
-            'frequency' => 'daily'
+            'frequency' => 'daily',
         ];
 
         $user = $this->createUser();
@@ -185,7 +184,7 @@ class SaveSearchEndpointTest extends TestCase
 
         $this->assertDatabaseHas('searches', [
             'user_id' => $user->id,
-            'title' => $data['title']
+            'title' => $data['title'],
         ]);
     }
 
@@ -196,7 +195,7 @@ class SaveSearchEndpointTest extends TestCase
             'title' => 'My Saved Search',
             'url' => $this->testUrl,
             'wants_notification' => 1,
-            'frequency' => 'daily'
+            'frequency' => 'daily',
         ];
 
         $user = $this->createUser();
@@ -209,7 +208,7 @@ class SaveSearchEndpointTest extends TestCase
             'title' => $data['title'],
             'query' => parse_url($this->testUrl)['query'],
             'wants_notification' => 1,
-            'frequency' => 'daily'
+            'frequency' => 'daily',
         ]);
     }
 
@@ -218,7 +217,7 @@ class SaveSearchEndpointTest extends TestCase
     {
         $data = [
             'title' => 'My Saved Search',
-            'url' => $this->testUrl
+            'url' => $this->testUrl,
         ];
 
         $user = $this->createUser();
@@ -232,7 +231,7 @@ class SaveSearchEndpointTest extends TestCase
             'query' => parse_url($this->testUrl)['query'],
             'wants_notification' => 0,
             'frequency' => null,
-            'searched_at' => null
+            'searched_at' => null,
         ]);
     }
 
@@ -243,7 +242,7 @@ class SaveSearchEndpointTest extends TestCase
             'title' => 'My Saved Search',
             'url' => $this->testUrl,
             'wants_notification' => 1,
-            'frequency' => 'daily'
+            'frequency' => 'daily',
         ];
 
         $this->actingAs($this->createUser())
@@ -251,8 +250,8 @@ class SaveSearchEndpointTest extends TestCase
             ->assertJson([
                 [
                     'title' => 'My Saved Search',
-                    'wants_notification' => 1
-                ]
+                    'wants_notification' => 1,
+                ],
             ]);
     }
 
@@ -262,11 +261,11 @@ class SaveSearchEndpointTest extends TestCase
         $user = $this->createUser();
 
         $search = Search::factory()->create([
-            'user_id' => $user
+            'user_id' => $user,
         ]);
 
         $this->actingAs($this->createUser())
-            ->json('PUT', $this->endpoint . '/' . $search->id)
+            ->json('PUT', $this->endpoint.'/'.$search->id)
             ->assertStatus(403);
     }
 
@@ -277,7 +276,7 @@ class SaveSearchEndpointTest extends TestCase
             'title' => 'My Saved Search',
             'url' => $this->testUrl,
             'wants_notification' => 1,
-            'frequency' => 'daily'
+            'frequency' => 'daily',
         ];
 
         $user = $this->createUser();
@@ -285,17 +284,17 @@ class SaveSearchEndpointTest extends TestCase
         $search = Search::factory()->create([
             'user_id' => $user,
             'wants_notification' => 0,
-            'frequency' => 'weekly'
+            'frequency' => 'weekly',
         ]);
 
         $this->actingAs($user)
-            ->json('PUT', $this->endpoint . '/' . $search->id, $data);
+            ->json('PUT', $this->endpoint.'/'.$search->id, $data);
 
         $this->assertDatabaseHas('searches', [
             'user_id' => $user->id,
             'title' => $data['title'],
             'wants_notification' => 1,
-            'frequency' => 'daily'
+            'frequency' => 'daily',
         ]);
     }
 
@@ -303,23 +302,23 @@ class SaveSearchEndpointTest extends TestCase
     public function user_can_toggle_notification_off()
     {
         $data = [
-            'title' => 'My Saved Search'
+            'title' => 'My Saved Search',
         ];
 
         $user = $this->createUser();
 
         $search = Search::factory()->create([
             'user_id' => $user,
-            'wants_notification' => 1
+            'wants_notification' => 1,
         ]);
 
         $this->actingAs($user)
-            ->json('PUT', $this->endpoint . '/' . $search->id, $data);
+            ->json('PUT', $this->endpoint.'/'.$search->id, $data);
 
         $this->assertDatabaseHas('searches', [
             'user_id' => $user->id,
             'title' => $data['title'],
-            'wants_notification' => 0
+            'wants_notification' => 0,
         ]);
     }
 
@@ -327,21 +326,21 @@ class SaveSearchEndpointTest extends TestCase
     public function updating_a_search_returns_a_list_of_users_searches()
     {
         $data = [
-            'title' => 'My Saved Search'
+            'title' => 'My Saved Search',
         ];
 
         $user = $this->createUser();
 
         $search = Search::factory()->create([
-            'user_id' => $user
+            'user_id' => $user,
         ]);
 
         $this->actingAs($user)
-            ->json('PUT', $this->endpoint . '/' . $search->id, $data)
+            ->json('PUT', $this->endpoint.'/'.$search->id, $data)
             ->assertJson([
                 [
-                    'title' => 'My Saved Search'
-                ]
+                    'title' => 'My Saved Search',
+                ],
             ]);
     }
 
@@ -351,11 +350,11 @@ class SaveSearchEndpointTest extends TestCase
         $user = $this->createUser();
 
         $search = Search::factory()->create([
-            'user_id' => $user
+            'user_id' => $user,
         ]);
 
         $this->actingAs($this->createUser())
-            ->json('DELETE', $this->endpoint . '/' . $search->id)
+            ->json('DELETE', $this->endpoint.'/'.$search->id)
             ->assertStatus(403);
     }
 
@@ -365,15 +364,15 @@ class SaveSearchEndpointTest extends TestCase
         $user = $this->createUser();
 
         $search = Search::factory()->create([
-            'user_id' => $user
+            'user_id' => $user,
         ]);
 
         $this->actingAs($user)
-            ->json('DELETE', $this->endpoint . '/' . $search->id);
+            ->json('DELETE', $this->endpoint.'/'.$search->id);
 
         $this->assertDatabaseMissing('searches', [
             'id' => $search->id,
-            'user_id' => $user->id
+            'user_id' => $user->id,
         ]);
     }
 
@@ -383,18 +382,18 @@ class SaveSearchEndpointTest extends TestCase
         $user = $this->createUser();
 
         $search1 = Search::factory()->create([
-            'user_id' => $user
+            'user_id' => $user,
         ]);
         $search2 = Search::factory()->create([
-            'user_id' => $user
+            'user_id' => $user,
         ]);
 
         $this->actingAs($user)
-            ->json('DELETE', $this->endpoint . '/' . $search2->id)
+            ->json('DELETE', $this->endpoint.'/'.$search2->id)
             ->assertJson([
                 [
-                    'id' => $search1->id
-                ]
+                    'id' => $search1->id,
+                ],
             ]);
     }
 }

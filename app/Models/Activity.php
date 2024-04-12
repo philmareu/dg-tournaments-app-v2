@@ -12,7 +12,7 @@ class Activity extends Model
 
     protected $fillable = [
         'type',
-        'data'
+        'data',
     ];
 
     public function resource()

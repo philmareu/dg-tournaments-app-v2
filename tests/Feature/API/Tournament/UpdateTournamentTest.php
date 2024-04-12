@@ -7,10 +7,10 @@ use App\Models\PdgaTier;
 use App\Models\SpecialEventType;
 use App\Models\Tournament;
 use App\Models\Upload;
-use Illuminate\Support\Str;
-use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Str;
 use PHPUnit\Framework\Attributes\Test;
+use Tests\TestCase;
 
 class UpdateTournamentTest extends TestCase
 {
@@ -22,7 +22,7 @@ class UpdateTournamentTest extends TestCase
         $tournament = $this->createTournament();
 
         $this->actingAs($this->createUser())
-            ->json('PUT', '/tournament/' . $tournament->id)
+            ->json('PUT', '/tournament/'.$tournament->id)
             ->assertStatus(403);
     }
 
@@ -50,11 +50,11 @@ class UpdateTournamentTest extends TestCase
             'poster_id' => Upload::factory()->create()->id,
             'format_id' => Format::factory()->create()->id,
             'special_event_type_ids' => SpecialEventType::factory()->count(3)->create()->pluck('id')->toArray(),
-            'timezone' => 'America/Chicago'
+            'timezone' => 'America/Chicago',
         ];
 
         $response = $this->actingAs($user)
-            ->json('PUT', '/tournament/' . $tournament->id, $data);
+            ->json('PUT', '/tournament/'.$tournament->id, $data);
 
         $this->assertDatabaseHas('tournaments', [
             'name' => $data['name'],
@@ -70,7 +70,7 @@ class UpdateTournamentTest extends TestCase
             'timezone' => $data['timezone'],
             'description' => $data['description'],
             'poster_id' => $data['poster_id'],
-            'format_id' => $data['format_id']
+            'format_id' => $data['format_id'],
         ]);
 
         $tournament->refresh();
@@ -82,7 +82,7 @@ class UpdateTournamentTest extends TestCase
     #[Test]
     public function manager_can_remove_all_special_event_types()
     {
-        list($user, $tournament) = $this->createTournamentWithManager();
+        [$user, $tournament] = $this->createTournamentWithManager();
         $tournament->specialEventTypes()->save(SpecialEventType::factory()->create());
 
         $data = [
@@ -101,11 +101,11 @@ class UpdateTournamentTest extends TestCase
             'poster_id' => Upload::factory()->create()->id,
             'format_id' => Format::factory()->create()->id,
             'special_event_type_ids' => [],
-            'timezone' => 'America/Chicago'
+            'timezone' => 'America/Chicago',
         ];
 
         $this->actingAs($user)
-            ->json('PUT', '/tournament/' . $tournament->id, $data);
+            ->json('PUT', '/tournament/'.$tournament->id, $data);
 
         $tournament->refresh();
 
@@ -136,11 +136,11 @@ class UpdateTournamentTest extends TestCase
             'poster_id' => Upload::factory()->create()->id,
             'format_id' => Format::factory()->create()->id,
             'special_event_type_ids' => SpecialEventType::factory()->count(3)->create()->pluck('id')->toArray(),
-            'timezone' => 'America/Chicago'
+            'timezone' => 'America/Chicago',
         ];
 
         $response = $this->actingAs($user)
-            ->json('PUT', '/tournament/' . $originalTournament->id, $data);
+            ->json('PUT', '/tournament/'.$originalTournament->id, $data);
 
         $updatedTournament = Tournament::find($originalTournament->id);
 

@@ -15,11 +15,11 @@ class EmailNotificationTypesSeeder extends Seeder
     public function run()
     {
         UserEmailNotificationType::factory()->create([
-            'label' => 'PDGA rating updates'
+            'label' => 'PDGA rating updates',
         ]);
 
         UserEmailNotificationType::factory()->create([
-            'label' => 'Important updates from tournaments I follow'
+            'label' => 'Important updates from tournaments I follow',
         ]);
     }
 }

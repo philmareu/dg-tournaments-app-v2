@@ -2,13 +2,13 @@
 
 namespace App\Console\Commands;
 
-use Carbon\Carbon;
 use App\Events\Registration\RegistrationClosesSoon;
 use App\Events\Registration\RegistrationIsOpen;
 use App\Events\Registration\RegistrationOpensSoon;
 use App\Listeners\Activity\SavesActivities;
 use App\Models\Activity;
 use App\Models\Registration;
+use Carbon\Carbon;
 use Illuminate\Console\Command;
 
 class CheckUpcomingRegistrations extends Command

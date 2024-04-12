@@ -13,16 +13,16 @@ class Link extends Model
     protected $fillable = [
         'title',
         'url',
-        'ordinal'
+        'ordinal',
     ];
 
     protected $touches = [
-        'tournament'
+        'tournament',
     ];
 
     protected $dispatchesEvents = [
         'created' => LinkSaved::class,
-        'updated' => LinkSaved::class
+        'updated' => LinkSaved::class,
     ];
 
     public function tournament()

@@ -2,13 +2,10 @@
 
 namespace Tests\Feature;
 
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Artisan;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class PageLoadTest extends TestCase
 {
@@ -18,7 +15,7 @@ class PageLoadTest extends TestCase
     {
         parent::setUp();
 
-//        Artisan::call('db:seed');
+        //        Artisan::call('db:seed');
     }
 
     #[DataProvider('provideGuestRoutes')]
@@ -33,7 +30,7 @@ class PageLoadTest extends TestCase
     {
         return [
             ['GET', '/'],
-//            ['GET', 'disc-golf-tournament/1/dgt-open-sanctioned']
+            //            ['GET', 'disc-golf-tournament/1/dgt-open-sanctioned']
         ];
     }
 }

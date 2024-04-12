@@ -17,31 +17,31 @@ class PdgaTierSeeder extends Seeder
         PdgaTier::factory()->create([
             'id' => 1,
             'title' => 'Major',
-            'code' => 'M'
+            'code' => 'M',
         ]);
 
         PdgaTier::factory()->create([
             'id' => 2,
             'title' => 'National Tour',
-            'code' => 'NT'
+            'code' => 'NT',
         ]);
 
         PdgaTier::factory()->create([
             'id' => 3,
             'title' => 'A',
-            'code' => 'A'
+            'code' => 'A',
         ]);
 
         PdgaTier::factory()->create([
             'id' => 4,
             'title' => 'B',
-            'code' => 'B'
+            'code' => 'B',
         ]);
 
         PdgaTier::factory()->create([
             'id' => 5,
             'title' => 'C',
-            'code' => 'C'
+            'code' => 'C',
         ]);
     }
 }

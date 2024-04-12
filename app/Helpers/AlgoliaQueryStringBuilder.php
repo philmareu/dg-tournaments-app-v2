@@ -2,14 +2,13 @@
 
 namespace App\Helpers;
 
-
 use Carbon\Carbon;
 
 class AlgoliaQueryStringBuilder
 {
     protected $query = [
         'q' => '',
-        'p' => 0
+        'p' => 0,
     ];
 
     public function setIndex($index)
@@ -23,20 +22,20 @@ class AlgoliaQueryStringBuilder
     {
         $this->query['nR']['latitude'] = [
             '<' => [
-                $north
+                $north,
             ],
             '>' => [
-                $south
-            ]
+                $south,
+            ],
         ];
 
         $this->query['nR']['longitude'] = [
             '<' => [
-                $east
+                $east,
             ],
             '>' => [
-                $west
-            ]
+                $west,
+            ],
         ];
 
         return $this;
@@ -70,7 +69,7 @@ class AlgoliaQueryStringBuilder
         return $this;
     }
 
-    public function setPdgaTier(array  $tiers)
+    public function setPdgaTier(array $tiers)
     {
         $this->query['dFR']['pdga_tiers.code'] = $tiers;
 
@@ -84,7 +83,7 @@ class AlgoliaQueryStringBuilder
         return $this;
     }
 
-    public function setSpecialEventTypes(array  $specialEventTypes)
+    public function setSpecialEventTypes(array $specialEventTypes)
     {
         $this->query['dFR']['special_event_types.title'] = $specialEventTypes;
 

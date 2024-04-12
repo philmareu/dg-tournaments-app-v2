@@ -21,7 +21,7 @@ class OrderRegistrationFactory extends Factory
         return [
             'order_id' => Order::factory(),
             'registration_id' => Registration::factory(),
-            'cost' => fake()->randomNumber(4)
+            'cost' => fake()->randomNumber(4),
         ];
     }
 }

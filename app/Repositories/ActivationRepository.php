@@ -1,9 +1,10 @@
-<?php namespace App\Repositories;
+<?php
+
+namespace App\Repositories;
 
 use App\Models\User\User;
 use App\Models\User\UserActivation;
 use Illuminate\Support\Str;
-
 
 class ActivationRepository
 {
@@ -27,6 +28,7 @@ class ActivationRepository
         if (is_null($activation)) {
             return $this->createToken($user);
         }
+
         return $this->regenerateToken($user);
 
     }
@@ -37,7 +39,7 @@ class ActivationRepository
         $token = $this->getToken();
 
         return $this->userActivation->where('user_id', $user->id)->update([
-            'token' => $token
+            'token' => $token,
         ]);
     }
 
@@ -45,6 +47,7 @@ class ActivationRepository
     {
         $token = $this->getToken();
         $user->activation()->create(['token' => $token]);
+
         return $token;
     }
 

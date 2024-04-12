@@ -5,9 +5,9 @@ namespace Tests\Feature;
 use App\Models\Tournament;
 use App\Models\User\User;
 use Illuminate\Auth\Events\Registered;
-use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use PHPUnit\Framework\Attributes\Test;
+use Tests\TestCase;
 
 class RegistrationTest extends TestCase
 {
@@ -24,36 +24,36 @@ class RegistrationTest extends TestCase
     public function user_becomes_manager_of_any_tournaments_with_an_authorization_email_that_matches_their_email()
     {
         $user = User::factory()->create([
-            'email' => 'email@email.com'
+            'email' => 'email@email.com',
         ]);
 
         $tournament1 = Tournament::factory()->create([
-            'authorization_email' => $user->email
+            'authorization_email' => $user->email,
         ]);
 
         $tournament2 = Tournament::factory()->create([
-            'authorization_email' => $user->email
+            'authorization_email' => $user->email,
         ]);
 
         $tournament3 = Tournament::factory()->create([
-            'authorization_email' => 'no@no.com'
+            'authorization_email' => 'no@no.com',
         ]);
 
         event(new Registered($user));
 
         $this->assertDatabaseHas('managers', [
             'user_id' => $user->id,
-            'tournament_id' => $tournament1->id
+            'tournament_id' => $tournament1->id,
         ]);
 
         $this->assertDatabaseHas('managers', [
             'user_id' => $user->id,
-            'tournament_id' => $tournament2->id
+            'tournament_id' => $tournament2->id,
         ]);
 
         $this->assertDatabaseMissing('managers', [
             'user_id' => $user->id,
-            'tournament_id' => $tournament3->id
+            'tournament_id' => $tournament3->id,
         ]);
     }
 }

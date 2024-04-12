@@ -4,7 +4,6 @@ namespace Tests\Unit\Data;
 
 use App\Data\Location;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class LocationDataObjectTest extends TestCase
 {

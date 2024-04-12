@@ -2,11 +2,9 @@
 
 namespace App\Mail\Directors;
 
-use App\Models\Player;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Contracts\Queue\ShouldQueue;
 
 class InitialNotice extends Mailable
 {

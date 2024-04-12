@@ -26,7 +26,7 @@ class UpdateProfileRequest extends FormRequest
         return [
             'name' => 'required|max:50',
             'image' => 'image|max:10000',
-            'location' => 'nullable|max:40'
+            'location' => 'nullable|max:40',
         ];
     }
 }

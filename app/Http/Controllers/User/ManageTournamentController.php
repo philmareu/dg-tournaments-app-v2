@@ -2,19 +2,17 @@
 
 namespace App\Http\Controllers\User;
 
+use App\Http\Controllers\Controller;
 use App\Models\Classes;
 use App\Models\Format;
-use App\Models\Order;
 use App\Models\Sponsorship;
 use App\Models\Tournament;
 use App\Models\TournamentCourse;
 use App\Models\Transfer;
 use App\Repositories\OrderRepository;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
-use Illuminate\Support\Facades\DB;
 
 class ManageTournamentController extends Controller implements HasMiddleware
 {
@@ -34,7 +32,9 @@ class ManageTournamentController extends Controller implements HasMiddleware
 
     public function index(Tournament $tournament)
     {
-        if($this->doesNotHaveAccess($tournament)) return response('Not authorized', 403);
+        if ($this->doesNotHaveAccess($tournament)) {
+            return response('Not authorized', 403);
+        }
 
         return view('pages.manage.tournament.index')
             ->withTournament($tournament);
@@ -42,7 +42,9 @@ class ManageTournamentController extends Controller implements HasMiddleware
 
     public function basics(Tournament $tournament)
     {
-        if($this->doesNotHaveAccess($tournament)) return response('Not authorized', 403);
+        if ($this->doesNotHaveAccess($tournament)) {
+            return response('Not authorized', 403);
+        }
 
         return view('pages.manage.tournament.basics')
             ->withTournament($tournament->load('poster', 'pdgaTiers', 'registration', 'playerPacks.items', 'links', 'media', 'classes', 'format'))
@@ -53,7 +55,9 @@ class ManageTournamentController extends Controller implements HasMiddleware
 
     public function schedule(Tournament $tournament)
     {
-        if($this->doesNotHaveAccess($tournament)) return response('Not authorized', 403);
+        if ($this->doesNotHaveAccess($tournament)) {
+            return response('Not authorized', 403);
+        }
 
         return view('pages.manage.tournament.schedule')
             ->withTournament($tournament);
@@ -61,7 +65,9 @@ class ManageTournamentController extends Controller implements HasMiddleware
 
     public function registration(Tournament $tournament)
     {
-        if($this->doesNotHaveAccess($tournament)) return response('Not authorized', 403);
+        if ($this->doesNotHaveAccess($tournament)) {
+            return response('Not authorized', 403);
+        }
 
         return view('pages.manage.tournament.registration')
             ->withTournament($tournament->load('registration'));
@@ -69,7 +75,9 @@ class ManageTournamentController extends Controller implements HasMiddleware
 
     public function links(Tournament $tournament)
     {
-        if($this->doesNotHaveAccess($tournament)) return response('Not authorized', 403);
+        if ($this->doesNotHaveAccess($tournament)) {
+            return response('Not authorized', 403);
+        }
 
         return view('pages.manage.tournament.links')
             ->withTournament($tournament->load('links'));
@@ -77,7 +85,9 @@ class ManageTournamentController extends Controller implements HasMiddleware
 
     public function media(Tournament $tournament)
     {
-        if($this->doesNotHaveAccess($tournament)) return response('Not authorized', 403);
+        if ($this->doesNotHaveAccess($tournament)) {
+            return response('Not authorized', 403);
+        }
 
         return view('pages.manage.tournament.media')
             ->withTournament($tournament->load('media'));
@@ -85,7 +95,9 @@ class ManageTournamentController extends Controller implements HasMiddleware
 
     public function playerPacks(Tournament $tournament)
     {
-        if($this->doesNotHaveAccess($tournament)) return response('Not authorized', 403);
+        if ($this->doesNotHaveAccess($tournament)) {
+            return response('Not authorized', 403);
+        }
 
         return view('pages.manage.tournament.player_packs')
             ->withTournament($tournament->load('playerPacks.items'));
@@ -93,7 +105,9 @@ class ManageTournamentController extends Controller implements HasMiddleware
 
     public function course(Tournament $tournament, TournamentCourse $tournamentCourse)
     {
-        if($this->doesNotHaveAccess($tournament) || $tournamentCourse->tournament_id != $tournament->id) return response('Not authorized', 403);
+        if ($this->doesNotHaveAccess($tournament) || $tournamentCourse->tournament_id != $tournament->id) {
+            return response('Not authorized', 403);
+        }
 
         return view('pages.manage.tournament.course')
             ->withTournament($tournament)
@@ -102,7 +116,9 @@ class ManageTournamentController extends Controller implements HasMiddleware
 
     public function sponsorship(Tournament $tournament, Sponsorship $sponsorship)
     {
-        if($this->doesNotHaveAccess($tournament) || $sponsorship->tournament_id != $tournament->id) return response('Not authorized', 403);
+        if ($this->doesNotHaveAccess($tournament) || $sponsorship->tournament_id != $tournament->id) {
+            return response('Not authorized', 403);
+        }
 
         return view('pages.manage.tournament.sponsorship')
             ->withTournament($tournament)
@@ -111,7 +127,9 @@ class ManageTournamentController extends Controller implements HasMiddleware
 
     public function sponsorships(Tournament $tournament)
     {
-        if(! request()->user()->hasAccessToTournament($tournament->id)) return response('Not authorized', 403);
+        if (! request()->user()->hasAccessToTournament($tournament->id)) {
+            return response('Not authorized', 403);
+        }
 
         return view('pages.manage.tournament.sponsorships')
             ->withTournament($tournament->load('sponsorships.tournamentSponsors.sponsor.logo'));
@@ -119,7 +137,9 @@ class ManageTournamentController extends Controller implements HasMiddleware
 
     public function creditCard(Tournament $tournament)
     {
-        if(! request()->user()->hasAccessToTournament($tournament->id)) return response('Not authorized', 403);
+        if (! request()->user()->hasAccessToTournament($tournament->id)) {
+            return response('Not authorized', 403);
+        }
 
         return view('pages.manage.tournament.card')
             ->withTournament($tournament);
@@ -127,7 +147,9 @@ class ManageTournamentController extends Controller implements HasMiddleware
 
     public function orders(Request $request, Tournament $tournament)
     {
-        if(! $request->user()->hasAccessToTournament($tournament->id)) return response('Not authorized', 403);
+        if (! $request->user()->hasAccessToTournament($tournament->id)) {
+            return response('Not authorized', 403);
+        }
 
         return view('pages.manage.tournament.orders')
             ->withTournament($tournament->load('transfers'));
@@ -135,7 +157,9 @@ class ManageTournamentController extends Controller implements HasMiddleware
 
     public function followers(Request $request, Tournament $tournament)
     {
-        if(! $request->user()->hasAccessToTournament($tournament->id)) return response('Not authorized', 403);
+        if (! $request->user()->hasAccessToTournament($tournament->id)) {
+            return response('Not authorized', 403);
+        }
 
         return view('pages.manage.tournament.followers')
             ->withTournament($tournament->load('followers'));
@@ -143,21 +167,23 @@ class ManageTournamentController extends Controller implements HasMiddleware
 
     public function order(Request $request, Tournament $tournament, Transfer $transfer)
     {
-        if(! $request->user()->hasAccessToTournament($tournament->id) || $transfer->tournament_id != $tournament->id) return response('Not authorized', 403);
+        if (! $request->user()->hasAccessToTournament($tournament->id) || $transfer->tournament_id != $tournament->id) {
+            return response('Not authorized', 403);
+        }
 
-//        $order = $this->orderRepository->getTournamentOrder($tournament, 1);
+        //        $order = $this->orderRepository->getTournamentOrder($tournament, 1);
 
-//        dd($order);
+        //        dd($order);
 
-//        if(is_null($order)) abort(404);
+        //        if(is_null($order)) abort(404);
 
-//        $sponsorships = $this->orderRepository->getTournamentOrderSponsorships($tournament, $orderId);
+        //        $sponsorships = $this->orderRepository->getTournamentOrderSponsorships($tournament, $orderId);
 
-//        dd($sponsorships);
+        //        dd($sponsorships);
 
-//        $transfer = $this->orderRepository->getTournamentOrderTransfer($tournament, $orderId);
+        //        $transfer = $this->orderRepository->getTournamentOrderTransfer($tournament, $orderId);
 
-//        dd($transfer);
+        //        dd($transfer);
 
         return view('pages.manage.tournament.order')
             ->withTournament($tournament)

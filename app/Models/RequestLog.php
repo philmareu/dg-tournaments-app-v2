@@ -13,7 +13,7 @@ class RequestLog extends Model
         'user_id',
         'ip',
         'method',
-        'uri'
+        'uri',
     ];
 
     public function user()

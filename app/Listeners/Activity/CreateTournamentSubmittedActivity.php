@@ -3,8 +3,6 @@
 namespace App\Listeners\Activity;
 
 use App\Events\TournamentSubmitted;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Contracts\Queue\ShouldQueue;
 
 class CreateTournamentSubmittedActivity
 {
@@ -23,7 +21,6 @@ class CreateTournamentSubmittedActivity
     /**
      * Handle the event.
      *
-     * @param  TournamentSubmitted  $event
      * @return void
      */
     public function handle(TournamentSubmitted $event)

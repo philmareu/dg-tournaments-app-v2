@@ -41,6 +41,6 @@ class UpdateSettings extends Command
         $client = SearchClient::create(config('scout.algolia.id'), config('scout.algolia.secret'));
 
         $client->initIndex($this->argument('index'))
-            ->setSettings(config('scout.algolia.indexes.' . $this->argument('index') . '.settings'));
+            ->setSettings(config('scout.algolia.indexes.'.$this->argument('index').'.settings'));
     }
 }

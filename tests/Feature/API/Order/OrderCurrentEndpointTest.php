@@ -2,15 +2,9 @@
 
 namespace Tests\Feature\API\Order;
 
-use App\Models\Order;
-use App\Models\Sponsorship;
-use Illuminate\Support\Facades\Crypt;
-use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use PHPUnit\Framework\Attributes\Test;
+use Tests\TestCase;
 
 class OrderCurrentEndpointTest extends TestCase
 {

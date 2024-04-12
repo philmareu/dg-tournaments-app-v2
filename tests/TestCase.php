@@ -6,7 +6,6 @@ use App\Models\Order;
 use App\Models\Tournament;
 use App\Models\User\User;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
-use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Schema;
 
 abstract class TestCase extends BaseTestCase
@@ -19,7 +18,7 @@ abstract class TestCase extends BaseTestCase
 
         config(['scout.driver' => null]);
 
-        if(Schema::hasTable('flag_types')) {
+        if (Schema::hasTable('flag_types')) {
             $this->seed('FlagTypesSeeder');
         }
     }

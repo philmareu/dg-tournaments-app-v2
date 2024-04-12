@@ -1,9 +1,7 @@
-<?php namespace App\Services\Pdga;
+<?php
 
-use Carbon\Carbon;
-use App\Models\Classes;
-use App\Models\Format;
-use App\Models\PdgaTier;
+namespace App\Services\Pdga;
+
 use App\Services\API\Contracts\CourseApiInterface;
 use App\Services\API\Contracts\TournamentApiInterface;
 use App\Services\API\Payloads\TournamentDataPayload;
@@ -13,19 +11,19 @@ use App\Services\Pdga\EndPoints\Events;
 use App\Services\Pdga\EndPoints\Players;
 use App\Services\Pdga\Helpers\Courses;
 use App\Services\Pdga\Helpers\PdgaTournamentPayloadBuilder;
-use Illuminate\Contracts\Auth\Authenticatable;
+use Carbon\Carbon;
 
-class PdgaApi implements TournamentApiInterface, CourseApiInterface
+class PdgaApi implements CourseApiInterface, TournamentApiInterface
 {
     protected $batch = [];
 
-    public function getTournamentsByRange(Carbon $from, Carbon $to) : TournamentsResponse
+    public function getTournamentsByRange(Carbon $from, Carbon $to): TournamentsResponse
     {
         $this->buildTournamentBatches($from, $to);
 
-        $tournaments = collect($this->batch)->reject(function($tournament) {
+        $tournaments = collect($this->batch)->reject(function ($tournament) {
             return $tournament['tier'] == 'L' || $tournament['format'] == 'N';
-        })->map(function($tournament) {
+        })->map(function ($tournament) {
 
             $payload = new TournamentDataPayload(PdgaTournamentPayloadBuilder::make($tournament)->payload());
 
@@ -37,16 +35,16 @@ class PdgaApi implements TournamentApiInterface, CourseApiInterface
         return new TournamentsResponse(200, $tournaments);
     }
 
-//    public function getTournamentsFrom(Carbon $from) : Collection
-//    {
-//        $this->buildTournamentBatches($from);
-//
-//        return collect($this->batch)->reject(function($tournament) {
-//            return $tournament['tier'] == 'L';
-//        })->map(function($tournament) {
-//            return collect($tournament);
-//        });
-//    }
+    //    public function getTournamentsFrom(Carbon $from) : Collection
+    //    {
+    //        $this->buildTournamentBatches($from);
+    //
+    //        return collect($this->batch)->reject(function($tournament) {
+    //            return $tournament['tier'] == 'L';
+    //        })->map(function($tournament) {
+    //            return collect($tournament);
+    //        });
+    //    }
 
     public function getTournamentFields()
     {
@@ -65,7 +63,7 @@ class PdgaApi implements TournamentApiInterface, CourseApiInterface
 
     protected function buildTournamentBatches(Carbon $from, Carbon $to, $offset = 0)
     {
-        dump($offset . ' - ' . collect($this->batch)->last()['start_date']);
+        dump($offset.' - '.collect($this->batch)->last()['start_date']);
         $api = new Events;
         $tournaments = $api->fromDate($from->format('Y-m-d'))
             ->betweenDates($from->format('Y-m-d'), $to->format('Y-m-d'))
@@ -73,16 +71,16 @@ class PdgaApi implements TournamentApiInterface, CourseApiInterface
             ->offset($offset)
             ->get();
 
-        if(count($tournaments))
-        {
+        if (count($tournaments)) {
             $this->batch = array_merge($this->batch, $tournaments);
             $this->buildTournamentBatches($from, $to, $offset + 200);
         }
     }
 
-    public function getCourses() : CoursesResponse
+    public function getCourses(): CoursesResponse
     {
         $course = new Courses();
+
         return $course->getCourses();
     }
 }

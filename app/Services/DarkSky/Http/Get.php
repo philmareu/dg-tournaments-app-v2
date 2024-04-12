@@ -1,4 +1,6 @@
-<?php namespace App\Services\DarkSky\Http;
+<?php
+
+namespace App\Services\DarkSky\Http;
 
 use App\Models\ApiRequests;
 use GuzzleHttp\Client;
@@ -30,20 +32,17 @@ class Get
         $segments = [
             $url->getBaseUrl(),
             $auth->getAuthorization()['secret'],
-            implode(',', $latLngTime)
+            implode(',', $latLngTime),
         ];
 
-        try
-        {
+        try {
             $response = $client->get(implode('/', $segments));
             ApiRequests::create(['provider' => 'darksky', 'type' => implode('/', $segments)]);
 
             usleep($this->apiRate);
 
             return json_decode($response->getBody(), true);
-        }
-        catch (ClientException $clientException)
-        {
+        } catch (ClientException $clientException) {
             Log::info($clientException->getMessage());
         }
 

@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers\Endpoints;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Endpoints\Tournament\DestroySponsorshipRequest;
 use App\Http\Requests\Endpoints\Tournament\StoreSponsorshipRequest;
 use App\Http\Requests\Endpoints\Tournament\UpdateSponsorshipRequest;
 use App\Models\Sponsorship;
-
-use App\Http\Controllers\Controller;
 use App\Models\Tournament;
 
 class SponsorshipsEndpointController extends Controller

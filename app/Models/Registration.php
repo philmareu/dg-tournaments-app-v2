@@ -13,7 +13,7 @@ class Registration extends Model
     protected $fillable = [
         'opens_at',
         'closes_at',
-        'url'
+        'url',
     ];
 
     protected $casts = [
@@ -22,12 +22,12 @@ class Registration extends Model
     ];
 
     protected $touches = [
-        'tournament'
+        'tournament',
     ];
 
     protected $dispatchesEvents = [
         'created' => TournamentRegistrationUpdated::class,
-        'updated' => TournamentRegistrationUpdated::class
+        'updated' => TournamentRegistrationUpdated::class,
     ];
 
     public function tournament()

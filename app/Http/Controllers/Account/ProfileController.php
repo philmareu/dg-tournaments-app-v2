@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers\Account;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\User\UpdateProfileRequest;
 use App\Models\Upload;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
 
@@ -30,8 +29,7 @@ class ProfileController extends Controller implements HasMiddleware
 
     public function update(UpdateProfileRequest $request)
     {
-        if($request->hasFile('image'))
-        {
+        if ($request->hasFile('image')) {
             $file = $request->file('image');
             $path = $file->store('public');
 
@@ -40,7 +38,7 @@ class ProfileController extends Controller implements HasMiddleware
                 'filename' => $this->extractFilenameFromPath($path),
                 'alt' => '',
                 'mime' => $file->getClientMimeType(),
-                'size' => $file->getClientSize()
+                'size' => $file->getClientSize(),
             ]);
 
             $upload->user()->associate($request->user())->save();

@@ -4,12 +4,9 @@ namespace Tests\Feature\API\User;
 
 use App\Models\Sponsor;
 use App\Models\Upload;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class UserSponsorTest extends TestCase
 {
@@ -37,7 +34,7 @@ class UserSponsorTest extends TestCase
         $user = $this->createUser();
         $sponsors = [
             $user->sponsors()->save(Sponsor::factory()->create())->toArray(),
-            $user->sponsors()->save(Sponsor::factory()->create())->toArray()
+            $user->sponsors()->save(Sponsor::factory()->create())->toArray(),
         ];
 
         $this->actingAs($user)
@@ -45,7 +42,6 @@ class UserSponsorTest extends TestCase
             ->assertStatus(200)
             ->assertJson($sponsors);
     }
-
 
     #[Test]
     public function only_an_authenticated_user_can_store_a_sponsor()
@@ -59,7 +55,7 @@ class UserSponsorTest extends TestCase
     public function only_an_authenticated_user_can_update_a_sponsor()
     {
 
-        $this->json('PUT', $this->endpoint . '/' . Sponsor::factory()->create()->id)
+        $this->json('PUT', $this->endpoint.'/'.Sponsor::factory()->create()->id)
             ->assertStatus(401);
     }
 
@@ -67,7 +63,7 @@ class UserSponsorTest extends TestCase
     public function only_an_authenticated_user_can_delete_a_sponsor()
     {
 
-        $this->json('DELETE', $this->endpoint . '/' . Sponsor::factory()->create()->id)
+        $this->json('DELETE', $this->endpoint.'/'.Sponsor::factory()->create()->id)
             ->assertStatus(401);
     }
 
@@ -79,7 +75,7 @@ class UserSponsorTest extends TestCase
         $data = [
             'title' => 'Sponsor Title',
             'url' => 'http://testing.com',
-            'upload_id' => Upload::factory()->create()->id
+            'upload_id' => Upload::factory()->create()->id,
         ];
 
         $this->actingAs($user)
@@ -93,17 +89,17 @@ class UserSponsorTest extends TestCase
     {
         $user = $this->createUser();
         $sponsor = Sponsor::factory()->create([
-            'user_id' => $user->id
+            'user_id' => $user->id,
         ]);
 
         $data = [
             'title' => 'Sponsor Title',
             'url' => 'http://testing.com',
-            'upload_id' => Upload::factory()->create()->id
+            'upload_id' => Upload::factory()->create()->id,
         ];
 
         $this->actingAs($user)
-            ->json('PUT', 'user/sponsors/' . $sponsor->id, $data);
+            ->json('PUT', 'user/sponsors/'.$sponsor->id, $data);
 
         $sponsor = $sponsor->fresh();
 
@@ -121,18 +117,18 @@ class UserSponsorTest extends TestCase
         $data = [
             'title' => 'Sponsor Title',
             'url' => 'http://testing.com',
-            'upload_id' => Upload::factory()->create()->id
+            'upload_id' => Upload::factory()->create()->id,
         ];
 
         $this->actingAs($user)
-            ->json('PUT', 'user/sponsors/' . $sponsor->id, $data)
+            ->json('PUT', 'user/sponsors/'.$sponsor->id, $data)
             ->assertStatus(403);
 
         $this->assertDatabaseHas('sponsors', [
             'id' => $sponsor->id,
             'title' => $sponsor->title,
             'url' => $sponsor->url,
-            'upload_id' => $sponsor->upload_id
+            'upload_id' => $sponsor->upload_id,
         ]);
     }
 
@@ -142,11 +138,11 @@ class UserSponsorTest extends TestCase
         $user = $this->createUser();
 
         $sponsor = Sponsor::factory()->create([
-            'user_id' => $user->id
+            'user_id' => $user->id,
         ]);
 
         $this->actingAs($user)
-            ->json('DELETE', 'user/sponsors/' . $sponsor->id);
+            ->json('DELETE', 'user/sponsors/'.$sponsor->id);
 
         $sponsor = Sponsor::withTrashed()->whereId($sponsor->id)->first();
 

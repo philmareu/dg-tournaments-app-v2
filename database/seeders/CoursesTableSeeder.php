@@ -17,10 +17,10 @@ class CoursesTableSeeder extends Seeder
     {
         $tournaments = Tournament::all();
 
-        $tournaments->each(function(Tournament $tournament) {
+        $tournaments->each(function (Tournament $tournament) {
             Course::factory()->count(3)->create([
                 'latitude' => $tournament->latitude + (rand(0, 10) / 10),
-                'longitude' => $tournament->longitude + (rand(0, 10) / 10)
+                'longitude' => $tournament->longitude + (rand(0, 10) / 10),
             ]);
         });
     }

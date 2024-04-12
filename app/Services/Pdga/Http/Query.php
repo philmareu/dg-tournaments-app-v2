@@ -1,7 +1,9 @@
-<?php namespace App\Services\Pdga\Http;
+<?php
 
-trait Query {
+namespace App\Services\Pdga\Http;
 
+trait Query
+{
     /**
      * @var array
      */
@@ -24,7 +26,7 @@ trait Query {
     }
 
     /**
-     * @param array $query
+     * @param  array  $query
      * @return array
      */
     protected function addParameter(array $parameter)
@@ -33,7 +35,7 @@ trait Query {
     }
 
     /**
-     * @param array $query
+     * @param  array  $query
      * @return array
      */
     protected function addParameters(array $parameters)
@@ -43,7 +45,6 @@ trait Query {
     }
 
     /**
-     * @param $authorization
      * @return string
      */
     protected function buildRequestQuery(Auth $authorization)

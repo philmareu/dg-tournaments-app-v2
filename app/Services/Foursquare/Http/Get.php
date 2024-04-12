@@ -1,4 +1,6 @@
-<?php namespace App\Services\Foursquare\Http;
+<?php
+
+namespace App\Services\Foursquare\Http;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
@@ -17,8 +19,7 @@ class Get
         $auth = new Auth();
         $client = new Client();
 
-        try
-        {
+        try {
             $response = $client->get($url->fullUrl(), [
                 'query' => array_merge(
                     $this->getParameters(),
@@ -26,16 +27,15 @@ class Get
                     [
                         'v' => '20170106',
                         'm' => 'foursquare',
-                        'limit' => 20
+                        'limit' => 20,
                     ]
-                )
+                ),
             ]);
 
             usleep($this->apiRate);
+
             return $response->json()['response'];
-        }
-        catch (ClientException $clientException)
-        {
+        } catch (ClientException $clientException) {
             dump($clientException->getMessage());
             dump($clientException->getResponse()->getBody()->getContents());
         }

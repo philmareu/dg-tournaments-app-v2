@@ -2,10 +2,9 @@
 
 namespace App\Listeners\Activity;
 
-use Carbon\Carbon;
 use App\Events\PlayerPackItemSaved;
 use App\Models\Activity;
-use Illuminate\Queue\InteractsWithQueue;
+use Carbon\Carbon;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
 class CreatePlayerPackItemSavedActivity implements ShouldQueue
@@ -27,20 +26,17 @@ class CreatePlayerPackItemSavedActivity implements ShouldQueue
     /**
      * Handle the event.
      *
-     * @param  PlayerPackItemSaved  $event
      * @return void
      */
     public function handle(PlayerPackItemSaved $event)
     {
-        if($this->noRecentActivity($event))
-        {
+        if ($this->noRecentActivity($event)) {
             $activity = $this->createActivity('tournament.player_pack.updated', $event->playerPackItem->playerPack->tournament, $event->user);
             $this->attachActivityToFeeds($event->playerPackItem->playerPack->tournament->followers, $activity);
         }
     }
 
     /**
-     * @param PlayerPackItemSaved $event
      * @return mixed
      */
     private function noRecentActivity(PlayerPackItemSaved $event)

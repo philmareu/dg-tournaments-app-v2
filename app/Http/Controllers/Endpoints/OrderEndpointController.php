@@ -4,14 +4,11 @@ namespace App\Http\Controllers\Endpoints;
 
 use App\Billing\Stripe\StripeBilling;
 use App\Data\Time;
-use App\Http\Requests\Endpoints\CreateStripeCustomerRequest;
-use App\Http\Requests\Endpoints\CreateRefundRequest;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Endpoints\PayOrderWithStripeRequest;
 use App\Http\Requests\Endpoints\ProcessOrderDetailsRequest;
-use App\Http\Requests\User\AddCardRequest;
 use App\Models\OrderSponsorship;
 use App\Models\Sponsorship;
-use App\Http\Controllers\Controller;
 use App\Repositories\OrderRepository;
 use App\Repositories\UserRepository;
 use Illuminate\Http\Request;
@@ -59,12 +56,11 @@ class OrderEndpointController extends Controller
     {
         $order = $this->orderRepository->processCustomerDetails($request->unique, $request->all());
 
-        if(Auth::guest() && $request->has(['create_account', 'password']))
-        {
+        if (Auth::guest() && $request->has(['create_account', 'password'])) {
             $user = $this->userRepository->registerNewUser(array_merge(
                 ['password' => bcrypt($request->password)],
                 $request->only('email', 'first_name', 'last_name'),
-                ['name' => $request->first_name . ' ' . $request->last_name]
+                ['name' => $request->first_name.' '.$request->last_name]
             ));
 
             $order->user()->associate($user)->save();
@@ -79,9 +75,11 @@ class OrderEndpointController extends Controller
     {
         $order = $this->orderRepository->getOrderByUnique($request->unique);
 
-        $order =  $this->orderRepository->pay($order, $request->source, Auth::user());
+        $order = $this->orderRepository->pay($order, $request->source, Auth::user());
 
-        if(Auth::check()) $order->user()->associate(Auth::user())->save();
+        if (Auth::check()) {
+            $order->user()->associate(Auth::user())->save();
+        }
 
         return $order;
     }

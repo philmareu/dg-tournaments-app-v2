@@ -11,7 +11,7 @@ class Format extends Model
 
     protected $fillable = [
         'code',
-        'title'
+        'title',
     ];
 
     public function tournament()

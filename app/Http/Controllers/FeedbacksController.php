@@ -30,7 +30,7 @@ class FeedbacksController extends Controller
     {
         $feedback = $this->feedback->create([
             'email' => $request->email,
-            'feedback' => nl2br($request->feedback)
+            'feedback' => nl2br($request->feedback),
         ]);
 
         Mail::to('admin@dgtournaments.com')->send(new \App\Mail\Admin\Feedback($feedback));

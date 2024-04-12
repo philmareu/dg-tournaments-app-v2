@@ -6,8 +6,6 @@ use App\Models\User\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Messages\SlackMessage;
 use Illuminate\Notifications\Notification;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Support\Facades\App;
 
 class NewUserActivated extends Notification
@@ -46,6 +44,6 @@ class NewUserActivated extends Notification
     public function toSlack($notifiable)
     {
         return (new SlackMessage)
-            ->content('New user ' . $this->user->name . ' (' . $this->user->email . ')' . ' signed up');
+            ->content('New user '.$this->user->name.' ('.$this->user->email.')'.' signed up');
     }
 }

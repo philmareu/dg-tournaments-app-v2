@@ -16,19 +16,19 @@ class Sponsorship extends Model
         'tier',
         'quantity',
         'cost',
-        'description'
+        'description',
     ];
 
     protected $appends = [
-        'cost_in_dollars'
+        'cost_in_dollars',
     ];
 
     protected $touches = [
-        'tournament'
+        'tournament',
     ];
 
     protected $dispatchesEvents = [
-        'created' => SponsorshipCreated::class
+        'created' => SponsorshipCreated::class,
     ];
 
     public function tournament()

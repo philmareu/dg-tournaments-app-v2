@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers\Endpoints;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Endpoints\Tournament\DestroyTournamentStripeAccountRequest;
 use App\Http\Requests\Endpoints\Tournament\UpdateTournamentStripeAccountRequest;
-
 use App\Models\Tournament;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
 

@@ -3,9 +3,9 @@
 namespace Tests\Feature\API;
 
 use App\Models\TournamentCourse;
-use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use PHPUnit\Framework\Attributes\Test;
+use Tests\TestCase;
 
 class TournamentCourseDataEndpointTest extends TestCase
 {
@@ -16,13 +16,13 @@ class TournamentCourseDataEndpointTest extends TestCase
     {
         $tournamentCourse = TournamentCourse::factory()->create();
 
-        $this->json('GET', 'tournament/courses/' . $tournamentCourse->id)
+        $this->json('GET', 'tournament/courses/'.$tournamentCourse->id)
             ->assertJson([
                 'id' => $tournamentCourse->id,
                 'tournament' => [
                     'id' => $tournamentCourse->tournament->id,
-                    'managers' => []
-                ]
+                    'managers' => [],
+                ],
             ]);
     }
 }

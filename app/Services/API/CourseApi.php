@@ -8,7 +8,6 @@
 
 namespace App\Services\API;
 
-
 use App\Models\DataSource;
 use App\Services\API\Contracts\CourseApiInterface;
 use App\Services\API\Responses\CoursesResponse;
@@ -23,12 +22,12 @@ class CourseApi implements CourseApiInterface
         $this->channelApi = new $apiClass;
     }
 
-    static public function make(DataSource $dataSource)
+    public static function make(DataSource $dataSource)
     {
         return new static($dataSource);
     }
 
-    public function getCourses() : CoursesResponse
+    public function getCourses(): CoursesResponse
     {
         return $this->channelApi->getCourses();
     }

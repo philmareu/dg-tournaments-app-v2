@@ -20,7 +20,7 @@ class DataSourceFactory extends Factory
             'title' => fake()->word(),
             'slug' => fake()->word(),
             'api_class' => fake()->word(),
-            'type' => fake()->randomElement(['tournament', 'course'])
+            'type' => fake()->randomElement(['tournament', 'course']),
         ];
     }
 }

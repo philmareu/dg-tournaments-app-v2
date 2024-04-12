@@ -8,10 +8,8 @@
 
 namespace App\DataSources;
 
-
 class PdgaTournamentDataSource extends TournamentDataSources
 {
-
     public function tournament()
     {
 

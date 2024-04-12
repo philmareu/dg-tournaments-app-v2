@@ -12,7 +12,7 @@ class DataSource extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'retrieved_at'
+        'retrieved_at',
     ];
 
     protected $casts = [

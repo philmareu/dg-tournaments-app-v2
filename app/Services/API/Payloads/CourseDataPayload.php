@@ -2,7 +2,6 @@
 
 namespace App\Services\API\Payloads;
 
-
 use App\Services\API\Exceptions\PayloadValuesInvalidException;
 
 class CourseDataPayload extends Payload
@@ -19,28 +18,28 @@ class CourseDataPayload extends Payload
         'directions',
         'length',
         'latitude',
-        'longitude'
+        'longitude',
     ];
 
     protected $nullable = [
         'address_2',
         'length',
-        'state_province'
+        'state_province',
     ];
 
     public function verifyPayload()
     {
-        $this->each(function($value, $key) {
-            if(! in_array($key, $this->keys))
-            {
+        $this->each(function ($value, $key) {
+            if (! in_array($key, $this->keys)) {
                 $message = "The key '$key' was not found";
                 throw new PayloadValuesInvalidException($message);
             }
         });
 
-        foreach ($this->nullable as $key)
-        {
-            if($this->get($key) == '') $this->offsetSet($key, null);
+        foreach ($this->nullable as $key) {
+            if ($this->get($key) == '') {
+                $this->offsetSet($key, null);
+            }
         }
     }
 }

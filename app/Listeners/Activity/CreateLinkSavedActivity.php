@@ -2,10 +2,9 @@
 
 namespace App\Listeners\Activity;
 
-use Carbon\Carbon;
 use App\Events\LinkSaved;
 use App\Models\Activity;
-use Illuminate\Queue\InteractsWithQueue;
+use Carbon\Carbon;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
 class CreateLinkSavedActivity implements ShouldQueue
@@ -27,20 +26,17 @@ class CreateLinkSavedActivity implements ShouldQueue
     /**
      * Handle the event.
      *
-     * @param  LinkSaved  $event
      * @return void
      */
     public function handle(LinkSaved $event)
     {
-        if($this->noRecentActivity($event))
-        {
+        if ($this->noRecentActivity($event)) {
             $activity = $this->createActivity('tournament.links.updated', $event->link->tournament, $event->user);
             $this->attachActivityToFeeds($event->link->tournament->followers, $activity);
         }
     }
 
     /**
-     * @param LinkSaved $event
      * @return mixed
      */
     private function noRecentActivity(LinkSaved $event)

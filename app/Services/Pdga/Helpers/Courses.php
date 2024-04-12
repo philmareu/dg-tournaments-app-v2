@@ -2,7 +2,6 @@
 
 namespace App\Services\Pdga\Helpers;
 
-
 use App\Services\API\Payloads\CourseDataPayload;
 use App\Services\API\Responses\CoursesResponse;
 use App\Services\Pdga\EndPoints\Course;
@@ -269,11 +268,11 @@ class Courses
         dump(collect($this->countries)->first());
         $this->buildCourseBatches(collect($this->countries));
 
-        $courses = collect($this->batch)->filter(function($course) {
+        $courses = collect($this->batch)->filter(function ($course) {
             return isset($course['latitude']) && isset($course['longitude']);
-        })->reject(function($course) {
-            return is_null($course['latitude']) || is_null($course['longitude']) || $course['latitude'] == "" || $course['longitude'] == "";
-        })->map(function($course) {
+        })->reject(function ($course) {
+            return is_null($course['latitude']) || is_null($course['longitude']) || $course['latitude'] == '' || $course['longitude'] == '';
+        })->map(function ($course) {
 
             $payload = new CourseDataPayload([
                 'id' => $course['course_id'],
@@ -287,7 +286,7 @@ class Courses
                 'directions' => isset($course['directions']) ? $course['directions'] : null,
                 'length' => isset($course['total_length_of_course']) ? $course['total_length_of_course'] : null,
                 'latitude' => $course['latitude'],
-                'longitude' => $course['longitude']
+                'longitude' => $course['longitude'],
             ]);
 
             $payload->verifyPayload();
@@ -300,19 +299,15 @@ class Courses
 
     protected function buildCourseBatches(Collection $countries, $offset = 0)
     {
-        dump('Batch: ' . $offset);
+        dump('Batch: '.$offset);
         $api = new Course();
         $courses = $api->whereCountry($countries->first())->limit(200)->offset($offset)->get();
 
-        if($countries->count() > 1)
-        {
-            if(count($courses))
-            {
+        if ($countries->count() > 1) {
+            if (count($courses)) {
                 $this->batch = array_merge($this->batch, $courses);
                 $this->buildCourseBatches($countries, $offset + 200);
-            }
-            else
-            {
+            } else {
                 $countries->shift();
                 dump($countries->first());
                 $this->buildCourseBatches($countries);

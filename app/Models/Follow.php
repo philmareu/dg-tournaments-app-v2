@@ -14,7 +14,7 @@ class Follow extends Model
 
     protected $dispatchesEvents = [
         'created' => TournamentFollowed::class,
-        'deleting' => TournamentUnfollowed::class
+        'deleting' => TournamentUnfollowed::class,
     ];
 
     public function user()

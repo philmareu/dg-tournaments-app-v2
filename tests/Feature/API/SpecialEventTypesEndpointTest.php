@@ -3,12 +3,9 @@
 namespace Tests\Feature\API;
 
 use App\Models\SpecialEventType;
-use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use PHPUnit\Framework\Attributes\Test;
+use Tests\TestCase;
 
 class SpecialEventTypesEndpointTest extends TestCase
 {
@@ -24,12 +21,12 @@ class SpecialEventTypesEndpointTest extends TestCase
             ->assertJson([
                 [
                     'id' => 1,
-                    'title' => 'Test title 1'
+                    'title' => 'Test title 1',
                 ],
                 [
                     'id' => 2,
-                    'title' => 'Test title 2'
-                ]
+                    'title' => 'Test title 2',
+                ],
             ]);
     }
 }

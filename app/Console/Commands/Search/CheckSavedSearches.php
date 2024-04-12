@@ -45,18 +45,18 @@ class CheckSavedSearches extends Command
     public function handle()
     {
         // Email
-        $this->searchRepository->getTournamentNotifications()->each(function($tournamentNotification) {
+        $this->searchRepository->getTournamentNotifications()->each(function ($tournamentNotification) {
 
             Mail::to($tournamentNotification['user']->email)
                 ->send(new SavedSearchFoundNewTournamentsMailable($tournamentNotification));
         });
 
         // Activity
-        $this->searchRepository->getTournamentActivities()->each(function($tournamentNotification) {
+        $this->searchRepository->getTournamentActivities()->each(function ($tournamentNotification) {
 
             $activity = new Activity([
                 'type' => 'searches.tournaments.new',
-                'data' => json_encode($tournamentNotification['tournaments'])
+                'data' => json_encode($tournamentNotification['tournaments']),
             ]);
 
             $tournamentNotification['user']->activities()->save($activity);

@@ -24,7 +24,7 @@ class UpdateMembershipRequest extends FormRequest
     public function rules()
     {
         return [
-            'pdga_number' => 'required:integer|min:1|max:1000000'
+            'pdga_number' => 'required:integer|min:1|max:1000000',
         ];
     }
 
@@ -36,7 +36,7 @@ class UpdateMembershipRequest extends FormRequest
     public function messages()
     {
         return [
-            'pdga_number.min'  => 'The PDGA number must be at least 1'
+            'pdga_number.min' => 'The PDGA number must be at least 1',
         ];
     }
 }

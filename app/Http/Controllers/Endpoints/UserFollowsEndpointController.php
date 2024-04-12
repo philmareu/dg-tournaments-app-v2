@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers\Endpoints;
 
-use App\Events\TournamentFollowed;
-use App\Events\TournamentUnfollowed;
 use App\Http\Controllers\Controller;
 use App\Models\Follow;
 use App\Models\Tournament;
@@ -11,7 +9,6 @@ use App\Models\User\User;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Event;
 
 class UserFollowsEndpointController extends Controller implements HasMiddleware
 {
@@ -28,8 +25,11 @@ class UserFollowsEndpointController extends Controller implements HasMiddleware
 
     public function tournament(Tournament $tournament)
     {
-        if($this->tournamentIsFollowed($tournament)) $this->removeTournament($tournament);
-        else $this->saveNewFollow($tournament);
+        if ($this->tournamentIsFollowed($tournament)) {
+            $this->removeTournament($tournament);
+        } else {
+            $this->saveNewFollow($tournament);
+        }
 
         return $this->getCurrentUser()->load('following');
     }
@@ -59,13 +59,13 @@ class UserFollowsEndpointController extends Controller implements HasMiddleware
             ->where('resource_type', 'App\Models\Tournament')
             ->where('resource_id', $tournament->id)
             ->get()
-            ->each(function(Follow $follow) {
+            ->each(function (Follow $follow) {
                 $follow->delete();
             });
     }
 
     /**
-     * @param Tournament $tournament
+     * @param  Tournament  $tournament
      */
     public function saveNewFollow($tournament)
     {

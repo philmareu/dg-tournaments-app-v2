@@ -3,7 +3,6 @@
 namespace App\Http\Requests\Endpoints\Tournament;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Log;
 
 class DestroyTournamentPosterRequest extends FormRequest
 {

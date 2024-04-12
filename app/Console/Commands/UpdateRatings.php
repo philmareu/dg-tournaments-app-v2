@@ -3,12 +3,10 @@
 namespace App\Console\Commands;
 
 use App\Events\RatingUpdatedEvent;
-use App\Mail\User\RatingUpdated;
+use App\Models\User\User;
 use App\Services\Pdga\PdgaApi;
 use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Support\Facades\Mail;
-use App\Models\User\User;
 
 class UpdateRatings extends Command
 {
@@ -52,13 +50,11 @@ class UpdateRatings extends Command
         // get all users with pdga numbers
         $users = $this->getUsers();
 
-        $users->each(function(User $user) {
+        $users->each(function (User $user) {
             $pdgaData = $this->pdgaApi->getPlayerByPdgaNumber($user->pdga_number);
 
-            if(! is_null($pdgaData))
-            {
-                if($user->pdga_rating != $pdgaData['rating'])
-                {
+            if (! is_null($pdgaData)) {
+                if ($user->pdga_rating != $pdgaData['rating']) {
                     event(new RatingUpdatedEvent($user, $user->pdga_rating, $pdgaData['rating']));
                 }
 
@@ -70,9 +66,10 @@ class UpdateRatings extends Command
     /**
      * @return mixed
      */
-    public function getUsers() : Collection
+    public function getUsers(): Collection
     {
         $users = $this->user->whereNotNull('pdga_number')->get();
+
         return $users;
     }
 }

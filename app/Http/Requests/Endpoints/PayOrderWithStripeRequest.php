@@ -25,7 +25,7 @@ class PayOrderWithStripeRequest extends FormRequest
     {
         return [
             'source' => 'required',
-            'unique' => 'required|exists:orders'
+            'unique' => 'required|exists:orders',
         ];
     }
 }

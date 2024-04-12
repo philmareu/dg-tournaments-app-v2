@@ -2,12 +2,10 @@
 
 namespace App\Repositories;
 
-
 use App\Models\User\User;
 use App\Services\Auth\UserActivation;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\DB;
 
 class UserRepository
 {
@@ -30,16 +28,16 @@ class UserRepository
         return $user;
     }
 
-    public function getUsersWithNotifiableSearches() : Collection
+    public function getUsersWithNotifiableSearches(): Collection
     {
         $users = $this->user->has('searches')->get();
 
         return $users->map(function (User $user) {
             return [
                 'user' => $user,
-                'searches' => $user->searches()->where('wants_notification', 1)->get()
+                'searches' => $user->searches()->where('wants_notification', 1)->get(),
             ];
-        })->reject(function($item) {
+        })->reject(function ($item) {
             return $item['searches']->isEmpty();
         });
     }

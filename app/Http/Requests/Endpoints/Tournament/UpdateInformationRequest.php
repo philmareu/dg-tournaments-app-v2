@@ -2,10 +2,7 @@
 
 namespace App\Http\Requests\Endpoints\Tournament;
 
-use App\Models\SpecialEventType;
-use App\Models\Tournament;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Auth;
 
 class UpdateInformationRequest extends FormRequest
 {
@@ -46,14 +43,14 @@ class UpdateInformationRequest extends FormRequest
             'special_event_type_ids' => 'exists:special_event_types,id',
             'class_ids' => 'exists:classes,id',
             'timezone' => 'required|timezone',
-            'paypal' => 'nullable|email'
+            'paypal' => 'nullable|email',
         ];
     }
 
     public function messages()
     {
         return [
-            'stripe_account_id.required_if' => 'Please select a Stripe account'
+            'stripe_account_id.required_if' => 'Please select a Stripe account',
         ];
     }
 }

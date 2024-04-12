@@ -2,7 +2,6 @@
 
 namespace App\Collections;
 
-
 use App\Models\OrderSponsorship;
 use Illuminate\Database\Eloquent\Collection;
 

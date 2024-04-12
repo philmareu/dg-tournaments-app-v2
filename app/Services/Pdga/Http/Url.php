@@ -1,7 +1,9 @@
-<?php namespace App\Services\Pdga\Http;
+<?php
 
-class Url {
+namespace App\Services\Pdga\Http;
 
+class Url
+{
     /**
      * @var string
      */
@@ -26,7 +28,7 @@ class Url {
     }
 
     /**
-     * @param string $endPoint
+     * @param  string  $endPoint
      */
     public function setEndPoint($endPoint)
     {
@@ -43,6 +45,6 @@ class Url {
 
     public function fullUrl()
     {
-        return $this->baseUrl . '/' . $this->endPoint;
+        return $this->baseUrl.'/'.$this->endPoint;
     }
 }

@@ -2,7 +2,6 @@
 
 namespace App\Data;
 
-
 class Time
 {
     protected $seconds = 0;
@@ -11,7 +10,7 @@ class Time
 
     const MINUTES_IN_HOUR = 60;
 
-    static public function make()
+    public static function make()
     {
         return new static;
     }

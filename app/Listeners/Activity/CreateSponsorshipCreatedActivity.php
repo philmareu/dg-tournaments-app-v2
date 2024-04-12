@@ -3,7 +3,6 @@
 namespace App\Listeners\Activity;
 
 use App\Events\Models\SponsorshipCreated;
-use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
 class CreateSponsorshipCreatedActivity implements ShouldQueue
@@ -23,7 +22,6 @@ class CreateSponsorshipCreatedActivity implements ShouldQueue
     /**
      * Handle the event.
      *
-     * @param  SponsorshipCreated  $event
      * @return void
      */
     public function handle(SponsorshipCreated $event)

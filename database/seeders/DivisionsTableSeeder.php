@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\Classes;
 use App\Models\Division;
 use Illuminate\Database\Seeder;
 
@@ -17,7 +16,7 @@ class DivisionsTableSeeder extends Seeder
     {
         Division::factory()->create([
             'title' => 'MPO',
-            'class_id' => 1
+            'class_id' => 1,
         ]);
     }
 }

@@ -3,12 +3,9 @@
 namespace Tests\Feature\API\Tournament;
 
 use App\Models\PlayerPack;
-use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use PHPUnit\Framework\Attributes\Test;
+use Tests\TestCase;
 
 class PlayerPackValidationTest extends TestCase
 {
@@ -26,7 +23,7 @@ class PlayerPackValidationTest extends TestCase
         $user->managing()->save($tournament);
         $this->be($user);
 
-        $response = $this->json('POST', '/tournament/player-packs/' . $tournament->id);
+        $response = $this->json('POST', '/tournament/player-packs/'.$tournament->id);
         $this->assertArrayHasKey('title', $response->getOriginalContent()['errors']);
     }
 
@@ -42,7 +39,7 @@ class PlayerPackValidationTest extends TestCase
         $user->managing()->save($tournament);
         $this->be($user);
 
-        $response = $this->json('PUT', '/tournament/player-packs/' . $playerPack->id);
+        $response = $this->json('PUT', '/tournament/player-packs/'.$playerPack->id);
         $this->assertArrayHasKey('title', $response->getOriginalContent()['errors']);
     }
 
@@ -50,12 +47,11 @@ class PlayerPackValidationTest extends TestCase
     public function storing_a_player_pack_item_requires_a_title()
     {
 
-
-        list($user, $tournament) = $this->createTournamentWithManager();
+        [$user, $tournament] = $this->createTournamentWithManager();
         $playerPack = $tournament->playerPacks()->save(PlayerPack::factory()->make());
 
         $response = $this->actingAs($user)
-            ->json('POST', '/tournament/player-pack/items/' . $playerPack->id);
+            ->json('POST', '/tournament/player-pack/items/'.$playerPack->id);
 
         $this->assertArrayHasKey('title', $response->getOriginalContent()['errors']);
     }
@@ -69,15 +65,15 @@ class PlayerPackValidationTest extends TestCase
         $user->managing()->save($tournament);
 
         $this->actingAs($user)
-            ->json('POST', '/tournament/player-packs/' . $tournament->id, [
-                'title' => 'Test Title'
+            ->json('POST', '/tournament/player-packs/'.$tournament->id, [
+                'title' => 'Test Title',
             ]);
 
         $playerPack = $tournament->fresh()->playerPacks->first();
         $playerPackItem = $playerPack->items()->create(['title' => 'test']);
 
         $response = $this->actingAs($user)
-            ->json('PUT', '/tournament/player-pack/items/' . $playerPackItem->id);
+            ->json('PUT', '/tournament/player-pack/items/'.$playerPackItem->id);
 
         $this->assertArrayHasKey('title', $response->getOriginalContent()['errors']);
     }

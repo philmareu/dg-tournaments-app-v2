@@ -2,7 +2,6 @@
 
 namespace Tests\Feature\PDGA;
 
-use App\Models\Classes;
 use App\Models\DataSource;
 use App\Models\Format;
 use App\Models\Tournament;
@@ -11,11 +10,10 @@ use App\Repositories\Api\TournamentRepository;
 use App\Services\API\Payloads\TournamentDataPayload;
 use App\Services\API\Responses\TournamentsResponse;
 use App\Services\Pdga\Helpers\PdgaTournamentPayloadBuilder;
-use Illuminate\Support\Facades\Artisan;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Str;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class PdgaTournamentApiTest extends TestCase
 {
@@ -28,7 +26,7 @@ class PdgaTournamentApiTest extends TestCase
         $this->seed('PdgaTierSeeder');
         $this->seed('FormatsTableSeeder');
 
-        $this->getTournaments()->each(function($tournament) {
+        $this->getTournaments()->each(function ($tournament) {
 
             $payload = new TournamentDataPayload(PdgaTournamentPayloadBuilder::make($tournament)->payload());
 
@@ -67,7 +65,7 @@ class PdgaTournamentApiTest extends TestCase
             'start' => '2017-11-11 08:00:00',
             'end' => '2017-11-11 08:00:00',
             'format_id' => 1,
-            'authorization_email' => 'cajunduffer@yahoo.com'
+            'authorization_email' => 'cajunduffer@yahoo.com',
         ]);
     }
 
@@ -104,7 +102,7 @@ class PdgaTournamentApiTest extends TestCase
             'start' => '2017-11-11 08:00:00',
             'end' => '2017-11-11 08:00:00',
             'format_id' => '1',
-            'authorization_email' => 'cajunduffer@yahoo.com'
+            'authorization_email' => 'cajunduffer@yahoo.com',
         ]);
 
         $this->assertDatabaseMissing('tournaments', [
@@ -125,7 +123,7 @@ class PdgaTournamentApiTest extends TestCase
         $dataSource = $this->getDataSource();
         $repo = new TournamentRepository(new Tournament);
 
-        $this->getPayloads()->each(function(TournamentDataPayload $tournament) use ($repo, $dataSource) {
+        $this->getPayloads()->each(function (TournamentDataPayload $tournament) use ($repo, $dataSource) {
             $repo->createNewTournament($dataSource, $tournament);
         });
 
@@ -134,14 +132,14 @@ class PdgaTournamentApiTest extends TestCase
 
         $this->assertDatabaseHas('tournaments', [
             'data_source_id' => $dataSource->id,
-            'data_source_tournament_id' => $doomedTournament['id']
+            'data_source_tournament_id' => $doomedTournament['id'],
         ]);
 
         $repo->removeUnlisted($dataSource, $tournaments);
 
         $this->assertSoftDeleted('tournaments', [
             'data_source_id' => $dataSource->id,
-            'data_source_tournament_id' => $doomedTournament['id']
+            'data_source_tournament_id' => $doomedTournament['id'],
         ]);
     }
 
@@ -156,7 +154,7 @@ class PdgaTournamentApiTest extends TestCase
         $this->seed('PdgaTierSeeder');
         $this->seed('FormatsTableSeeder');
         $user = User::factory()->create([
-            'email' => 'cajunduffer@yahoo.com'
+            'email' => 'cajunduffer@yahoo.com',
         ]);
 
         $tournament = $repo->createNewTournament(
@@ -166,23 +164,20 @@ class PdgaTournamentApiTest extends TestCase
 
         $this->assertDatabaseHas('managers', [
             'user_id' => $user->id,
-            'tournament_id' => $tournament->id
+            'tournament_id' => $tournament->id,
         ]);
     }
 
-    /**
-     * @return \Illuminate\Support\Collection
-     */
-    public function getTournaments() : \Illuminate\Support\Collection
+    public function getTournaments(): \Illuminate\Support\Collection
     {
-        return collect(json_decode(file_get_contents(base_path('tests/data/pdga/tournaments.json')), true))->reject(function($tournament) {
+        return collect(json_decode(file_get_contents(base_path('tests/data/pdga/tournaments.json')), true))->reject(function ($tournament) {
             return $tournament['tier'] == 'L';
         });
     }
 
     public function getResponse()
     {
-        $payloads = $this->getTournaments()->map(function($tournament) {
+        $payloads = $this->getTournaments()->map(function ($tournament) {
             return new TournamentDataPayload(PdgaTournamentPayloadBuilder::make($tournament)->payload());
         });
 
@@ -194,11 +189,11 @@ class PdgaTournamentApiTest extends TestCase
         return $this->getResponse()->getPayloads();
     }
 
-    public function getDataSource() : DataSource
+    public function getDataSource(): DataSource
     {
         return DataSource::factory()->create([
             'slug' => 'pdga',
-            'type' => 'tournament'
+            'type' => 'tournament',
         ]);
     }
 }

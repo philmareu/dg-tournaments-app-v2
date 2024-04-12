@@ -5,8 +5,6 @@ namespace Tests\Unit;
 use App\Billing\Stripe\StripeBilling;
 use App\Data\Price;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class StripeTest extends TestCase
 {

@@ -26,20 +26,20 @@ class TournamentCourse extends Model
 
     protected $appends = [
         'hole_notes_array',
-        'hole_array'
+        'hole_array',
     ];
 
     protected $casts = [
         'latitude' => 'float',
-        'longitude' => 'float'
+        'longitude' => 'float',
     ];
 
     protected $touches = [
-        'tournament'
+        'tournament',
     ];
 
     protected $dispatchesEvents = [
-        'created' => TournamentCourseCreated::class
+        'created' => TournamentCourseCreated::class,
     ];
 
     public function course()

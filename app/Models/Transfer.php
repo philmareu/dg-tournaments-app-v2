@@ -10,7 +10,7 @@ class Transfer extends Model
     public $fillable = [
         'destination',
         'fee',
-        'amount'
+        'amount',
     ];
 
     public function order()

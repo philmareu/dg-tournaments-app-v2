@@ -13,7 +13,7 @@ class Flag extends Model
         'tournament_id',
         'flag_type_id',
         'notes',
-        'review_on'
+        'review_on',
     ];
 
     protected $casts = [

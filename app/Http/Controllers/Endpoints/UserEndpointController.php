@@ -3,10 +3,9 @@
 namespace App\Http\Controllers\Endpoints;
 
 use App\Billing\Stripe\StripeBilling;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Endpoints\CreateStripeCustomerRequest;
 use App\Http\Requests\User\AddCardRequest;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
 class UserEndpointController extends Controller
@@ -20,7 +19,9 @@ class UserEndpointController extends Controller
 
     public function getCards()
     {
-        if(is_null(Auth::user()->stripe_customer_id)) return [];
+        if (is_null(Auth::user()->stripe_customer_id)) {
+            return [];
+        }
 
         return $this->billing->customer()
             ->retrieve(Auth::user()->stripe_customer_id)
@@ -30,7 +31,7 @@ class UserEndpointController extends Controller
     public function addCard(AddCardRequest $request)
     {
         return $this->billing->customer()->retrieve(Auth::user()->stripe_customer_id)->sources->create([
-            'source' => $request->token
+            'source' => $request->token,
         ]);
     }
 

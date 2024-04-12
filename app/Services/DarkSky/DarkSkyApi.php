@@ -1,7 +1,9 @@
-<?php namespace App\Services\DarkSky;
+<?php
 
-use Carbon\Carbon;
+namespace App\Services\DarkSky;
+
 use App\Services\DarkSky\EndPoints\TimeMachine;
+use Carbon\Carbon;
 
 class DarkSkyApi
 {
@@ -9,8 +11,7 @@ class DarkSkyApi
     {
         $weather = new TimeMachine();
 
-        try
-        {
+        try {
             $response = $weather->whereLatLng($lat, $lng)
                 ->whereTime($time->timestamp)
                 ->get();
@@ -30,11 +31,9 @@ class DarkSkyApi
                 'humidity',
                 'windSpeed',
                 'windBearing',
-                'cloudCover'
+                'cloudCover',
             ])->merge(['date' => $time->timestamp]);
-        }
-        catch (\Exception $exception)
-        {
+        } catch (\Exception $exception) {
             return [];
         }
     }

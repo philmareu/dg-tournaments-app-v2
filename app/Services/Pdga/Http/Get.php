@@ -1,14 +1,12 @@
-<?php namespace App\Services\Pdga\Http;
+<?php
+
+namespace App\Services\Pdga\Http;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Cookie\CookieJar;
-use GuzzleHttp\Exception\BadResponseException;
-use GuzzleHttp\Exception\ClientException;
-use GuzzleHttp\Exception\ServerException;
-use Illuminate\Support\Facades\Log;
 
-class Get {
-
+class Get
+{
     use Query;
 
     protected $apiRate = 250000;
@@ -24,16 +22,18 @@ class Get {
         $client = new Client();
 
         $cookieJar = CookieJar::fromArray([
-            $session['session_name'] => $session['sessid']
+            $session['session_name'] => $session['sessid'],
         ], 'pdga.com');
 
         $response = $client->get($url->fullUrl(), [
             'cookies' => $cookieJar,
-            'query' => $this->getParameters()
+            'query' => $this->getParameters(),
         ]);
         usleep($this->apiRate);
 
-        if($response->getStatusCode() != 200) return [];
+        if ($response->getStatusCode() != 200) {
+            return [];
+        }
 
         return json_decode($response->getBody(), true);
     }

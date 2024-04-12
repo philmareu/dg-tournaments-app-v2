@@ -24,28 +24,28 @@ class CheckApiFields extends Command
     protected $description = 'Command description';
 
     protected $tournamentFields = [
-        "tournament_id",
-        "tournament_name",
-        "city",
-        "state_prov",
-        "country",
-        "latitude",
-        "longitude",
-        "start_date",
-        "end_date",
-        "class",
-        "tier",
-        "format",
-        "tournament_director",
-        "tournament_director_pdga_number",
-        "asst_tournament_director",
-        "asst_tournament_director_pdga_number",
-        "event_email",
-        "event_phone",
-        "event_url",
-        "website_url",
-        "registration_url",
-        "last_modified"
+        'tournament_id',
+        'tournament_name',
+        'city',
+        'state_prov',
+        'country',
+        'latitude',
+        'longitude',
+        'start_date',
+        'end_date',
+        'class',
+        'tier',
+        'format',
+        'tournament_director',
+        'tournament_director_pdga_number',
+        'asst_tournament_director',
+        'asst_tournament_director_pdga_number',
+        'event_email',
+        'event_phone',
+        'event_url',
+        'website_url',
+        'registration_url',
+        'last_modified',
     ];
 
     protected $pdgaApi;
@@ -76,8 +76,7 @@ class CheckApiFields extends Command
         // Fields added
         $diff2 = array_diff($fields, $this->tournamentFields);
 
-        if(! (empty($diff1) && empty($diff2)))
-        {
+        if (! (empty($diff1) && empty($diff2))) {
             Mail::to('admin@dgtournaments.com')->send(new ApiFieldsChanged($diff1, $diff2));
         }
     }

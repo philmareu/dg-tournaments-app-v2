@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers\Account;
 
+use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Repositories\OrderRepository;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
 
@@ -33,7 +32,9 @@ class OrdersController extends Controller implements HasMiddleware
 
     public function show(Order $order)
     {
-        if($order->user_id !== auth()->user()->id) return response('Not authorized', 403);
+        if ($order->user_id !== auth()->user()->id) {
+            return response('Not authorized', 403);
+        }
 
         return view('pages.account.orders.show')
             ->withOrder($order->load('sponsorships.sponsorship.tournament.poster'));

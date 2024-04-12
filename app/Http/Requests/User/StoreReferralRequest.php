@@ -24,7 +24,7 @@ class StoreReferralRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => 'required|max:255|email|unique:referrals|unique:users'
+            'email' => 'required|max:255|email|unique:referrals|unique:users',
         ];
     }
 }

@@ -3,14 +3,10 @@
 namespace Tests\Feature\API\Tournament;
 
 use App\Models\Sponsorship;
-use App\Models\Sponsor;
 use App\Models\TournamentSponsor;
-use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use PHPUnit\Framework\Attributes\Test;
+use Tests\TestCase;
 
 class SponsorValidationEndpointTest extends TestCase
 {
@@ -37,13 +33,13 @@ class SponsorValidationEndpointTest extends TestCase
     private function storing($key, $data = [])
     {
 
-        list($user, $tournament) = $this->createTournamentWithManager();
+        [$user, $tournament] = $this->createTournamentWithManager();
 
         $sponsorship = Sponsorship::factory()->create();
         $tournament->sponsorships()->save($sponsorship);
 
         $response = $this->actingAs($user)
-            ->json('POST', 'tournament/sponsorship/sponsors/' . $sponsorship->id, $data);
+            ->json('POST', 'tournament/sponsorship/sponsors/'.$sponsorship->id, $data);
 
         $this->assertArrayHasKey($key, $response->getOriginalContent()['errors']);
     }
@@ -51,13 +47,13 @@ class SponsorValidationEndpointTest extends TestCase
     private function updating($key, $data = [])
     {
 
-        list($user, $tournament) = $this->createTournamentWithManager();
+        [$user, $tournament] = $this->createTournamentWithManager();
 
         $tournamentSponsor = TournamentSponsor::factory()->create();
         $tournament->sponsors()->save($tournamentSponsor);
 
-        $response =$this->actingAs($user)
-            ->json('PUT', 'tournament/sponsorship/sponsors/' . $tournamentSponsor->id, $data);
+        $response = $this->actingAs($user)
+            ->json('PUT', 'tournament/sponsorship/sponsors/'.$tournamentSponsor->id, $data);
 
         $this->assertArrayHasKey($key, $response->getOriginalContent()['errors']);
     }

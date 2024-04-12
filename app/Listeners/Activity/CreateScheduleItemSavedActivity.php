@@ -2,12 +2,10 @@
 
 namespace App\Listeners\Activity;
 
-use Carbon\Carbon;
 use App\Events\ScheduleSaved;
 use App\Models\Activity;
-use Illuminate\Queue\InteractsWithQueue;
+use Carbon\Carbon;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Support\Facades\Log;
 
 class CreateScheduleItemSavedActivity implements ShouldQueue
 {
@@ -28,20 +26,17 @@ class CreateScheduleItemSavedActivity implements ShouldQueue
     /**
      * Handle the event.
      *
-     * @param  ScheduleSaved  $event
      * @return void
      */
     public function handle(ScheduleSaved $event)
     {
-        if($this->noRecentActivity($event))
-        {
+        if ($this->noRecentActivity($event)) {
             $activity = $this->createActivity('tournament.schedule.updated', $event->schedule->tournament, $event->user);
             $this->attachActivityToFeeds($event->schedule->tournament->followers, $activity);
         }
     }
 
     /**
-     * @param ScheduleSaved $event
      * @return mixed
      */
     private function noRecentActivity(ScheduleSaved $event)

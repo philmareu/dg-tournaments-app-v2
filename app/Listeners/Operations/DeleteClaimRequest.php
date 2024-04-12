@@ -3,7 +3,6 @@
 namespace App\Listeners\Operations;
 
 use App\Events\TournamentClaimApproved;
-use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
 class DeleteClaimRequest implements ShouldQueue
@@ -21,7 +20,6 @@ class DeleteClaimRequest implements ShouldQueue
     /**
      * Handle the event.
      *
-     * @param  TournamentClaimApproved  $event
      * @return void
      */
     public function handle(TournamentClaimApproved $event)

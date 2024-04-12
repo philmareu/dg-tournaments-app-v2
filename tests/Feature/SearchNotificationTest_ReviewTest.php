@@ -2,7 +2,6 @@
 
 namespace Tests\Feature;
 
-use Carbon\Carbon;
 use App\Helpers\AlgoliaQueryStringBuilder;
 use App\Mail\User\SavedSearchFoundNewTournamentsMailable;
 use App\Models\Classes;
@@ -13,18 +12,17 @@ use App\Models\SpecialEventType;
 use App\Models\Tournament;
 use App\Models\User\User;
 use App\Repositories\ActivationRepository;
-use App\Repositories\TournamentRepository;
-use App\Services\Auth\UserActivation;
 use App\Repositories\SearchRepository;
+use App\Repositories\TournamentRepository;
 use App\Repositories\UserRepository;
+use App\Services\Auth\UserActivation;
 use App\Services\DarkSky\DarkSkyApi;
 use App\Services\Foursquare\FoursquareApi;
-use function GuzzleHttp\Psr7\parse_query;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Carbon\Carbon;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Mail;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class SearchNotificationTest_ReviewTest extends TestCase
 {
@@ -49,7 +47,6 @@ class SearchNotificationTest_ReviewTest extends TestCase
 
     // We need one user and a search query, than build several tournaments that fit and don't fit the criteria
 
-
     public function should_return_a_list_of_daily_searches_that_are_ready_to_search_for_new_tournaments()
     {
         $repo = $this->getSearchRepo();
@@ -61,7 +58,6 @@ class SearchNotificationTest_ReviewTest extends TestCase
         });
     }
 
-
     public function should_return_an_empty_list_of_daily_searches()
     {
         $repo = $this->getSearchRepo();
@@ -70,7 +66,6 @@ class SearchNotificationTest_ReviewTest extends TestCase
 
         $this->assertTrue($repo->getReadyByFrequency('daily')->isEmpty());
     }
-
 
     public function should_return_a_list_of_weekly_searches_that_are_ready_to_search_for_new_tournaments()
     {
@@ -83,7 +78,6 @@ class SearchNotificationTest_ReviewTest extends TestCase
         });
     }
 
-
     public function should_return_an_empty_list_of_weekly_searches()
     {
         $repo = $this->getSearchRepo();
@@ -92,7 +86,6 @@ class SearchNotificationTest_ReviewTest extends TestCase
 
         $this->assertTrue($repo->getReadyByFrequency('weekly')->isEmpty());
     }
-
 
     public function should_return_a_combined_list_of_ready_searches_for_all_frequencies()
     {
@@ -107,7 +100,6 @@ class SearchNotificationTest_ReviewTest extends TestCase
             $this->assertTrue($ready->where('id', $search->id)->isNotEmpty());
         });
     }
-
 
     public function should_return_a_list_of_ready_searches_formatted_for_notifications()
     {
@@ -131,7 +123,6 @@ class SearchNotificationTest_ReviewTest extends TestCase
         $this->assertEquals(2, $searches[$user2->id]['searches']->count());
     }
 
-
     public function should_return_a_list_of_tournaments_that_meet_search_criteria()
     {
         $this->seed('FormatsTableSeeder');
@@ -152,7 +143,7 @@ class SearchNotificationTest_ReviewTest extends TestCase
                 ->setLatestDate(Carbon::createFromDate(2017, 12, 10))
                 ->setSpecialEventTypes(['Women\'s Only'])
                 ->setSanctioned(['PDGA'])
-                ->buildQueryString()
+                ->buildQueryString(),
         ]);
 
         $user->searches()->save($search);
@@ -162,7 +153,7 @@ class SearchNotificationTest_ReviewTest extends TestCase
             'latitude' => 38.8,
             'longitude' => -96.3,
             'format_id' => 1,
-            'start' => Carbon::createFromDate(2017, 10, 8)
+            'start' => Carbon::createFromDate(2017, 10, 8),
         ]);
 
         $tournament1->classes()->save(Classes::where('title', 'Pro')->first());
@@ -176,7 +167,7 @@ class SearchNotificationTest_ReviewTest extends TestCase
             'latitude' => 40,
             'longitude' => -96.3,
             'format_id' => 2,
-            'start' => Carbon::createFromDate(2017, 9, 2)
+            'start' => Carbon::createFromDate(2017, 9, 2),
         ]);
 
         $tournament2->classes()->save(Classes::where('title', 'Pro')->first());
@@ -189,15 +180,14 @@ class SearchNotificationTest_ReviewTest extends TestCase
         $this->assertEquals($tournament1->id, $tournament1->first()->id);
     }
 
-
     public function should_return_a_list_with_user_and_the_unique_tournaments_that_meet_filter_requirements()
     {
         $this->baseSeeds();
         $repo = $this->getSearchRepo();
         $user = $this->createUser();
 
-        list($search1, $tournament) = $this->buildReadySearchWithMatchingTournament();
-        list($search2, $tournament) = $this->buildReadySearchWithMatchingTournament();
+        [$search1, $tournament] = $this->buildReadySearchWithMatchingTournament();
+        [$search2, $tournament] = $this->buildReadySearchWithMatchingTournament();
 
         $user->searches()->save($search1);
         $user->searches()->save($search2);
@@ -207,14 +197,13 @@ class SearchNotificationTest_ReviewTest extends TestCase
         $this->assertEquals(1, $tournamentNotifications->first()['tournaments']->first()->id);
     }
 
-
     public function tournaments_must_be_created_within_the_frequency_to_show_up_in_notifications()
     {
         $this->baseSeeds();
         $repo = $this->getSearchRepo();
         $user = $this->createUser();
 
-        list($search1, $tournament) = $this->buildReadySearchWithMatchingTournament();
+        [$search1, $tournament] = $this->buildReadySearchWithMatchingTournament();
 
         $tournament->created_at = Carbon::now()->subDays(8);
         $tournament->save();
@@ -226,15 +215,14 @@ class SearchNotificationTest_ReviewTest extends TestCase
         $this->assertTrue($tournamentNotifications->isEmpty());
     }
 
-
     public function should_send_a_email_to_the_user_about_new_tournaments()
     {
         $this->baseSeeds();
         $repo = $this->getSearchRepo();
         $user = $this->createUser();
 
-        list($search1, $tournament) = $this->buildReadySearchWithMatchingTournament();
-        list($search2, $tournament) = $this->buildReadySearchWithMatchingTournament();
+        [$search1, $tournament] = $this->buildReadySearchWithMatchingTournament();
+        [$search2, $tournament] = $this->buildReadySearchWithMatchingTournament();
 
         $user->searches()->save($search1);
         $user->searches()->save($search2);
@@ -246,15 +234,14 @@ class SearchNotificationTest_ReviewTest extends TestCase
         Mail::assertQueued(SavedSearchFoundNewTournamentsMailable::class);
     }
 
-
     public function should_mark_the_searched_at_field_after_notification_has_been_sent()
     {
         $this->baseSeeds();
         $repo = $this->getSearchRepo();
         $user = $this->createUser();
 
-        list($search1, $tournament) = $this->buildReadySearchWithMatchingTournament();
-        list($search2, $tournament) = $this->buildReadySearchWithMatchingTournament();
+        [$search1, $tournament] = $this->buildReadySearchWithMatchingTournament();
+        [$search2, $tournament] = $this->buildReadySearchWithMatchingTournament();
 
         $user->searches()->save($search1);
         $user->searches()->save($search2);
@@ -270,14 +257,13 @@ class SearchNotificationTest_ReviewTest extends TestCase
         $this->assertNotEquals($oldDate2->format('U'), $search2->fresh()->searched_at->format('U'));
     }
 
-
     public function tournament_notifications_should_be_empty_once_they_are_done()
     {
         $this->baseSeeds();
         $repo = $this->getSearchRepo();
         $user = $this->createUser();
 
-        list($search1, $tournament) = $this->buildReadySearchWithMatchingTournament();
+        [$search1, $tournament] = $this->buildReadySearchWithMatchingTournament();
 
         $user->searches()->save($search1);
 
@@ -320,8 +306,6 @@ class SearchNotificationTest_ReviewTest extends TestCase
 
     /**
      * Just a helper
-     *
-     * @param $url
      */
     private function parseUrl($url)
     {
@@ -342,7 +326,7 @@ class SearchNotificationTest_ReviewTest extends TestCase
                 ->setLatestDate(Carbon::createFromDate(2017, 12, 10))
                 ->setSpecialEventTypes(['Women\'s Only'])
                 ->setSanctioned(['PDGA'])
-                ->buildQueryString()
+                ->buildQueryString(),
         ]);
 
         // In search
@@ -350,7 +334,7 @@ class SearchNotificationTest_ReviewTest extends TestCase
             'latitude' => 38.8,
             'longitude' => -96.3,
             'format_id' => 1,
-            'start' => Carbon::createFromDate(2017, 12, 8)
+            'start' => Carbon::createFromDate(2017, 12, 8),
         ]);
 
         $tournament->classes()->save(Classes::where('title', 'Pro')->first());

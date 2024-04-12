@@ -3,8 +3,8 @@
 namespace App\Providers;
 
 use Illuminate\Auth\Events\Registered;
-use Illuminate\Support\Facades\Event;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Event;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -16,21 +16,21 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         Registered::class => [
             \App\Listeners\Operations\AutoAssignUserToTournaments::class,
-            \App\Listeners\Operations\SetupNewUser::class
+            \App\Listeners\Operations\SetupNewUser::class,
         ],
         \App\Events\RatingUpdatedEvent::class => [
             \App\Listeners\EmailNotifications\SendRatingUpdatedEmail::class,
             \App\Listeners\Notifications\CreateRatingUpdatedNotification::class,
-            \App\Listeners\Activity\CreatePdgaRatingUpdatedActivity::class
+            \App\Listeners\Activity\CreatePdgaRatingUpdatedActivity::class,
         ],
         \App\Events\NewUserActivated::class => [
-            \App\Listeners\Notifications\Admin\SendNewUserSlackNotification::class
+            \App\Listeners\Notifications\Admin\SendNewUserSlackNotification::class,
         ],
         \App\Events\TournamentFollowed::class => [
             \App\Listeners\Activity\CreateTournamentFollowedActivity::class,
         ],
         \App\Events\TournamentUnfollowed::class => [
-            \App\Listeners\Activity\CreateTournamentUnfollowedActivity::class
+            \App\Listeners\Activity\CreateTournamentUnfollowedActivity::class,
         ],
         \App\Events\TournamentClaimRequestSubmitted::class => [
             \App\Listeners\EmailNotifications\SendClaimRequestEmailToTournament::class,
@@ -41,33 +41,33 @@ class EventServiceProvider extends ServiceProvider
             \App\Listeners\Notifications\Admin\SendTournamentClaimedNotification::class,
             \App\Listeners\Notifications\Admin\SendApprovedEmailToClaimRequester::class,
             \App\Listeners\Activity\CreateClaimRequestApprovedActivity::class,
-            \App\Listeners\Operations\DeleteClaimRequest::class
+            \App\Listeners\Operations\DeleteClaimRequest::class,
         ],
         \App\Events\TournamentSubmitted::class => [
             \App\Listeners\EmailNotifications\SendTournamentSubmittedConfirmationEmail::class,
-            \App\Listeners\Activity\CreateTournamentSubmittedActivity::class
+            \App\Listeners\Activity\CreateTournamentSubmittedActivity::class,
         ],
         \App\Events\TournamentRegistrationUpdated::class => [
-            \App\Listeners\Activity\CreateTournamentRegistrationUpdatedActivity::class
+            \App\Listeners\Activity\CreateTournamentRegistrationUpdatedActivity::class,
         ],
         \App\Events\ScheduleSaved::class => [
-            \App\Listeners\Activity\CreateScheduleItemSavedActivity::class
+            \App\Listeners\Activity\CreateScheduleItemSavedActivity::class,
         ],
         \App\Events\LinkSaved::class => [
-            \App\Listeners\Activity\CreateLinkSavedActivity::class
+            \App\Listeners\Activity\CreateLinkSavedActivity::class,
         ],
         \App\Events\MediaSaved::class => [
-            \App\Listeners\Activity\CreateMediaSavedActivity::class
+            \App\Listeners\Activity\CreateMediaSavedActivity::class,
         ],
         \App\Events\PlayerPackItemSaved::class => [
-            \App\Listeners\Activity\CreatePlayerPackItemSavedActivity::class
+            \App\Listeners\Activity\CreatePlayerPackItemSavedActivity::class,
         ],
         \App\Events\CourseCreated::class => [
-            \App\Listeners\Activity\CreateCourseCreatedActivity::class
+            \App\Listeners\Activity\CreateCourseCreatedActivity::class,
         ],
         \App\Events\TournamentCourseCreated::class => [
             \App\Listeners\Activity\CreateTournamentCourseCreatedActivity::class,
-            \App\Listeners\Operations\CheckTournamentLatLng::class
+            \App\Listeners\Operations\CheckTournamentLatLng::class,
         ],
         \App\Events\OrderPaid::class => [
             \App\Listeners\EmailNotifications\SendOrderConfirmationEmail::class,
@@ -83,18 +83,18 @@ class EventServiceProvider extends ServiceProvider
             \App\Listeners\Activity\CreateTournamentUpdatingActivity::class,
         ],
         \App\Events\TournamentAutoAssigned::class => [
-            \App\Listeners\Activity\CreateTournamentAutoAssignedActivity::class
+            \App\Listeners\Activity\CreateTournamentAutoAssignedActivity::class,
         ],
         \App\Events\Registration\RegistrationOpensSoon::class => [
-            \App\Listeners\Activity\CreateTournamentRegistrationOpensSoonActivity::class
+            \App\Listeners\Activity\CreateTournamentRegistrationOpensSoonActivity::class,
         ],
         \App\Events\Registration\RegistrationIsOpen::class => [
             \App\Listeners\Activity\CreateTournamentRegistrationIsOpenActivity::class,
-            \App\Listeners\EmailNotifications\SendRegistrationOpenEmail::class
+            \App\Listeners\EmailNotifications\SendRegistrationOpenEmail::class,
         ],
         \App\Events\Registration\RegistrationClosesSoon::class => [
-            \App\Listeners\Activity\CreateTournamentRegistrationClosesSoonActivity::class
-        ]
+            \App\Listeners\Activity\CreateTournamentRegistrationClosesSoonActivity::class,
+        ],
     ];
 
     /**

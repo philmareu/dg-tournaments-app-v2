@@ -29,7 +29,7 @@ class UpdateTournamentRequest extends FormRequest
             'hashtag' => 'max:60',
             'course_ids' => 'array',
             'latitude' => 'numeric',
-            'longitude' => 'numeric'
+            'longitude' => 'numeric',
         ];
     }
 }

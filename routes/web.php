@@ -110,7 +110,7 @@ Route::get('manage/{tournament}', [\App\Http\Controllers\User\ManageTournamentCo
 
 Route::get('blog/preview/{id}', [\App\Http\Controllers\BlogController::class, 'preview'])->middleware('admin');
 
-Route::group(['middleware' => 'admin', 'namespace' => 'Admin', 'prefix' => 'admin'], function() {
+Route::group(['middleware' => 'admin', 'namespace' => 'Admin', 'prefix' => 'admin'], function () {
 
     Route::get('dashboard', [\App\Http\Controllers\Admin\DashboardController::class, 'index']);
 

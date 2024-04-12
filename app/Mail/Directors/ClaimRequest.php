@@ -4,10 +4,9 @@ namespace App\Mail\Directors;
 
 use App\Models\Tournament;
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Support\Facades\Log;
 
 class ClaimRequest extends Mailable implements ShouldQueue
 {

@@ -17,19 +17,19 @@ class SpecialEventTypesSeeder extends Seeder
         SpecialEventType::factory()->create([
             'id' => 1,
             'title' => 'Women\'s Only',
-            'slug' => 'women-only'
+            'slug' => 'women-only',
         ]);
 
         SpecialEventType::factory()->create([
             'id' => 2,
             'title' => 'Charity/Fundraiser',
-            'slug' => 'charity'
+            'slug' => 'charity',
         ]);
 
         SpecialEventType::factory()->create([
             'id' => 3,
             'title' => 'Junior\'s Only',
-            'slug' => 'junior-only'
+            'slug' => 'junior-only',
         ]);
     }
 }

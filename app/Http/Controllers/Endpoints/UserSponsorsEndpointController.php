@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Endpoints;
 
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Endpoints\Tournament\DestroySponsorRequest;
 use App\Http\Requests\Endpoints\Tournament\StoreSponsorRequest;
 use App\Http\Requests\Endpoints\Tournament\UpdateSponsorRequest;
-use App\Http\Requests\Endpoints\Tournament\DestroySponsorRequest;
 use App\Models\Sponsor;
 use App\Models\Upload;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Support\Facades\Auth;
@@ -51,8 +51,7 @@ class UserSponsorsEndpointController extends Controller implements HasMiddleware
 
     public function update(UpdateSponsorRequest $request, Sponsor $sponsor)
     {
-        if($request->has('upload_id'))
-        {
+        if ($request->has('upload_id')) {
             $upload = $this->upload->find($request->upload_id);
             $sponsor->logo()->associate($upload);
         }

@@ -2,10 +2,9 @@
 
 namespace App\Listeners\Activity;
 
-use Carbon\Carbon;
 use App\Events\MediaSaved;
 use App\Models\Activity;
-use Illuminate\Queue\InteractsWithQueue;
+use Carbon\Carbon;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
 class CreateMediaSavedActivity implements ShouldQueue
@@ -27,20 +26,17 @@ class CreateMediaSavedActivity implements ShouldQueue
     /**
      * Handle the event.
      *
-     * @param  MediaSaved  $event
      * @return void
      */
     public function handle(MediaSaved $event)
     {
-        if($this->noRecentActivity($event))
-        {
+        if ($this->noRecentActivity($event)) {
             $activity = $this->createActivity('tournament.media.updated', $event->tournament, $event->user);
             $this->attachActivityToFeeds($event->tournament->followers, $activity);
         }
     }
 
     /**
-     * @param MediaSaved $event
      * @return mixed
      */
     private function noRecentActivity(MediaSaved $event)

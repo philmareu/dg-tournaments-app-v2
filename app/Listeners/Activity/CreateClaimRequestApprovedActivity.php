@@ -3,7 +3,6 @@
 namespace App\Listeners\Activity;
 
 use App\Events\TournamentClaimApproved;
-use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
 class CreateClaimRequestApprovedActivity implements ShouldQueue
@@ -23,7 +22,6 @@ class CreateClaimRequestApprovedActivity implements ShouldQueue
     /**
      * Handle the event.
      *
-     * @param  TournamentClaimApproved  $event
      * @return void
      */
     public function handle(TournamentClaimApproved $event)

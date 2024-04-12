@@ -2,14 +2,12 @@
 
 namespace App\Http\Controllers\Endpoints;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Endpoints\Tournament\DestroyPlayerPackRequest;
 use App\Http\Requests\Endpoints\Tournament\StorePlayerPackRequest;
 use App\Http\Requests\Endpoints\Tournament\UpdatePlayerPackRequest;
-
 use App\Models\PlayerPack;
 use App\Models\Tournament;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
 
@@ -74,7 +72,6 @@ class PlayerPacksEndpointController extends Controller implements HasMiddleware
     }
 
     /**
-     * @param PlayerPack $playerPack
      * @return mixed
      */
     public function getPlayerPacks(PlayerPack $playerPack)

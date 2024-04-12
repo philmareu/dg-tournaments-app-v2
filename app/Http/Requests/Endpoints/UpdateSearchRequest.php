@@ -28,7 +28,7 @@ class UpdateSearchRequest extends FormRequest
         return [
             'title' => 'required|max:255',
             'wants_notification' => 'boolean',
-            'frequency' => 'required_if:wants_notification,1|in:daily,weekly'
+            'frequency' => 'required_if:wants_notification,1|in:daily,weekly',
         ];
     }
 }

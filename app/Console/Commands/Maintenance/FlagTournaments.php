@@ -2,8 +2,8 @@
 
 namespace App\Console\Commands\Maintenance;
 
-use Carbon\Carbon;
 use App\Models\Tournament;
+use Carbon\Carbon;
 use Illuminate\Console\Command;
 
 class FlagTournaments extends Command
@@ -46,24 +46,27 @@ class FlagTournaments extends Command
             ->where('start', '>', Carbon::now()->subDay())
             ->get();
 
-        $tournaments->each(function(Tournament $tournament) {
+        $tournaments->each(function (Tournament $tournament) {
 
             $existingFlags = $tournament->flags;
 
-            if(! $tournament->hasLatLng() && $existingFlags->where('id', 1)->isEmpty())
+            if (! $tournament->hasLatLng() && $existingFlags->where('id', 1)->isEmpty()) {
                 $tournament->flags()->attach(1, ['notes' => 'Added from maintenance script']);
+            }
 
-            if($tournament->courses->isEmpty() && $existingFlags->where('id', 2)->isEmpty())
+            if ($tournament->courses->isEmpty() && $existingFlags->where('id', 2)->isEmpty()) {
                 $tournament->flags()->attach(2, [
                     'notes' => 'Added from maintenance script',
-                    'review_on' => $tournament->start->subMonths(3)
+                    'review_on' => $tournament->start->subMonths(3),
                 ]);
+            }
 
-            if(is_null($tournament->registration->url) && $existingFlags->where('id', 3)->isEmpty())
+            if (is_null($tournament->registration->url) && $existingFlags->where('id', 3)->isEmpty()) {
                 $tournament->flags()->attach(3, [
                     'notes' => 'Added from maintenance script',
-                    'review_on' => $tournament->start->subMonths(3)
+                    'review_on' => $tournament->start->subMonths(3),
                 ]);
+            }
 
             $terms = [
                 'Ladies',
@@ -83,13 +86,14 @@ class FlagTournaments extends Command
                 'Miss ',
                 'miss ',
                 'Queen',
-                'queen'
+                'queen',
             ];
 
-            if(str_contains($tournament->name, $terms)
+            if (str_contains($tournament->name, $terms)
                 && $existingFlags->where('id', 4)->isEmpty()
-                && $tournament->specialEventTypes->where('slug', 'women-only')->isEmpty())
+                && $tournament->specialEventTypes->where('slug', 'women-only')->isEmpty()) {
                 $tournament->flags()->attach(4, ['notes' => 'Added from maintenance script']);
+            }
 
             $terms = [
                 'Junior',
@@ -97,13 +101,14 @@ class FlagTournaments extends Command
                 'kids',
                 'Kids',
                 'Youth',
-                'youth'
+                'youth',
             ];
 
-            if(str_contains($tournament->name, $terms)
+            if (str_contains($tournament->name, $terms)
                 && $existingFlags->where('id', 5)->isEmpty()
-                && $tournament->specialEventTypes->where('slug', 'junior-only')->isEmpty())
+                && $tournament->specialEventTypes->where('slug', 'junior-only')->isEmpty()) {
                 $tournament->flags()->attach(5, ['notes' => 'Added from maintenance script']);
+            }
 
         });
     }

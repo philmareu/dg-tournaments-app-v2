@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\User;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\User\StoreReferralRequest;
 use App\Mail\User\SendReferral;
 use App\Models\User\UserReferral;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Support\Facades\Mail;
@@ -49,7 +49,9 @@ class ReferralsController extends Controller implements HasMiddleware
     {
         $referral = $this->referral->where('code', $request->code)->first();
 
-        if(is_null($referral)) abort('404');
+        if (is_null($referral)) {
+            abort('404');
+        }
 
         return view('auth.register')
             ->with('referral', $referral);

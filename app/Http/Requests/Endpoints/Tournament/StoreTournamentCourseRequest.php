@@ -36,7 +36,7 @@ class StoreTournamentCourseRequest extends FormRequest
             'country' => 'required|max:255',
             'course_id' => 'nullable|exists:courses,id',
             'directions' => 'nullable|max:2000',
-            'notes' => 'nullable|max:1000'
+            'notes' => 'nullable|max:1000',
         ];
     }
 }

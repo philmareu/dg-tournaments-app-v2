@@ -1,4 +1,6 @@
-<?php namespace App\ViewComposers;
+<?php
+
+namespace App\ViewComposers;
 
 use Illuminate\View\View;
 
@@ -16,7 +18,7 @@ class WeatherIconViewComposers
             'fog' => 'wi-fog',
             'cloudy' => 'wi-cloudy',
             'partly-cloudy-day' => 'wi-day-cloudy',
-            'partly-cloudy-night' => 'wi-night-partly-cloudy'
+            'partly-cloudy-night' => 'wi-night-partly-cloudy',
         ];
 
         $view->with('weatherIcons', $weatherIcons);

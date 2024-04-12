@@ -4,13 +4,10 @@ namespace Tests\Feature\API\Tournament;
 
 use App\Models\StripeAccount;
 use App\Models\Tournament;
-use Illuminate\Support\Facades\Event;
-use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Event;
 use PHPUnit\Framework\Attributes\Test;
+use Tests\TestCase;
 
 class StripeAccountEndpointTest extends TestCase
 {
@@ -27,7 +24,7 @@ class StripeAccountEndpointTest extends TestCase
     public function guests_cannot_update_tournament_stripe_account()
     {
 
-        $this->json('DELETE', 'tournament/stripe/' . Tournament::factory()->create()->id)
+        $this->json('DELETE', 'tournament/stripe/'.Tournament::factory()->create()->id)
             ->assertStatus(401);
     }
 
@@ -36,30 +33,30 @@ class StripeAccountEndpointTest extends TestCase
     {
 
         $this->actingAs($this->createUser())
-            ->json('DELETE', 'tournament/stripe/' . Tournament::factory()->create()->id)
+            ->json('DELETE', 'tournament/stripe/'.Tournament::factory()->create()->id)
             ->assertStatus(403);
     }
 
     #[Test]
     public function manager_can_update_tournament_stripe_account()
     {
-        list($user, $tournament) = $this->createTournamentWithManager();
+        [$user, $tournament] = $this->createTournamentWithManager();
         $user->stripeAccounts()->save(StripeAccount::factory()->make());
 
         $this->actingAs($user)
-            ->json('PUT', 'tournament/stripe/' . $tournament->id, ['stripe_account_id' => 1])
+            ->json('PUT', 'tournament/stripe/'.$tournament->id, ['stripe_account_id' => 1])
             ->assertJson([
-                'id' => 1
+                'id' => 1,
             ]);
     }
 
     #[Test]
     public function manager_can_remove_tournament_stripe_account()
     {
-        list($user, $tournament) = $this->createTournamentWithManager();
+        [$user, $tournament] = $this->createTournamentWithManager();
 
         $this->actingAs($user)
-            ->json('DELETE', 'tournament/stripe/' . $tournament->id);
+            ->json('DELETE', 'tournament/stripe/'.$tournament->id);
 
         $this->assertNull($tournament->stripeAccount);
     }
@@ -78,9 +75,9 @@ class StripeAccountEndpointTest extends TestCase
 
     public function updating($data = [])
     {
-        list($user, $tournament) = $this->createTournamentWithManager();
+        [$user, $tournament] = $this->createTournamentWithManager();
 
         return $this->actingAs($user)
-            ->call('PUT', 'tournament/stripe/' . $tournament->id, $data);
+            ->call('PUT', 'tournament/stripe/'.$tournament->id, $data);
     }
 }

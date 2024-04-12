@@ -2,7 +2,6 @@
 
 namespace App\Billing\Stripe;
 
-
 use App\Data\Price;
 use Stripe\Transfer;
 
@@ -14,7 +13,7 @@ class StripeTransfer
             'amount' => $amount->inCents(),
             'currency' => 'usd',
             'source_transaction' => $chargeId,
-            'destination' => $account
+            'destination' => $account,
         ]);
     }
 }

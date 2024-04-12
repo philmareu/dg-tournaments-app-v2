@@ -34,7 +34,7 @@ class UpdateTournamentCourseRequest extends FormRequest
             'state_province' => 'nullable|max:255',
             'country' => 'required|max:255',
             'directions' => 'nullable|max:2000',
-            'notes' => 'nullable|max:1000'
+            'notes' => 'nullable|max:1000',
         ];
     }
 }

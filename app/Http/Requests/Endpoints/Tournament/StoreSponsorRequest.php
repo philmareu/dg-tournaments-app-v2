@@ -26,7 +26,7 @@ class StoreSponsorRequest extends FormRequest
         return [
             'title' => 'required|max:255',
             'url' => 'nullable|url|max:255',
-            'upload_id' => 'nullable|exists:uploads,id'
+            'upload_id' => 'nullable|exists:uploads,id',
         ];
     }
 }

@@ -13,20 +13,19 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        \Bugsnag\BugsnagLaravel\Commands\DeployCommand::class
+        \Bugsnag\BugsnagLaravel\Commands\DeployCommand::class,
     ];
 
     /**
      * Define the application's command schedule.
      *
-     * @param  \Illuminate\Console\Scheduling\Schedule  $schedule
      * @return void
      */
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('tournaments:update')->dailyAt('13:00');
         $schedule->command('courses:update')->dailyAt('14:00');
-//        $schedule->command('search:check-saved-searches')->twiceDaily(9, 5);
+        //        $schedule->command('search:check-saved-searches')->twiceDaily(9, 5);
         $schedule->command('ratings:update')->twiceDaily(10, 6);
         $schedule->command('maintenance:claim-requests')->hourly();
         $schedule->command('maintenance:check-api-fields')->daily();

@@ -4,10 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\PostCategory;
 use App\Repositories\BlogRepository;
-use Illuminate\Http\Request;
-
-use App\Http\Requests;
-use App\Http\Controllers\Controller;
 
 class BlogController extends Controller
 {
@@ -32,7 +28,9 @@ class BlogController extends Controller
     {
         $post = $this->blogRepository->getPostForPage($year, $month, $day, $slug);
 
-        if(is_null($post)) abort(404);
+        if (is_null($post)) {
+            abort(404);
+        }
 
         return view('pages.blog.show', compact('post'));
     }

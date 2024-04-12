@@ -25,7 +25,7 @@ class UpdatePasswordRequest extends FormRequest
     {
         return [
             'password' => 'nullable:min:6',
-            'email' => 'required|max:255|unique:users,email,' . auth()->user()->id
+            'email' => 'required|max:255|unique:users,email,'.auth()->user()->id,
         ];
     }
 }

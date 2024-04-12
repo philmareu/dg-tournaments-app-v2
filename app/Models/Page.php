@@ -11,6 +11,6 @@ class Page extends Model
         'slug',
         'uri',
         'description',
-        'body'
+        'body',
     ];
 }

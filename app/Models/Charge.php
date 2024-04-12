@@ -13,7 +13,7 @@ class Charge extends Model
     protected $fillable = [
         'charge_id',
         'status',
-        'amount'
+        'amount',
     ];
 
     public function getAmountAttribute($value)

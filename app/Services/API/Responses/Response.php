@@ -7,7 +7,7 @@ use Illuminate\Support\Collection;
 abstract class Response
 {
     /**
-     * @var integer
+     * @var int
      */
     protected $status;
 
@@ -18,10 +18,8 @@ abstract class Response
 
     /**
      * ListingsResponse constructor.
-     * @param $status
-     * @param Collection $payloads
      */
-    public function __construct($status, Collection $payloads = null)
+    public function __construct($status, ?Collection $payloads = null)
     {
         $this->status = $status;
         $this->payloads = $payloads;

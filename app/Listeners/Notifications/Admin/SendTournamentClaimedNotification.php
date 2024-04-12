@@ -5,8 +5,6 @@ namespace App\Listeners\Notifications\Admin;
 use App\Events\TournamentClaimApproved;
 use App\Models\User\User;
 use App\Notifications\TournamentClaimedNotification;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Contracts\Queue\ShouldQueue;
 
 class SendTournamentClaimedNotification
 {
@@ -23,7 +21,6 @@ class SendTournamentClaimedNotification
     /**
      * Handle the event.
      *
-     * @param  TournamentClaimApproved  $event
      * @return void
      */
     public function handle(TournamentClaimApproved $event)

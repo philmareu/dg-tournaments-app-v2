@@ -26,7 +26,7 @@ class StoreTournamentSponsorRequest extends FormRequest
     public function rules()
     {
         return [
-            'sponsor_id' => 'required|exists:sponsors,id'
+            'sponsor_id' => 'required|exists:sponsors,id',
         ];
     }
 }

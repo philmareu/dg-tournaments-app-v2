@@ -2,13 +2,10 @@
 
 namespace App\Services\API;
 
-
-use Carbon\Carbon;
 use App\Models\DataSource;
-use App\Services\API\Contracts\CourseApiInterface;
 use App\Services\API\Contracts\TournamentApiInterface;
-use App\Services\API\Responses\CoursesResponse;
 use App\Services\API\Responses\TournamentsResponse;
+use Carbon\Carbon;
 
 class TournamentApi implements TournamentApiInterface
 {
@@ -20,12 +17,12 @@ class TournamentApi implements TournamentApiInterface
         $this->channelApi = new $apiClass;
     }
 
-    static public function make(DataSource $dataSource)
+    public static function make(DataSource $dataSource)
     {
         return new static($dataSource);
     }
 
-    public function getTournamentsByRange(Carbon $from, Carbon $to) : TournamentsResponse
+    public function getTournamentsByRange(Carbon $from, Carbon $to): TournamentsResponse
     {
         return $this->channelApi->getTournamentsByRange($from, $to);
     }

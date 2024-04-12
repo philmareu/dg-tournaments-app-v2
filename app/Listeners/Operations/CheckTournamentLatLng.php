@@ -4,7 +4,6 @@ namespace App\Listeners\Operations;
 
 use App\Events\TournamentCourseCreated;
 use App\Models\Tournament;
-use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Event;
@@ -24,27 +23,24 @@ class CheckTournamentLatLng implements ShouldQueue
     /**
      * Handle the event.
      *
-     * @param  TournamentCourseCreated  $event
      * @return void
      */
     public function handle(TournamentCourseCreated $event)
     {
-        if($this->tournamentGeoNeedsUpdating($event->tournamentCourse->tournament))
-        {
+        if ($this->tournamentGeoNeedsUpdating($event->tournamentCourse->tournament)) {
             DB::table('tournaments')
                 ->where('id', $event->tournamentCourse->tournament->id)
                 ->update([
                     'latitude' => $event->tournamentCourse->latitude,
-                    'longitude' => $event->tournamentCourse->longitude
+                    'longitude' => $event->tournamentCourse->longitude,
                 ]);
         }
     }
 
     /**
-     * @param TournamentCourseCreated $event
-     * @return bool
+     * @param  TournamentCourseCreated  $event
      */
-    private function tournamentGeoNeedsUpdating(Tournament $tournament) : bool
+    private function tournamentGeoNeedsUpdating(Tournament $tournament): bool
     {
         return ! $tournament->hasLatLng() ||
             ! $tournament->headquartersWasUpdated();

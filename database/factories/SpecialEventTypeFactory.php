@@ -18,7 +18,7 @@ class SpecialEventTypeFactory extends Factory
     {
         return [
             'title' => fake()->word(),
-            'slug' => fake()->word()
+            'slug' => fake()->word(),
         ];
     }
 }

@@ -9,15 +9,12 @@ use App\Mail\User\ClaimApprovedMailable;
 use App\Mail\User\ClaimSubmitted;
 use App\Models\User\User;
 use App\Notifications\TournamentClaimedNotification;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Notification;
-use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use PHPUnit\Framework\Attributes\Test;
+use Tests\TestCase;
 
 class ClaimingTournamentTest extends TestCase
 {
@@ -28,7 +25,7 @@ class ClaimingTournamentTest extends TestCase
     #[Test]
     public function user_can_submit_tournament_claim_request()
     {
-        list($user, $tournament) = $this->submitClaimRequest();
+        [$user, $tournament] = $this->submitClaimRequest();
 
         $claim = $tournament->claimRequest->first();
 
@@ -38,10 +35,10 @@ class ClaimingTournamentTest extends TestCase
     #[Test]
     public function user_cannot_resubmit_claim_request()
     {
-        list($user, $tournament) = $this->submitClaimRequest();
+        [$user, $tournament] = $this->submitClaimRequest();
 
         $this->actingAs($user)
-            ->json('POST', $this->endpoint . '/' . $tournament->id)
+            ->json('POST', $this->endpoint.'/'.$tournament->id)
             ->assertStatus(403);
     }
 
@@ -53,7 +50,7 @@ class ClaimingTournamentTest extends TestCase
         $tournament->managers()->attach($user);
 
         $this->actingAs($user)
-            ->json('POST', $this->endpoint . '/' . $tournament->id)
+            ->json('POST', $this->endpoint.'/'.$tournament->id)
             ->assertStatus(403);
     }
 
@@ -65,7 +62,7 @@ class ClaimingTournamentTest extends TestCase
         $tournament->managers()->attach(User::factory()->create());
 
         $this->actingAs($user)
-            ->json('POST', $this->endpoint . '/' . $tournament->id)
+            ->json('POST', $this->endpoint.'/'.$tournament->id)
             ->assertStatus(403);
     }
 
@@ -74,7 +71,7 @@ class ClaimingTournamentTest extends TestCase
     {
         Event::fake();
 
-        list($user, $tournament) = $this->submitClaimRequest();
+        [$user, $tournament] = $this->submitClaimRequest();
         $claimRequest = $tournament->claimRequest;
 
         Event::assertDispatched(TournamentClaimRequestSubmitted::class, function ($e) use ($claimRequest, $user, $tournament) {
@@ -89,10 +86,10 @@ class ClaimingTournamentTest extends TestCase
     {
         Mail::fake();
 
-        list($user, $tournament) = $this->submitClaimRequest();
+        [$user, $tournament] = $this->submitClaimRequest();
         $claimRequest = $tournament->claimRequest;
 
-        Mail::assertQueued(ClaimRequest::class, function($mail) use ($claimRequest, $user, $tournament) {
+        Mail::assertQueued(ClaimRequest::class, function ($mail) use ($claimRequest, $tournament) {
             return $mail->tournament->claimRequest->id === $claimRequest->id
                 && $mail->hasTo($tournament->authorization_email);
         });
@@ -103,10 +100,10 @@ class ClaimingTournamentTest extends TestCase
     {
         Mail::fake();
 
-        list($user, $tournament) = $this->submitClaimRequest();
+        [$user, $tournament] = $this->submitClaimRequest();
         $claimRequest = $tournament->claimRequest;
 
-        Mail::assertQueued(ClaimSubmitted::class, function($mail) use ($claimRequest, $user, $tournament) {
+        Mail::assertQueued(ClaimSubmitted::class, function ($mail) use ($claimRequest, $user) {
             return $mail->tournament->id === $claimRequest->tournament->id
                 && $mail->hasTo($user->email);
         });
@@ -115,10 +112,10 @@ class ClaimingTournamentTest extends TestCase
     #[Test]
     public function approve_tournament_claim_request_page_loads()
     {
-        list($user, $tournament) = $this->submitClaimRequest();
+        [$user, $tournament] = $this->submitClaimRequest();
         $claimRequest = $tournament->claimRequest;
 
-        $this->get($this->endpoint . '/confirm/' . $claimRequest->token)
+        $this->get($this->endpoint.'/confirm/'.$claimRequest->token)
             ->assertViewHas('claim')
             ->assertStatus(200);
     }
@@ -126,10 +123,10 @@ class ClaimingTournamentTest extends TestCase
     #[Test]
     public function user_is_granted_access_to_tournament_after_approval()
     {
-        list($user, $tournament) = $this->submitClaimRequest();
+        [$user, $tournament] = $this->submitClaimRequest();
         $claimRequest = $tournament->claimRequest;
 
-        $response = $this->json('POST', $this->endpoint . '/confirm/' . $claimRequest->token);
+        $response = $this->json('POST', $this->endpoint.'/confirm/'.$claimRequest->token);
         $response->assertStatus(200);
 
         $this->assertEquals($user->id, $tournament->managers->first()->id);
@@ -140,10 +137,10 @@ class ClaimingTournamentTest extends TestCase
     {
         Event::fake();
 
-        list($user, $tournament) = $this->submitClaimRequest();
+        [$user, $tournament] = $this->submitClaimRequest();
         $claimRequest = $tournament->claimRequest;
 
-        $this->json('POST', $this->endpoint . '/confirm/' . $claimRequest->token);
+        $this->json('POST', $this->endpoint.'/confirm/'.$claimRequest->token);
 
         Event::assertDispatched(TournamentClaimApproved::class, function ($e) use ($user, $tournament) {
             return $e->tournament->id === $tournament->id
@@ -157,10 +154,10 @@ class ClaimingTournamentTest extends TestCase
         $this->markTestSkipped('Not used ATM');
         Notification::fake();
 
-        list($user, $tournament) = $this->submitClaimRequest();
+        [$user, $tournament] = $this->submitClaimRequest();
         $claimRequest = $tournament->claimRequest;
 
-        $this->json('POST', $this->endpoint . '/confirm/' . $claimRequest->token);
+        $this->json('POST', $this->endpoint.'/confirm/'.$claimRequest->token);
 
         Notification::assertSentTo(
             $user,
@@ -177,12 +174,12 @@ class ClaimingTournamentTest extends TestCase
     {
         Mail::fake();
 
-        list($user, $tournament) = $this->submitClaimRequest();
+        [$user, $tournament] = $this->submitClaimRequest();
         $claimRequest = $tournament->claimRequest;
 
-        $this->json('POST', $this->endpoint . '/confirm/' . $claimRequest->token);
+        $this->json('POST', $this->endpoint.'/confirm/'.$claimRequest->token);
 
-        Mail::assertQueued(ClaimApprovedMailable::class, function($mail) use ($claimRequest, $user, $tournament) {
+        Mail::assertQueued(ClaimApprovedMailable::class, function ($mail) use ($claimRequest) {
             return $mail->tournament->id === $claimRequest->tournament->id
                 && $mail->hasTo($claimRequest->user->email);
         });
@@ -191,10 +188,10 @@ class ClaimingTournamentTest extends TestCase
     #[Test]
     public function claim_request_is_deleted_after_approved()
     {
-        list($user, $tournament) = $this->submitClaimRequest();
+        [$user, $tournament] = $this->submitClaimRequest();
         $claimRequest = $tournament->claimRequest;
 
-        $this->json('POST', $this->endpoint . '/confirm/' . $claimRequest->token);
+        $this->json('POST', $this->endpoint.'/confirm/'.$claimRequest->token);
 
         $this->assertNull($tournament->fresh()->claimRequest);
     }
@@ -205,7 +202,7 @@ class ClaimingTournamentTest extends TestCase
         $tournament = $this->createTournament();
 
         $this->actingAs($user)
-            ->json('POST', $this->endpoint . '/' . $tournament->id);
+            ->json('POST', $this->endpoint.'/'.$tournament->id);
 
         return [$user, $tournament];
     }

@@ -28,9 +28,9 @@ class ChargeFactory extends Factory
     public function successful()
     {
         return $this->state(function (array $attributes) {
-                return [
-                    'status' => 'succeeded'
-                ];
-            });
+            return [
+                'status' => 'succeeded',
+            ];
+        });
     }
 }

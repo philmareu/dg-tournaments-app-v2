@@ -3,12 +3,9 @@
 namespace Tests\Feature\API;
 
 use App\Models\User\User;
-use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use PHPUnit\Framework\Attributes\Test;
+use Tests\TestCase;
 
 class LoginTest extends TestCase
 {
@@ -21,7 +18,7 @@ class LoginTest extends TestCase
 
         $response = $this->json('POST', '/login', [
             'email' => $user->email,
-            'password' => 'password'
+            'password' => 'password',
         ]);
 
         $this->assertArrayHasKey('success', $response->getOriginalContent());
@@ -37,7 +34,7 @@ class LoginTest extends TestCase
 
         $response = $this->json('POST', 'login', [
             'email' => $user->email,
-            'password' => 'password'
+            'password' => 'password',
         ]);
 
         $response->assertStatus(422);
@@ -49,7 +46,7 @@ class LoginTest extends TestCase
     {
         $response = $this->json('POST', 'login', [
             'email' => 'bad@email.address',
-            'password' => 'password'
+            'password' => 'password',
         ]);
 
         $response->assertStatus(422);
@@ -64,7 +61,7 @@ class LoginTest extends TestCase
 
         $response = $this->json('POST', 'login', [
             'email' => $user->email,
-            'password' => 'wrong_password'
+            'password' => 'wrong_password',
         ]);
 
         $response->assertStatus(422);
@@ -75,9 +72,8 @@ class LoginTest extends TestCase
     public function email_address_is_required()
     {
 
-
         $response = $this->json('POST', 'login', [
-            'password' => 'password'
+            'password' => 'password',
         ]);
 
         $this->assertArrayHasKey('email', $response->getOriginalContent()['errors']);
@@ -87,9 +83,8 @@ class LoginTest extends TestCase
     public function password_is_required()
     {
 
-
         $response = $this->json('POST', 'login', [
-            'email' => 'test@test.com'
+            'email' => 'test@test.com',
         ]);
 
         $this->assertArrayHasKey('password', $response->getOriginalContent()['errors']);
@@ -101,7 +96,7 @@ class LoginTest extends TestCase
             'name' => 'Tester McTesterson',
             'email' => 'test@test.com',
             'password' => bcrypt('password'),
-            'activated' => 1
+            'activated' => 1,
         ]);
     }
 }

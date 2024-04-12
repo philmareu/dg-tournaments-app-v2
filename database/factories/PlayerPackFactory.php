@@ -20,7 +20,7 @@ class PlayerPackFactory extends Factory
         return [
             'tournament_id' => Tournament::factory(),
             'title' => fake()->word(),
-            'description' => fake()->paragraph()
+            'description' => fake()->paragraph(),
         ];
     }
 }

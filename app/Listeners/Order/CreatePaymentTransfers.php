@@ -9,9 +9,8 @@ use App\Mail\Managers\NewOrderPaidMailable;
 use App\Models\OrderSponsorship;
 use App\Models\Tournament;
 use App\Models\Transfer;
-use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Mail;
 
 class CreatePaymentTransfers implements ShouldQueue
@@ -34,7 +33,6 @@ class CreatePaymentTransfers implements ShouldQueue
     /**
      * Handle the event.
      *
-     * @param  OrderPaid  $event
      * @return void
      */
     public function handle(OrderPaid $event)
@@ -42,7 +40,7 @@ class CreatePaymentTransfers implements ShouldQueue
         $event->order->sponsorships->sortSponsorshipsByTournament()->each(function (Collection $orderSponsorships, $tournamentId) use ($event) {
             $tournament = $this->tournament->find($tournamentId);
             $charge = $event->order->charges->where('status', 'succeeded')->first();
-            $total = $orderSponsorships->reduce(function($carry, OrderSponsorship $orderSponsorship) {
+            $total = $orderSponsorships->reduce(function ($carry, OrderSponsorship $orderSponsorship) {
                 return $carry + $orderSponsorship->cost->inCents();
             });
 
@@ -54,7 +52,7 @@ class CreatePaymentTransfers implements ShouldQueue
             $transfer = new Transfer([
                 'destination' => $stripeTransfer->destination,
                 'fee' => $fee,
-                'amount' => $remaining
+                'amount' => $remaining,
             ]);
 
             $transfer->tr_id = $stripeTransfer->id;
@@ -63,7 +61,7 @@ class CreatePaymentTransfers implements ShouldQueue
             $transfer->save();
 
             $tournament->transfers()->save($transfer);
-            $orderSponsorships->each(function(OrderSponsorship $orderSponsorship) use($transfer) {
+            $orderSponsorships->each(function (OrderSponsorship $orderSponsorship) use ($transfer) {
                 $orderSponsorship->transfer()->associate($transfer);
                 $orderSponsorship->save();
             });

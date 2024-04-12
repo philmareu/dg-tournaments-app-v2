@@ -3,9 +3,9 @@
 namespace Tests\Feature\API\Manage;
 
 use App\Models\StripeAccount;
-use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use PHPUnit\Framework\Attributes\Test;
+use Tests\TestCase;
 
 class StripeAccountsEndpointTest extends TestCase
 {
@@ -16,7 +16,7 @@ class StripeAccountsEndpointTest extends TestCase
     #[Test]
     public function guests_can_not_remove_user_stripe_accounts()
     {
-        $this->json('DELETE', $this->endpoint . '/' . StripeAccount::factory()->create()->id)
+        $this->json('DELETE', $this->endpoint.'/'.StripeAccount::factory()->create()->id)
             ->assertStatus(401);
     }
 
@@ -26,7 +26,7 @@ class StripeAccountsEndpointTest extends TestCase
         $stripeAccount = StripeAccount::factory()->create();
 
         $this->actingAs($this->createUser())
-            ->json('DELETE', $this->endpoint . '/' . $stripeAccount->id)
+            ->json('DELETE', $this->endpoint.'/'.$stripeAccount->id)
             ->assertStatus(403);
     }
 
@@ -36,11 +36,11 @@ class StripeAccountsEndpointTest extends TestCase
         $stripeAccount = StripeAccount::factory()->create();
 
         $this->actingAs($stripeAccount->user)
-            ->json('DELETE', $this->endpoint . '/' . $stripeAccount->id);
+            ->json('DELETE', $this->endpoint.'/'.$stripeAccount->id);
 
         $this->assertDatabaseMissing('stripe_accounts', [
             'user_id' => $stripeAccount->user_id,
-            'id' => $stripeAccount->id
+            'id' => $stripeAccount->id,
         ]);
     }
 
@@ -56,19 +56,19 @@ class StripeAccountsEndpointTest extends TestCase
         $user->stripeAccounts()->save($stripeAccount2);
 
         $this->actingAs($user)
-            ->json('DELETE', $this->endpoint . '/' . $stripeAccount1->id)
+            ->json('DELETE', $this->endpoint.'/'.$stripeAccount1->id)
             ->assertJson([
                 [
-                    'id' => $stripeAccount2->id
-                ]
+                    'id' => $stripeAccount2->id,
+                ],
             ])
             ->assertJsonMissing([
                 [
-                    'id' => $stripeAccount1->id
+                    'id' => $stripeAccount1->id,
                 ],
                 [
-                    'id' => $stripeAccount3->id
-                ]
+                    'id' => $stripeAccount3->id,
+                ],
             ]);
     }
 }

@@ -3,13 +3,10 @@
 namespace Tests\Feature\API\Tournament;
 
 use App\Models\Tournament;
-use Illuminate\Support\Facades\Event;
-use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Event;
 use PHPUnit\Framework\Attributes\Test;
+use Tests\TestCase;
 
 class PosterEndpointTest extends TestCase
 {
@@ -26,7 +23,7 @@ class PosterEndpointTest extends TestCase
     public function guests_cannot_delete_tournament_poster()
     {
 
-        $this->json('DELETE', 'tournament/poster/' . Tournament::factory()->create()->id)
+        $this->json('DELETE', 'tournament/poster/'.Tournament::factory()->create()->id)
             ->assertStatus(401);
     }
 
@@ -35,19 +32,19 @@ class PosterEndpointTest extends TestCase
     {
 
         $this->actingAs($this->createUser())
-            ->json('DELETE', 'tournament/poster/' . Tournament::factory()->create()->id)
+            ->json('DELETE', 'tournament/poster/'.Tournament::factory()->create()->id)
             ->assertStatus(403);
     }
 
     #[Test]
     public function manager_can_delete_tournament_poster()
     {
-        list($user, $tournament) = $this->createTournamentWithManager();
+        [$user, $tournament] = $this->createTournamentWithManager();
 
         $this->actingAs($user)
-            ->json('DELETE', 'tournament/poster/' . $tournament->id)
+            ->json('DELETE', 'tournament/poster/'.$tournament->id)
             ->assertJson([
-                'id' => null
+                'id' => null,
             ]);
 
         $this->assertNull($tournament->poster->id);

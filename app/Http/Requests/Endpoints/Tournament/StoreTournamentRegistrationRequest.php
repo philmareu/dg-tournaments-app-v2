@@ -28,7 +28,7 @@ class StoreTournamentRegistrationRequest extends FormRequest
         return [
             'opens_at' => 'required|date_format:n-j-Y',
             'closes_at' => 'nullable|date_format:n-j-Y',
-            'url' => 'nullable|url|max:255'
+            'url' => 'nullable|url|max:255',
         ];
     }
 }

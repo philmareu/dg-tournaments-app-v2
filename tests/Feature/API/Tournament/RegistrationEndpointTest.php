@@ -2,15 +2,14 @@
 
 namespace Tests\Feature\API\Tournament;
 
-use Carbon\Carbon;
 use App\Events\TournamentRegistrationUpdated;
 use App\Models\Registration;
 use App\Models\Tournament;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
-use Tests\TestCase;
 use PHPUnit\Framework\Attributes\Test;
+use Tests\TestCase;
 
 class RegistrationEndpointTest extends TestCase
 {
@@ -27,13 +26,13 @@ class RegistrationEndpointTest extends TestCase
     #[Test]
     public function guests_cannot_store_tournament_registration()
     {
-        $this->checkGuestAccess('POST', 'tournament/registration/' . Tournament::factory()->create()->id);
+        $this->checkGuestAccess('POST', 'tournament/registration/'.Tournament::factory()->create()->id);
     }
 
     #[Test]
     public function only_managers_can_store_tournament_registration()
     {
-        $this->checkManagerAccess('POST', 'tournament/registration/' . Tournament::factory()->create()->id);
+        $this->checkManagerAccess('POST', 'tournament/registration/'.Tournament::factory()->create()->id);
     }
 
     #[Test]
@@ -63,20 +62,20 @@ class RegistrationEndpointTest extends TestCase
     #[Test]
     public function manager_can_store_tournament_registration()
     {
-        list($user, $tournament) = $this->createTournamentWithManager();
+        [$user, $tournament] = $this->createTournamentWithManager();
 
         $data = [
             'opens_at' => '1-1-2000',
             'closes_at' => '1-30-2000',
-            'url' => 'http://testing.com'
+            'url' => 'http://testing.com',
         ];
 
         $this->actingAs($user)
-            ->json('POST', $this->endpoint . $tournament->id, $data)
+            ->json('POST', $this->endpoint.$tournament->id, $data)
             ->assertJson([
                 'id' => 1,
                 'tournament_id' => 1,
-                'url' => 'http://testing.com'
+                'url' => 'http://testing.com',
             ]);
 
         $this->assertInstanceOf(Carbon::class, $tournament->load('registration')->registration->opens_at);
@@ -87,17 +86,17 @@ class RegistrationEndpointTest extends TestCase
     #[Test]
     public function storing_tournament_registration_url_should_set_to_null_if_none_submitted()
     {
-        list($user, $tournament) = $this->createTournamentWithManager();
+        [$user, $tournament] = $this->createTournamentWithManager();
 
         $data = [
             'opens_at' => '1-1-2000',
-            'closes_at' => '1-30-2000'
+            'closes_at' => '1-30-2000',
         ];
 
         $this->actingAs($user)
-            ->json('POST', $this->endpoint . $tournament->id, $data)
+            ->json('POST', $this->endpoint.$tournament->id, $data)
             ->assertJson([
-                'url' => null
+                'url' => null,
             ]);
 
         $this->assertNull($tournament->load('registration')->registration->url);
@@ -112,13 +111,13 @@ class RegistrationEndpointTest extends TestCase
     #[Test]
     public function guests_cannot_update_tournament_registration()
     {
-        $this->checkGuestAccess('PUT', 'tournament/registration/' . Registration::factory()->create()->id);
+        $this->checkGuestAccess('PUT', 'tournament/registration/'.Registration::factory()->create()->id);
     }
 
     #[Test]
     public function only_managers_can_update_tournament_registration()
     {
-        $this->checkManagerAccess('PUT', 'tournament/registration/' . Registration::factory()->create()->id);
+        $this->checkManagerAccess('PUT', 'tournament/registration/'.Registration::factory()->create()->id);
     }
 
     #[Test]
@@ -145,17 +144,17 @@ class RegistrationEndpointTest extends TestCase
         $data = [
             'opens_at' => '1-1-2000',
             'closes_at' => '1-30-2000',
-            'url' => 'http://testing.com'
+            'url' => 'http://testing.com',
         ];
 
-        list($user, $tournament) = $this->createTournamentWithManager();
+        [$user, $tournament] = $this->createTournamentWithManager();
 
         $registration = $tournament->registration()->create(Registration::factory()->make()->toArray());
 
         $this->actingAs($user)
-            ->json('PUT', 'tournament/registration/' . $registration->id, $data)
+            ->json('PUT', 'tournament/registration/'.$registration->id, $data)
             ->assertJson([
-                'url' => 'http://testing.com'
+                'url' => 'http://testing.com',
             ]);
 
         $registration->fresh();
@@ -170,17 +169,17 @@ class RegistrationEndpointTest extends TestCase
     {
         $data = [
             'opens_at' => '1-1-2000',
-            'closes_at' => '1-30-2000'
+            'closes_at' => '1-30-2000',
         ];
 
-        list($user, $tournament) = $this->createTournamentWithManager();
+        [$user, $tournament] = $this->createTournamentWithManager();
 
         $registration = $tournament->registration()->create(Registration::factory()->make()->toArray());
 
         $this->actingAs($user)
-            ->json('PUT', 'tournament/registration/' . $registration->id, $data)
+            ->json('PUT', 'tournament/registration/'.$registration->id, $data)
             ->assertJson([
-                'url' => null
+                'url' => null,
             ]);
 
         $registration->fresh();
@@ -195,17 +194,17 @@ class RegistrationEndpointTest extends TestCase
         $data = [
             'opens_at' => '1-1-2000',
             'closes_at' => '1-30-2000',
-            'url' => 'http://testing.com'
+            'url' => 'http://testing.com',
         ];
 
-        list($user, $tournament) = $this->createTournamentWithManager();
+        [$user, $tournament] = $this->createTournamentWithManager();
 
         $this->actingAs($user)
-            ->json('POST', 'tournament/registration/' . $tournament->id, $data);
+            ->json('POST', 'tournament/registration/'.$tournament->id, $data);
 
         $registration = $tournament->registration;
 
-        Event::assertDispatched(TournamentRegistrationUpdated::class, function($event) use ($registration, $user) {
+        Event::assertDispatched(TournamentRegistrationUpdated::class, function ($event) use ($registration, $user) {
             return $event->registration->id === $registration->id
                 && $event->user->id === $user->id
                 && $event->registration->tournament;
@@ -218,13 +217,13 @@ class RegistrationEndpointTest extends TestCase
         $data = [
             'opens_at' => '1-1-2000',
             'closes_at' => '1-30-2000',
-            'url' => 'http://testing.com'
+            'url' => 'http://testing.com',
         ];
 
-        list($user, $tournament) = $this->createTournamentWithManager();
+        [$user, $tournament] = $this->createTournamentWithManager();
 
         $this->actingAs($user)
-            ->json('POST', 'tournament/registration/' . $tournament->id, $data);
+            ->json('POST', 'tournament/registration/'.$tournament->id, $data);
 
         $activity = $tournament->activities->first();
 
@@ -236,20 +235,20 @@ class RegistrationEndpointTest extends TestCase
 
     private function storing($key, $data = [])
     {
-        list($user, $tournament) = $this->createTournamentWithManager();
+        [$user, $tournament] = $this->createTournamentWithManager();
 
         $this->actingAs($user)
-            ->call('POST', 'tournament/registration/' . $tournament->id, $data)
+            ->call('POST', 'tournament/registration/'.$tournament->id, $data)
             ->assertSessionHasErrors($key);
     }
 
     private function updating($key, $data = [])
     {
-        list($user, $tournament) = $this->createTournamentWithManager();
+        [$user, $tournament] = $this->createTournamentWithManager();
         $tournament->registration()->save(Registration::factory()->make());
 
         $this->actingAs($user)
-            ->call('PUT', 'tournament/registration/' . $tournament->registration->id, $data)
+            ->call('PUT', 'tournament/registration/'.$tournament->registration->id, $data)
             ->assertSessionHasErrors($key);
     }
 }

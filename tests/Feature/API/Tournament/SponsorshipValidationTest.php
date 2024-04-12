@@ -3,12 +3,9 @@
 namespace Tests\Feature\API\Tournament;
 
 use App\Models\Sponsorship;
-use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use PHPUnit\Framework\Attributes\Test;
+use Tests\TestCase;
 
 class SponsorshipValidationTest extends TestCase
 {
@@ -89,10 +86,10 @@ class SponsorshipValidationTest extends TestCase
     private function storing($key, $data = [])
     {
 
-        list($user, $tournament) = $this->createTournamentWithManager();
+        [$user, $tournament] = $this->createTournamentWithManager();
 
         $response = $this->actingAs($user)
-            ->json('POST', 'tournament/sponsorships/' . $tournament->id, $data);
+            ->json('POST', 'tournament/sponsorships/'.$tournament->id, $data);
 
         $this->assertArrayHasKey($key, $response->getOriginalContent()['errors']);
     }
@@ -100,11 +97,11 @@ class SponsorshipValidationTest extends TestCase
     private function updating($key, $data = [])
     {
 
-        list($user, $tournament) = $this->createTournamentWithManager();
+        [$user, $tournament] = $this->createTournamentWithManager();
         $tournament->sponsorships()->save(Sponsorship::factory()->make());
 
-        $response =$this->actingAs($user)
-            ->json('PUT', 'tournament/sponsorships/' . $tournament->sponsorships->first()->id, $data);
+        $response = $this->actingAs($user)
+            ->json('PUT', 'tournament/sponsorships/'.$tournament->sponsorships->first()->id, $data);
 
         $this->assertArrayHasKey($key, $response->getOriginalContent()['errors']);
     }

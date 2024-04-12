@@ -2,7 +2,6 @@
 
 namespace App\Data;
 
-
 use Illuminate\Contracts\Support\Arrayable;
 
 class Location implements Arrayable
@@ -20,14 +19,14 @@ class Location implements Arrayable
         $this->state = $state;
     }
 
-    static public function make($city, $country, $state = null)
+    public static function make($city, $country, $state = null)
     {
         return new static($city, $country, $state);
     }
 
     public function formatted()
     {
-        $cityState = (is_null($this->state)) ? $this->city : $this->city . ', ' . $this->state;
+        $cityState = (is_null($this->state)) ? $this->city : $this->city.', '.$this->state;
 
         return "$cityState ({$this->country})";
     }

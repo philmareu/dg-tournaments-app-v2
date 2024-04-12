@@ -2,9 +2,7 @@
 
 namespace App\Listeners\Activity;
 
-use App\Events\CourseAddedToTournament;
 use App\Events\TournamentCourseCreated;
-use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
 class CreateTournamentCourseCreatedActivity implements ShouldQueue
@@ -24,7 +22,6 @@ class CreateTournamentCourseCreatedActivity implements ShouldQueue
     /**
      * Handle the event.
      *
-     * @param  TournamentCourseCreated  $event
      * @return void
      */
     public function handle(TournamentCourseCreated $event)

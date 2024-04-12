@@ -20,7 +20,7 @@ class UserEmailNotificationFactory extends Factory
     public function definition(): array
     {
         return [
-            'label' => fake()->name
+            'label' => fake()->name,
         ];
     }
 }

@@ -2,15 +2,12 @@
 
 namespace App\Console\Commands;
 
-use Carbon\Carbon;
 use App\Models\DataSource;
-use App\Models\Tournament;
 use App\Repositories\Api\TournamentRepository;
-use App\Services\API\Payloads\TournamentDataPayload;
 use App\Services\API\Responses\TournamentsResponse;
 use App\Services\API\TournamentApi;
+use Carbon\Carbon;
 use Illuminate\Console\Command;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 
 class UpdateTournaments extends Command
@@ -52,12 +49,12 @@ class UpdateTournaments extends Command
      */
     public function handle()
     {
-        $this->dataSource->whereType('tournament')->get()->each(function(DataSource $dataSource) {
+        $this->dataSource->whereType('tournament')->get()->each(function (DataSource $dataSource) {
 
-            $this->info('Data Source: ' . $dataSource->title);
+            $this->info('Data Source: '.$dataSource->title);
             $freshListOfTournaments = $this->getTournaments($dataSource)->getPayloads();
 
-            $this->info($freshListOfTournaments->count() . ' total');
+            $this->info($freshListOfTournaments->count().' total');
             $this->info('Removing unlisted tournaments');
             $this->tournamentRepository->removeUnlisted($dataSource, $freshListOfTournaments);
 
@@ -71,20 +68,17 @@ class UpdateTournaments extends Command
         });
     }
 
-    /**
-     * @param DataSource $dataSource
-     */
-    private function getTournaments(DataSource $dataSource) : TournamentsResponse
+    private function getTournaments(DataSource $dataSource): TournamentsResponse
     {
-        if (Cache::has($dataSource->slug . '.api.tournaments')) {
+        if (Cache::has($dataSource->slug.'.api.tournaments')) {
             dump('From cache ... ');
-            $tournaments = Cache::get($dataSource->slug . '.api.tournaments');
+            $tournaments = Cache::get($dataSource->slug.'.api.tournaments');
         } else {
             $from = Carbon::createFromFormat('Y-m-d', config('services.pdga.from'));
             $to = Carbon::createFromFormat('Y-m-d', config('services.pdga.to'));
 
             $tournaments = TournamentApi::make($dataSource)->getTournamentsByRange($from, $to);
-            Cache::put($dataSource->slug . '.api.tournaments', $tournaments, 120);
+            Cache::put($dataSource->slug.'.api.tournaments', $tournaments, 120);
         }
 
         return $tournaments;

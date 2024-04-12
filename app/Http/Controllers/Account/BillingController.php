@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Account;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class BillingController extends Controller
@@ -25,20 +24,19 @@ class BillingController extends Controller
         $default = $request->get('default');
         $deleted = $request->get('delete');
 
-        if(isset($deleted))
-        {
-            foreach($deleted as $cardId)
-            {
+        if (isset($deleted)) {
+            foreach ($deleted as $cardId) {
                 $this->billing->deleteCard($this->user->stripe_id, $cardId);
 
-                if($default == $cardId) $default = null;
+                if ($default == $cardId) {
+                    $default = null;
+                }
             }
         }
 
         $cu = $this->billing->getCustomer($this->user->stripe_id);
 
-        if( ! is_null($default))
-        {
+        if (! is_null($default)) {
             $cu->default_card = $default;
             $cu->save();
         }
@@ -53,16 +51,13 @@ class BillingController extends Controller
 
     public function saveCard(AddCCRequest $request)
     {
-        if($this->user->stripe_id)
-        {
+        if ($this->user->stripe_id) {
             $this->billing->addCard($this->user->stripe_id, $request->get('stripe-token'));
-        }
-        else
-        {
+        } else {
             $customer = $this->billing->createCustomer([
-                'description' => 'Customer for ' . $this->user->email,
+                'description' => 'Customer for '.$this->user->email,
                 'source' => $request->get('stripe-token'),
-                'email' => $this->user->email
+                'email' => $this->user->email,
             ]);
 
             $this->user->stripe_id = $customer->id;

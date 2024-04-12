@@ -2,8 +2,8 @@
 
 namespace App\Helpers;
 
-
 use Carbon\Carbon;
+
 use function GuzzleHttp\Psr7\parse_query;
 
 class AlgoliaQuery
@@ -57,7 +57,9 @@ class AlgoliaQuery
     {
         $stringArray = parse_query($this->queryString);
 
-        if(! isset($stringArray['nR[year_month][>=][0]'])) return null;
+        if (! isset($stringArray['nR[year_month][>=][0]'])) {
+            return null;
+        }
 
         return Carbon::createFromFormat('Ym', $stringArray['nR[year_month][>=][0]'])->startOfMonth();
     }
@@ -66,7 +68,9 @@ class AlgoliaQuery
     {
         $stringArray = parse_query($this->queryString);
 
-        if(! isset($stringArray['nR[year_month][<=][0]'])) return null;
+        if (! isset($stringArray['nR[year_month][<=][0]'])) {
+            return null;
+        }
 
         return Carbon::createFromFormat('Ym', $stringArray['nR[year_month][<=][0]'])->endOfMonth();
     }
@@ -95,21 +99,27 @@ class AlgoliaQuery
 
     public function getNumericRefinement($facet)
     {
-        if(isset($this->parameters['nR'][$facet])) return $this->parameters['nR'][$facet];
+        if (isset($this->parameters['nR'][$facet])) {
+            return $this->parameters['nR'][$facet];
+        }
 
         return null;
     }
 
     private function checkIfExists($value)
     {
-        if(! is_null($value)) return $value;
+        if (! is_null($value)) {
+            return $value;
+        }
 
         return null;
     }
 
     public function getDisjunctiveFacetsRefinement($facet)
     {
-        if(isset($this->parameters['dFR'][$facet])) return $this->parameters['dFR'][$facet];
+        if (isset($this->parameters['dFR'][$facet])) {
+            return $this->parameters['dFR'][$facet];
+        }
 
         return null;
     }

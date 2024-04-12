@@ -3,12 +3,9 @@
 namespace Tests\Feature\API\Tournament;
 
 use App\Models\Schedule;
-use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use PHPUnit\Framework\Attributes\Test;
+use Tests\TestCase;
 
 class ScheduleValidationTest extends TestCase
 {
@@ -77,10 +74,10 @@ class ScheduleValidationTest extends TestCase
     private function storing($key, $data = [])
     {
 
-        list($user, $tournament) = $this->createTournamentWithManager();
+        [$user, $tournament] = $this->createTournamentWithManager();
 
         $response = $this->actingAs($user)
-            ->json('POST', 'tournament/schedule/' . $tournament->id, $data);
+            ->json('POST', 'tournament/schedule/'.$tournament->id, $data);
 
         $this->assertArrayHasKey($key, $response->getOriginalContent()['errors']);
     }
@@ -88,11 +85,11 @@ class ScheduleValidationTest extends TestCase
     private function updating($key, $data = [])
     {
 
-        list($user, $tournament) = $this->createTournamentWithManager();
+        [$user, $tournament] = $this->createTournamentWithManager();
         $tournament->schedule()->save(Schedule::factory()->make());
 
-        $response =$this->actingAs($user)
-            ->json('PUT', 'tournament/schedule/' . $tournament->schedule->first()->id, $data);
+        $response = $this->actingAs($user)
+            ->json('PUT', 'tournament/schedule/'.$tournament->schedule->first()->id, $data);
 
         $this->assertArrayHasKey($key, $response->getOriginalContent()['errors']);
     }

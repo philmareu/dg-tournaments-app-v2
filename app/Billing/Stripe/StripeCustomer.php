@@ -2,7 +2,6 @@
 
 namespace App\Billing\Stripe;
 
-
 use Stripe\Customer;
 
 class StripeCustomer
@@ -12,7 +11,7 @@ class StripeCustomer
         return Customer::create(array_merge(
             [
                 'source' => $token,
-                'email' => $email
+                'email' => $email,
             ],
             $arg
         ));

@@ -2,7 +2,6 @@
 
 namespace App\Data;
 
-
 use Illuminate\Contracts\Support\Arrayable;
 
 class Price implements Arrayable
@@ -14,7 +13,7 @@ class Price implements Arrayable
         $this->cents = $type == 'cents' ? (int) $value : (int) ($value * 100);
     }
 
-    static public function make($value, $type = 'cents')
+    public static function make($value, $type = 'cents')
     {
         return new static($value, $type);
     }

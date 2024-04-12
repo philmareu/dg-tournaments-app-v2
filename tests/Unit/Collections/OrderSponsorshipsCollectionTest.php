@@ -6,9 +6,8 @@ use App\Models\Order;
 use App\Models\OrderSponsorship;
 use App\Models\Sponsorship;
 use App\Models\Tournament;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class OrderSponsorshipsCollectionTest extends TestCase
 {

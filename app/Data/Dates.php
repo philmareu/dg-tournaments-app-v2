@@ -2,7 +2,6 @@
 
 namespace App\Data;
 
-
 use Carbon\Carbon;
 use Illuminate\Contracts\Support\Arrayable;
 
@@ -18,7 +17,7 @@ class Dates implements Arrayable
         $this->end = $end;
     }
 
-    static public function make(Carbon $start, Carbon $end)
+    public static function make(Carbon $start, Carbon $end)
     {
         return new static($start, $end);
     }
@@ -33,32 +32,25 @@ class Dates implements Arrayable
         return $this->start->format('M jS');
     }
 
-    /**
-     * @return bool
-     */
-    public function isOneDay() : bool
+    public function isOneDay(): bool
     {
         return $this->days() === 0;
     }
 
     public function formattedDateSpan($year = false)
     {
-        if($this->isOneDay()) return $this->formattedDate();
-
-        if($this->inSameMonth())
-        {
-            return $this->start->format('M jS') . ' - ' . $this->end->format('jS') . ($year ? 'Y' : '');
+        if ($this->isOneDay()) {
+            return $this->formattedDate();
         }
-        else
-        {
-            return $this->start->format('M jS') . ' - ' . $this->end->format('M jS') . ($year ? 'Y' : '');
+
+        if ($this->inSameMonth()) {
+            return $this->start->format('M jS').' - '.$this->end->format('jS').($year ? 'Y' : '');
+        } else {
+            return $this->start->format('M jS').' - '.$this->end->format('M jS').($year ? 'Y' : '');
         }
     }
 
-    /**
-     * @return bool
-     */
-    public function inSameMonth() : bool
+    public function inSameMonth(): bool
     {
         return $this->start->format('F') == $this->end->format('F');
     }

@@ -22,7 +22,7 @@ class RegistrationFactory extends Factory
             'tournament_id' => Tournament::factory(),
             'opens_at' => Carbon::now()->subDay(),
             'closes_at' => Carbon::now()->addMonth(),
-            'url' => fake()->url
+            'url' => fake()->url,
         ];
     }
 }

@@ -3,12 +3,9 @@
 namespace Tests\Feature\API\Tournament;
 
 use App\Models\Upload;
-use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 use PHPUnit\Framework\Attributes\Test;
+use Tests\TestCase;
 
 class MediaValidationEndpointTest extends TestCase
 {
@@ -53,22 +50,22 @@ class MediaValidationEndpointTest extends TestCase
     private function storing($key, $data = [])
     {
 
-        list($user, $tournament) = $this->createTournamentWithManager();
+        [$user, $tournament] = $this->createTournamentWithManager();
 
         $response = $this->actingAs($user)
-            ->json('POST', 'tournament/media/' . $tournament->id, $data);
+            ->json('POST', 'tournament/media/'.$tournament->id, $data);
 
         $this->assertArrayHasKey($key, $response->getOriginalContent()['errors']);
     }
 
     private function updating($key, $data = [])
     {
-        list($user, $tournament) = $this->createTournamentWithManager();
+        [$user, $tournament] = $this->createTournamentWithManager();
 
         $tournament->media()->attach(Upload::factory()->create()->id);
 
-        $response =$this->actingAs($user)
-            ->json('PUT', 'tournament/media/' . $tournament->id, $data);
+        $response = $this->actingAs($user)
+            ->json('PUT', 'tournament/media/'.$tournament->id, $data);
 
         $this->assertArrayHasKey($key, $response->getOriginalContent()['errors']);
     }

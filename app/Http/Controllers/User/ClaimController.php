@@ -3,9 +3,8 @@
 namespace App\Http\Controllers\User;
 
 use App\Events\TournamentClaimApproved;
-use App\Repositories\ClaimRepository;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Repositories\ClaimRepository;
 
 class ClaimController extends Controller
 {
@@ -20,7 +19,9 @@ class ClaimController extends Controller
     {
         $claim = $this->claimRepository->getClaimByToken($token);
 
-        if(is_null($claim)) abort(404);
+        if (is_null($claim)) {
+            abort(404);
+        }
 
         return view('pages.claim.view')
             ->with('claim', $claim);

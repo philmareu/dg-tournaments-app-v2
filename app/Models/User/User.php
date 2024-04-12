@@ -2,7 +2,6 @@
 
 namespace App\Models\User;
 
-use Carbon\Carbon;
 use App\Models\Activity;
 use App\Models\ClaimRequest;
 use App\Models\Follow;
@@ -13,6 +12,7 @@ use App\Models\Sponsor;
 use App\Models\StripeAccount;
 use App\Models\Tournament;
 use App\Models\Upload;
+use Carbon\Carbon;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -20,8 +20,8 @@ use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    use Notifiable;
     use HasFactory;
+    use Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -40,7 +40,7 @@ class User extends Authenticatable
         'provider',
         'provider_id',
         'token',
-        'token_secret'
+        'token_secret',
     ];
 
     /**
@@ -49,11 +49,11 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token', 'is_admin', 'activated'
+        'password', 'remember_token', 'is_admin', 'activated',
     ];
 
     protected $appends = [
-        'recent_order'
+        'recent_order',
     ];
 
     protected static function newFactory()
@@ -96,7 +96,7 @@ class User extends Authenticatable
 
     public function hasTournaments()
     {
-        return $this->tournaments->count() OR $this->managing->count();
+        return $this->tournaments->count() or $this->managing->count();
     }
 
     public function referrals()
@@ -174,7 +174,7 @@ class User extends Authenticatable
         return $this->belongsTo(Upload::class)->withDefault([
             'id' => null,
             'filename' => 'default-profile-image.png',
-            'alt' => 'Default DGT profile image'
+            'alt' => 'Default DGT profile image',
         ]);
     }
 

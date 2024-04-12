@@ -7,8 +7,6 @@ use App\Models\User\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Messages\SlackMessage;
 use Illuminate\Notifications\Notification;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Support\Facades\App;
 
 class TournamentClaimedNotification extends Notification
@@ -50,6 +48,6 @@ class TournamentClaimedNotification extends Notification
     public function toSlack($notifiable)
     {
         return (new SlackMessage)
-            ->content($this->user->name . ' (' . $this->user->email . ')' . ' has successfully claimed tournament');
+            ->content($this->user->name.' ('.$this->user->email.')'.' has successfully claimed tournament');
     }
 }

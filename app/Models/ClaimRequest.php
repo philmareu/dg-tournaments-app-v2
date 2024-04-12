@@ -9,15 +9,15 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ClaimRequest extends Model
 {
-    use SoftDeletes;
     use HasFactory;
+    use SoftDeletes;
 
     protected $primaryKey = 'token';
 
     public $incrementing = false;
 
     protected $fillable = [
-        'token'
+        'token',
     ];
 
     public function user()

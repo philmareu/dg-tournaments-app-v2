@@ -3,8 +3,6 @@
 namespace App\Listeners\Operations;
 
 use Illuminate\Auth\Events\Registered;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Contracts\Queue\ShouldQueue;
 
 class SetupNewUser
 {
@@ -21,7 +19,6 @@ class SetupNewUser
     /**
      * Handle the event.
      *
-     * @param  Registered  $event
      * @return void
      */
     public function handle(Registered $event)

@@ -1,4 +1,6 @@
-<?php namespace App\Services\Pdga\EndPoints;
+<?php
+
+namespace App\Services\Pdga\EndPoints;
 
 use App\Services\Pdga\Http\Get;
 use App\Services\Pdga\Http\Url;
@@ -6,7 +8,7 @@ use App\Services\Pdga\Http\Url;
 class Players extends Get
 {
     /**
-     * @param string $firstName
+     * @param  string  $firstName
      */
     public function whereFirstName($firstName)
     {
@@ -16,7 +18,7 @@ class Players extends Get
     }
 
     /**
-     * @param string $lastName
+     * @param  string  $lastName
      */
     public function whereLastName($lastName)
     {
@@ -26,8 +28,8 @@ class Players extends Get
     }
 
     /**
-     * @param string $city
-     * @param string $state
+     * @param  string  $city
+     * @param  string  $state
      * @return $this
      */
     public function whereCity($city, $state)
@@ -38,7 +40,7 @@ class Players extends Get
     }
 
     /**
-     * @param string $state
+     * @param  string  $state
      * @return $this
      */
     public function whereState($state)
@@ -49,7 +51,7 @@ class Players extends Get
     }
 
     /**
-     * @param string $county
+     * @param  string  $county
      * @return $this
      */
     public function whereCountry($county)
@@ -60,7 +62,7 @@ class Players extends Get
     }
 
     /**
-     * @param string $class
+     * @param  string  $class
      * @return $this
      */
     public function whereClass($class)
@@ -71,7 +73,7 @@ class Players extends Get
     }
 
     /**
-     * @param int $pdgaNumber
+     * @param  int  $pdgaNumber
      * @return mixed
      */
     public function getByPdgaNumber($pdgaNumber)
@@ -92,6 +94,6 @@ class Players extends Get
     {
         $response = $this->sendRequest(new Url('players'));
 
-        return isset($response['players']) ? $response['players']: [];
+        return isset($response['players']) ? $response['players'] : [];
     }
 }

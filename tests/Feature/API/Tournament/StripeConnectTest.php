@@ -4,13 +4,10 @@ namespace Tests\Feature\API\Tournament;
 
 use App\Models\StripeAccount;
 use App\Models\User\User;
-use Illuminate\Support\Facades\Event;
-use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Event;
 use PHPUnit\Framework\Attributes\Test;
+use Tests\TestCase;
 
 class StripeConnectTest extends TestCase
 {
@@ -31,8 +28,8 @@ class StripeConnectTest extends TestCase
         $tournament = $this->createTournament();
 
         $response = $this->actingAs($user)
-            ->json('PUT', '/tournament/stripe/' . $tournament->id, [
-                'stripe_account_id' => 1
+            ->json('PUT', '/tournament/stripe/'.$tournament->id, [
+                'stripe_account_id' => 1,
             ])
             ->assertStatus(403);
     }
@@ -45,7 +42,7 @@ class StripeConnectTest extends TestCase
         $tournament = $this->createTournament();
 
         $response = $this->actingAs($user)
-            ->json('DELETE', '/tournament/stripe/' . $tournament->id)
+            ->json('DELETE', '/tournament/stripe/'.$tournament->id)
             ->assertStatus(403);
     }
 
@@ -58,7 +55,7 @@ class StripeConnectTest extends TestCase
         $tournament->managers()->save($user);
 
         $response = $this->actingAs($user)
-            ->json('PUT', '/tournament/stripe/' . $tournament->id)
+            ->json('PUT', '/tournament/stripe/'.$tournament->id)
             ->assertStatus(422);
 
         $this->assertArrayHasKey('stripe_account_id', $response->getOriginalContent()['errors']);
@@ -74,8 +71,8 @@ class StripeConnectTest extends TestCase
         $tournament->managers()->save($user);
 
         $response = $this->actingAs($user)
-            ->json('PUT', '/tournament/stripe/' . $tournament->id, [
-                'stripe_account_id' => $userStripeAccount->id
+            ->json('PUT', '/tournament/stripe/'.$tournament->id, [
+                'stripe_account_id' => $userStripeAccount->id,
             ])
             ->assertStatus(200)
             ->assertJson($tournament->fresh()->stripeAccount->toArray());
@@ -93,12 +90,12 @@ class StripeConnectTest extends TestCase
         $tournament->managers()->save($user);
 
         $userStripeAccount = StripeAccount::factory()->create([
-            'user_id' => User::factory()->create()->id
+            'user_id' => User::factory()->create()->id,
         ]);
 
         $response = $this->actingAs($user)
-            ->json('PUT', '/tournament/stripe/' . $tournament->id, [
-                'stripe_account_id' => $userStripeAccount->id
+            ->json('PUT', '/tournament/stripe/'.$tournament->id, [
+                'stripe_account_id' => $userStripeAccount->id,
             ])
             ->assertStatus(422);
 
@@ -115,7 +112,7 @@ class StripeConnectTest extends TestCase
         $tournament->managers()->save($user);
 
         $response = $this->actingAs($user)
-            ->json('DELETE', '/tournament/stripe/' . $tournament->id)
+            ->json('DELETE', '/tournament/stripe/'.$tournament->id)
             ->assertStatus(200);
 
         $this->assertNull($tournament->fresh()->stripe_account_id);

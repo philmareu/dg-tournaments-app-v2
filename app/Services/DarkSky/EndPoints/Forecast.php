@@ -1,4 +1,6 @@
-<?php namespace App\Services\DarkSky\EndPoints;
+<?php
+
+namespace App\Services\DarkSky\EndPoints;
 
 use App\Services\DarkSky\Http\Get;
 use App\Services\DarkSky\Http\Url;

@@ -30,7 +30,7 @@ class StoreSponsorshipRequest extends FormRequest
             'tier' => 'required|integer|max:100',
             'description' => 'max:1000',
             'quantity' => 'required|integer|max:255',
-            'cost_in_dollars' => 'required|numeric|max:10000000'
+            'cost_in_dollars' => 'required|numeric|max:10000000',
         ];
     }
 }

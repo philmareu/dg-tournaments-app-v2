@@ -4,11 +4,10 @@ namespace App\Jobs;
 
 use App\Models\RequestLog;
 use Illuminate\Bus\Queueable;
-use Illuminate\Http\Request;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\SerializesModels;
 
 class LogRequest implements ShouldQueue
 {
@@ -22,11 +21,11 @@ class LogRequest implements ShouldQueue
         '/user/current',
         '/order/current',
         '/cache/bounds',
-        '/user/sponsors'
+        '/user/sponsors',
     ];
 
     protected $exceptPartialUri = [
-        '/images'
+        '/images',
     ];
 
     /**
@@ -47,35 +46,35 @@ class LogRequest implements ShouldQueue
      */
     public function handle(RequestLog $log)
     {
-        if($this->loggableUri())
-        {
+        if ($this->loggableUri()) {
             $log = $log->create($this->data);
 
-            if(! is_null($this->user)) $log->update(['user_id' => $this->user->id]);
+            if (! is_null($this->user)) {
+                $log->update(['user_id' => $this->user->id]);
+            }
         }
     }
 
-    /**
-     * @return bool
-     */
     private function loggableUri(): bool
     {
-        if($this->userIsAdmin()) return false;
+        if ($this->userIsAdmin()) {
+            return false;
+        }
 
-        if(in_array($this->data['uri'], $this->exceptExactUri)) return false;
+        if (in_array($this->data['uri'], $this->exceptExactUri)) {
+            return false;
+        }
 
-        foreach ($this->exceptPartialUri as $partial)
-        {
-            if(strpos($this->data['uri'], $partial) !== false) return false;
+        foreach ($this->exceptPartialUri as $partial) {
+            if (strpos($this->data['uri'], $partial) !== false) {
+                return false;
+            }
         }
 
         return true;
     }
 
-    /**
-     * @return bool
-     */
-    private function userIsAdmin() : bool
+    private function userIsAdmin(): bool
     {
         return (bool) ! is_null($this->user) && $this->user->isAdmin();
     }

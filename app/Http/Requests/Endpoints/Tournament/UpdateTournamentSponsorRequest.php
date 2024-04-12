@@ -26,7 +26,7 @@ class UpdateTournamentSponsorRequest extends FormRequest
     public function rules()
     {
         return [
-            'sponsor_id' => 'exists:sponsors,id'
+            'sponsor_id' => 'exists:sponsors,id',
         ];
     }
 }

@@ -21,7 +21,7 @@ class OrderSponsorshipFactory extends Factory
         return [
             'order_id' => Order::factory(),
             'sponsorship_id' => Sponsorship::factory(),
-            'cost' => fake()->randomNumber(3)
+            'cost' => fake()->randomNumber(3),
         ];
     }
 }

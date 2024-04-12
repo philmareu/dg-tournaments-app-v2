@@ -2,15 +2,9 @@
 
 namespace App\Models;
 
-use App\Collections\OrderCollection;
 use App\Data\Price;
-use App\Models\Charge;
-use App\Models\Registration;;
-use App\Models\Sponsorship;
-use App\Models\TournamentOrder;
 use App\Models\User\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use function foo\func;
 use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
@@ -21,13 +15,13 @@ class Order extends Model
         'unique',
         'email',
         'first_name',
-        'last_name'
+        'last_name',
     ];
 
     protected $appends = [
         'total_quantity',
         'total_in_dollars',
-        'total_in_cents'
+        'total_in_cents',
     ];
 
     public function sponsorships()
@@ -46,13 +40,13 @@ class Order extends Model
             'name' => 'Guest User',
             'first_name' => 'Guest',
             'last_name' => 'User',
-            'email' => 'guest@guest.com'
+            'email' => 'guest@guest.com',
         ]);
     }
 
     public function getTotalAttribute()
     {
-        return Price::make($this->sponsorships->reduce(function($carry, OrderSponsorship $orderSponsorship) {
+        return Price::make($this->sponsorships->reduce(function ($carry, OrderSponsorship $orderSponsorship) {
             return $carry + $orderSponsorship->cost->inCents();
         }, 0));
     }
@@ -72,51 +66,43 @@ class Order extends Model
         return $this->sponsorships->count();
     }
 
+    //
+    //
+    //    public function registrations()
+    //    {
+    //        return $this->belongsToMany(Registration::class)->withPivot('cost');
+    //    }
+    //
 
+    //
+    //    public function getCostAttribute($value)
+    //    {
+    //        return new Price($value);
+    //    }
+    //
+    //    public function setCostAttribute($value)
+    //    {
+    //        $currency = new Price($value, 'dollars');
+    //
+    //        $this->attributes['cost'] = $currency->inCents();
+    //    }
+    //
+    //
+    //
 
+    //
 
-
-
-
-
-
-//
-//
-//    public function registrations()
-//    {
-//        return $this->belongsToMany(Registration::class)->withPivot('cost');
-//    }
-//
-
-//
-//    public function getCostAttribute($value)
-//    {
-//        return new Price($value);
-//    }
-//
-//    public function setCostAttribute($value)
-//    {
-//        $currency = new Price($value, 'dollars');
-//
-//        $this->attributes['cost'] = $currency->inCents();
-//    }
-//
-//
-//
-
-//
-
-//
-//    public function tournamentOrders()
-//    {
-//        return $this->hasMany(TournamentOrder::class);
-//    }
-//
-//    /* Saving methods */
-//
-//    public function removeSponsorshipProduct(OrderSponsorshipProduct $orderSponsorshipProduct)
-//    {
-//        return $this->sponsorships->where('id', $orderSponsorshipProduct->id)->first()->delete();
-//    }
+    //
+    //    public function tournamentOrders()
+    //    {
+    //        return $this->hasMany(TournamentOrder::class);
+    //    }
+    //
+    //    /* Saving methods */
+    //
+    //    public function removeSponsorshipProduct(OrderSponsorshipProduct $orderSponsorshipProduct)
+    //    {
+    //        return $this->sponsorships->where('id', $orderSponsorshipProduct->id)->first()->delete();
+    //    }
 
 }

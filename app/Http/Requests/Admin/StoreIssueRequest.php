@@ -24,7 +24,7 @@ class StoreIssueRequest extends FormRequest
     public function rules()
     {
         return [
-            'issue' => 'required|max:255'
+            'issue' => 'required|max:255',
         ];
     }
 }

@@ -15,9 +15,9 @@ class SponsorshipsSeeder extends Seeder
      */
     public function run()
     {
-        collect(range(1, 40))->each(function() {
+        collect(range(1, 40))->each(function () {
             Sponsorship::factory()->create([
-                'tournament_id' => Tournament::inRandomOrder()->first()
+                'tournament_id' => Tournament::inRandomOrder()->first(),
             ]);
         });
     }

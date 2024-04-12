@@ -5,14 +5,11 @@ namespace Tests\Feature\API\Tournament;
 use App\Models\PlayerPack;
 use App\Models\PlayerPackItem;
 use App\Models\Tournament;
-use App\Models\User\User;
-use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Event;
-use Tests\TestCase;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use PHPUnit\Framework\Attributes\Test;
+use Tests\TestCase;
 
 class PlayerPackTest extends TestCase
 {
@@ -32,7 +29,7 @@ class PlayerPackTest extends TestCase
 
         $this->assertFalse(Auth::check());
 
-        $this->json('POST', 'tournament/player-packs/' . $tournament->id)
+        $this->json('POST', 'tournament/player-packs/'.$tournament->id)
             ->assertStatus(401);
     }
 
@@ -40,7 +37,7 @@ class PlayerPackTest extends TestCase
     public function user_must_have_access_to_tournament_to_store_player_pack()
     {
         $this->actingAs($this->createUser())
-            ->json('POST', 'tournament/player-packs/' . Tournament::factory()->create()->id)
+            ->json('POST', 'tournament/player-packs/'.Tournament::factory()->create()->id)
             ->assertStatus(403);
     }
 
@@ -53,7 +50,7 @@ class PlayerPackTest extends TestCase
         $user = $this->createUser();
 
         $this->actingAs($this->createUser())
-            ->json('PUT', '/tournament/player-packs/' . $playerPack->id)
+            ->json('PUT', '/tournament/player-packs/'.$playerPack->id)
             ->assertStatus(403);
     }
 
@@ -66,7 +63,7 @@ class PlayerPackTest extends TestCase
         $user = $this->createUser();
 
         $this->actingAs($this->createUser())
-            ->json('DELETE', '/tournament/player-packs/' . $playerPack->id)
+            ->json('DELETE', '/tournament/player-packs/'.$playerPack->id)
             ->assertStatus(403);
     }
 
@@ -78,16 +75,16 @@ class PlayerPackTest extends TestCase
         $user->managing()->save($tournament);
 
         $response = $this->actingAs($user)
-            ->json('POST', 'tournament/player-packs/' . $tournament->id, [
+            ->json('POST', 'tournament/player-packs/'.$tournament->id, [
                 'title' => 'test title',
-                'description' => 'test description'
+                'description' => 'test description',
             ])
             ->assertStatus(200)
             ->assertJson([
                 [
                     'title' => 'test title',
-                    'description' => 'test description'
-                ]
+                    'description' => 'test description',
+                ],
             ]);
 
         $tournament->fresh();
@@ -104,16 +101,16 @@ class PlayerPackTest extends TestCase
         $user->managing()->save($tournament);
 
         $this->actingAs($user)
-            ->json('PUT', 'tournament/player-packs/' . $playerPack->id, [
+            ->json('PUT', 'tournament/player-packs/'.$playerPack->id, [
                 'title' => 'updated title',
-                'description' => 'updated description'
+                'description' => 'updated description',
             ])
             ->assertStatus(200)
             ->assertJson([
                 [
                     'title' => 'updated title',
-                    'description' => 'updated description'
-                ]
+                    'description' => 'updated description',
+                ],
             ]);
 
         $tournament->fresh();
@@ -132,15 +129,13 @@ class PlayerPackTest extends TestCase
         $user->managing()->save($tournament);
 
         $response = $this->actingAs($user)
-            ->json('DELETE', '/tournament/player-packs/' . $playerPack->id)
+            ->json('DELETE', '/tournament/player-packs/'.$playerPack->id)
             ->assertStatus(200)
             ->assertJson([]);
 
         $tournament->fresh();
         $this->assertNull(PlayerPack::find($playerPack->id));
     }
-
-
 
     #[Test]
     public function storing_a_player_pack_does_not_require_a_description()
@@ -150,8 +145,8 @@ class PlayerPackTest extends TestCase
         $user->managing()->save($tournament);
 
         $response = $this->actingAs($user)
-            ->json('POST', '/tournament/player-packs/' . $tournament->id, [
-                'title' => 'Test Title'
+            ->json('POST', '/tournament/player-packs/'.$tournament->id, [
+                'title' => 'Test Title',
             ])
             ->assertStatus(200);
     }
@@ -165,15 +160,15 @@ class PlayerPackTest extends TestCase
         $user->managing()->save($tournament);
 
         $response = $this->actingAs($user)
-            ->json('POST', '/tournament/player-packs/' . $tournament->id, [
-                'title' => 'Test Title'
+            ->json('POST', '/tournament/player-packs/'.$tournament->id, [
+                'title' => 'Test Title',
             ]);
 
         $playerPack = $tournament->fresh()->playerPacks->first();
 
         $this->actingAs($this->createUser())
-            ->json('POST', '/tournament/player-pack/items/' . $playerPack->id, [
-                'title' => 'PP Item'
+            ->json('POST', '/tournament/player-pack/items/'.$playerPack->id, [
+                'title' => 'PP Item',
             ])
             ->assertStatus(403);
     }
@@ -187,16 +182,16 @@ class PlayerPackTest extends TestCase
         $user->managing()->save($tournament);
 
         $response = $this->actingAs($user)
-            ->json('POST', '/tournament/player-packs/' . $tournament->id, [
-                'title' => 'Test Title'
+            ->json('POST', '/tournament/player-packs/'.$tournament->id, [
+                'title' => 'Test Title',
             ]);
 
         $playerPack = $tournament->fresh()->playerPacks->first();
         $playerPackItem = $playerPack->items()->create(['title' => 'test']);
 
         $this->actingAs($this->createUser())
-            ->json('PUT', '/tournament/player-pack/items/' . $playerPackItem->id, [
-                'title' => 'PP Item'
+            ->json('PUT', '/tournament/player-pack/items/'.$playerPackItem->id, [
+                'title' => 'PP Item',
             ])
             ->assertStatus(403);
     }
@@ -210,15 +205,15 @@ class PlayerPackTest extends TestCase
         $user->managing()->save($tournament);
 
         $response = $this->actingAs($user)
-            ->json('POST', '/tournament/player-packs/' . $tournament->id, [
-                'title' => 'Test Title'
+            ->json('POST', '/tournament/player-packs/'.$tournament->id, [
+                'title' => 'Test Title',
             ]);
 
         $playerPack = $tournament->fresh()->playerPacks->first();
         $playerPackItem = $playerPack->items()->create(['title' => 'test']);
 
         $this->actingAs($this->createUser())
-            ->json('DELETE', '/tournament/player-pack/items/' . $playerPackItem->id)
+            ->json('DELETE', '/tournament/player-pack/items/'.$playerPackItem->id)
             ->assertStatus(403);
     }
 
@@ -230,21 +225,21 @@ class PlayerPackTest extends TestCase
         $user->managing()->save($tournament);
         $this->be($user);
 
-        $this->json('POST', '/tournament/player-packs/' . $tournament->id, [
-                'title' => 'Test Title'
-            ]);
+        $this->json('POST', '/tournament/player-packs/'.$tournament->id, [
+            'title' => 'Test Title',
+        ]);
 
         $playerPack = $tournament->fresh()->playerPacks->first();
 
-        $this->json('POST', '/tournament/player-pack/items/' . $playerPack->id, [
-                'title' => 'PP Item'
-            ])
+        $this->json('POST', '/tournament/player-pack/items/'.$playerPack->id, [
+            'title' => 'PP Item',
+        ])
             ->assertStatus(200)
             ->assertJson([
                 [
                     'id' => 1,
-                    'title' => 'PP Item'
-                ]
+                    'title' => 'PP Item',
+                ],
             ]);
 
         $this->assertEquals('PP Item', $tournament->fresh()->playerPacks->first()->items->first()['title']);
@@ -259,15 +254,15 @@ class PlayerPackTest extends TestCase
         $playerPackItem = $tournament->playerPacks()->create(['title' => 'Test'])->items()->create(['title' => 'Test Item']);
         $this->be($user);
 
-        $response = $this->json('PUT', '/tournament/player-pack/items/' . $playerPackItem->id, [
-            'title' => 'PP Item'
+        $response = $this->json('PUT', '/tournament/player-pack/items/'.$playerPackItem->id, [
+            'title' => 'PP Item',
         ])
             ->assertStatus(200)
             ->assertJson([
                 [
                     'id' => 1,
-                    'title' => 'PP Item'
-                ]
+                    'title' => 'PP Item',
+                ],
             ]);
 
         $this->assertEquals('PP Item', $tournament->fresh()->playerPacks->first()->items->first()['title']);
@@ -282,7 +277,7 @@ class PlayerPackTest extends TestCase
         $playerPackItem = $tournament->playerPacks()->create(['title' => 'Test'])->items()->create(['title' => 'Test Item']);
         $this->be($user);
 
-        $response = $this->json('DELETE', '/tournament/player-pack/items/' . $playerPackItem->id)->assertStatus(200)
+        $response = $this->json('DELETE', '/tournament/player-pack/items/'.$playerPackItem->id)->assertStatus(200)
             ->assertJson([]);
         $this->assertNull(PlayerPackItem::find($playerPackItem->id));
     }

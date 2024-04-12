@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests\Endpoints\Tournament;
 
-use App\Models\SpecialEventType;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreInformationRequest extends FormRequest
@@ -43,7 +42,7 @@ class StoreInformationRequest extends FormRequest
             'class_ids' => 'required|exists:classes,id',
             'timezone' => 'required|timezone',
             'accepted' => 'accepted',
-            'paypal' => 'nullable|email|max:255'
+            'paypal' => 'nullable|email|max:255',
         ];
     }
 }

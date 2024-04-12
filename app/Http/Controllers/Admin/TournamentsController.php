@@ -2,19 +2,15 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Carbon\Carbon;
-use App\Http\Requests\Admin\UpdateTournamentRequest;
-use App\Models\FlagType;
-use App\Models\Tournament;
-use Illuminate\Http\Request;
-
-use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Models\Tournament;
+use Carbon\Carbon;
 use Illuminate\View\View;
 
 class TournamentsController extends Controller
 {
     protected $tournaments;
+
     /**
      * @var Tournament
      */
@@ -55,7 +51,7 @@ class TournamentsController extends Controller
     {
         $tournaments = $this->tournament
             ->where('end', '>', Carbon::now()->subDay(1))
-            ->whereHas('flags', function($query) {
+            ->whereHas('flags', function ($query) {
                 $query->where('review_on', '<', Carbon::now());
             })
             ->orderBy('start', 'desc')

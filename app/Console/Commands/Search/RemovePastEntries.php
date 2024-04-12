@@ -44,14 +44,14 @@ class RemovePastEntries extends Command
         $index = $client->initIndex('tournaments');
 
         $tournaments = $index->search('', [
-            'filters' => 'end_timestamp < ' . Carbon::now()->subDay()->format('U'),
+            'filters' => 'end_timestamp < '.Carbon::now()->subDay()->format('U'),
             'attributesToRetrieve' => [
-                'objectID'
+                'objectID',
             ],
-            'hitsPerPage' => 200
+            'hitsPerPage' => 200,
         ]);
 
-        collect($tournaments['hits'])->each(function($result) use ($index) {
+        collect($tournaments['hits'])->each(function ($result) use ($index) {
             $index->deleteObject($result['objectID']);
         });
     }

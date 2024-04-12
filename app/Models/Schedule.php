@@ -16,11 +16,11 @@ class Schedule extends Model
         'start',
         'end',
         'summary',
-        'location'
+        'location',
     ];
 
     protected $appends = [
-        'time_span'
+        'time_span',
     ];
 
     protected $casts = [
@@ -30,12 +30,12 @@ class Schedule extends Model
     ];
 
     protected $touches = [
-        'tournament'
+        'tournament',
     ];
 
     protected $dispatchesEvents = [
         'created' => ScheduleSaved::class,
-        'updated' => ScheduleSaved::class
+        'updated' => ScheduleSaved::class,
     ];
 
     public function newCollection(array $models = [])
@@ -50,15 +50,20 @@ class Schedule extends Model
 
     public function getTimeSpanAttribute()
     {
-        if(is_null($this->start)) return 'TBA';
+        if (is_null($this->start)) {
+            return 'TBA';
+        }
 
         $format = 'g:ia';
 
-        if(is_null($this->end)) return $this->start->format($format);
+        if (is_null($this->end)) {
+            return $this->start->format($format);
+        }
 
-        if($this->start->format('A') === $this->end->format('A'))
-            return $this->start->format('g:i') . ' - ' . $this->end->format('g:i') . $this->end->format('a');
+        if ($this->start->format('A') === $this->end->format('A')) {
+            return $this->start->format('g:i').' - '.$this->end->format('g:i').$this->end->format('a');
+        }
 
-        return $this->start->format($format) . ' - ' . $this->end->format($format);
+        return $this->start->format($format).' - '.$this->end->format($format);
     }
 }

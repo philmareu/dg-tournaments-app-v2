@@ -13,7 +13,7 @@ class StripeAccount extends Model
     protected $fillable = [
         'access_token',
         'display_name',
-        'stripe_user_id'
+        'stripe_user_id',
     ];
 
     public function user()

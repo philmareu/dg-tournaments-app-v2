@@ -2,26 +2,22 @@
 
 namespace Tests\Feature;
 
-use App\Billing\Stripe\StripeBilling;
 use App\Events\OrderPaid;
 use App\Mail\Managers\NewOrderPaidMailable;
 use App\Mail\User\OrderConfirmationMailable;
 use App\Models\Order;
 use App\Models\OrderSponsorship;
 use App\Models\Sponsorship;
-use App\Models\Tournament;
 use App\Models\StripeAccount;
-use Illuminate\Database\Eloquent\Collection;
+use App\Models\Tournament;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Mail;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class OrderTest_TestReview extends TestCase
 {
     use RefreshDatabase;
-
 
     public function charge_is_created_when_payment_is_submitted()
     {
@@ -32,10 +28,9 @@ class OrderTest_TestReview extends TestCase
         $this->assertDatabaseHas('charges', [
             'order_id' => $orderSponsorship->order->id,
             'status' => 'succeeded',
-            'amount' => $orderSponsorship->order->total->inCents()
+            'amount' => $orderSponsorship->order->total->inCents(),
         ]);
     }
-
 
     public function order_paid_event_is_fired()
     {
@@ -50,7 +45,6 @@ class OrderTest_TestReview extends TestCase
         });
     }
 
-
     public function confirmation_email_is_sent_after_order_is_paid()
     {
         $orderSponsorship = OrderSponsorship::factory()->create();
@@ -64,7 +58,6 @@ class OrderTest_TestReview extends TestCase
                 && $mail->hasTo($orderSponsorship->order->email);
         });
     }
-
 
     public function tournament_managers_receive_email_about_order_with_sponsorships()
     {
@@ -99,12 +92,11 @@ class OrderTest_TestReview extends TestCase
         Mail::assertQueued(NewOrderPaidMailable::class, function ($mail) use ($tournament2, $order) {
             return $mail->hasTo($tournament2->authorization_email)
                 && empty(
-                array_diff($mail->orderSponsorships->pluck('id')->toArray(),
-                    $order->sponsorships->whereIn('sponsorship_id', $tournament2->sponsorships->pluck('id'))->pluck('id')->toArray())
+                    array_diff($mail->orderSponsorships->pluck('id')->toArray(),
+                        $order->sponsorships->whereIn('sponsorship_id', $tournament2->sponsorships->pluck('id'))->pluck('id')->toArray())
                 );
         });
     }
-
 
     public function order_total_is_sum_of_all_sponsorships()
     {
@@ -117,7 +109,7 @@ class OrderTest_TestReview extends TestCase
             $this->addSponsorshipToOrder($order, $sponsorship);
         });
 
-        $total1 = $tournament1->sponsorships->reduce(function($carry, Sponsorship $sponsorship) {
+        $total1 = $tournament1->sponsorships->reduce(function ($carry, Sponsorship $sponsorship) {
             return $carry + $sponsorship->cost->inCents();
         });
 
@@ -128,13 +120,12 @@ class OrderTest_TestReview extends TestCase
             $this->addSponsorshipToOrder($order, $sponsorship);
         });
 
-        $total2 = $tournament2->sponsorships->reduce(function($carry, Sponsorship $sponsorship) {
+        $total2 = $tournament2->sponsorships->reduce(function ($carry, Sponsorship $sponsorship) {
             return $carry + $sponsorship->cost->inCents();
         });
 
         $this->assertEquals($total1 + $total2, $order->total->inCents());
     }
-
 
     public function order_payment_transfers_are_saved_to_database()
     {
@@ -144,7 +135,7 @@ class OrderTest_TestReview extends TestCase
         $tournament1 = $this->createTournament();
         $stripeAccount = StripeAccount::factory()->create([
             'access_token' => env('STRIPE_TEST_ACCOUNT_1_SECRET'),
-            'stripe_user_id' => env('STRIPE_TEST_ACCOUNT_1_ACCOUNT')
+            'stripe_user_id' => env('STRIPE_TEST_ACCOUNT_1_ACCOUNT'),
         ]);
         $tournament1->stripeAccount()->associate($stripeAccount)->save();
         $tournament1Sponsorships = $tournament1->sponsorships()->saveMany(Sponsorship::factory()->count(3)->make());
@@ -152,7 +143,7 @@ class OrderTest_TestReview extends TestCase
             $this->addSponsorshipToOrder($order, $sponsorship);
         });
 
-        $total1 = $tournament1->sponsorships->reduce(function($carry, Sponsorship $sponsorship) {
+        $total1 = $tournament1->sponsorships->reduce(function ($carry, Sponsorship $sponsorship) {
             return $carry + $sponsorship->cost->inCents();
         });
 
@@ -160,7 +151,7 @@ class OrderTest_TestReview extends TestCase
         $tournament2 = Tournament::factory()->create();
         $stripeAccount = StripeAccount::factory()->create([
             'access_token' => env('STRIPE_TEST_ACCOUNT_2_SECRET'),
-            'stripe_user_id' => env('STRIPE_TEST_ACCOUNT_2_ACCOUNT')
+            'stripe_user_id' => env('STRIPE_TEST_ACCOUNT_2_ACCOUNT'),
         ]);
         $tournament2->stripeAccount()->associate($stripeAccount)->save();
         $tournament2Sponsorships = $tournament2->sponsorships()->saveMany(Sponsorship::factory()->count(2)->make());
@@ -168,7 +159,7 @@ class OrderTest_TestReview extends TestCase
             $this->addSponsorshipToOrder($order, $sponsorship);
         });
 
-        $total2 = $tournament2->sponsorships->reduce(function($carry, Sponsorship $sponsorship) {
+        $total2 = $tournament2->sponsorships->reduce(function ($carry, Sponsorship $sponsorship) {
             return $carry + $sponsorship->cost->inCents();
         });
 
@@ -177,16 +168,15 @@ class OrderTest_TestReview extends TestCase
         $this->assertDatabaseHas('transfers', [
             'order_id' => $order->id,
             'amount' => $total1 - ($total1 * .029 + 30),
-            'destination' => $tournament1->stripeAccount->stripe_user_id
+            'destination' => $tournament1->stripeAccount->stripe_user_id,
         ]);
 
         $this->assertDatabaseHas('transfers', [
             'order_id' => $order->id,
             'amount' => $total2 - ($total2 * .029 + 30),
-            'destination' => $tournament2->stripeAccount->stripe_user_id
+            'destination' => $tournament2->stripeAccount->stripe_user_id,
         ]);
     }
-
 
     public function transfer_are_made_to_tournament_stripe_accounts()
     {

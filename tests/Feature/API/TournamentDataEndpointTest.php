@@ -8,9 +8,9 @@ use App\Models\Sponsorship;
 use App\Models\StripeAccount;
 use App\Models\TournamentSponsor;
 use App\Models\Upload;
-use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use PHPUnit\Framework\Attributes\Test;
+use Tests\TestCase;
 
 class TournamentDataEndpointTest extends TestCase
 {
@@ -27,7 +27,7 @@ class TournamentDataEndpointTest extends TestCase
         $sponsorship->tournamentSponsors()->save(TournamentSponsor::factory()->create());
         $tournament->sponsorships()->save($sponsorship);
 
-        $this->json('GET', 'tournament/' . $tournament->id)
+        $this->json('GET', 'tournament/'.$tournament->id)
             ->assertJson([
                 'id' => $tournament->id,
                 'name' => $tournament->name,
@@ -59,7 +59,7 @@ class TournamentDataEndpointTest extends TestCase
                 'media' => $tournament->media->toArray(),
                 'can_except_online_payments' => $tournament->canExceptOnlinePayments(),
                 'claim_request' => $tournament->claimRequest,
-//                'sponsorships' => $tournament->load('sponsorships.tournamentSponsors.sponsor.logo')->sponsorships
+                //                'sponsorships' => $tournament->load('sponsorships.tournamentSponsors.sponsor.logo')->sponsorships
             ]);
     }
 
@@ -69,26 +69,26 @@ class TournamentDataEndpointTest extends TestCase
         $tournament = $this->createTournament();
         $tournament->stripeAccount()->associate(StripeAccount::factory()->create())->save();
 
-        $this->json('GET', 'tournament/' . $tournament->id)
+        $this->json('GET', 'tournament/'.$tournament->id)
             ->assertJsonMissing([
                 'stripe_account' => $tournament->stripeAccount->toArray(),
-                'stripe_account_id' => $tournament->stripe_account_id
+                'stripe_account_id' => $tournament->stripe_account_id,
             ]);
     }
 
     #[Test]
     public function stripe_account_does_show_up_for_managers_of_the_tournament()
     {
-        list($user, $tournament) = $this->createTournamentWithManager();
+        [$user, $tournament] = $this->createTournamentWithManager();
         $stripeAccount = StripeAccount::factory()->create();
         $user->stripeAccounts()->save($stripeAccount);
         $tournament->stripeAccount()->associate($stripeAccount)->save();
 
         $this->actingAs($user)
-            ->json('GET', 'tournament/' . $tournament->id)
+            ->json('GET', 'tournament/'.$tournament->id)
             ->assertJson([
                 'stripe_account' => $tournament->stripeAccount->toArray(),
-                'stripe_account_id' => $tournament->stripe_account_id
+                'stripe_account_id' => $tournament->stripe_account_id,
             ]);
     }
 }

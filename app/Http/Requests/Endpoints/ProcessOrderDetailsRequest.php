@@ -25,7 +25,7 @@ class ProcessOrderDetailsRequest extends FormRequest
     {
         return [
             'unique' => 'required|exists:orders',
-            'email' => 'required|email|max:100' . ($this->request->has('create_account') ? '|unique:users' : ''),
+            'email' => 'required|email|max:100'.($this->request->has('create_account') ? '|unique:users' : ''),
             'first_name' => 'required|max:50',
             'last_name' => 'required|max:50',
             'password' => 'required_if:create_account,1|min:6',

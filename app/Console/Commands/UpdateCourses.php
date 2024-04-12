@@ -51,12 +51,12 @@ class UpdateCourses extends Command
      */
     public function handle()
     {
-        $this->dataSource->whereType('course')->get()->each(function(DataSource $dataSource) {
-            $this->info('Data Source: ' . $dataSource->title);
+        $this->dataSource->whereType('course')->get()->each(function (DataSource $dataSource) {
+            $this->info('Data Source: '.$dataSource->title);
             $freshListOfCourses = $this->getCourses($dataSource)->getPayloads();
             $existingCourses = $dataSource->courses;
 
-            $this->info($freshListOfCourses->count() . ' total');
+            $this->info($freshListOfCourses->count().' total');
             $this->info('Removing unlisted courses');
             $this->removeUnlisted($existingCourses, $freshListOfCourses);
 
@@ -68,26 +68,19 @@ class UpdateCourses extends Command
         });
     }
 
-    /**
-     * @param DataSource $dataSource
-     */
-    private function getCourses(DataSource $dataSource) : CoursesResponse
+    private function getCourses(DataSource $dataSource): CoursesResponse
     {
-        if (Cache::has($dataSource->slug . '.api.courses')) {
+        if (Cache::has($dataSource->slug.'.api.courses')) {
             dump('From cache ... ');
-            $courses = Cache::get($dataSource->slug . '.api.courses');
+            $courses = Cache::get($dataSource->slug.'.api.courses');
         } else {
             $courses = CourseApi::make($dataSource)->getCourses();
-            Cache::put($dataSource->slug . '.api.courses', $courses, 120);
+            Cache::put($dataSource->slug.'.api.courses', $courses, 120);
         }
 
         return $courses;
     }
 
-    /**
-     * @param $existingCourses
-     * @param $freshListOfCourses
-     */
     private function removeUnlisted($existingCourses, $freshListOfCourses)
     {
         $existingCourses->filter(function (Course $course) use ($freshListOfCourses) {
@@ -98,8 +91,7 @@ class UpdateCourses extends Command
     }
 
     /**
-     * @param DataSource $dataSource
-     * @param $freshListOfCourses
+     * @param  DataSource  $dataSource
      */
     private function updateExisting(Collection $freshListOfCourses)
     {
@@ -108,17 +100,16 @@ class UpdateCourses extends Command
             ->withTrashed()
             ->get();
 
-        $currentCourses->each(function(Course $currentCourse) use ($freshListOfCourses) {
+        $currentCourses->each(function (Course $currentCourse) use ($freshListOfCourses) {
 
             $apiCourse = $freshListOfCourses->where('id', $currentCourse->data_source_course_id)->first();
 
-            if(! is_null($apiCourse))
-            {
+            if (! is_null($apiCourse)) {
                 $currentCourse->restore();
                 $currentCourse->update(
                     array_merge(
                         [
-                            'slug' => Str::random($apiCourse->get('name'))
+                            'slug' => Str::random($apiCourse->get('name')),
                         ],
                         $apiCourse->all()
                     )
@@ -127,10 +118,6 @@ class UpdateCourses extends Command
         });
     }
 
-    /**
-     * @param DataSource $dataSource
-     * @param $freshListOfCourses
-     */
     private function createNew(DataSource $dataSource, $freshListOfCourses)
     {
         $freshListOfCourses->filter(function (CourseDataPayload $course) {
@@ -143,7 +130,7 @@ class UpdateCourses extends Command
             $newCourse = new Course(
                 array_merge(
                     [
-                        'slug' => Str::slug($course->get('name'))
+                        'slug' => Str::slug($course->get('name')),
                     ],
                     $course->toArray()
                 )
@@ -154,5 +141,4 @@ class UpdateCourses extends Command
             $newCourse->save();
         });
     }
-
 }

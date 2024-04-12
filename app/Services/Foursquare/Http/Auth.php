@@ -1,4 +1,6 @@
-<?php namespace App\Services\Foursquare\Http;
+<?php
+
+namespace App\Services\Foursquare\Http;
 
 class Auth
 {
@@ -6,7 +8,7 @@ class Auth
     {
         return [
             'client_id' => config('services.foursquare.clientId'),
-            'client_secret' => config('services.foursquare.clientSecret')
+            'client_secret' => config('services.foursquare.clientSecret'),
         ];
     }
 }

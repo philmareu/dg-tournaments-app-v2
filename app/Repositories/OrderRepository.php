@@ -2,19 +2,17 @@
 
 namespace App\Repositories;
 
-
 use App\Billing\Stripe\StripeBilling;
 use App\Data\Price;
 use App\Events\OrderPaid;
 use App\Models\Charge;
+use App\Models\Order;
 use App\Models\OrderSponsorship;
 use App\Models\Sponsorship;
 use App\Models\Tournament;
 use App\Models\User\User;
-use App\Models\Order;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
 class OrderRepository
@@ -58,7 +56,7 @@ class OrderRepository
             ->where('orders.id', $orderId)
             ->where('orders.paid', 1)
             ->select([
-                'orders.*'
+                'orders.*',
             ])
             ->first();
     }
@@ -71,7 +69,7 @@ class OrderRepository
             ->where('order_sponsorships.order_id', $orderId)
             ->select([
                 'order_sponsorships.*',
-                'sponsorships.title'
+                'sponsorships.title',
             ])
             ->get();
     }
@@ -91,8 +89,7 @@ class OrderRepository
 
         $cartQuantity = $order->sponsorships->where('sponsorship.id', $sponsorship->id)->count();
 
-        if($cartQuantity < $sponsorship->quantity)
-        {
+        if ($cartQuantity < $sponsorship->quantity) {
             $orderSponsorship = new OrderSponsorship(['cost' => $sponsorship->cost->inDollars()]);
             $orderSponsorship->sponsorship()->associate($sponsorship);
             $order->sponsorships()->save($orderSponsorship);
@@ -102,26 +99,29 @@ class OrderRepository
     }
 
     /**
-     * @param OrderSponsorship $orderSponsorship
      * @return bool|null
      */
     public function removeSponsorship(OrderSponsorship $orderSponsorship)
     {
-        if($orderSponsorship->order->paid) return false;
+        if ($orderSponsorship->order->paid) {
+            return false;
+        }
 
         return $orderSponsorship->delete();
     }
 
-    public function createNewOrder() : Order
+    public function createNewOrder(): Order
     {
         return $this->order->create([
-            'unique' => Str::random(100)
+            'unique' => Str::random(100),
         ]);
     }
 
-    public function processCustomerDetails($unique, $attributes) : Order
+    public function processCustomerDetails($unique, $attributes): Order
     {
-        if(is_array($attributes)) $attributes = collect($attributes);
+        if (is_array($attributes)) {
+            $attributes = collect($attributes);
+        }
 
         $order = $this->getOrderByUnique($unique);
         $order->update($attributes->only(['email', 'first_name', 'last_name'])->toArray());
@@ -131,17 +131,14 @@ class OrderRepository
 
     public function pay(Order $order, $source, $user = null)
     {
-        if(substr($source['source'], 0, 4) == 'card')
-        {
+        if (substr($source['source'], 0, 4) == 'card') {
             $charge = $this->billing->charge()->create(
                 Price::make($order->total->inCents()),
                 $order->id,
                 $source['source'],
                 $user->stripe_customer_id
             );
-        }
-        else
-        {
+        } else {
             $charge = $this->billing->charge()->create(
                 Price::make($order->total->inCents()),
                 $order->id,
@@ -152,12 +149,14 @@ class OrderRepository
         $charge = new Charge([
             'charge_id' => $charge->id,
             'status' => $charge->status,
-            'amount' => $charge->amount
+            'amount' => $charge->amount,
         ]);
 
         $order->charges()->save($charge);
 
-        if($charge->status !== 'succeeded') return $order;
+        if ($charge->status !== 'succeeded') {
+            return $order;
+        }
 
         $this->reduceInventory($order);
 
@@ -165,22 +164,22 @@ class OrderRepository
     }
 
     /**
-     * @param string $orderUnique
+     * @param  string  $orderUnique
      */
     public function getOrderByUnique($orderUnique)
     {
         return $this->order->whereUnique($orderUnique)->wherePaid(0)->first();
     }
 
-    /**
-     * @param $orderId
-     * @return Order
-     */
-    public function getOrderOrCreateNew($orderId = null) : Order
+    public function getOrderOrCreateNew($orderId = null): Order
     {
-        if(is_null($orderId)) return $this->createNewOrder();
+        if (is_null($orderId)) {
+            return $this->createNewOrder();
+        }
 
-        if(is_null($order = $this->getOrderByUnique($orderId))) return $this->createNewOrder();
+        if (is_null($order = $this->getOrderByUnique($orderId))) {
+            return $this->createNewOrder();
+        }
 
         return $order;
     }
@@ -204,7 +203,7 @@ class OrderRepository
     {
         return $this->order
             ->with('charges', 'sponsorships')
-            ->whereHas('charges', function($query) {
+            ->whereHas('charges', function ($query) {
                 $query->where('status', 'succeeded');
             })
             ->where('user_id', $user->id)
@@ -213,7 +212,7 @@ class OrderRepository
 
     public function reduceInventory($order)
     {
-        $order->sponsorships->each(function(OrderSponsorship $orderSponsorship) {
+        $order->sponsorships->each(function (OrderSponsorship $orderSponsorship) {
             $orderSponsorship->sponsorship->decrement('quantity');
         });
     }

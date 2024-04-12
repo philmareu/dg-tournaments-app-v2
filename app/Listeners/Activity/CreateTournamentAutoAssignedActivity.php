@@ -3,8 +3,6 @@
 namespace App\Listeners\Activity;
 
 use App\Events\TournamentAutoAssigned;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Contracts\Queue\ShouldQueue;
 
 class CreateTournamentAutoAssignedActivity
 {
@@ -23,7 +21,6 @@ class CreateTournamentAutoAssignedActivity
     /**
      * Handle the event.
      *
-     * @param  TournamentAutoAssigned  $event
      * @return void
      */
     public function handle(TournamentAutoAssigned $event)

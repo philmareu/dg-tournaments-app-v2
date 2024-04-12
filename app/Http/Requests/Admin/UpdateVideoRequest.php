@@ -24,9 +24,9 @@ class UpdateVideoRequest extends Request
     public function rules()
     {
         return [
-            'youtube_video_id' => 'required|unique:videos,youtube_video_id,' . $this->segment(3),
+            'youtube_video_id' => 'required|unique:videos,youtube_video_id,'.$this->segment(3),
             'event_ids' => 'array',
-            'course_ids' => 'array'
+            'course_ids' => 'array',
         ];
     }
 }

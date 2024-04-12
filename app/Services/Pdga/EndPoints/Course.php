@@ -2,14 +2,13 @@
 
 namespace App\Services\Pdga\EndPoints;
 
-
 use App\Services\Pdga\Http\Get;
 use App\Services\Pdga\Http\Url;
 
 class Course extends Get
 {
     /**
-     * @param string $country
+     * @param  string  $country
      */
     public function whereCountry($firstName)
     {
@@ -21,7 +20,7 @@ class Course extends Get
     /**
      * Set API limit
      *
-     * @param int $limit
+     * @param  int  $limit
      */
     public function limit($limit)
     {
@@ -33,7 +32,7 @@ class Course extends Get
     /**
      * Set API offset
      *
-     * @param int $offset
+     * @param  int  $offset
      */
     public function offset($offset)
     {
@@ -51,6 +50,6 @@ class Course extends Get
     {
         $response = $this->sendRequest(new Url('course'));
 
-        return isset($response['courses']) ? $response['courses']: [];
+        return isset($response['courses']) ? $response['courses'] : [];
     }
 }

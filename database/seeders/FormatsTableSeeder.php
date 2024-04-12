@@ -17,31 +17,31 @@ class FormatsTableSeeder extends Seeder
         Format::factory()->create([
             'id' => 1,
             'title' => 'Singles',
-            'code' => 'S'
+            'code' => 'S',
         ]);
 
         Format::factory()->create([
             'id' => 2,
             'title' => 'Doubles',
-            'code' => 'D'
+            'code' => 'D',
         ]);
 
         Format::factory()->create([
             'id' => 3,
             'title' => 'University',
-            'code' => 'U'
+            'code' => 'U',
         ]);
 
         Format::factory()->create([
             'id' => 4,
             'title' => 'Team',
-            'code' => 'T'
+            'code' => 'T',
         ]);
 
         Format::factory()->create([
             'id' => 5,
             'title' => 'Match Play',
-            'code' => 'P'
+            'code' => 'P',
         ]);
     }
 }

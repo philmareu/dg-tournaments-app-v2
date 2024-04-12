@@ -1,4 +1,6 @@
-<?php namespace App\Services\Foursquare;
+<?php
+
+namespace App\Services\Foursquare;
 
 use App\Services\Foursquare\Endpoints\Venues\Search;
 use App\Services\Foursquare\Endpoints\Venues\Venue;

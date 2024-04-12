@@ -56,7 +56,7 @@ class TournamentFactory extends Factory
         return $this->state(function (array $attribute) use ($date) {
             return [
                 'start' => $date,
-                'end' => $date->addDay()
+                'end' => $date->addDay(),
             ];
         });
     }

@@ -41,7 +41,7 @@ class AutoAssignTournaments extends Command
     {
         $users = User::all();
 
-        $users->each(function(User $user) {
+        $users->each(function (User $user) {
             $tournaments = Tournament::where('authorization_email', $user->email)->get();
             $user->managing()->sync($tournaments->pluck('id')->merge($user->managing->pluck('id')));
         });

@@ -4,8 +4,6 @@ namespace App\Listeners\EmailNotifications;
 
 use App\Events\OrderPaid;
 use App\Mail\User\OrderConfirmationMailable;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\Mail;
 
 class SendOrderConfirmationEmail
@@ -23,7 +21,6 @@ class SendOrderConfirmationEmail
     /**
      * Handle the event.
      *
-     * @param  OrderPaid  $event
      * @return void
      */
     public function handle(OrderPaid $event)

@@ -2,16 +2,13 @@
 
 namespace Tests\Feature\API\Tournament;
 
-use Carbon\Carbon;
 use App\Models\Schedule;
 use App\Models\Tournament;
-use Illuminate\Support\Facades\Event;
-use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Event;
 use PHPUnit\Framework\Attributes\Test;
+use Tests\TestCase;
 
 class ScheduleEndpointTest extends TestCase
 {
@@ -29,7 +26,7 @@ class ScheduleEndpointTest extends TestCase
     {
 
         $this->actingAs($this->createUser())
-            ->json('POST', 'tournament/schedule/' . Tournament::factory()->create()->id)
+            ->json('POST', 'tournament/schedule/'.Tournament::factory()->create()->id)
             ->assertStatus(403);
     }
 
@@ -38,7 +35,7 @@ class ScheduleEndpointTest extends TestCase
     {
 
         $this->actingAs($this->createUser())
-            ->json('PUT', 'tournament/schedule/' . Schedule::factory()->create()->id)
+            ->json('PUT', 'tournament/schedule/'.Schedule::factory()->create()->id)
             ->assertStatus(403);
     }
 
@@ -47,27 +44,27 @@ class ScheduleEndpointTest extends TestCase
     {
 
         $this->actingAs($this->createUser())
-            ->json('DELETE', 'tournament/schedule/' . Schedule::factory()->create()->id)
+            ->json('DELETE', 'tournament/schedule/'.Schedule::factory()->create()->id)
             ->assertStatus(403);
     }
 
     #[Test]
     public function manager_can_store_new_schedule_item()
     {
-        list($user, $tournament) = $this->createTournamentWithManager();
+        [$user, $tournament] = $this->createTournamentWithManager();
 
         $data = [
             'date' => '1-1-2000',
             'start' => '1:30 PM',
             'end' => '2:30 PM',
             'summary' => 'Players meeting',
-            'location' => 'Main course'
+            'location' => 'Main course',
         ];
 
         $this->actingAs($user)
-            ->json('POST', 'tournament/schedule/' . $tournament->id, $data)
+            ->json('POST', 'tournament/schedule/'.$tournament->id, $data)
             ->assertJson([
-                'Saturday (1st)' => []
+                'Saturday (1st)' => [],
             ]);
 
         $scheduleItem = $tournament->schedule->first();
@@ -85,7 +82,7 @@ class ScheduleEndpointTest extends TestCase
     #[Test]
     public function manager_can_update_schedule_item()
     {
-        list($user, $tournament) = $this->createTournamentWithManager();
+        [$user, $tournament] = $this->createTournamentWithManager();
 
         $tournament->schedule()->save(Schedule::factory()->make());
 
@@ -94,13 +91,13 @@ class ScheduleEndpointTest extends TestCase
             'start' => '1:30 PM',
             'end' => '2:30 PM',
             'summary' => 'Players meeting',
-            'location' => 'Main course'
+            'location' => 'Main course',
         ];
 
         $this->actingAs($user)
-            ->json('PUT', 'tournament/schedule/' . $tournament->schedule->first()->id, $data)
+            ->json('PUT', 'tournament/schedule/'.$tournament->schedule->first()->id, $data)
             ->assertJson([
-                'Saturday (1st)' => []
+                'Saturday (1st)' => [],
             ]);
 
         $scheduleItem = $tournament->fresh()->schedule->first();
@@ -118,12 +115,12 @@ class ScheduleEndpointTest extends TestCase
     #[Test]
     public function manager_can_delete_a_schedule_item()
     {
-        list($user, $tournament) = $this->createTournamentWithManager();
+        [$user, $tournament] = $this->createTournamentWithManager();
 
         $tournament->schedule()->save(Schedule::factory()->make());
 
         $this->actingAs($user)
-            ->json('DELETE', 'tournament/schedule/' . $tournament->schedule->first()->id)
+            ->json('DELETE', 'tournament/schedule/'.$tournament->schedule->first()->id)
             ->assertJson([]);
 
         $this->assertEquals(0, $tournament->fresh()->schedule->count());
@@ -132,49 +129,49 @@ class ScheduleEndpointTest extends TestCase
     #[Test]
     public function retrieves_an_ordered_tournament_schedule()
     {
-        list($user, $tournament) = $this->createTournamentWithManager();
+        [$user, $tournament] = $this->createTournamentWithManager();
 
         $this->actingAs($user)
-            ->json('POST', 'tournament/schedule/' . $tournament->id, [
+            ->json('POST', 'tournament/schedule/'.$tournament->id, [
                 'date' => '1-1-2000',
                 'start' => '12:30 PM',
                 'end' => '2:30 PM',
                 'summary' => 'Lunch',
-                'location' => 'Main course'
+                'location' => 'Main course',
             ]);
 
         $this->actingAs($user)
-            ->json('POST', 'tournament/schedule/' . $tournament->id, [
+            ->json('POST', 'tournament/schedule/'.$tournament->id, [
                 'date' => '1-1-2000',
                 'start' => '9:00 AM',
                 'end' => '9:30 AM',
                 'summary' => 'Player meeting',
-                'location' => 'Main course'
+                'location' => 'Main course',
             ]);
 
         $this->actingAs($user)
-            ->json('POST', 'tournament/schedule/' . $tournament->id, [
+            ->json('POST', 'tournament/schedule/'.$tournament->id, [
                 'date' => '1-2-2000',
                 'start' => '8:00 AM',
                 'end' => '9:00 AM',
                 'summary' => 'Warm up',
-                'location' => 'Main course'
+                'location' => 'Main course',
             ]);
 
         $this->actingAs($user)
-            ->json('POST', 'tournament/schedule/' . $tournament->id, [
+            ->json('POST', 'tournament/schedule/'.$tournament->id, [
                 'date' => '1-2-2000',
                 'start' => '9:00 AM',
                 'end' => '10:00 AM',
                 'summary' => 'Start',
-                'location' => 'Main course'
+                'location' => 'Main course',
             ]);
 
-        $response = $this->json('GET', 'tournament/schedule/' . $tournament->id);
+        $response = $this->json('GET', 'tournament/schedule/'.$tournament->id);
 
         $this->assertEquals($response->getOriginalContent()->keys()->toArray(), [
             '2000-01-01',
-            '2000-01-02'
+            '2000-01-02',
         ]);
 
         $this->assertEquals($response->getOriginalContent()->flatten()->pluck('id')->toArray(), [2, 1, 3, 4]);

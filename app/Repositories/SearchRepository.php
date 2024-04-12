@@ -2,8 +2,6 @@
 
 namespace App\Repositories;
 
-
-use Carbon\Carbon;
 use App\Collections\TournamentsCollection;
 use App\Helpers\AlgoliaQuery;
 use App\Models\Classes;
@@ -13,6 +11,7 @@ use App\Models\Search;
 use App\Models\SpecialEventType;
 use App\Models\Tournament;
 use App\Models\User\User;
+use Carbon\Carbon;
 use Illuminate\Support\Collection;
 
 class SearchRepository
@@ -39,7 +38,7 @@ class SearchRepository
             'query' => $query,
             'wants_notification' => isset($attributes['wants_notification']),
             'searched_at' => isset($attributes['wants_notification']) ? Carbon::now() : null,
-            'frequency' => isset($attributes['frequency']) ? $attributes['frequency'] : null
+            'frequency' => isset($attributes['frequency']) ? $attributes['frequency'] : null,
         ]);
 
         $search->user()->associate($user)->save();
@@ -47,37 +46,37 @@ class SearchRepository
         return $search;
     }
 
-    public function getAllReadySearches() : Collection
+    public function getAllReadySearches(): Collection
     {
-        return collect(['daily', 'weekly'])->flatMap(function($frequency) {
+        return collect(['daily', 'weekly'])->flatMap(function ($frequency) {
             return $this->getReadyByFrequency($frequency);
         });
     }
 
     public function getReadySearchesForActivities()
     {
-        return $this->getAllReadySearches()->groupBy('user_id')->map(function(Collection $searches) {
+        return $this->getAllReadySearches()->groupBy('user_id')->map(function (Collection $searches) {
             return [
                 'user' => $searches->first()->user,
-                'searches' => $searches
+                'searches' => $searches,
             ];
         });
     }
 
     public function getReadySearchesForNotifications()
     {
-        return $this->getAllReadySearches()->filter(function(Search $search) {
+        return $this->getAllReadySearches()->filter(function (Search $search) {
             return $search->wants_notification == 1;
         })
-        ->groupBy('user_id')->map(function(Collection $searches) {
-            return [
-                'user' => $searches->first()->user,
-                'searches' => $searches
-            ];
-        });
+            ->groupBy('user_id')->map(function (Collection $searches) {
+                return [
+                    'user' => $searches->first()->user,
+                    'searches' => $searches,
+                ];
+            });
     }
 
-    public function getReadyByFrequency($frequency) : \Illuminate\Database\Eloquent\Collection
+    public function getReadyByFrequency($frequency): \Illuminate\Database\Eloquent\Collection
     {
         $interval = $frequency === 'daily' ? Carbon::now()->subHours(24) : Carbon::now()->subDays(7);
 
@@ -87,42 +86,41 @@ class SearchRepository
             ->get();
     }
 
-    public function getTournamentActivities() : Collection
+    public function getTournamentActivities(): Collection
     {
-        return $this->getReadySearchesForActivities()->map(function($searches) {
+        return $this->getReadySearchesForActivities()->map(function ($searches) {
             return [
                 'user' => $searches['user'],
-                'tournaments' => $searches['searches']->flatMap(function(Search $search) {
+                'tournaments' => $searches['searches']->flatMap(function (Search $search) {
                     return $this->findTournamentBySearchQuery($search);
-                })->unique('id')
+                })->unique('id'),
             ];
-        })->reject(function($notifications) {
+        })->reject(function ($notifications) {
             return $notifications['tournaments']->isEmpty();
         });
     }
 
-    public function getTournamentNotifications() : Collection
+    public function getTournamentNotifications(): Collection
     {
-        return $this->getReadySearchesForNotifications()->map(function($searches) {
+        return $this->getReadySearchesForNotifications()->map(function ($searches) {
             return [
                 'user' => $searches['user'],
-                'tournaments' => $searches['searches']->flatMap(function(Search $search) {
+                'tournaments' => $searches['searches']->flatMap(function (Search $search) {
                     return $this->findTournamentBySearchQuery($search);
-                })->unique('id')
+                })->unique('id'),
             ];
-        })->reject(function($notifications) {
+        })->reject(function ($notifications) {
             return $notifications['tournaments']->isEmpty();
         });
     }
 
-    public function findTournamentBySearchQuery(Search $search) : TournamentsCollection
+    public function findTournamentBySearchQuery(Search $search): TournamentsCollection
     {
         $algoliaQuery = new AlgoliaQuery($search->query);
 
         $query = $this->tournament;
 
-        if(! is_null($algoliaQuery->south()))
-        {
+        if (! is_null($algoliaQuery->south())) {
             $query->where('latitude', '>', $algoliaQuery->south())
                 ->where('latitude', '<', $algoliaQuery->north())
                 ->where('longitude', '>', $algoliaQuery->west())
@@ -131,16 +129,14 @@ class SearchRepository
         }
 
         // Formats
-        if(! is_null($algoliaQuery->formats()))
-        {
+        if (! is_null($algoliaQuery->formats())) {
             $formats = Format::whereIn('title', $algoliaQuery->formats())->select('id')->get();
 
             $query->whereIn('format_id', $formats->pluck('id'));
         }
 
         // Classes
-        if(! is_null($algoliaQuery->classes()))
-        {
+        if (! is_null($algoliaQuery->classes())) {
             $classes = Classes::whereIn('title', $algoliaQuery->classes())->select('id')->get();
 
             $query->whereHas('classes', function ($query) use ($classes) {
@@ -149,12 +145,15 @@ class SearchRepository
         }
 
         // Dates
-        if(! is_null($algoliaQuery->from())) $query->where('start', '>=', $algoliaQuery->from());
-        if(! is_null($algoliaQuery->to())) $query->where('start', '<=', $algoliaQuery->to());
+        if (! is_null($algoliaQuery->from())) {
+            $query->where('start', '>=', $algoliaQuery->from());
+        }
+        if (! is_null($algoliaQuery->to())) {
+            $query->where('start', '<=', $algoliaQuery->to());
+        }
 
         // Pdga Tiers
-        if(! is_null($algoliaQuery->pdgaTiers()))
-        {
+        if (! is_null($algoliaQuery->pdgaTiers())) {
             $pdgaTiers = PdgaTier::whereIn('code', $algoliaQuery->pdgaTiers())->select('id')->get();
 
             $query->whereHas('pdgaTiers', function ($query) use ($pdgaTiers) {
@@ -163,8 +162,7 @@ class SearchRepository
         }
 
         // Special Event Types
-        if(! is_null($algoliaQuery->specialEventTypes()))
-        {
+        if (! is_null($algoliaQuery->specialEventTypes())) {
             $specialEventTypes = SpecialEventType::whereIn('title', $algoliaQuery->specialEventTypes())->select('id')->get();
 
             $query->whereHas('specialEventTypes', function ($query) use ($specialEventTypes) {
@@ -173,11 +171,12 @@ class SearchRepository
         }
 
         // Sanctioned
-        if(! is_null($algoliaQuery->sanctioned()))
-        {
-            if(in_array('PDGA', $algoliaQuery->sanctioned())) $query->has('pdgaTiers');
-
-            elseif(in_array('Unsanctioned', $algoliaQuery->sanctioned())) $query->doesntHave('pdgaTiers');
+        if (! is_null($algoliaQuery->sanctioned())) {
+            if (in_array('PDGA', $algoliaQuery->sanctioned())) {
+                $query->has('pdgaTiers');
+            } elseif (in_array('Unsanctioned', $algoliaQuery->sanctioned())) {
+                $query->doesntHave('pdgaTiers');
+            }
         }
 
         return $query->get();
@@ -185,7 +184,7 @@ class SearchRepository
 
     public function updateSearches(User $user)
     {
-        $user->searches->each(function(Search $search) {
+        $user->searches->each(function (Search $search) {
             $search->update(['searched_at' => Carbon::now()]);
         });
     }

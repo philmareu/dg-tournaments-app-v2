@@ -5,13 +5,10 @@ namespace Tests\Feature\API\Order;
 use App\Models\Order;
 use App\Models\OrderSponsorship;
 use App\Models\Sponsorship;
-use Illuminate\Support\Facades\Event;
-use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Event;
 use PHPUnit\Framework\Attributes\Test;
+use Tests\TestCase;
 
 class SponsorshipProductsEndpointTest extends TestCase
 {
@@ -29,7 +26,7 @@ class SponsorshipProductsEndpointTest extends TestCase
     {
         $sponsorship = Sponsorship::factory()->create();
 
-        $this->json('PUT', 'order/sponsorships/' . $sponsorship->id)
+        $this->json('PUT', 'order/sponsorships/'.$sponsorship->id)
             ->assertCookie('_oo');
     }
 
@@ -38,12 +35,12 @@ class SponsorshipProductsEndpointTest extends TestCase
     {
         $sponsorship = Sponsorship::factory()->create();
 
-        $response = $this->json('PUT', 'order/sponsorships/' . $sponsorship->id);
+        $response = $this->json('PUT', 'order/sponsorships/'.$sponsorship->id);
 
         $this->assertDatabaseHas('order_sponsorships', [
             'order_id' => $response->getOriginalContent()->id,
             'sponsorship_id' => $sponsorship->id,
-            'cost' => $sponsorship->cost->inCents()
+            'cost' => $sponsorship->cost->inCents(),
         ]);
     }
 
@@ -52,11 +49,11 @@ class SponsorshipProductsEndpointTest extends TestCase
     {
         $orderSponsorship = OrderSponsorship::factory()->create();
 
-        $this->json('DELETE', 'order/sponsorships/' . $orderSponsorship->id)
+        $this->json('DELETE', 'order/sponsorships/'.$orderSponsorship->id)
             ->assertStatus(200);
 
         $this->assertDatabaseMissing('order_sponsorships', [
-            'id' => $orderSponsorship->id
+            'id' => $orderSponsorship->id,
         ]);
     }
 
@@ -68,14 +65,14 @@ class SponsorshipProductsEndpointTest extends TestCase
         $order->paid = 1;
         $order->save();
 
-        $this->json('DELETE', 'order/sponsorships/' . $orderSponsorship->id)
+        $this->json('DELETE', 'order/sponsorships/'.$orderSponsorship->id)
             ->assertStatus(200);
 
         // Assert that it does still exist
 
         $this->assertDatabaseHas('order_sponsorships', [
             'id' => $orderSponsorship->id,
-            'order_id' => $order->id
+            'order_id' => $order->id,
         ]);
     }
 
@@ -84,19 +81,19 @@ class SponsorshipProductsEndpointTest extends TestCase
     {
         $sponsorship = Sponsorship::factory()->create();
 
-        $this->json('PUT', 'order/sponsorships/' . $sponsorship->id)
+        $this->json('PUT', 'order/sponsorships/'.$sponsorship->id)
             ->assertJson([
                 'sponsorships' => [
                     [
                         'id' => $sponsorship->id,
                         'sponsorship' => [
                             'tournament' => [
-                                'poster' => []
-                            ]
+                                'poster' => [],
+                            ],
                         ],
-                        'cost' => $sponsorship->cost->inCents()
-                    ]
-                ]
+                        'cost' => $sponsorship->cost->inCents(),
+                    ],
+                ],
             ]);
     }
 
@@ -106,7 +103,7 @@ class SponsorshipProductsEndpointTest extends TestCase
         $order = Order::factory()->create();
 
         OrderSponsorship::factory()->count(2)->create([
-            'order_id' => $order->id
+            'order_id' => $order->id,
         ]);
 
         $this->json('DELETE', 'order/sponsorships/1')
@@ -116,11 +113,11 @@ class SponsorshipProductsEndpointTest extends TestCase
                         'id' => 2,
                         'sponsorship' => [
                             'tournament' => [
-                                'poster' => []
-                            ]
-                        ]
-                    ]
-                ]
+                                'poster' => [],
+                            ],
+                        ],
+                    ],
+                ],
             ]);
     }
 }

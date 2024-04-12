@@ -8,11 +8,11 @@ class TournamentCourseHole extends Model
 {
     protected $fillable = [
         'hole',
-        'notes'
+        'notes',
     ];
 
     protected $touches = [
-        'tournamentCourse'
+        'tournamentCourse',
     ];
 
     public function tournamentCourse()

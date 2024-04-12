@@ -3,8 +3,6 @@
 namespace App\Listeners\Activity;
 
 use App\Events\Registration\RegistrationOpensSoon;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Contracts\Queue\ShouldQueue;
 
 class CreateTournamentRegistrationOpensSoonActivity
 {
@@ -23,7 +21,6 @@ class CreateTournamentRegistrationOpensSoonActivity
     /**
      * Handle the event.
      *
-     * @param  RegistrationOpensSoon  $event
      * @return void
      */
     public function handle(RegistrationOpensSoon $event)

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Events\TournamentAutoAssigned;
 use App\Models\Activity;
 use App\Models\Follow;
 use App\Models\Tournament;
@@ -31,7 +30,9 @@ class HomeController extends Controller
 
     public function index()
     {
-        if(auth()->guest()) return $this->guest();
+        if (auth()->guest()) {
+            return $this->guest();
+        }
 
         return $this->auth();
     }
@@ -39,26 +40,26 @@ class HomeController extends Controller
     public function auth()
     {
         $feed = auth()->user()->feed->reject(function (Activity $activity) {
-                return is_null($activity->resource);
-            })
+            return is_null($activity->resource);
+        })
             ->map(function (Activity $activity) {
                 return view('partials.activities.activity')->withActivity($activity)->render();
             });
 
-//        $markers = $this->createMarkers(
-//            auth()->user()->followingTournaments->load('resource')->pluck('resource')
-//        );
+        //        $markers = $this->createMarkers(
+        //            auth()->user()->followingTournaments->load('resource')->pluck('resource')
+        //        );
 
         return view('pages.feed.auth')
             ->withUser(auth()->user())
-            ->withUpcoming(auth()->user()->followingTournaments->reject(function(Follow $follow) {
+            ->withUpcoming(auth()->user()->followingTournaments->reject(function (Follow $follow) {
                 return is_null($follow->resource);
             })
-                ->reject(function(Follow $follow) {
-                return $follow->resource->isPast;
-            })->sortBy(function(Follow $follow) {
+                ->reject(function (Follow $follow) {
+                    return $follow->resource->isPast;
+                })->sortBy(function (Follow $follow) {
                     return $follow->resource->start;
-            }))
+                }))
 //            ->withMarkers($markers)
             ->withFeed($feed);
     }
@@ -78,10 +79,10 @@ class HomeController extends Controller
             ->withRecentPosts($this->blogRepository->getRecent(10))
             ->withCounts([
                 'tournaments' => $this->tournament->future()->count(),
-                'users' => $this->user->count()
+                'users' => $this->user->count(),
             ]);
-//            ->withMarkers($markers);
-//            ->withFeed($feed);
+        //            ->withMarkers($markers);
+        //            ->withFeed($feed);
     }
 
     private function createMarkers(Collection $tournaments)
@@ -93,7 +94,7 @@ class HomeController extends Controller
             return [
                 'latitude' => $tournament->latitude,
                 'longitude' => $tournament->longitude,
-                'popup' => view('partials.markers.tournament')->withTournament($tournament)->render()
+                'popup' => view('partials.markers.tournament')->withTournament($tournament)->render(),
             ];
         });
     }
@@ -106,9 +107,6 @@ class HomeController extends Controller
     /**
      * I had to do this to normalize the tournament collection since different json results
      * where seen from ->toJson().
-     *
-     * @param Collection $tournaments
-     * @return Collection
      */
     private function normalizeTournamentCollection(Collection $tournaments): Collection
     {

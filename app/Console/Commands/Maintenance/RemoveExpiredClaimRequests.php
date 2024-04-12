@@ -2,8 +2,8 @@
 
 namespace App\Console\Commands\Maintenance;
 
-use Carbon\Carbon;
 use App\Models\ClaimRequest;
+use Carbon\Carbon;
 use Illuminate\Console\Command;
 
 class RemoveExpiredClaimRequests extends Command

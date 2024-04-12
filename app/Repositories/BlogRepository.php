@@ -2,13 +2,13 @@
 
 namespace App\Repositories;
 
-use Carbon\Carbon;
 use App\Models\Post;
 use App\Models\PostCategory;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
-class BlogRepository extends EloquentRepository {
-
+class BlogRepository extends EloquentRepository
+{
     protected $category;
 
     public function __construct(Post $model, PostCategory $category)

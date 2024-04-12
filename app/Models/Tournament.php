@@ -2,13 +2,13 @@
 
 namespace App\Models;
 
-use Carbon\Carbon;
 use App\Collections\TournamentsCollection;
 use App\Data\Dates;
 use App\Data\Location;
 use App\Events\Models\TournamentCreated;
 use App\Events\Models\TournamentUpdating;
 use App\Models\User\User;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -16,8 +16,8 @@ use Laravel\Scout\Searchable;
 
 class Tournament extends Model
 {
-    use SoftDeletes, Searchable;
     use HasFactory;
+    use Searchable, SoftDeletes;
 
     protected $appends = [
         'location',
@@ -25,11 +25,11 @@ class Tournament extends Model
         'path',
         'special_event_type_ids',
         'class_ids',
-        'schedule_by_day'
+        'schedule_by_day',
     ];
 
     protected $hidden = [
-        'authorization_email'
+        'authorization_email',
     ];
 
     protected $casts = [
@@ -56,12 +56,12 @@ class Tournament extends Model
         'format_id',
         'timezone',
         'director',
-        'paypal'
+        'paypal',
     ];
 
     protected $dispatchesEvents = [
         'created' => TournamentCreated::class,
-        'updating' => TournamentUpdating::class
+        'updating' => TournamentUpdating::class,
     ];
 
     public function newCollection(array $models = [])
@@ -121,7 +121,7 @@ class Tournament extends Model
 
     public function getPathAttribute()
     {
-        return '/disc-golf-tournament/' . $this->id . '/' . $this->slug;
+        return '/disc-golf-tournament/'.$this->id.'/'.$this->slug;
     }
 
     public function courses()
@@ -190,7 +190,9 @@ class Tournament extends Model
 
     public function toSearchableArray()
     {
-        if(! $this->validForSearch()) return [];
+        if (! $this->validForSearch()) {
+            return [];
+        }
 
         $this->load('sponsorships');
 
@@ -218,7 +220,7 @@ class Tournament extends Model
             'special_event_types' => $this->specialEventTypes->pluck('title')->toArray(),
             'sanctioned' => $this->getSanctionedByPdgaAttribute() ? 'PDGA' : 'Unsanctioned',
             'has_sponsorships' => $this->sponsorships->count() ? 'Yes' : 'No',
-            'sponsorship_prices' => $this->getSponsorshipPrices()
+            'sponsorship_prices' => $this->getSponsorshipPrices(),
         ];
     }
 
@@ -234,15 +236,12 @@ class Tournament extends Model
             ->withPivot(['id', 'notes', 'review_on']);
     }
 
-//    public function hasActiveFlags()
-//    {
-//        return (bool) $this->flags->where('review_on', '<', Carbon::now())->count();
-//    }
+    //    public function hasActiveFlags()
+    //    {
+    //        return (bool) $this->flags->where('review_on', '<', Carbon::now())->count();
+    //    }
 
-    /**
-     * @return array
-     */
-    private function getSponsorshipPrices() : array
+    private function getSponsorshipPrices(): array
     {
         return array_map(function ($cents) {
             return $cents / 100;
@@ -260,21 +259,15 @@ class Tournament extends Model
     {
         return $this->hasMany(Tournament::class, 'authorization_email', 'authorization_email')
             ->where('end', '>', Carbon::now()->subDay(1))
-            ->whereHas('flags', function($query) {
+            ->whereHas('flags', function ($query) {
                 $query->where('review_on', '<', Carbon::now());
             });
     }
 
-    public function headquartersWasUpdated() : bool
+    public function headquartersWasUpdated(): bool
     {
         return $this->activities()->where('type', 'tournament.headquarters.updated')->exists();
     }
-
-
-
-
-
-
 
     public function scopePast($query)
     {
@@ -288,7 +281,9 @@ class Tournament extends Model
 
     public function scopeWithCourses($query, $yesNo)
     {
-        if($yesNo) return $query->has('courses', '>', 0);
+        if ($yesNo) {
+            return $query->has('courses', '>', 0);
+        }
 
         return $query->has('courses', '=', 0);
     }
@@ -321,13 +316,13 @@ class Tournament extends Model
             'north' => $this->courses->max('latitude') + $extend,
             'east' => $this->courses->min('longitude') - $extend,
             'south' => $this->courses->min('latitude') - $extend,
-            'west' => $this->courses->max('longitude') + $extend
+            'west' => $this->courses->max('longitude') + $extend,
         ];
     }
 
     public function hasLocation()
     {
-        return $this->courses->count() OR ! is_null($this->latitude);
+        return $this->courses->count() or ! is_null($this->latitude);
     }
 
     public function hasCourses()
@@ -400,7 +395,7 @@ class Tournament extends Model
         return $this->belongsTo(Upload::class)->withDefault([
             'id' => null,
             'filename' => 'default-poster.png',
-            'alt' => 'Default DGT poster'
+            'alt' => 'Default DGT poster',
         ]);
     }
 
@@ -410,7 +405,7 @@ class Tournament extends Model
             'id' => null,
             'opens_at' => null,
             'closes_at' => null,
-            'url' => null
+            'url' => null,
         ]);
     }
 

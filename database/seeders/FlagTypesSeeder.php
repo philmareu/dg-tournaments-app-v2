@@ -18,27 +18,27 @@ class FlagTypesSeeder extends Seeder
     {
         FlagType::factory()->create([
             'id' => 1,
-            'title' => 'Needs Lat/Lng'
+            'title' => 'Needs Lat/Lng',
         ]);
 
         FlagType::factory()->create([
             'id' => 2,
-            'title' => 'Needs Course'
+            'title' => 'Needs Course',
         ]);
 
         FlagType::factory()->create([
             'id' => 3,
-            'title' => 'Needs Registration Link'
+            'title' => 'Needs Registration Link',
         ]);
 
         FlagType::factory()->create([
             'id' => 4,
-            'title' => 'Potential Women\'s only event'
+            'title' => 'Potential Women\'s only event',
         ]);
 
         FlagType::factory()->create([
             'id' => 5,
-            'title' => 'Potential Junior\'s only event'
+            'title' => 'Potential Junior\'s only event',
         ]);
     }
 }

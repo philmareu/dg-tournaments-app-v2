@@ -11,11 +11,11 @@ class PlayerPack extends Model
 
     protected $fillable = [
         'title',
-        'description'
+        'description',
     ];
 
     protected $touches = [
-        'tournament'
+        'tournament',
     ];
 
     public function tournament()

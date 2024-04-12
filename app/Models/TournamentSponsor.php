@@ -10,7 +10,7 @@ class TournamentSponsor extends Model
     use HasFactory;
 
     protected $touches = [
-        'tournament'
+        'tournament',
     ];
 
     public function tournament()

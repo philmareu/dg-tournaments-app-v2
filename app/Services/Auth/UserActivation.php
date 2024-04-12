@@ -1,4 +1,6 @@
-<?php namespace App\Services\Auth;
+<?php
+
+namespace App\Services\Auth;
 
 use App\Mail\User\Activation;
 use App\Models\User\User;
@@ -50,6 +52,7 @@ class UserActivation
     private function shouldSend($user)
     {
         $activation = $this->activationRepository->getActivation($user);
+
         return $activation === null || $activation->created_at->diffInHours > $this->resendAfter;
     }
 }

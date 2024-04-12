@@ -17,7 +17,7 @@ class Post extends Model
         'published',
         'category_id',
         'author_id',
-        'image_id'
+        'image_id',
     ];
 
     protected $casts = [
@@ -41,6 +41,6 @@ class Post extends Model
 
     public function getPathAttribute()
     {
-        return 'blog/' . $this->posted_at->format('Y/m/d') . '/' . $this->slug;
+        return 'blog/'.$this->posted_at->format('Y/m/d').'/'.$this->slug;
     }
 }

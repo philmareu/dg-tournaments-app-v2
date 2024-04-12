@@ -8,7 +8,6 @@
 
 namespace App\Services\DarkSky\Http;
 
-
 trait Query
 {
     /**
@@ -33,7 +32,7 @@ trait Query
     }
 
     /**
-     * @param array $query
+     * @param  array  $query
      * @return array
      */
     protected function addParameter(array $parameter)
@@ -42,7 +41,7 @@ trait Query
     }
 
     /**
-     * @param array $query
+     * @param  array  $query
      * @return array
      */
     protected function addParameters(array $parameters)
@@ -52,7 +51,6 @@ trait Query
     }
 
     /**
-     * @param $authorization
      * @return string
      */
     protected function buildRequestQuery(Auth $authorization)

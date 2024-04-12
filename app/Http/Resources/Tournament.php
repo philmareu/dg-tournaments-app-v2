@@ -58,13 +58,15 @@ class Tournament extends JsonResource
             'stripe_account_id' => $this->when($this->isManager(), $this->stripe_account_id),
             'can_except_online_payments' => $this->canExceptOnlinePayments(),
             'sponsorships' => $this->load('sponsorships.tournamentSponsors.sponsor.logo')->sponsorships,
-            'claim_request' => $this->claimRequest
+            'claim_request' => $this->claimRequest,
         ];
     }
 
     private function isManager()
     {
-        if(! Auth::check()) return false;
+        if (! Auth::check()) {
+            return false;
+        }
 
         return Auth::user()->hasAccessToTournament($this->id);
     }

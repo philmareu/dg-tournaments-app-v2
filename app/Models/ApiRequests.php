@@ -8,6 +8,6 @@ class ApiRequests extends Model
 {
     protected $fillable = [
         'provider',
-        'type'
+        'type',
     ];
 }

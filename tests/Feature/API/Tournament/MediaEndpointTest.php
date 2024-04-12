@@ -4,13 +4,10 @@ namespace Tests\Feature\API\Tournament;
 
 use App\Models\Tournament;
 use App\Models\Upload;
-use Illuminate\Support\Facades\Event;
-use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Event;
 use PHPUnit\Framework\Attributes\Test;
+use Tests\TestCase;
 
 class MediaEndpointTest extends TestCase
 {
@@ -28,7 +25,7 @@ class MediaEndpointTest extends TestCase
     {
 
         $this->actingAs($this->createUser())
-            ->json('POST', 'tournament/media/' . Tournament::factory()->create()->id)
+            ->json('POST', 'tournament/media/'.Tournament::factory()->create()->id)
             ->assertStatus(403);
     }
 
@@ -37,7 +34,7 @@ class MediaEndpointTest extends TestCase
     {
 
         $this->actingAs($this->createUser())
-            ->json('PUT', 'tournament/media/' . Tournament::factory()->create()->id)
+            ->json('PUT', 'tournament/media/'.Tournament::factory()->create()->id)
             ->assertStatus(403);
     }
 
@@ -49,41 +46,41 @@ class MediaEndpointTest extends TestCase
         $tournament->media()->attach($upload->id);
 
         $this->actingAs($this->createUser())
-            ->json('DELETE', 'tournament/media/' . $tournament->id . '/' . $upload->id)
+            ->json('DELETE', 'tournament/media/'.$tournament->id.'/'.$upload->id)
             ->assertStatus(403);
     }
 
     #[Test]
     public function manager_can_store_a_new_media_file()
     {
-        list($user, $tournament) = $this->createTournamentWithManager();
+        [$user, $tournament] = $this->createTournamentWithManager();
 
         $upload = Upload::factory()->create();
 
         $data = [
             'title' => 'Upload Title',
-            'uploaded_id' => $upload->id
+            'uploaded_id' => $upload->id,
         ];
 
         $this->actingAs($user)
-            ->json('POST', 'tournament/media/' . $tournament->id, $data)
+            ->json('POST', 'tournament/media/'.$tournament->id, $data)
             ->assertJson([
                 [
                     'id' => $upload->id,
-                    'title' => 'Upload Title'
-                ]
+                    'title' => 'Upload Title',
+                ],
             ]);
 
         $this->assertDatabaseHas('media', [
             'tournament_id' => $tournament->id,
-            'upload_id' => $upload->id
+            'upload_id' => $upload->id,
         ]);
     }
 
     #[Test]
     public function manager_can_update_a_media_file()
     {
-        list($user, $tournament) = $this->createTournamentWithManager();
+        [$user, $tournament] = $this->createTournamentWithManager();
 
         $upload = Upload::factory()->create();
         $tournament->media()->save($upload);
@@ -93,40 +90,40 @@ class MediaEndpointTest extends TestCase
         $data = [
             'title' => 'Upload Title',
             'id' => $upload->id,
-            'uploaded_id' => $newUpload->id
+            'uploaded_id' => $newUpload->id,
         ];
 
         $this->actingAs($user)
-            ->json('PUT', 'tournament/media/' . $tournament->id, $data)
+            ->json('PUT', 'tournament/media/'.$tournament->id, $data)
             ->assertJson([
                 [
                     'id' => $newUpload->id,
                     'title' => 'Upload Title',
-                ]
+                ],
             ]);
 
         $this->assertDatabaseHas('media', [
             'tournament_id' => $tournament->id,
-            'upload_id' => $newUpload->id
+            'upload_id' => $newUpload->id,
         ]);
     }
 
     #[Test]
     public function manager_can_delete_a_media_item()
     {
-        list($user, $tournament) = $this->createTournamentWithManager();
+        [$user, $tournament] = $this->createTournamentWithManager();
 
         $upload = Upload::factory()->create();
 
         $tournament->media()->save($upload);
 
         $this->actingAs($user)
-            ->json('DELETE', 'tournament/media/' . $tournament->id . '/' . $upload->id)
+            ->json('DELETE', 'tournament/media/'.$tournament->id.'/'.$upload->id)
             ->assertJson([]);
 
         $this->assertDatabaseMissing('media', [
             'upload_id' => $upload->id,
-            'tournament_id' => $tournament->id
+            'tournament_id' => $tournament->id,
         ]);
     }
 }

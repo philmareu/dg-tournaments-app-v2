@@ -3,7 +3,6 @@
 namespace App\Listeners\Activity;
 
 use App\Events\CourseCreated;
-use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
 class CreateCourseCreatedActivity implements ShouldQueue
@@ -23,7 +22,6 @@ class CreateCourseCreatedActivity implements ShouldQueue
     /**
      * Handle the event.
      *
-     * @param  CourseCreated  $event
      * @return void
      */
     public function handle(CourseCreated $event)

@@ -4,8 +4,6 @@ namespace App\Listeners\EmailNotifications;
 
 use App\Events\TournamentSubmitted;
 use App\Mail\User\TournamentSubmittedConfirmationMailable;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\Mail;
 
 class SendTournamentSubmittedConfirmationEmail
@@ -23,7 +21,6 @@ class SendTournamentSubmittedConfirmationEmail
     /**
      * Handle the event.
      *
-     * @param  TournamentSubmitted  $event
      * @return void
      */
     public function handle(TournamentSubmitted $event)

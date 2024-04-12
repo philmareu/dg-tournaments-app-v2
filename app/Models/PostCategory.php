@@ -8,7 +8,7 @@ class PostCategory extends Model
 {
     protected $fillable = [
         'title',
-        'slug'
+        'slug',
     ];
 
     public function posts()

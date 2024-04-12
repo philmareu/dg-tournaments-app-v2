@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Endpoints;
 
-use App\Models\SpecialEventType;
 use App\Http\Controllers\Controller;
+use App\Models\SpecialEventType;
 
 class SpecialEventTypesEndpointController extends Controller
 {

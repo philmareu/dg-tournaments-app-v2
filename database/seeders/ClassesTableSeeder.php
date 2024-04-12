@@ -15,11 +15,11 @@ class ClassesTableSeeder extends Seeder
     public function run()
     {
         Classes::factory()->create([
-            'title' => 'Pro'
+            'title' => 'Pro',
         ]);
 
         Classes::factory()->create([
-            'title' => 'Am'
+            'title' => 'Am',
         ]);
     }
 }

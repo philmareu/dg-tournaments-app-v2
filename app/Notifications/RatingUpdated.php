@@ -4,9 +4,8 @@ namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Messages\BroadcastMessage;
-use Illuminate\Notifications\Notification;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Notifications\Notification;
 
 class RatingUpdated extends Notification
 {
@@ -60,7 +59,7 @@ class RatingUpdated extends Notification
     {
         return [
             'old' => $this->old,
-            'new' => $this->new
+            'new' => $this->new,
         ];
     }
 
@@ -74,7 +73,7 @@ class RatingUpdated extends Notification
     {
         return new BroadcastMessage([
             'old' => $this->old,
-            'new' => $this->new
+            'new' => $this->new,
         ]);
     }
 }

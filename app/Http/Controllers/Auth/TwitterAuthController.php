@@ -3,10 +3,9 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Events\NewUserActivated;
+use App\Http\Controllers\Controller;
 use App\Models\User\User;
 use Illuminate\Auth\Events\Registered;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Support\Facades\Auth;
@@ -45,12 +44,9 @@ class TwitterAuthController extends Controller implements HasMiddleware
      */
     public function handleProviderCallback()
     {
-        try
-        {
+        try {
             $user = Socialite::driver('twitter')->user();
-        }
-        catch (\Exception $exception)
-        {
+        } catch (\Exception $exception) {
             return redirect('login')->with('failed', 'Login with Twitter was unsuccessful');
         }
 
@@ -65,15 +61,17 @@ class TwitterAuthController extends Controller implements HasMiddleware
     {
         $existingUsers = $this->user->where('email', $user->getEmail())->first();
 
-        if($existingUsers) return $existingUsers;
+        if ($existingUsers) {
+            return $existingUsers;
+        }
 
-        $newUser =  $this->user->create([
+        $newUser = $this->user->create([
             'name' => $user->getName(),
             'email' => $user->getEmail(),
             'provider' => 'twitter',
             'provider_id' => $user->getId(),
             'token' => $user->token,
-            'token_secret' => $user->tokenSecret
+            'token_secret' => $user->tokenSecret,
         ]);
 
         $newUser->activated = 1;

@@ -12,7 +12,7 @@ class Classes extends Model
     public $timestamps = false;
 
     protected $touches = [
-        'tournaments'
+        'tournaments',
     ];
 
     public function tournaments()

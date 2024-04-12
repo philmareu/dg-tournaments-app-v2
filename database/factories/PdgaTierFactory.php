@@ -18,7 +18,7 @@ class PdgaTierFactory extends Factory
     {
         return [
             'title' => fake()->word(),
-            'code' => fake()->randomLetter() . fake()->randomLetter(),
+            'code' => fake()->randomLetter().fake()->randomLetter(),
         ];
     }
 }

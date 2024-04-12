@@ -2,10 +2,9 @@
 
 namespace Tests\Unit\Data;
 
-use Carbon\Carbon;
 use App\Data\Dates;
+use Carbon\Carbon;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class DatesTest extends TestCase
 {

@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Endpoints;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Endpoints\Tournament\DestroyPlayerPackItemRequest;
 use App\Http\Requests\Endpoints\Tournament\StorePlayerPackItemRequest;
 use App\Http\Requests\Endpoints\Tournament\UpdatePlayerPackItemRequest;
 use App\Models\PlayerPack;
 use App\Models\PlayerPackItem;
 use Illuminate\Database\Eloquent\Model;
-use App\Http\Controllers\Controller;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
 

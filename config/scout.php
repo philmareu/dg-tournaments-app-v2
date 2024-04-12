@@ -122,10 +122,10 @@ return [
                         'name',
                         'city',
                         'latitude',
-                        'longitude'
+                        'longitude',
                     ],
                     'customRanking' => [
-                        'asc(start_unix)'
+                        'asc(start_unix)',
                     ],
                     'attributesForFaceting' => [
                         'classes',
@@ -135,11 +135,11 @@ return [
                         'special_event_types',
                         'sanctioned',
                         'sponsorship_prices',
-                        'has_sponsorships'
-                    ]
-                ]
-            ]
-        ]
+                        'has_sponsorships',
+                    ],
+                ],
+            ],
+        ],
     ],
 
     /*

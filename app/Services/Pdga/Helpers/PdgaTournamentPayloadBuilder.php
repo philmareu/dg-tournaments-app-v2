@@ -2,20 +2,15 @@
 
 namespace App\Services\Pdga\Helpers;
 
-
-use Carbon\Carbon;
 use App\Models\Classes;
 use App\Models\Format;
 use App\Models\PdgaTier;
 use App\Services\API\Contracts\PayloadBuilderInterface;
-use Illuminate\Support\Collection;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
 
 class PdgaTournamentPayloadBuilder implements PayloadBuilderInterface
 {
-    /**
-     * @var
-     */
     protected $tournamentApiData;
 
     public function __construct($tournamentApiData)
@@ -23,7 +18,7 @@ class PdgaTournamentPayloadBuilder implements PayloadBuilderInterface
         $this->tournamentApiData = $tournamentApiData;
     }
 
-    static public function make($tournamentApiData)
+    public static function make($tournamentApiData)
     {
         return new static($tournamentApiData);
     }
@@ -45,7 +40,7 @@ class PdgaTournamentPayloadBuilder implements PayloadBuilderInterface
             'longitude' => $this->tournamentApiData['longitude'],
             'email' => $this->tournamentApiData['event_email'],
             'updated_at' => Carbon::createFromFormat('Y-m-d', $this->tournamentApiData['last_modified']),
-            'director' => $this->tournamentApiData['tournament_director']
+            'director' => $this->tournamentApiData['tournament_director'],
         ];
     }
 
@@ -53,7 +48,7 @@ class PdgaTournamentPayloadBuilder implements PayloadBuilderInterface
     {
         $pdgaTier = new PdgaTier();
 
-        return $pdgaTier->all()->filter(function(PdgaTier $pdgaTier) {
+        return $pdgaTier->all()->filter(function (PdgaTier $pdgaTier) {
             return strpos($this->tournamentApiData['tier'], $pdgaTier->code) !== false;
         });
     }
@@ -62,7 +57,7 @@ class PdgaTournamentPayloadBuilder implements PayloadBuilderInterface
     {
         $classes = new Classes;
 
-        return $classes->all()->filter(function(Classes $class) {
+        return $classes->all()->filter(function (Classes $class) {
             return strpos($this->tournamentApiData['class'], $class->title) !== false;
         });
     }
@@ -71,8 +66,7 @@ class PdgaTournamentPayloadBuilder implements PayloadBuilderInterface
     {
         $format = Format::where(['code' => $this->tournamentApiData['format']])->first();
 
-        if(is_null($format))
-        {
+        if (is_null($format)) {
             Log::info('New Format:');
             Log::info($this->tournamentApiData);
         }

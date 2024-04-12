@@ -2,7 +2,6 @@
 
 namespace App\Repositories;
 
-
 use App\Events\TournamentClaimRequestSubmitted;
 use App\Models\ClaimRequest;
 use Illuminate\Support\Str;

@@ -2,7 +2,6 @@
 
 namespace App\Repositories;
 
-
 use App\Models\Activity;
 use Illuminate\Database\Eloquent\Collection;
 
@@ -13,67 +12,67 @@ class ActivityRepository
     protected $feedActivityTypes = [
         [
             'type' => 'pdga.rating.updated',
-            'guest' => false
+            'guest' => false,
         ],
         [
             'type' => 'searches.tournaments.new',
-            'guest' => false
+            'guest' => false,
         ],
         [
             'type' => 'tournament.course.created',
-            'guest' => true
+            'guest' => true,
         ],
         [
             'type' => 'tournament.date.updated',
-            'guest' => true
+            'guest' => true,
         ],
         [
             'type' => 'tournament.description.updated',
-            'guest' => true
+            'guest' => true,
         ],
         [
             'type' => 'tournament.headquarters.updated',
-            'guest' => true
+            'guest' => true,
         ],
         [
             'type' => 'tournament.links.updated',
-            'guest' => true
+            'guest' => true,
         ],
         [
             'type' => 'tournament.media.updated',
-            'guest' => true
+            'guest' => true,
         ],
         [
             'type' => 'tournament.name.updated',
-            'guest' => true
+            'guest' => true,
         ],
         [
             'type' => 'tournament.player_pack.updated',
-            'guest' => true
+            'guest' => true,
         ],
         [
             'type' => 'tournament.poster.updated',
-            'guest' => true
+            'guest' => true,
         ],
         [
             'type' => 'tournament.registration.updated',
-            'guest' => true
+            'guest' => true,
         ],
         [
             'type' => 'tournament.schedule.updated',
-            'guest' => true
+            'guest' => true,
         ],
         [
             'type' => 'tournament.sponsorship.created',
-            'guest' => true
+            'guest' => true,
         ],
         [
             'type' => 'tournament.user.assigned',
-            'guest' => false
+            'guest' => false,
         ],
         [
             'type' => 'tournament_course.created',
-            'guest' => false
+            'guest' => false,
         ],
     ];
 
@@ -83,7 +82,7 @@ class ActivityRepository
         $this->feedActivityTypes = collect($this->feedActivityTypes);
     }
 
-    public function getRecentActivityForGuests($limit = 40) : Collection
+    public function getRecentActivityForGuests($limit = 40): Collection
     {
         return $this->activity
             ->whereIn('type', $this->feedActivityTypes->where('guest', true)->pluck('type'))
