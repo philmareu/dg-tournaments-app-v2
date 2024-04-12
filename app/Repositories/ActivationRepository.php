@@ -2,6 +2,7 @@
 
 use App\Models\User\User;
 use App\Models\User\UserActivation;
+use Illuminate\Support\Str;
 
 
 class ActivationRepository
@@ -15,7 +16,7 @@ class ActivationRepository
 
     protected function getToken()
     {
-        return hash_hmac('sha256', str_random(40), config('app.key'));
+        return hash_hmac('sha256', Str::random(40), config('app.key'));
     }
 
     public function createActivation(User $user)

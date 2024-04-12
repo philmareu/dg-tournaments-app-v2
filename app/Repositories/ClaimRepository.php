@@ -5,6 +5,7 @@ namespace App\Repositories;
 
 use App\Events\TournamentClaimRequestSubmitted;
 use App\Models\ClaimRequest;
+use Illuminate\Support\Str;
 
 class ClaimRepository
 {
@@ -17,7 +18,7 @@ class ClaimRepository
 
     public function createToken()
     {
-        return hash_hmac('sha256', str_random(40), config('app.key'));
+        return hash_hmac('sha256', Str::random(40), config('app.key'));
     }
 
     public function tournamentAlreadyHasRequest($tournament)

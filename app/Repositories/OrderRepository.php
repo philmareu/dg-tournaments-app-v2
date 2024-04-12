@@ -15,6 +15,7 @@ use App\Models\Order;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 
 class OrderRepository
 {
@@ -114,7 +115,7 @@ class OrderRepository
     public function createNewOrder() : Order
     {
         return $this->order->create([
-            'unique' => str_random(100)
+            'unique' => Str::random(100)
         ]);
     }
 
