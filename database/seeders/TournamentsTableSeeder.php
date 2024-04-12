@@ -46,7 +46,8 @@ class TournamentsTableSeeder extends Seeder
             $tournament = Tournament::factory()->create([
                 'name' => $name,
                 'slug' => Str::slug($name),
-                'poster_id' => null
+                'poster_id' => null,
+                'format_id' => 1,
             ]);
 
             $tournament->format()->associate($formats->random());

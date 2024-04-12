@@ -29,11 +29,11 @@ class UsersTableSeeder extends Seeder
 
         $user->stripeAccounts()->save(StripeAccount::factory()->make([
             'display_name' => 'Test Account 1',
-            'stripe_user_id' => env('STRIPE_TEST_ACCOUNT_1_ACCOUNT')
+            'stripe_user_id' => env('STRIPE_TEST_ACCOUNT_1_ACCOUNT', 1)
         ]));
         $user->stripeAccounts()->save(StripeAccount::factory()->make([
             'display_name' => 'Test Account 2',
-            'stripe_user_id' => env('STRIPE_TEST_ACCOUNT_2_ACCOUNT')
+            'stripe_user_id' => env('STRIPE_TEST_ACCOUNT_2_ACCOUNT', 2)
         ]));
 
 //        $user->sponsors()->save(Sponsor::factory()->create());
