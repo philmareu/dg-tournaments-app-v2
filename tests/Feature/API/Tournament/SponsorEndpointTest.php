@@ -11,6 +11,7 @@ use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use PHPUnit\Framework\Attributes\Test;
 
 class SponsorEndpointTest extends TestCase
 {
@@ -23,7 +24,7 @@ class SponsorEndpointTest extends TestCase
         Event::fake();
     }
 
-    /** @test */
+    #[Test]
     public function only_a_manager_can_store_a_tournament_sponsor()
     {
 
@@ -32,7 +33,7 @@ class SponsorEndpointTest extends TestCase
             ->assertStatus(403);
     }
 
-    /** @test */
+    #[Test]
     public function only_a_manager_can_update_a_tournament_sponsor()
     {
 
@@ -41,7 +42,7 @@ class SponsorEndpointTest extends TestCase
             ->assertStatus(403);
     }
 
-    /** @test */
+    #[Test]
     public function only_a_manager_can_delete_a_tournament_sponsor()
     {
 
@@ -50,7 +51,7 @@ class SponsorEndpointTest extends TestCase
             ->assertStatus(403);
     }
 
-    /** @test */
+    #[Test]
     public function manager_can_store_a_new_tournament_sponsor()
     {
         list($user, $tournament) = $this->createTournamentWithManager();
@@ -80,7 +81,7 @@ class SponsorEndpointTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function manager_has_ability_to_update_a_tournament_sponsor()
     {
         list($user, $tournament) = $this->createTournamentWithManager();
@@ -105,7 +106,7 @@ class SponsorEndpointTest extends TestCase
             ]);
     }
 
-    /** @test */
+    #[Test]
     public function manager_can_delete_a_tournament_sponsor()
     {
         list($user, $tournament) = $this->createTournamentWithManager();

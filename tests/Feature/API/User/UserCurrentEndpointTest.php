@@ -7,12 +7,13 @@ use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use PHPUnit\Framework\Attributes\Test;
 
 class UserCurrentEndpointTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
+    #[Test]
     public function should_return_null_when_user_is_not_authenticated()
     {
         $response = $this->json('GET', 'user/current');
@@ -20,7 +21,7 @@ class UserCurrentEndpointTest extends TestCase
         $this->assertNull($response->getOriginalContent());
     }
 
-    /** @test */
+    #[Test]
     public function should_return_user_when_user_is_authenticated()
     {
         $user = $this->createUser();

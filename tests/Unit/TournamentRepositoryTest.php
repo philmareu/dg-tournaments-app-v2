@@ -16,7 +16,7 @@ class TournamentRepositoryTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
+    #[Test]
     public function should_provide_a_list_of_courses_surrounding_a_given_tournament_model()
     {
         Event::fake();

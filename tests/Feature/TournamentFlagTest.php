@@ -7,6 +7,7 @@ use App\Models\Tournament;
 use App\Models\TournamentCourse;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Support\Facades\Event;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -15,9 +16,7 @@ class TournamentFlagTest extends TestCase
 {
     use RefreshDatabase;
 
-    /**
-     * @test
-     */
+    #[Test]
     public function lat_and_lng_flag_is_added_to_tournament_with_no_lat_and_lng()
     {
         $tournament = Tournament::factory()->create([
@@ -31,9 +30,7 @@ class TournamentFlagTest extends TestCase
         ]);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function needs_course_flag_added_by_default_to_new_tournament()
     {
         $tournament = Tournament::factory()->create([
@@ -47,9 +44,7 @@ class TournamentFlagTest extends TestCase
         ]);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function needs_registration_link_flag_added_by_default_to_new_tournament()
     {
         $tournament = Tournament::factory()->create([
@@ -63,9 +58,7 @@ class TournamentFlagTest extends TestCase
         ]);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function maintenance_script_flag_tournaments_will_create_flags_for_tournaments_missing_lat_and_lng()
     {
         Event::fake();
@@ -91,9 +84,7 @@ class TournamentFlagTest extends TestCase
 
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function maintenance_script_flag_tournaments_will_create_flags_for_tournaments_missing_courses()
     {
         Event::fake();
@@ -121,9 +112,7 @@ class TournamentFlagTest extends TestCase
 
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function maintenance_script_flag_tournaments_will_create_flags_for_tournaments_missing_registration()
     {
         Event::fake();

@@ -9,13 +9,14 @@ use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\ValidationHelperTrait;
+use PHPUnit\Framework\Attributes\Test;
 
 class CourseEndpointValidationTest extends TestCase
 {
     use RefreshDatabase;
     use ValidationHelperTrait;
 
-    /** @test */
+    #[Test]
     public function storing_a_tournament_course_requires_a_name()
     {
         $response = $this->storing();
@@ -23,7 +24,7 @@ class CourseEndpointValidationTest extends TestCase
         $this->assertArrayHasKey('holes', $response->getOriginalContent()['errors']);
     }
 
-    /** @test */
+    #[Test]
     public function storing_a_tournament_course_requires_a_holes_field()
     {
         $response = $this->storing();
@@ -31,7 +32,7 @@ class CourseEndpointValidationTest extends TestCase
         $this->assertArrayHasKey('holes', $response->getOriginalContent()['errors']);
     }
 
-    /** @test */
+    #[Test]
     public function storing_a_tournament_course_the_holes_field_must_be_numeric()
     {
         $response = $this->storing(['holes' => 'X']);
@@ -39,7 +40,7 @@ class CourseEndpointValidationTest extends TestCase
         $this->assertArrayHasKey('holes', $response->getOriginalContent()['errors']);
     }
 
-    /** @test */
+    #[Test]
     public function storing_a_tournament_course_the_holes_field_must_be_less_than_100()
     {
         $response = $this->storing(['holes' => 101]);
@@ -47,7 +48,7 @@ class CourseEndpointValidationTest extends TestCase
         $this->assertArrayHasKey('holes', $response->getOriginalContent()['errors']);
     }
 
-    /** @test */
+    #[Test]
     public function storing_a_tournament_course_requires_a_latitude()
     {
         $response = $this->storing();
@@ -55,7 +56,7 @@ class CourseEndpointValidationTest extends TestCase
         $this->assertArrayHasKey('latitude', $response->getOriginalContent()['errors']);
     }
 
-    /** @test */
+    #[Test]
     public function storing_a_tournament_course_the_latitude_must_be_numeric()
     {
         $response = $this->storing(['latitude' => 'X']);
@@ -63,7 +64,7 @@ class CourseEndpointValidationTest extends TestCase
         $this->assertArrayHasKey('latitude', $response->getOriginalContent()['errors']);
     }
 
-    /** @test */
+    #[Test]
     public function storing_a_tournament_course_requires_a_longitude()
     {
         $response = $this->storing();
@@ -71,7 +72,7 @@ class CourseEndpointValidationTest extends TestCase
         $this->assertArrayHasKey('longitude', $response->getOriginalContent()['errors']);
     }
 
-    /** @test */
+    #[Test]
     public function storing_a_tournament_course_the_longitude_must_be_numeric()
     {
         $response = $this->storing(['longitude' => 'X']);
@@ -79,7 +80,7 @@ class CourseEndpointValidationTest extends TestCase
         $this->assertArrayHasKey('longitude', $response->getOriginalContent()['errors']);
     }
 
-    /** @test */
+    #[Test]
     public function storing_a_tournament_course_requires_a_city()
     {
         $response = $this->storing();
@@ -87,7 +88,7 @@ class CourseEndpointValidationTest extends TestCase
         $this->assertArrayHasKey('city', $response->getOriginalContent()['errors']);
     }
 
-    /** @test */
+    #[Test]
     public function storing_a_tournament_course_requires_a_country()
     {
         $response = $this->storing();
@@ -95,7 +96,7 @@ class CourseEndpointValidationTest extends TestCase
         $this->assertArrayHasKey('country', $response->getOriginalContent()['errors']);
     }
 
-    /** @test */
+    #[Test]
     public function updating_a_tournament_course_requires_a_name()
     {
         $response = $this->updating();
@@ -103,7 +104,7 @@ class CourseEndpointValidationTest extends TestCase
         $this->assertArrayHasKey('name', $response->getOriginalContent()['errors']);
     }
 
-    /** @test */
+    #[Test]
     public function updating_a_tournament_course_requires_a_holes_field()
     {
         $response = $this->updating();
@@ -111,7 +112,7 @@ class CourseEndpointValidationTest extends TestCase
         $this->assertArrayHasKey('holes', $response->getOriginalContent()['errors']);
     }
 
-    /** @test */
+    #[Test]
     public function updating_a_tournament_course_the_holes_field_must_be_numeric()
     {
         $response = $this->updating(['holes' => 'X']);
@@ -119,7 +120,7 @@ class CourseEndpointValidationTest extends TestCase
         $this->assertArrayHasKey('holes', $response->getOriginalContent()['errors']);
     }
 
-    /** @test */
+    #[Test]
     public function updating_a_tournament_course_the_holes_field_must_be_less_than_100()
     {
         $response = $this->updating(['holes' => 101]);
@@ -127,7 +128,7 @@ class CourseEndpointValidationTest extends TestCase
         $this->assertArrayHasKey('holes', $response->getOriginalContent()['errors']);
     }
 
-    /** @test */
+    #[Test]
     public function updating_a_tournament_course_requires_a_latitude()
     {
         $response = $this->updating();
@@ -135,7 +136,7 @@ class CourseEndpointValidationTest extends TestCase
         $this->assertArrayHasKey('latitude', $response->getOriginalContent()['errors']);
     }
 
-    /** @test */
+    #[Test]
     public function updating_a_tournament_course_the_latitude_must_be_numeric()
     {
         $response = $this->updating(['latitude' => 'X']);
@@ -143,7 +144,7 @@ class CourseEndpointValidationTest extends TestCase
         $this->assertArrayHasKey('latitude', $response->getOriginalContent()['errors']);
     }
 
-    /** @test */
+    #[Test]
     public function updating_a_tournament_course_requires_a_longitude()
     {
         $response = $this->updating();
@@ -151,7 +152,7 @@ class CourseEndpointValidationTest extends TestCase
         $this->assertArrayHasKey('longitude', $response->getOriginalContent()['errors']);
     }
 
-    /** @test */
+    #[Test]
     public function updating_a_tournament_course_the_longitude_must_be_numeric()
     {
         $response = $this->updating(['longitude' => 'X']);
@@ -159,7 +160,7 @@ class CourseEndpointValidationTest extends TestCase
         $this->assertArrayHasKey('longitude', $response->getOriginalContent()['errors']);
     }
 
-    /** @test */
+    #[Test]
     public function updating_a_tournament_course_requires_a_city()
     {
         $response = $this->updating();
@@ -167,7 +168,7 @@ class CourseEndpointValidationTest extends TestCase
         $this->assertArrayHasKey('city', $response->getOriginalContent()['errors']);
     }
 
-    /** @test */
+    #[Test]
     public function updating_a_tournament_course_requires_a_country()
     {
         $response = $this->updating();
@@ -175,7 +176,7 @@ class CourseEndpointValidationTest extends TestCase
         $this->assertArrayHasKey('country', $response->getOriginalContent()['errors']);
     }
 
-    /** @test */
+    #[Test]
     public function when_storing_a_tournament_course_with_course_id_it_must_exist()
     {
         $response = $this->storing(['course_id' => 10]);

@@ -10,24 +10,25 @@ use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use PHPUnit\Framework\Attributes\Test;
 
 class SponsorValidationEndpointTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
+    #[Test]
     public function storing_a_tournament_sponsor_requires_a_sponsor_id()
     {
         $this->storing('sponsor_id');
     }
 
-    /** @test */
+    #[Test]
     public function storing_a_tournament_sponsor_requires_an_existing_sponsor_id()
     {
         $this->storing('sponsor_id', ['sponsor_id' => 10]);
     }
 
-    /** @test */
+    #[Test]
     public function updating_a_tournament_sponsor_id_requires_an_existing_sponsor_id()
     {
         $this->updating('sponsor_id', ['sponsor_id' => 10]);

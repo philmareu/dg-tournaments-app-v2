@@ -9,6 +9,7 @@ use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use PHPUnit\Framework\Attributes\Test;
 
 class PosterEndpointTest extends TestCase
 {
@@ -21,7 +22,7 @@ class PosterEndpointTest extends TestCase
         Event::fake();
     }
 
-    /** @test */
+    #[Test]
     public function guests_cannot_delete_tournament_poster()
     {
 
@@ -29,7 +30,7 @@ class PosterEndpointTest extends TestCase
             ->assertStatus(401);
     }
 
-    /** @test */
+    #[Test]
     public function only_a_manager_can_delete_tournament_poster()
     {
 
@@ -38,7 +39,7 @@ class PosterEndpointTest extends TestCase
             ->assertStatus(403);
     }
 
-    /** @test */
+    #[Test]
     public function manager_can_delete_tournament_poster()
     {
         list($user, $tournament) = $this->createTournamentWithManager();

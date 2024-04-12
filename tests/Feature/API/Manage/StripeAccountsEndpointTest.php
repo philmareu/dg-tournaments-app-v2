@@ -5,6 +5,7 @@ namespace Tests\Feature\API\Manage;
 use App\Models\StripeAccount;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use PHPUnit\Framework\Attributes\Test;
 
 class StripeAccountsEndpointTest extends TestCase
 {
@@ -12,18 +13,14 @@ class StripeAccountsEndpointTest extends TestCase
 
     protected $endpoint = 'user/stripe';
 
-    /**
-     * @test
-     */
+    #[Test]
     public function guests_can_not_remove_user_stripe_accounts()
     {
         $this->json('DELETE', $this->endpoint . '/' . StripeAccount::factory()->create()->id)
             ->assertStatus(401);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function only_the_owner_can_remove_the_stripe_account()
     {
         $stripeAccount = StripeAccount::factory()->create();
@@ -33,9 +30,7 @@ class StripeAccountsEndpointTest extends TestCase
             ->assertStatus(403);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function authenticated_user_can_remove_their_stripe_account()
     {
         $stripeAccount = StripeAccount::factory()->create();
@@ -49,9 +44,7 @@ class StripeAccountsEndpointTest extends TestCase
         ]);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function fresh_list_of_stripe_accounts_is_returned()
     {
         $user = $this->createUser();

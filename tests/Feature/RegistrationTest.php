@@ -7,6 +7,7 @@ use App\Models\User\User;
 use Illuminate\Auth\Events\Registered;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use PHPUnit\Framework\Attributes\Test;
 
 class RegistrationTest extends TestCase
 {
@@ -19,9 +20,7 @@ class RegistrationTest extends TestCase
         $this->seed('EmailNotificationTypesSeeder');
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function user_becomes_manager_of_any_tournaments_with_an_authorization_email_that_matches_their_email()
     {
         $user = User::factory()->create([

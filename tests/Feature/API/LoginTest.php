@@ -8,12 +8,13 @@ use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use PHPUnit\Framework\Attributes\Test;
 
 class LoginTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
+    #[Test]
     public function user_can_log_in_using_ajax()
     {
         $user = $this->createUser();
@@ -27,7 +28,7 @@ class LoginTest extends TestCase
         $response->assertStatus(200);
     }
 
-    /** @test */
+    #[Test]
     public function user_must_be_activated_to_log_in()
     {
         $user = $this->createUser();
@@ -43,7 +44,7 @@ class LoginTest extends TestCase
         $this->assertArrayHasKey('errors', $response->getOriginalContent());
     }
 
-    /** @test */
+    #[Test]
     public function logging_in_fails_with_wrong_email_address()
     {
         $response = $this->json('POST', 'login', [
@@ -55,7 +56,7 @@ class LoginTest extends TestCase
         $this->assertArrayHasKey('email', $response->getOriginalContent()['errors']);
     }
 
-    /** @test */
+    #[Test]
     public function logging_in_fails_with_wrong_password()
     {
 
@@ -70,7 +71,7 @@ class LoginTest extends TestCase
         $this->assertArrayHasKey('errors', $response->getOriginalContent());
     }
 
-    /** @test */
+    #[Test]
     public function email_address_is_required()
     {
 
@@ -82,7 +83,7 @@ class LoginTest extends TestCase
         $this->assertArrayHasKey('email', $response->getOriginalContent()['errors']);
     }
 
-    /** @test */
+    #[Test]
     public function password_is_required()
     {
 

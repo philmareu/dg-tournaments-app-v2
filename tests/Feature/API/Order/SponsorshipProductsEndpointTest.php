@@ -12,6 +12,7 @@ use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use PHPUnit\Framework\Attributes\Test;
 
 class SponsorshipProductsEndpointTest extends TestCase
 {
@@ -24,9 +25,7 @@ class SponsorshipProductsEndpointTest extends TestCase
         Event::fake();
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function order_cookie_is_returned_with_adding_sponsorship_to_order()
     {
         $sponsorship = Sponsorship::factory()->create();
@@ -35,9 +34,7 @@ class SponsorshipProductsEndpointTest extends TestCase
             ->assertCookie('_oo');
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function sponsorship_product_can_be_added_to_order()
     {
         $sponsorship = Sponsorship::factory()->create();
@@ -51,9 +48,7 @@ class SponsorshipProductsEndpointTest extends TestCase
         ]);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function sponsorship_product_can_be_deleted_from_order()
     {
         $orderSponsorship = OrderSponsorship::factory()->create();
@@ -66,9 +61,7 @@ class SponsorshipProductsEndpointTest extends TestCase
         ]);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function sponsorships_can_not_be_deleted_from_paid_orders()
     {
         $orderSponsorship = OrderSponsorship::factory()->create();
@@ -87,9 +80,7 @@ class SponsorshipProductsEndpointTest extends TestCase
         ]);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function data_is_loaded_when_adding_sponsorships()
     {
         $sponsorship = Sponsorship::factory()->create();
@@ -110,9 +101,7 @@ class SponsorshipProductsEndpointTest extends TestCase
             ]);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function data_is_loaded_when_removing_sponsorships()
     {
         $order = Order::factory()->create();

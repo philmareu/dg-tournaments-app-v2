@@ -12,6 +12,7 @@ use App\Services\API\Payloads\TournamentDataPayload;
 use App\Services\API\Responses\TournamentsResponse;
 use App\Services\Pdga\Helpers\PdgaTournamentPayloadBuilder;
 use Illuminate\Support\Facades\Artisan;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -19,9 +20,7 @@ class PdgaTournamentApiTest extends TestCase
 {
     use RefreshDatabase;
 
-    /**
-     * @test
-     */
+    #[Test]
     public function tournament_api_data_passes_payload_tests()
     {
         $this->seed('ClassesTableSeeder');
@@ -38,9 +37,7 @@ class PdgaTournamentApiTest extends TestCase
         $this->assertTrue(true);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function new_tournaments_are_added_from_the_api()
     {
         $this->seed('ClassesTableSeeder');
@@ -73,9 +70,7 @@ class PdgaTournamentApiTest extends TestCase
         ]);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function tournaments_are_updated_from_the_api()
     {
         $this->seed('ClassesTableSeeder');
@@ -119,9 +114,7 @@ class PdgaTournamentApiTest extends TestCase
         ]);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function linked_tournaments_not_in_api_should_be_removed_from_database()
     {
         $this->seed('ClassesTableSeeder');
@@ -151,9 +144,7 @@ class PdgaTournamentApiTest extends TestCase
         ]);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function new_tournaments_are_assigned_to_existing_accounts_with_same_email()
     {
         $repo = new TournamentRepository(new Tournament);

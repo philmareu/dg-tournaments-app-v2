@@ -3,7 +3,6 @@
 namespace Tests\Feature\API\Order;
 
 use App\Models\Order;
-use App\Models\Order\OrderSponsorshipProduct;
 use App\Models\OrderSponsorship;
 use App\Models\Sponsorship;
 use App\Models\StripeAccount;
@@ -13,14 +12,13 @@ use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use PHPUnit\Framework\Attributes\Test;
 
 class PayOrderEndpointTest extends TestCase
 {
     use RefreshDatabase;
 
-    /**
-     * @test
-     */
+    #[Test]
     public function order_returned_as_paid_when_charge_is_successful()
     {
         Event::fake();

@@ -8,42 +8,43 @@ use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use PHPUnit\Framework\Attributes\Test;
 
 class UserSponsorValidationTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
+    #[Test]
     public function storing_a_sponsor_requires_a_title()
     {
         $this->storing('title');
     }
 
-    /** @test */
+    #[Test]
     public function storing_a_sponsor_requires_a_valid_url()
     {
         $this->storing('url', ['url' => 'Not a valid url']);
     }
 
-    /** @test */
+    #[Test]
     public function storing_a_sponsor_requires_a_upload_id_that_exists()
     {
         $this->storing('upload_id', ['upload_id' => 1]);
     }
 
-    /** @test */
+    #[Test]
     public function updating_a_sponsor_requires_a_title()
     {
         $this->updating('title');
     }
 
-    /** @test */
+    #[Test]
     public function updating_a_sponsor_requires_a_valid_url()
     {
         $this->updating('url', ['url' => 'Not a valid url']);
     }
 
-    /** @test */
+    #[Test]
     public function updating_a_sponsor_requires_a_upload_id_that_exists_if_submitted()
     {
         $this->updating('upload_id', ['upload_id' => 10]);

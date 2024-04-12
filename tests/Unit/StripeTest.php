@@ -10,9 +10,7 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class StripeTest extends TestCase
 {
-    /**
-     * @test
-     */
+    #[Test]
     public function guest_charge_is_made_with_stripe()
     {
         $response = $this->billingClass()->charge()->create(new Price(100), 1, 'tok_visa');
@@ -20,9 +18,7 @@ class StripeTest extends TestCase
         $this->assertEquals('succeeded', $response->status);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function a_customer_can_be_saved_in_stripe()
     {
         $response = $this->billingClass()->customer()->create('email@email.com', 'tok_visa');
@@ -30,9 +26,7 @@ class StripeTest extends TestCase
         $this->assertEquals('email@email.com', $response->email);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function a_charge_can_be_made_with_an_existing_customer_card()
     {
         $customer = $this->billingClass()->customer()->create('email@email.com', 'tok_visa');

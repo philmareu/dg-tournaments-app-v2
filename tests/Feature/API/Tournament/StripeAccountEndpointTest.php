@@ -10,6 +10,7 @@ use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use PHPUnit\Framework\Attributes\Test;
 
 class StripeAccountEndpointTest extends TestCase
 {
@@ -22,7 +23,7 @@ class StripeAccountEndpointTest extends TestCase
         Event::fake();
     }
 
-    /** @test */
+    #[Test]
     public function guests_cannot_update_tournament_stripe_account()
     {
 
@@ -30,7 +31,7 @@ class StripeAccountEndpointTest extends TestCase
             ->assertStatus(401);
     }
 
-    /** @test */
+    #[Test]
     public function only_manager_can_update_tournament_stripe_account()
     {
 
@@ -39,7 +40,7 @@ class StripeAccountEndpointTest extends TestCase
             ->assertStatus(403);
     }
 
-    /** @test */
+    #[Test]
     public function manager_can_update_tournament_stripe_account()
     {
         list($user, $tournament) = $this->createTournamentWithManager();
@@ -52,7 +53,7 @@ class StripeAccountEndpointTest extends TestCase
             ]);
     }
 
-    /** @test */
+    #[Test]
     public function manager_can_remove_tournament_stripe_account()
     {
         list($user, $tournament) = $this->createTournamentWithManager();
@@ -63,13 +64,13 @@ class StripeAccountEndpointTest extends TestCase
         $this->assertNull($tournament->stripeAccount);
     }
 
-    /** @test */
+    #[Test]
     public function updating_tournament_stripe_account_requires_a_stripe_account_id()
     {
         $this->updating()->assertSessionHasErrors('stripe_account_id');
     }
 
-    /** @test */
+    #[Test]
     public function user_cannot_use_a_stripe_id_they_do_not_own()
     {
         $this->updating(['user_stripe_account_id' => 10])->assertSessionHasErrors('stripe_account_id');

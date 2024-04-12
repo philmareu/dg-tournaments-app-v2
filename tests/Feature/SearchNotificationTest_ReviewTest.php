@@ -49,9 +49,7 @@ class SearchNotificationTest_ReviewTest extends TestCase
 
     // We need one user and a search query, than build several tournaments that fit and don't fit the criteria
 
-    /**
-     * @test
-     */
+
     public function should_return_a_list_of_daily_searches_that_are_ready_to_search_for_new_tournaments()
     {
         $repo = $this->getSearchRepo();
@@ -63,9 +61,7 @@ class SearchNotificationTest_ReviewTest extends TestCase
         });
     }
 
-    /**
-     * @test
-     */
+
     public function should_return_an_empty_list_of_daily_searches()
     {
         $repo = $this->getSearchRepo();
@@ -75,9 +71,7 @@ class SearchNotificationTest_ReviewTest extends TestCase
         $this->assertTrue($repo->getReadyByFrequency('daily')->isEmpty());
     }
 
-    /**
-     * @test
-     */
+
     public function should_return_a_list_of_weekly_searches_that_are_ready_to_search_for_new_tournaments()
     {
         $repo = $this->getSearchRepo();
@@ -89,9 +83,7 @@ class SearchNotificationTest_ReviewTest extends TestCase
         });
     }
 
-    /**
-     * @test
-     */
+
     public function should_return_an_empty_list_of_weekly_searches()
     {
         $repo = $this->getSearchRepo();
@@ -101,9 +93,7 @@ class SearchNotificationTest_ReviewTest extends TestCase
         $this->assertTrue($repo->getReadyByFrequency('weekly')->isEmpty());
     }
 
-    /**
-     * @test
-     */
+
     public function should_return_a_combined_list_of_ready_searches_for_all_frequencies()
     {
         $repo = $this->getSearchRepo();
@@ -118,9 +108,7 @@ class SearchNotificationTest_ReviewTest extends TestCase
         });
     }
 
-    /**
-     * @test
-     */
+
     public function should_return_a_list_of_ready_searches_formatted_for_notifications()
     {
         $repo = $this->getSearchRepo();
@@ -143,9 +131,7 @@ class SearchNotificationTest_ReviewTest extends TestCase
         $this->assertEquals(2, $searches[$user2->id]['searches']->count());
     }
 
-    /**
-     * @test
-     */
+
     public function should_return_a_list_of_tournaments_that_meet_search_criteria()
     {
         $this->seed('FormatsTableSeeder');
@@ -203,9 +189,7 @@ class SearchNotificationTest_ReviewTest extends TestCase
         $this->assertEquals($tournament1->id, $tournament1->first()->id);
     }
 
-    /**
-     * @test
-     */
+
     public function should_return_a_list_with_user_and_the_unique_tournaments_that_meet_filter_requirements()
     {
         $this->baseSeeds();
@@ -223,9 +207,7 @@ class SearchNotificationTest_ReviewTest extends TestCase
         $this->assertEquals(1, $tournamentNotifications->first()['tournaments']->first()->id);
     }
 
-    /**
-     * @test
-     */
+
     public function tournaments_must_be_created_within_the_frequency_to_show_up_in_notifications()
     {
         $this->baseSeeds();
@@ -244,9 +226,7 @@ class SearchNotificationTest_ReviewTest extends TestCase
         $this->assertTrue($tournamentNotifications->isEmpty());
     }
 
-    /**
-     * @test
-     */
+
     public function should_send_a_email_to_the_user_about_new_tournaments()
     {
         $this->baseSeeds();
@@ -266,9 +246,7 @@ class SearchNotificationTest_ReviewTest extends TestCase
         Mail::assertQueued(SavedSearchFoundNewTournamentsMailable::class);
     }
 
-    /**
-     * @test
-     */
+
     public function should_mark_the_searched_at_field_after_notification_has_been_sent()
     {
         $this->baseSeeds();
@@ -292,9 +270,7 @@ class SearchNotificationTest_ReviewTest extends TestCase
         $this->assertNotEquals($oldDate2->format('U'), $search2->fresh()->searched_at->format('U'));
     }
 
-    /**
-     * @test
-     */
+
     public function tournament_notifications_should_be_empty_once_they_are_done()
     {
         $this->baseSeeds();

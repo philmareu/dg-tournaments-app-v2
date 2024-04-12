@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use Illuminate\Support\Facades\Artisan;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -20,9 +21,7 @@ class PageLoadTest extends TestCase
 //        Artisan::call('db:seed');
     }
 
-    /**
-     * @dataProvider provideGuestRoutes
-     */
+    #[DataProvider('provideGuestRoutes')]
     public function testGuestPageLoads($method, $route)
     {
         $response = $this->call($method, $route);
@@ -37,24 +36,4 @@ class PageLoadTest extends TestCase
 //            ['GET', 'disc-golf-tournament/1/dgt-open-sanctioned']
         ];
     }
-
-//    /**
-//     * @dataProvider provideAuthRoutes
-//     */
-//    public function testAuthPageLoads($method, $route)
-//    {
-//        $user = $this->createUser();
-//
-//        $response = $this->actingAs($user)
-//            ->call($method, $route);
-//
-//        $this->assertEquals(200, $response->getStatusCode());
-//    }
-//
-//    public function provideAuthRoutes()
-//    {
-//        return [
-//
-//        ];
-//    }
 }

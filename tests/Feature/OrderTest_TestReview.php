@@ -22,9 +22,7 @@ class OrderTest_TestReview extends TestCase
 {
     use RefreshDatabase;
 
-    /**
-     * @test
-     */
+
     public function charge_is_created_when_payment_is_submitted()
     {
         $orderSponsorship = OrderSponsorship::factory()->create();
@@ -38,9 +36,7 @@ class OrderTest_TestReview extends TestCase
         ]);
     }
 
-    /**
-     * @test
-     */
+
     public function order_paid_event_is_fired()
     {
         $orderSponsorship = OrderSponsorship::factory()->create();
@@ -54,9 +50,7 @@ class OrderTest_TestReview extends TestCase
         });
     }
 
-    /**
-     * @test
-     */
+
     public function confirmation_email_is_sent_after_order_is_paid()
     {
         $orderSponsorship = OrderSponsorship::factory()->create();
@@ -71,9 +65,7 @@ class OrderTest_TestReview extends TestCase
         });
     }
 
-    /**
-     * @test
-     */
+
     public function tournament_managers_receive_email_about_order_with_sponsorships()
     {
         $order = Order::factory()->create();
@@ -113,9 +105,7 @@ class OrderTest_TestReview extends TestCase
         });
     }
 
-    /**
-     * @test
-     */
+
     public function order_total_is_sum_of_all_sponsorships()
     {
         $order = Order::factory()->create();
@@ -145,9 +135,7 @@ class OrderTest_TestReview extends TestCase
         $this->assertEquals($total1 + $total2, $order->total->inCents());
     }
 
-    /**
-     * @test
-     */
+
     public function order_payment_transfers_are_saved_to_database()
     {
         $order = Order::factory()->create();
@@ -199,9 +187,7 @@ class OrderTest_TestReview extends TestCase
         ]);
     }
 
-    /**
-     * @test
-     */
+
     public function transfer_are_made_to_tournament_stripe_accounts()
     {
         $order = Order::factory()->create();

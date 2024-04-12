@@ -4,6 +4,7 @@ namespace Tests\Feature\API\User;
 
 use App\Models\Sponsor;
 use App\Models\Upload;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -22,7 +23,7 @@ class UserSponsorTest extends TestCase
     |--------------------------------------------------------------------------
     */
 
-    /** @test */
+    #[Test]
     public function guests_can_not_retrieve_sponsors()
     {
 
@@ -30,7 +31,7 @@ class UserSponsorTest extends TestCase
             ->assertStatus(401);
     }
 
-    /** @test */
+    #[Test]
     public function authenticated_user_can_retrieve_a_list_of_sponsors()
     {
         $user = $this->createUser();
@@ -46,7 +47,7 @@ class UserSponsorTest extends TestCase
     }
 
 
-    /** @test */
+    #[Test]
     public function only_an_authenticated_user_can_store_a_sponsor()
     {
 
@@ -54,7 +55,7 @@ class UserSponsorTest extends TestCase
             ->assertStatus(401);
     }
 
-    /** @test */
+    #[Test]
     public function only_an_authenticated_user_can_update_a_sponsor()
     {
 
@@ -62,7 +63,7 @@ class UserSponsorTest extends TestCase
             ->assertStatus(401);
     }
 
-    /** @test */
+    #[Test]
     public function only_an_authenticated_user_can_delete_a_sponsor()
     {
 
@@ -70,7 +71,7 @@ class UserSponsorTest extends TestCase
             ->assertStatus(401);
     }
 
-    /** @test */
+    #[Test]
     public function authenticated_user_can_store_a_new_sponsor()
     {
         $user = $this->createUser();
@@ -87,7 +88,7 @@ class UserSponsorTest extends TestCase
         $this->assertDatabaseHas('sponsors', array_merge($data, ['user_id' => $user->id]));
     }
 
-    /** @test */
+    #[Test]
     public function authenticated_user_can_update_a_sponsor()
     {
         $user = $this->createUser();
@@ -111,9 +112,7 @@ class UserSponsorTest extends TestCase
         $this->assertEquals($data['upload_id'], $sponsor->upload_id);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function updating_a_sponsor_request_the_user_to_own_sponsor()
     {
         $user = $this->createUser();
@@ -137,7 +136,7 @@ class UserSponsorTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function authenticated_user_can_soft_delete_a_sponsor()
     {
         $user = $this->createUser();

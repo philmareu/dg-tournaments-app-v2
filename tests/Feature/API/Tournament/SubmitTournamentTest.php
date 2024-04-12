@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 use Tests\ValidationHelperTrait;
+use PHPUnit\Framework\Attributes\Test;
 
 class SubmitTournamentTest extends TestCase
 {
@@ -25,9 +26,7 @@ class SubmitTournamentTest extends TestCase
 
     protected $endpoint = 'manage/submit';
 
-    /**
-     * @test
-     */
+    #[Test]
     public function the_submit_tournament_page_should_load()
     {
         $this->actingAs($this->createUser())
@@ -35,9 +34,7 @@ class SubmitTournamentTest extends TestCase
             ->assertStatus(200);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function guests_can_not_submit_a_tournament()
     {
         $this->json('POST', $this->endpoint)
@@ -50,123 +47,103 @@ class SubmitTournamentTest extends TestCase
     |--------------------------------------------------------------------------
     */
 
-    /**
-     * @test
-     */
+    #[Test]
     public function submitting_a_tournament_requires_a_name()
     {
         $this->postValidationTest($this->endpoint, 'name');
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function submitting_a_tournament_requires_a_city()
     {
         $this->postValidationTest($this->endpoint, 'city');
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function submitting_a_tournament_requires_a_country()
     {
         $this->postValidationTest($this->endpoint, 'country');
     }
 
-    /**
- * @test
- */
+    #[Test]
     public function submitting_a_tournament_requires_a_latitude()
     {
         $this->postValidationTest($this->endpoint, 'latitude');
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function submitting_a_tournament_requires_a_longitude()
     {
         $this->postValidationTest($this->endpoint, 'longitude');
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function submitting_a_tournament_requires_a_start()
     {
         $this->postValidationTest($this->endpoint, 'start');
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function submitting_a_tournament_requires_a_end()
     {
         $this->postValidationTest($this->endpoint, 'end');
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function submitting_a_tournament_requires_a_format_id()
     {
         $this->postValidationTest($this->endpoint, 'format_id');
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function submitting_a_tournament_requires_a_timezone()
     {
         $this->postValidationTest($this->endpoint, 'timezone');
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function submitting_a_tournament_requires_a_director()
     {
         $this->postValidationTest($this->endpoint, 'director');
     }
 
-    /** @test */
+    #[Test]
     public function a_start_date_must_be_formatted_required()
     {
         $this->postValidationTest($this->endpoint, 'start', ['start' => '1997-1-1']);
     }
 
-    /** @test */
+    #[Test]
     public function a_end_date_must_be_formatted_required()
     {
         $this->postValidationTest($this->endpoint, 'end', ['end' => '1997-1-1']);
     }
 
-    /** @test */
+    #[Test]
     public function a_email_must_be_an_email()
     {
         $this->postValidationTest($this->endpoint, 'email', ['email' => 'Not an email']);
     }
 
-    /** @test */
+    #[Test]
     public function a_format_must_exist_in_database()
     {
         $this->postValidationTest($this->endpoint, 'format_id', ['format_id' => 'x']);
     }
 
-    /** @test */
+    #[Test]
     public function a_poster_id_must_exist_in_the_database()
     {
         $this->postValidationTest($this->endpoint, 'poster_id', ['poster_id' => 'x']);
     }
 
-    /** @test */
+    #[Test]
     public function special_event_types_must_exist_in_database()
     {
         $this->postValidationTest($this->endpoint, 'format_id', ['special_event_type_ids' => [44, 54, 64]]);
     }
 
-    /** @test */
+    #[Test]
     public function a_timezone_must_exist_in_php_timezone_list()
     {
         $this->postValidationTest($this->endpoint, 'timezone', ['timezone' => 'Not Valid Time Zone']);
@@ -178,7 +155,7 @@ class SubmitTournamentTest extends TestCase
     |--------------------------------------------------------------------------
     */
 
-    /** @test */
+//    #[Test]
 //    public function user_can_submit_a_tournament_and_data_is_stored()
 //    {
 //        $data = $this->data();
@@ -208,7 +185,7 @@ class SubmitTournamentTest extends TestCase
 //        $this->assertEquals($user->email, $tournament->authorization_email);
 //    }
 
-    /** @test */
+    #[Test]
     public function user_is_added_as_manager_on_submitted_tournament()
     {
         $this->seed('ClassesTableSeeder');
@@ -220,7 +197,7 @@ class SubmitTournamentTest extends TestCase
         $this->assertTrue($tournament->managers->where('id', $user->id)->isNotEmpty());
     }
 
-    /** @test */
+    #[Test]
     public function a_tournament_submitted_event_is_fired()
     {
         Event::fake();
@@ -234,7 +211,7 @@ class SubmitTournamentTest extends TestCase
         });
     }
 
-    /** @test */
+    #[Test]
     public function an_email_confirmation_is_sent_to_submitter()
     {
         Mail::fake();
@@ -249,7 +226,7 @@ class SubmitTournamentTest extends TestCase
         });
     }
 
-    /** @test */
+    #[Test]
     public function a_tournament_submitted_activity_is_created()
     {
         $tournament = $this->getTournamentFromResponse(

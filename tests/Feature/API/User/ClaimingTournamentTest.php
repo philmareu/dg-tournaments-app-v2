@@ -17,6 +17,7 @@ use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use PHPUnit\Framework\Attributes\Test;
 
 class ClaimingTournamentTest extends TestCase
 {
@@ -24,7 +25,7 @@ class ClaimingTournamentTest extends TestCase
 
     protected $endpoint = 'tournament/claim';
 
-    /** @test */
+    #[Test]
     public function user_can_submit_tournament_claim_request()
     {
         list($user, $tournament) = $this->submitClaimRequest();
@@ -34,7 +35,7 @@ class ClaimingTournamentTest extends TestCase
         $this->assertEquals($user->id, $claim->user_id);
     }
 
-    /** @test */
+    #[Test]
     public function user_cannot_resubmit_claim_request()
     {
         list($user, $tournament) = $this->submitClaimRequest();
@@ -44,7 +45,7 @@ class ClaimingTournamentTest extends TestCase
             ->assertStatus(403);
     }
 
-    /** @test */
+    #[Test]
     public function user_cannot_submit_a_claim_for_a_tournament_they_already_have_access_to()
     {
         $user = $this->createUser();
@@ -56,7 +57,7 @@ class ClaimingTournamentTest extends TestCase
             ->assertStatus(403);
     }
 
-    /** @test */
+    #[Test]
     public function user_cannot_submit_a_claim_for_a_tournament_that_has_at_least_one_manager()
     {
         $user = $this->createUser();
@@ -68,7 +69,7 @@ class ClaimingTournamentTest extends TestCase
             ->assertStatus(403);
     }
 
-    /** @test */
+    #[Test]
     public function tournament_claim_request_submitted_fires_an_event()
     {
         Event::fake();
@@ -83,13 +84,7 @@ class ClaimingTournamentTest extends TestCase
         });
     }
 
-    /** @test */
-//    public function tournament_claim_request_email_should_be_queued()
-//    {
-//
-//    }
-
-    /** @test */
+    #[Test]
     public function claim_request_email_is_sent_to_tournament_auth_email()
     {
         Mail::fake();
@@ -103,13 +98,7 @@ class ClaimingTournamentTest extends TestCase
         });
     }
 
-    /** @test */
-//    public function tournament_claim_request_confirmation_email_should_be_queued()
-//    {
-//
-//    }
-
-    /** @test */
+    #[Test]
     public function claim_request_confirmation_email_is_sent_to_user()
     {
         Mail::fake();
@@ -123,7 +112,7 @@ class ClaimingTournamentTest extends TestCase
         });
     }
 
-    /** @test */
+    #[Test]
     public function approve_tournament_claim_request_page_loads()
     {
         list($user, $tournament) = $this->submitClaimRequest();
@@ -134,7 +123,7 @@ class ClaimingTournamentTest extends TestCase
             ->assertStatus(200);
     }
 
-    /** @test */
+    #[Test]
     public function user_is_granted_access_to_tournament_after_approval()
     {
         list($user, $tournament) = $this->submitClaimRequest();
@@ -146,7 +135,7 @@ class ClaimingTournamentTest extends TestCase
         $this->assertEquals($user->id, $tournament->managers->first()->id);
     }
 
-    /** @test */
+    #[Test]
     public function approved_claim_request_fires_event()
     {
         Event::fake();
@@ -162,13 +151,7 @@ class ClaimingTournamentTest extends TestCase
         });
     }
 
-    /** @test */
-//    public function approved_email_notification_is_queued()
-//    {
-//
-//    }
-
-    /** @test */
+    #[Test]
     public function slack_notification_is_sent_to_dgt_channel_about_an_approved_claim()
     {
         Notification::fake();
@@ -188,7 +171,7 @@ class ClaimingTournamentTest extends TestCase
         );
     }
 
-    /** @test */
+    #[Test]
     public function approved_claim_email_is_sent_to_requesting_user()
     {
         Mail::fake();
@@ -204,7 +187,7 @@ class ClaimingTournamentTest extends TestCase
         });
     }
 
-    /** @test */
+    #[Test]
     public function claim_request_is_deleted_after_approved()
     {
         list($user, $tournament) = $this->submitClaimRequest();

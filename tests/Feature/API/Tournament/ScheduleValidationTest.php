@@ -8,66 +8,67 @@ use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use PHPUnit\Framework\Attributes\Test;
 
 class ScheduleValidationTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
+    #[Test]
     public function storing_a_schedule_item_requires_a_date()
     {
         $this->storing('date');
     }
 
-    /** @test */
+    #[Test]
     public function storing_a_schedule_item_requires_a_summary()
     {
         $this->storing('summary');
     }
 
-    /** @test */
+    #[Test]
     public function storing_a_schedule_item_the_date_must_be_a_certain_format()
     {
         $this->storing('date', ['date' => 'Not valid']);
     }
 
-    /** @test */
+    #[Test]
     public function storing_a_schedule_item_the_start_time_must_be_a_certain_format()
     {
         $this->storing('start', ['start' => 'Not valid']);
     }
 
-    /** @test */
+    #[Test]
     public function storing_a_schedule_item_the_end_time_must_be_a_certain_format()
     {
         $this->storing('end', ['end' => 'Not valid']);
     }
 
-    /** @test */
+    #[Test]
     public function updating_a_schedule_item_requires_a_date()
     {
         $this->updating('date');
     }
 
-    /** @test */
+    #[Test]
     public function updating_a_schedule_item_requires_a_summary()
     {
         $this->updating('summary');
     }
 
-    /** @test */
+    #[Test]
     public function updating_a_schedule_item_the_date_must_be_a_certain_format()
     {
         $this->updating('date', ['date' => 'Not valid']);
     }
 
-    /** @test */
+    #[Test]
     public function updating_a_schedule_item_the_start_time_must_be_a_certain_format()
     {
         $this->updating('start', ['start' => 'Not valid']);
     }
 
-    /** @test */
+    #[Test]
     public function updating_a_schedule_item_the_end_time_must_be_a_certain_format()
     {
         $this->updating('end', ['end' => 'Not valid']);

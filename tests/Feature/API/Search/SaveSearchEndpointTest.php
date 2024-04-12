@@ -8,6 +8,7 @@ use App\Models\Search;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\ValidationHelperTrait;
+use PHPUnit\Framework\Attributes\Test;
 
 class SaveSearchEndpointTest extends TestCase
 {
@@ -17,9 +18,7 @@ class SaveSearchEndpointTest extends TestCase
 
     protected $testUrl = 'https://dgtournaments.dev/?q=&idx=tournaments&p=0&nR%5Blatitude%5D%5B%3C%5D%5B0%5D=70.03418321204308&nR%5Blatitude%5D%5B%3E%5D%5B0%5D=-19.472449961980956&nR%5Blongitude%5D%5B%3C%5D%5B0%5D=-14.850579638329123&nR%5Blongitude%5D%5B%3E%5D%5B0%5D=-140.26537037249648';
 
-    /**
-     * @test
-     */
+    #[Test]
     public function guest_can_not_save_a_search()
     {
         $this->json('POST', $this->endpoint)
@@ -28,41 +27,31 @@ class SaveSearchEndpointTest extends TestCase
 
     // Validation
 
-    /**
-     * @test
-     */
+    #[Test]
     public function storing_a_search_requires_a_title()
     {
         $this->postValidationTest($this->endpoint, 'title');
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function storing_a_search_requires_a_url()
     {
         $this->postValidationTest($this->endpoint, 'url');
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function storing_a_search_requires_a_frequency_if_wants_notification_is_selected()
     {
         $this->postValidationTest($this->endpoint, 'frequency', ['wants_notification' => 1]);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function storing_a_search_the_notification_option_must_be_a_boolean()
     {
         $this->postValidationTest($this->endpoint, 'wants_notification', ['wants_notification' => 'not a boolean']);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function storing_a_search_the_frequency_must_be_daily_or_weekly()
     {
         $this->postValidationTest($this->endpoint, 'frequency', ['frequency' => 'not an option', 'wants_notification']);
@@ -76,9 +65,7 @@ class SaveSearchEndpointTest extends TestCase
             ->assertSessionMissing('frequency');
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function storing_a_frequency_is_not_required_if_wants_notification_is_not_selected()
     {
         $this->actingAs($this->createUser())
@@ -86,9 +73,7 @@ class SaveSearchEndpointTest extends TestCase
             ->assertSessionMissing('frequency');
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function updating_a_search_requires_a_title()
     {
         $user = $this->createUser();
@@ -101,9 +86,7 @@ class SaveSearchEndpointTest extends TestCase
             ->assertSessionHasErrors('title');
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function updating_a_search_the_notification_option_must_be_a_boolean()
     {
         $user = $this->createUser();
@@ -116,9 +99,7 @@ class SaveSearchEndpointTest extends TestCase
             ->assertSessionHasErrors('wants_notification');
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function updating_a_search_requires_a_frequency_is_wants_notification_is_selected()
     {
         $user = $this->createUser();
@@ -131,9 +112,7 @@ class SaveSearchEndpointTest extends TestCase
             ->assertSessionHasErrors('frequency');
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function updating_a_frequency_is_not_required_if_wants_notification_is_not_selected()
     {
         $user = $this->createUser();
@@ -146,9 +125,7 @@ class SaveSearchEndpointTest extends TestCase
             ->assertSessionMissing('frequency');
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function updating_a_search_the_frequency_must_be_daily_or_weekly()
     {
         $user = $this->createUser();
@@ -169,9 +146,7 @@ class SaveSearchEndpointTest extends TestCase
             ->assertSessionMissing('frequency');
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function searched_at_field_is_set_to_current_date_when_created()
     {
         $data = [
@@ -193,9 +168,7 @@ class SaveSearchEndpointTest extends TestCase
         $this->assertTrue($search->searched_at->diffInSeconds(Carbon::now()) < 60);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function map_latitude_and_longitude_is_stored_when_search_is_stored()
     {
         $data = [
@@ -216,9 +189,7 @@ class SaveSearchEndpointTest extends TestCase
         ]);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function user_can_save_a_search_with_notification()
     {
         $data = [
@@ -242,9 +213,7 @@ class SaveSearchEndpointTest extends TestCase
         ]);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function user_can_save_a_search_without_notification()
     {
         $data = [
@@ -267,9 +236,7 @@ class SaveSearchEndpointTest extends TestCase
         ]);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function storing_a_search_returns_all_searches_for_user()
     {
         $data = [
@@ -289,9 +256,7 @@ class SaveSearchEndpointTest extends TestCase
             ]);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function user_can_not_update_another_users_search()
     {
         $user = $this->createUser();
@@ -305,9 +270,7 @@ class SaveSearchEndpointTest extends TestCase
             ->assertStatus(403);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function user_can_update_a_search()
     {
         $data = [
@@ -336,9 +299,7 @@ class SaveSearchEndpointTest extends TestCase
         ]);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function user_can_toggle_notification_off()
     {
         $data = [
@@ -362,9 +323,7 @@ class SaveSearchEndpointTest extends TestCase
         ]);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function updating_a_search_returns_a_list_of_users_searches()
     {
         $data = [
@@ -386,9 +345,7 @@ class SaveSearchEndpointTest extends TestCase
             ]);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function user_can_not_delete_another_users_search()
     {
         $user = $this->createUser();
@@ -402,9 +359,7 @@ class SaveSearchEndpointTest extends TestCase
             ->assertStatus(403);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function user_can_delete_a_search()
     {
         $user = $this->createUser();
@@ -422,9 +377,7 @@ class SaveSearchEndpointTest extends TestCase
         ]);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function destroying_a_search_returns_updated_list_of_saved_searched()
     {
         $user = $this->createUser();

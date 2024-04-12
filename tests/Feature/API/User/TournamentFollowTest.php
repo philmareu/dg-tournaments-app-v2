@@ -13,14 +13,13 @@ use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use PHPUnit\Framework\Attributes\Test;
 
 class TournamentFollowTest extends TestCase
 {
     use RefreshDatabase;
 
-    /**
-     * @test
-     */
+    #[Test]
     public function guest_cannot_follow_a_tournament()
     {
         $tournament = $this->createTournament();
@@ -31,9 +30,7 @@ class TournamentFollowTest extends TestCase
     }
 
 
-    /**
-     * @test
-     */
+    #[Test]
     public function user_can_follow_a_tournament()
     {
         list($user, $tournament) = $this->createUserFollowTournament();
@@ -46,9 +43,7 @@ class TournamentFollowTest extends TestCase
         $this->assertEquals($tournament->id, $followingTournament->id);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function user_model_is_returned_with_following_relationship_after_a_follow()
     {
         $user = $this->createUser();
@@ -61,9 +56,7 @@ class TournamentFollowTest extends TestCase
             ]);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function user_can_unfollow_a_tournament()
     {
         list($user, $tournament) = $this->createUserFollowTournament();
@@ -77,7 +70,7 @@ class TournamentFollowTest extends TestCase
         $this->assertEquals(null, $followingTournament);
     }
 
-    /** @test */
+    #[Test]
     public function followed_tournament_event_is_fired()
     {
         $user = $this->createUser();
@@ -91,7 +84,7 @@ class TournamentFollowTest extends TestCase
         });
     }
 
-    /** @test */
+    #[Test]
     public function unfollowed_tournament_event_is_fired()
     {
         list($user, $tournament) = $this->createUserFollowTournament();
@@ -104,7 +97,7 @@ class TournamentFollowTest extends TestCase
         });
     }
 
-    /** @test */
+    #[Test]
     public function an_activity_is_created_when_tournament_is_followed()
     {
         list($user, $tournament) = $this->createUserFollowTournament();
@@ -117,7 +110,7 @@ class TournamentFollowTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function an_activity_is_created_when_tournament_is_unfollowed()
     {
         list($user, $tournament) = $this->createUserFollowTournament();
@@ -131,7 +124,7 @@ class TournamentFollowTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function user_model_provides_a_list_of_following_tournaments()
     {
         $user = $this->createUser();
@@ -170,7 +163,6 @@ class TournamentFollowTest extends TestCase
         return [$user, $tournament];
     }
 
-    /** @test */
 //    public function creating_tournament_followed_activity_is_queued()
 //    {
 //        $user = $this->createUser();

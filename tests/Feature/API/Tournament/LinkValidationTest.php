@@ -9,42 +9,43 @@ use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use PHPUnit\Framework\Attributes\Test;
 
 class LinkValidationTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
+    #[Test]
     public function storing_a_tournament_link_requires_a_title()
     {
         $this->storing('title');
     }
 
-    /** @test */
+    #[Test]
     public function storing_a_tournament_link_requires_a_url()
     {
         $this->storing('url');
     }
 
-    /** @test */
+    #[Test]
     public function storing_a_tournament_link_requires_a_valid_url()
     {
         $this->storing('url', ['url' => 'not a valid url']);
     }
 
-    /** @test */
+    #[Test]
     public function updating_a_tournament_link_requires_a_title()
     {
         $this->updating('title');
     }
 
-    /** @test */
+    #[Test]
     public function updating_a_tournament_link_requires_a_url()
     {
         $this->updating('url');
     }
 
-    /** @test */
+    #[Test]
     public function updating_a_tournament_link_requires_a_valid_url()
     {
         $this->updating('url', ['url' => 'not a valid url']);

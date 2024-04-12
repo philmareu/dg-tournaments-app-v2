@@ -8,12 +8,13 @@ use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use PHPUnit\Framework\Attributes\Test;
 
 class PlayerPackValidationTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
+    #[Test]
     public function storing_a_player_pack_requires_a_title()
     {
 
@@ -29,7 +30,7 @@ class PlayerPackValidationTest extends TestCase
         $this->assertArrayHasKey('title', $response->getOriginalContent()['errors']);
     }
 
-    /** @test */
+    #[Test]
     public function updating_a_player_pack_requires_a_title()
     {
 
@@ -45,7 +46,7 @@ class PlayerPackValidationTest extends TestCase
         $this->assertArrayHasKey('title', $response->getOriginalContent()['errors']);
     }
 
-    /** @test */
+    #[Test]
     public function storing_a_player_pack_item_requires_a_title()
     {
 
@@ -59,7 +60,7 @@ class PlayerPackValidationTest extends TestCase
         $this->assertArrayHasKey('title', $response->getOriginalContent()['errors']);
     }
 
-    /** @test */
+    #[Test]
     public function updating_a_player_pack_item_requires_a_title()
     {
 

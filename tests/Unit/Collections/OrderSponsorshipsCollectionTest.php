@@ -14,9 +14,7 @@ class OrderSponsorshipsCollectionTest extends TestCase
 {
     use RefreshDatabase;
 
-    /**
-     * @test
-     */
+    #[Test]
     public function should_return_a_collection_of_order_sponsorships_grouped_by_tournament_id()
     {
         $order = Order::factory()->create();

@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Event;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use PHPUnit\Framework\Attributes\Test;
 
 class PlayerPackTest extends TestCase
 {
@@ -24,7 +25,7 @@ class PlayerPackTest extends TestCase
         Event::fake();
     }
 
-    /** @test */
+    #[Test]
     public function guest_cannot_store_player_pack()
     {
         $tournament = $this->createTournament();
@@ -35,7 +36,7 @@ class PlayerPackTest extends TestCase
             ->assertStatus(401);
     }
 
-    /** @test */
+    #[Test]
     public function user_must_have_access_to_tournament_to_store_player_pack()
     {
         $this->actingAs($this->createUser())
@@ -43,7 +44,7 @@ class PlayerPackTest extends TestCase
             ->assertStatus(403);
     }
 
-    /** @test */
+    #[Test]
     public function user_must_have_access_to_tournament_to_update_player_pack()
     {
         $playerPack = PlayerPack::factory()->make();
@@ -56,7 +57,7 @@ class PlayerPackTest extends TestCase
             ->assertStatus(403);
     }
 
-    /** @test */
+    #[Test]
     public function user_must_have_access_to_tournament_to_delete_player_pack()
     {
         $playerPack = PlayerPack::factory()->make();
@@ -69,7 +70,7 @@ class PlayerPackTest extends TestCase
             ->assertStatus(403);
     }
 
-    /** @test */
+    #[Test]
     public function manager_can_store_player_pack()
     {
         $tournament = $this->createTournament();
@@ -94,7 +95,7 @@ class PlayerPackTest extends TestCase
         $this->assertEquals('test description', $tournament->playerPacks->first()->description);
     }
 
-    /** @test */
+    #[Test]
     public function manager_can_update_player_pack()
     {
         $playerPack = PlayerPack::factory()->create();
@@ -120,7 +121,7 @@ class PlayerPackTest extends TestCase
         $this->assertEquals('updated description', $tournament->playerPacks->first()->description);
     }
 
-    /** @test */
+    #[Test]
     public function manager_can_delete_player_pack()
     {
         $playerPack = PlayerPack::factory()->make();
@@ -141,7 +142,7 @@ class PlayerPackTest extends TestCase
 
 
 
-    /** @test */
+    #[Test]
     public function storing_a_player_pack_does_not_require_a_description()
     {
         $user = $this->createUser();
@@ -155,7 +156,7 @@ class PlayerPackTest extends TestCase
             ->assertStatus(200);
     }
 
-    /** @test */
+    #[Test]
     public function only_a_manager_can_add_items_to_player_packs()
     {
 
@@ -177,7 +178,7 @@ class PlayerPackTest extends TestCase
             ->assertStatus(403);
     }
 
-    /** @test */
+    #[Test]
     public function only_a_manager_can_update_items_to_player_packs()
     {
 
@@ -200,7 +201,7 @@ class PlayerPackTest extends TestCase
             ->assertStatus(403);
     }
 
-    /** @test */
+    #[Test]
     public function only_a_manager_can_delete_items_to_player_packs()
     {
 
@@ -221,7 +222,7 @@ class PlayerPackTest extends TestCase
             ->assertStatus(403);
     }
 
-    /** @test */
+    #[Test]
     public function a_manager_can_add_an_item_to_a_player_pack()
     {
         $user = $this->createUser();
@@ -249,7 +250,7 @@ class PlayerPackTest extends TestCase
         $this->assertEquals('PP Item', $tournament->fresh()->playerPacks->first()->items->first()['title']);
     }
 
-    /** @test */
+    #[Test]
     public function a_manager_can_update_an_item_to_a_player_pack()
     {
         $user = $this->createUser();
@@ -272,7 +273,7 @@ class PlayerPackTest extends TestCase
         $this->assertEquals('PP Item', $tournament->fresh()->playerPacks->first()->items->first()['title']);
     }
 
-    /** @test */
+    #[Test]
     public function a_manager_can_destroy_an_item_to_a_player_pack()
     {
         $user = $this->createUser();

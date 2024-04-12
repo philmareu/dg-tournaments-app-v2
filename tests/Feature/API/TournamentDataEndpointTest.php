@@ -10,14 +10,13 @@ use App\Models\TournamentSponsor;
 use App\Models\Upload;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use PHPUnit\Framework\Attributes\Test;
 
 class TournamentDataEndpointTest extends TestCase
 {
     use RefreshDatabase;
 
-    /**
-     * @test
-     */
+    #[Test]
     public function loads_all_tournament_information_needed_for_the_show_page()
     {
         $tournament = $this->createTournament();
@@ -64,9 +63,7 @@ class TournamentDataEndpointTest extends TestCase
             ]);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function stripe_account_does_not_load_for_guest()
     {
         $tournament = $this->createTournament();
@@ -79,9 +76,7 @@ class TournamentDataEndpointTest extends TestCase
             ]);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function stripe_account_does_show_up_for_managers_of_the_tournament()
     {
         list($user, $tournament) = $this->createTournamentWithManager();

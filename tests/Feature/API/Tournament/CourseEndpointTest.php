@@ -16,12 +16,13 @@ use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use PHPUnit\Framework\Attributes\Test;
 
 class CourseEndpointTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
+    #[Test]
     public function a_new_course_is_created_if_course_id_is_not_provided()
     {
         $user = $this->createUser();
@@ -42,7 +43,7 @@ class CourseEndpointTest extends TestCase
         $this->assertEquals($course->name, $savedCourse->name);
     }
 
-    /** @test */
+    #[Test]
     public function a_tournament_course_is_created_and_references_parent_course_and_tournament()
     {
         $user = $this->createUser();
@@ -63,7 +64,7 @@ class CourseEndpointTest extends TestCase
         $this->assertEquals($tournament->courses->first()->id, $tournamentCourse->id);
     }
 
-    /** @test */
+    #[Test]
     public function only_managers_can_add_courses_to_tournaments()
     {
 
@@ -79,7 +80,7 @@ class CourseEndpointTest extends TestCase
             ->assertStatus(403);
     }
 
-    /** @test */
+    #[Test]
     public function only_managers_can_update_tournament_course_information()
     {
 
@@ -94,7 +95,7 @@ class CourseEndpointTest extends TestCase
             ->assertStatus(403);
     }
 
-    /** @test */
+    #[Test]
     public function managers_can_edit_tournament_course_attributes()
     {
         $user = $this->createUser();
@@ -138,7 +139,7 @@ class CourseEndpointTest extends TestCase
         $this->assertEquals($data['directions'], $tournamentCourse->directions);
     }
 
-    /** @test */
+    #[Test]
     public function tournament_geo_is_set_to_tournament_course_location_if_null()
     {
         $user = $this->createUser();
@@ -159,7 +160,7 @@ class CourseEndpointTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function no_activity_is_created_when_tournament_geo_is_set_to_tournament_course_location_if_null()
     {
         $user = $this->createUser();
@@ -180,7 +181,7 @@ class CourseEndpointTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function tournament_geo_is_set_to_tournament_course_location_if_headquarters_has_not_been_updated()
     {
         $user = $this->createUser();
@@ -201,7 +202,7 @@ class CourseEndpointTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function new_course_created_event_is_dispatched()
     {
         $user = $this->createUser();
@@ -225,7 +226,7 @@ class CourseEndpointTest extends TestCase
         });
     }
 
-    /** @test */
+    #[Test]
     public function new_course_created_activity_is_created()
     {
         $user = $this->createUser();
@@ -248,7 +249,7 @@ class CourseEndpointTest extends TestCase
         $this->assertEquals($course->name, $activity->data->name);
     }
 
-    /** @test */
+    #[Test]
     public function course_added_to_tournament_event_is_dispatched()
     {
         $user = $this->createUser();
@@ -272,7 +273,7 @@ class CourseEndpointTest extends TestCase
         });
     }
 
-    /** @test */
+    #[Test]
     public function course_added_to_tournament_activity_is_created()
     {
         $user = $this->createUser();
@@ -295,7 +296,7 @@ class CourseEndpointTest extends TestCase
         $this->assertEquals($tournament->name, $activity->data->tournament->name);
     }
 
-    /** @test */
+    #[Test]
     public function only_a_manager_can_delete_a_tournament_course()
     {
 
@@ -315,7 +316,7 @@ class CourseEndpointTest extends TestCase
             ->assertStatus(403);
     }
 
-    /** @test */
+    #[Test]
     public function manager_can_delete_tournament_course()
     {
 
@@ -337,7 +338,7 @@ class CourseEndpointTest extends TestCase
         $this->assertEquals(0, $tournament->fresh()->courses->count());
     }
 
-    /** @test */
+    #[Test]
     public function only_manager_can_update_tournament_course_hole_notes()
     {
 
@@ -362,7 +363,7 @@ class CourseEndpointTest extends TestCase
             ->assertStatus(403);
     }
 
-    /** @test */
+    #[Test]
     public function manager_can_update_caddy_book_information()
     {
         $user = $this->createUser();

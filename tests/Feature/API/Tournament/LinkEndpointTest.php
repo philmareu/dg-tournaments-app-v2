@@ -10,6 +10,7 @@ use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use PHPUnit\Framework\Attributes\Test;
 
 class LinkEndpointTest extends TestCase
 {
@@ -22,7 +23,7 @@ class LinkEndpointTest extends TestCase
         Event::fake();
     }
 
-    /** @test */
+    #[Test]
     public function only_a_manager_can_store_a_link()
     {
         $this->actingAs($this->createUser())
@@ -30,7 +31,7 @@ class LinkEndpointTest extends TestCase
             ->assertStatus(403);
     }
 
-    /** @test */
+    #[Test]
     public function only_a_manager_can_update_a_link()
     {
 
@@ -39,7 +40,7 @@ class LinkEndpointTest extends TestCase
             ->assertStatus(403);
     }
 
-    /** @test */
+    #[Test]
     public function only_a_manager_can_delete_a_link()
     {
 
@@ -48,7 +49,7 @@ class LinkEndpointTest extends TestCase
             ->assertStatus(403);
     }
 
-    /** @test */
+    #[Test]
     public function manager_can_store_a_new_link()
     {
         list($user, $tournament) = $this->createTournamentWithManager();
@@ -76,7 +77,7 @@ class LinkEndpointTest extends TestCase
         $this->assertEquals($data['ordinal'], $link->ordinal);
     }
 
-    /** @test */
+    #[Test]
     public function manager_can_update_a_link()
     {
         list($user, $tournament) = $this->createTournamentWithManager();
@@ -106,7 +107,7 @@ class LinkEndpointTest extends TestCase
         $this->assertEquals($data['ordinal'], $link->ordinal);
     }
 
-    /** @test */
+    #[Test]
     public function manager_can_delete_a_link()
     {
         list($user, $tournament) = $this->createTournamentWithManager();

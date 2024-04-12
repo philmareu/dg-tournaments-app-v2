@@ -13,7 +13,7 @@ class ClaimRepositoryTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
+    #[Test]
     public function token_created()
     {
         $repo = $this->getRepo();
@@ -21,7 +21,7 @@ class ClaimRepositoryTest extends TestCase
         $this->assertEquals('string', gettype($repo->createToken()));
     }
 
-    /** @test */
+    #[Test]
     public function should_be_false_if_there_is_no_existing_claim_request()
     {
         $repo = $this->getRepo();
@@ -30,7 +30,7 @@ class ClaimRepositoryTest extends TestCase
         $this->assertFalse($repo->tournamentAlreadyHasRequest($tournament));
     }
 
-    /** @test */
+    #[Test]
     public function should_be_true_if_there_is_an_existing_claim_request()
     {
         $repo = $this->getRepo();
@@ -43,7 +43,7 @@ class ClaimRepositoryTest extends TestCase
         $this->assertTrue($repo->tournamentAlreadyHasRequest($tournament));
     }
 
-    /** @test */
+    #[Test]
     public function should_be_true_if_user_already_can_manage_this_tournament()
     {
         $repo = $this->getRepo();
@@ -54,7 +54,7 @@ class ClaimRepositoryTest extends TestCase
         $this->assertTrue($repo->userAlreadyManages($tournament, $user));
     }
 
-    /** @test */
+    #[Test]
     public function should_be_false_if_user_cannot_manager_this_tournament()
     {
         $repo = $this->getRepo();

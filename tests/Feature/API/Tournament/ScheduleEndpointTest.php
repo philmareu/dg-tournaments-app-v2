@@ -11,6 +11,7 @@ use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use PHPUnit\Framework\Attributes\Test;
 
 class ScheduleEndpointTest extends TestCase
 {
@@ -23,7 +24,7 @@ class ScheduleEndpointTest extends TestCase
         Event::fake();
     }
 
-    /** @test */
+    #[Test]
     public function only_manager_can_store_new_schedule_item()
     {
 
@@ -32,7 +33,7 @@ class ScheduleEndpointTest extends TestCase
             ->assertStatus(403);
     }
 
-    /** @test */
+    #[Test]
     public function only_manager_can_edit_schedule_items()
     {
 
@@ -41,7 +42,7 @@ class ScheduleEndpointTest extends TestCase
             ->assertStatus(403);
     }
 
-    /** @test */
+    #[Test]
     public function only_manager_can_delete_schedule_items()
     {
 
@@ -50,7 +51,7 @@ class ScheduleEndpointTest extends TestCase
             ->assertStatus(403);
     }
 
-    /** @test */
+    #[Test]
     public function manager_can_store_new_schedule_item()
     {
         list($user, $tournament) = $this->createTournamentWithManager();
@@ -81,7 +82,7 @@ class ScheduleEndpointTest extends TestCase
         $this->assertEquals($data['location'], $scheduleItem->location);
     }
 
-    /** @test */
+    #[Test]
     public function manager_can_update_schedule_item()
     {
         list($user, $tournament) = $this->createTournamentWithManager();
@@ -114,7 +115,7 @@ class ScheduleEndpointTest extends TestCase
         $this->assertEquals($data['location'], $scheduleItem->location);
     }
 
-    /** @test */
+    #[Test]
     public function manager_can_delete_a_schedule_item()
     {
         list($user, $tournament) = $this->createTournamentWithManager();
@@ -128,7 +129,7 @@ class ScheduleEndpointTest extends TestCase
         $this->assertEquals(0, $tournament->fresh()->schedule->count());
     }
 
-    /** @test */
+    #[Test]
     public function retrieves_an_ordered_tournament_schedule()
     {
         list($user, $tournament) = $this->createTournamentWithManager();

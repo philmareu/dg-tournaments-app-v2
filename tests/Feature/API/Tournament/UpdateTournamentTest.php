@@ -9,12 +9,13 @@ use App\Models\Tournament;
 use App\Models\Upload;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use PHPUnit\Framework\Attributes\Test;
 
 class UpdateTournamentTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
+    #[Test]
     public function only_a_manager_can_edit_tournament_basic_information()
     {
         $tournament = $this->createTournament();
@@ -24,7 +25,7 @@ class UpdateTournamentTest extends TestCase
             ->assertStatus(403);
     }
 
-    /** @test */
+    #[Test]
     public function manager_can_edit_all_fields_for_self_listed_events()
     {
         $user = $this->createUser();
@@ -77,7 +78,7 @@ class UpdateTournamentTest extends TestCase
         $this->assertEquals($data['end'], $tournament->end->format('n-j-Y'));
     }
 
-    /** @test */
+    #[Test]
     public function manager_can_remove_all_special_event_types()
     {
         list($user, $tournament) = $this->createTournamentWithManager();
@@ -110,7 +111,7 @@ class UpdateTournamentTest extends TestCase
         $this->assertEmpty($tournament->load('specialEventTypes')->specialEventTypes->toArray());
     }
 
-    /** @test */
+    #[Test]
     public function manager_can_only_edit_fields_that_are_not_synced_by_the_pdga_api()
     {
         $user = $this->createUser();

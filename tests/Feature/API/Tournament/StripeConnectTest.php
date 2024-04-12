@@ -10,6 +10,7 @@ use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use PHPUnit\Framework\Attributes\Test;
 
 class StripeConnectTest extends TestCase
 {
@@ -22,7 +23,7 @@ class StripeConnectTest extends TestCase
         Event::fake();
     }
 
-    /** @test */
+    #[Test]
     public function only_a_manager_can_update_stripe_account()
     {
 
@@ -36,7 +37,7 @@ class StripeConnectTest extends TestCase
             ->assertStatus(403);
     }
 
-    /** @test */
+    #[Test]
     public function only_a_manager_can_destroy_stripe_account()
     {
 
@@ -48,7 +49,7 @@ class StripeConnectTest extends TestCase
             ->assertStatus(403);
     }
 
-    /** @test */
+    #[Test]
     public function updating_a_tournament_stripe_account_requires_stripe_id()
     {
 
@@ -63,7 +64,7 @@ class StripeConnectTest extends TestCase
         $this->assertArrayHasKey('stripe_account_id', $response->getOriginalContent()['errors']);
     }
 
-    /** @test */
+    #[Test]
     public function manager_can_update_a_selected_stripe_account_for_a_tournament()
     {
 
@@ -82,7 +83,7 @@ class StripeConnectTest extends TestCase
         $this->assertEquals($userStripeAccount->id, $tournament->fresh()->stripe_account_id);
     }
 
-    /** @test */
+    #[Test]
     public function the_stripe_account_must_be_owned_by_the_manager_who_selects_it()
     {
 
@@ -104,7 +105,7 @@ class StripeConnectTest extends TestCase
         $this->assertArrayHasKey('stripe_account_id', $response->getOriginalContent()['errors']);
     }
 
-    /** @test */
+    #[Test]
     public function manager_can_remove_stripe_account_from_tournament()
     {
 

@@ -8,9 +8,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class LocationDataObjectTest extends TestCase
 {
-    /**
-     * @test
-     */
+    #[Test]
     public function should_show_formatted_address()
     {
         $location = new Location('TestVille', 'USA', 'Kansas');

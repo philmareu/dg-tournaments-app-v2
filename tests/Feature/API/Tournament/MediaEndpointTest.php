@@ -10,6 +10,7 @@ use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use PHPUnit\Framework\Attributes\Test;
 
 class MediaEndpointTest extends TestCase
 {
@@ -22,7 +23,7 @@ class MediaEndpointTest extends TestCase
         Event::fake();
     }
 
-    /** @test */
+    #[Test]
     public function only_a_manager_can_store_a_upload()
     {
 
@@ -31,7 +32,7 @@ class MediaEndpointTest extends TestCase
             ->assertStatus(403);
     }
 
-    /** @test */
+    #[Test]
     public function only_a_manager_can_update_a_upload()
     {
 
@@ -40,7 +41,7 @@ class MediaEndpointTest extends TestCase
             ->assertStatus(403);
     }
 
-    /** @test */
+    #[Test]
     public function only_a_manager_can_delete_a_upload()
     {
         $tournament = $this->createTournament();
@@ -52,7 +53,7 @@ class MediaEndpointTest extends TestCase
             ->assertStatus(403);
     }
 
-    /** @test */
+    #[Test]
     public function manager_can_store_a_new_media_file()
     {
         list($user, $tournament) = $this->createTournamentWithManager();
@@ -79,7 +80,7 @@ class MediaEndpointTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function manager_can_update_a_media_file()
     {
         list($user, $tournament) = $this->createTournamentWithManager();
@@ -110,7 +111,7 @@ class MediaEndpointTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function manager_can_delete_a_media_item()
     {
         list($user, $tournament) = $this->createTournamentWithManager();

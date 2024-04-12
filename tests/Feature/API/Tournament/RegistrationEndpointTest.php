@@ -10,6 +10,7 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
 use Tests\TestCase;
+use PHPUnit\Framework\Attributes\Test;
 
 class RegistrationEndpointTest extends TestCase
 {
@@ -23,43 +24,43 @@ class RegistrationEndpointTest extends TestCase
     |--------------------------------------------------------------------------
     */
 
-    /** @test */
+    #[Test]
     public function guests_cannot_store_tournament_registration()
     {
         $this->checkGuestAccess('POST', 'tournament/registration/' . Tournament::factory()->create()->id);
     }
 
-    /** @test */
+    #[Test]
     public function only_managers_can_store_tournament_registration()
     {
         $this->checkManagerAccess('POST', 'tournament/registration/' . Tournament::factory()->create()->id);
     }
 
-    /** @test */
+    #[Test]
     public function storing_tournament_registration_requires_open_date_field()
     {
         $this->storing('opens_at');
     }
 
-    /** @test */
+    #[Test]
     public function storing_tournament_registration_open_date_from_be_of_valid_format()
     {
         $this->storing('opens_at', ['opens_at' => '1234-1234-1234']);
     }
 
-    /** @test */
+    #[Test]
     public function storing_tournament_registration_closes_date_from_be_of_valid_format()
     {
         $this->storing('closes_at', ['closes_at' => '1234-1234-1234']);
     }
 
-    /** @test */
+    #[Test]
     public function storing_tournament_registration_url_must_be_valid()
     {
         $this->storing('url', ['url' => 'Not valid URL']);
     }
 
-    /** @test */
+    #[Test]
     public function manager_can_store_tournament_registration()
     {
         list($user, $tournament) = $this->createTournamentWithManager();
@@ -83,7 +84,7 @@ class RegistrationEndpointTest extends TestCase
         $this->assertEquals($data['url'], $tournament->load('registration')->registration->url);
     }
 
-    /** @test */
+    #[Test]
     public function storing_tournament_registration_url_should_set_to_null_if_none_submitted()
     {
         list($user, $tournament) = $this->createTournamentWithManager();
@@ -108,37 +109,37 @@ class RegistrationEndpointTest extends TestCase
     |--------------------------------------------------------------------------
     */
 
-    /** @test */
+    #[Test]
     public function guests_cannot_update_tournament_registration()
     {
         $this->checkGuestAccess('PUT', 'tournament/registration/' . Registration::factory()->create()->id);
     }
 
-    /** @test */
+    #[Test]
     public function only_managers_can_update_tournament_registration()
     {
         $this->checkManagerAccess('PUT', 'tournament/registration/' . Registration::factory()->create()->id);
     }
 
-    /** @test */
+    #[Test]
     public function updating_tournament_registration_open_date_from_be_of_valid_format()
     {
         $this->updating('opens_at', ['opens_at' => '1234-1234-1234']);
     }
 
-    /** @test */
+    #[Test]
     public function updating_tournament_registration_closes_date_from_be_of_valid_format()
     {
         $this->updating('closes_at', ['closes_at' => '1234-1234-1234']);
     }
 
-    /** @test */
+    #[Test]
     public function updating_tournament_registration_url_must_be_valid()
     {
         $this->updating('url', ['url' => 'Not valid URL']);
     }
 
-    /** @test */
+    #[Test]
     public function managers_can_update_tournament_registration()
     {
         $data = [
@@ -164,7 +165,7 @@ class RegistrationEndpointTest extends TestCase
         $this->assertEquals($data['url'], $tournament->registration->url);
     }
 
-    /** @test */
+    #[Test]
     public function updating_tournament_registration_url_should_set_to_null_if_none_submitted()
     {
         $data = [
@@ -187,7 +188,7 @@ class RegistrationEndpointTest extends TestCase
         $this->assertNull($tournament->registration->url);
     }
 
-    /** @test */
+    #[Test]
     public function registration_event_is_fired_with_registration_is_stored()
     {
         Event::fake();
@@ -211,7 +212,7 @@ class RegistrationEndpointTest extends TestCase
         });
     }
 
-    /** @test */
+    #[Test]
     public function a_registration_updated_activity_is_created_when_the_registration_is_stored()
     {
         $data = [

@@ -9,6 +9,7 @@ use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use PHPUnit\Framework\Attributes\Test;
 
 class SurroundingCoursesEndpointTest extends TestCase
 {
@@ -22,7 +23,7 @@ class SurroundingCoursesEndpointTest extends TestCase
     |--------------------------------------------------------------------------
     */
 
-    /** @test */
+    #[Test]
     public function guests_can_not_retrieve_list_of_surrounding_courses()
     {
 
@@ -30,7 +31,7 @@ class SurroundingCoursesEndpointTest extends TestCase
             ->assertStatus(401);
     }
 
-    /** @test */
+    #[Test]
     public function should_return_a_list_of_courses_within_a_set_range_of_given_tournament()
     {
         $defaultDistance = 2;

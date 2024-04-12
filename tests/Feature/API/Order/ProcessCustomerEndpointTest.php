@@ -7,6 +7,7 @@ use App\Models\User\User;
 use Illuminate\Support\Facades\Event;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use PHPUnit\Framework\Attributes\Test;
 
 class ProcessCustomerEndpointTest extends TestCase
 {
@@ -19,9 +20,7 @@ class ProcessCustomerEndpointTest extends TestCase
         Event::fake();
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function during_checkout_guest_details_are_saved_on_order()
     {
         $orderProduct = OrderSponsorship::factory()->create();
@@ -38,9 +37,7 @@ class ProcessCustomerEndpointTest extends TestCase
         $this->assertDatabaseHas('orders', $data);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function during_checkout_a_guest_can_create_a_new_user_account()
     {
         $orderProduct = OrderSponsorship::factory()->create();
@@ -64,9 +61,7 @@ class ProcessCustomerEndpointTest extends TestCase
         ]);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function an_authenticated_user_can_not_create_an_account()
     {
         $orderProduct = OrderSponsorship::factory()->create();
@@ -91,9 +86,7 @@ class ProcessCustomerEndpointTest extends TestCase
         ]);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function the_order_is_returned_after_saving_customer_details()
     {
         $orderProduct = OrderSponsorship::factory()->create();
@@ -112,9 +105,7 @@ class ProcessCustomerEndpointTest extends TestCase
             ]);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function the_user_is_returned_after_creating_a_new_user_details()
     {
         $orderProduct = OrderSponsorship::factory()->create();

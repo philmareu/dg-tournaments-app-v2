@@ -8,46 +8,43 @@ use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use PHPUnit\Framework\Attributes\Test;
 
 class MediaValidationEndpointTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
+    #[Test]
     public function storing_a_media_requires_a_title()
     {
         $this->storing('title');
     }
 
-    /** @test */
+    #[Test]
     public function storing_a_media_requires_a_upload_id()
     {
         $this->storing('uploaded_id');
     }
 
-    /** @test */
+    #[Test]
     public function storing_a_media_requires_a_upload_id_that_exists()
     {
         $this->storing('uploaded_id', ['uploaded_id' => 10]);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function updating_a_media_requires_a_title()
     {
         $this->updating('title');
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function updating_a_media_requires_the_current_upload_id()
     {
         $this->updating('uploaded_id');
     }
 
-    /** @test */
+    #[Test]
     public function updating_a_media_requires_a_upload_id_that_exists_if_submitted()
     {
         $this->updating('uploaded_id', ['uploaded_id' => 10]);
