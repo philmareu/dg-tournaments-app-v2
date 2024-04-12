@@ -9,6 +9,7 @@ use App\Models\User\User;
 use App\Services\API\Payloads\TournamentDataPayload;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 
 class TournamentRepository
 {
@@ -92,7 +93,7 @@ class TournamentRepository
         $newTournament = new Tournament(
             array_merge(
                 [
-                    'slug' => str_slug($tournament['name'])
+                    'slug' => Str::slug($tournament['name'])
                 ],
                 $tournament->only(['name', 'city', 'state_province', 'country', 'start', 'end', 'latitude', 'longitude', 'director'])->toArray()
             )
@@ -131,7 +132,7 @@ class TournamentRepository
         $currentTournament->update(
             array_merge(
                 [
-                    'slug' => str_slug($apiTournament['name'])
+                    'slug' => Str::slug($apiTournament['name'])
                 ],
                 $apiTournament->only(['name', 'city', 'state_province', 'country', 'director'])->toArray())
         );

@@ -3,7 +3,6 @@
 namespace Tests\Feature\API\Order;
 
 use App\Models\Order;
-use App\Models\Order\OrderSponsorshipProduct;
 use App\Models\OrderSponsorship;
 use App\Models\Sponsorship;
 use Illuminate\Support\Facades\Event;

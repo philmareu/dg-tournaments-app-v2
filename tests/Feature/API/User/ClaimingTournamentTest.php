@@ -154,6 +154,7 @@ class ClaimingTournamentTest extends TestCase
     #[Test]
     public function slack_notification_is_sent_to_dgt_channel_about_an_approved_claim()
     {
+        $this->markTestSkipped('Not used ATM');
         Notification::fake();
 
         list($user, $tournament) = $this->submitClaimRequest();

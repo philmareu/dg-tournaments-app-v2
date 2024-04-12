@@ -10,6 +10,7 @@ use App\Services\API\Responses\CoursesResponse;
 use Illuminate\Console\Command;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Str;
 
 class UpdateCourses extends Command
 {
@@ -117,7 +118,7 @@ class UpdateCourses extends Command
                 $currentCourse->update(
                     array_merge(
                         [
-                            'slug' => str_slug($apiCourse->get('name'))
+                            'slug' => Str::random($apiCourse->get('name'))
                         ],
                         $apiCourse->all()
                     )
@@ -142,7 +143,7 @@ class UpdateCourses extends Command
             $newCourse = new Course(
                 array_merge(
                     [
-                        'slug' => str_slug($course->get('name'))
+                        'slug' => Str::slug($course->get('name'))
                     ],
                     $course->toArray()
                 )

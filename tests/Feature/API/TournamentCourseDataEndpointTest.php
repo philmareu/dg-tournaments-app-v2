@@ -18,12 +18,10 @@ class TournamentCourseDataEndpointTest extends TestCase
 
         $this->json('GET', 'tournament/courses/' . $tournamentCourse->id)
             ->assertJson([
-                'data' => [
-                    'id' => $tournamentCourse->id,
-                    'tournament' => [
-                        'id' => $tournamentCourse->tournament->id,
-                        'managers' => []
-                    ]
+                'id' => $tournamentCourse->id,
+                'tournament' => [
+                    'id' => $tournamentCourse->tournament->id,
+                    'managers' => []
                 ]
             ]);
     }

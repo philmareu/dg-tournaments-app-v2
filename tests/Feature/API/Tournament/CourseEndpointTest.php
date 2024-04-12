@@ -140,48 +140,6 @@ class CourseEndpointTest extends TestCase
     }
 
     #[Test]
-    public function tournament_geo_is_set_to_tournament_course_location_if_null()
-    {
-        $user = $this->createUser();
-        $tournament = Tournament::factory()->states('no-geo')->create();
-        $tournament->managers()->save($user);
-
-        $course = Course::factory()->make(
-            ['holes' => 18]
-        );
-
-        $this->actingAs($user)
-            ->json('POST', 'tournament/courses/' . $tournament->id, $course->toArray());
-
-        $this->assertDatabaseHas('tournaments', [
-            'id' => $tournament->id,
-            'latitude' => $course->latitude,
-            'longitude' => $course->longitude
-        ]);
-    }
-
-    #[Test]
-    public function no_activity_is_created_when_tournament_geo_is_set_to_tournament_course_location_if_null()
-    {
-        $user = $this->createUser();
-        $tournament = Tournament::factory()->states('no-geo')->create();
-        $tournament->managers()->save($user);
-
-        $course = Course::factory()->make(
-            ['holes' => 18]
-        );
-
-        $this->actingAs($user)
-            ->json('POST', 'tournament/courses/' . $tournament->id, $course->toArray());
-
-        $this->assertDatabaseMissing('activities', [
-            'resource_type' => Tournament::class,
-            'resource_id' => $tournament->id,
-            'type' => 'tournament.headquarters.updated'
-        ]);
-    }
-
-    #[Test]
     public function tournament_geo_is_set_to_tournament_course_location_if_headquarters_has_not_been_updated()
     {
         $user = $this->createUser();

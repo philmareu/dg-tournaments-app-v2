@@ -29,7 +29,7 @@ class PageLoadTest extends TestCase
         $this->assertEquals(200, $response->getStatusCode());
     }
 
-    public function provideGuestRoutes()
+    public static function provideGuestRoutes()
     {
         return [
             ['GET', '/'],

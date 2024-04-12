@@ -20,12 +20,12 @@ Route::get('lists/special-event-types', [\App\Http\Controllers\Endpoints\Special
 */
 
 // Poster
-Route::put('tournament/poster/{tournament}', 'Tournament\TournamentPosterEndpointController@update');
-Route::delete('tournament/poster/{tournament}', 'Tournament\TournamentPosterEndpointController@destroy');
+Route::put('tournament/poster/{tournament}', [\App\Http\Controllers\Endpoints\TournamentPosterEndpointController::class, 'update']);
+Route::delete('tournament/poster/{tournament}', [\App\Http\Controllers\Endpoints\TournamentPosterEndpointController::class, 'destroy']);
 
 // Stripe
-Route::put('tournament/stripe/{tournament}', 'Tournament\TournamentStripeAccountEndpointController@update');
-Route::delete('tournament/stripe/{tournament}', 'Tournament\TournamentStripeAccountEndpointController@destroy');
+Route::put('tournament/stripe/{tournament}', [\App\Http\Controllers\Endpoints\TournamentStripeAccountEndpointController::class, 'update']);
+Route::delete('tournament/stripe/{tournament}', [\App\Http\Controllers\Endpoints\TournamentStripeAccountEndpointController::class, 'destroy']);
 
 // Registration
 Route::post('tournament/registration/{tournament}', [\App\Http\Controllers\Endpoints\RegistrationEndpointController::class, 'store']);

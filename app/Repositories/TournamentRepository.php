@@ -57,7 +57,7 @@ class TournamentRepository
 
     public function updateTournament(Tournament $tournament, $user, $attributes)
     {
-        if(isset($attributes['name']) && $tournament->name != $attributes['name']) $attributes['slug'] = str_slug($attributes['name']);
+        if(isset($attributes['name']) && $tournament->name != $attributes['name']) $attributes['slug'] = Str::slug($attributes['name']);
 
         if(isset($attributes['start']))
         {

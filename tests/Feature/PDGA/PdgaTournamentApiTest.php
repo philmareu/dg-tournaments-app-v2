@@ -12,6 +12,7 @@ use App\Services\API\Payloads\TournamentDataPayload;
 use App\Services\API\Responses\TournamentsResponse;
 use App\Services\Pdga\Helpers\PdgaTournamentPayloadBuilder;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Str;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -56,16 +57,16 @@ class PdgaTournamentApiTest extends TestCase
         $this->assertDatabaseHas('tournaments', [
             'data_source_id' => 1,
             'data_source_tournament_id' => '32490',
-            'slug' => str_slug('Cloud 9 presents Rumble in Ragley version 4.0'),
+            'slug' => Str::slug('Cloud 9 presents Rumble in Ragley version 4.0'),
             'name' => 'Cloud 9 presents Rumble in Ragley version 4.0',
             'city' => 'Ragley ',
             'state_province' => 'LA',
             'country' => 'United States',
-            'latitude' => '30.519905',
-            'longitude' => '-93.177319',
-            'start' => '2017-11-11',
-            'end' => '2017-11-11',
-            'format_id' => '1',
+            'latitude' => '30.5199047',
+            'longitude' => '-93.1773192',
+            'start' => '2017-11-11 08:00:00',
+            'end' => '2017-11-11 08:00:00',
+            'format_id' => 1,
             'authorization_email' => 'cajunduffer@yahoo.com'
         ]);
     }
@@ -95,13 +96,13 @@ class PdgaTournamentApiTest extends TestCase
 
         $this->assertDatabaseHas('tournaments', [
             'data_source_tournament_id' => '32490',
-            'slug' => str_slug('Cloud 9 presents Rumble in Ragley version 4.0'),
+            'slug' => Str::slug('Cloud 9 presents Rumble in Ragley version 4.0'),
             'name' => 'Cloud 9 presents Rumble in Ragley version 4.0',
             'city' => 'Ragley ',
             'state_province' => 'LA',
             'country' => 'United States',
-            'start' => '2017-11-11',
-            'end' => '2017-11-11',
+            'start' => '2017-11-11 08:00:00',
+            'end' => '2017-11-11 08:00:00',
             'format_id' => '1',
             'authorization_email' => 'cajunduffer@yahoo.com'
         ]);

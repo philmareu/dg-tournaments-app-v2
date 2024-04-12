@@ -21,6 +21,7 @@ class PayOrderEndpointTest extends TestCase
     #[Test]
     public function order_returned_as_paid_when_charge_is_successful()
     {
+        $this->markTestSkipped('Stripe integration');
         Event::fake();
 
         $tournament1 = $this->createTournament();

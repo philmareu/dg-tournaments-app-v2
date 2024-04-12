@@ -7,6 +7,7 @@ use App\Models\PdgaTier;
 use App\Models\SpecialEventType;
 use App\Models\Tournament;
 use App\Models\Upload;
+use Illuminate\Support\Str;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use PHPUnit\Framework\Attributes\Test;
@@ -57,7 +58,7 @@ class UpdateTournamentTest extends TestCase
 
         $this->assertDatabaseHas('tournaments', [
             'name' => $data['name'],
-            'slug' => str_slug($data['name']),
+            'slug' => Str::slug($data['name']),
             'city' => $data['city'],
             'state_province' => $data['state_province'],
             'country' => $data['country'],
